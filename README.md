@@ -9,13 +9,13 @@ password - 12345678
 ```
 
 ## Requirements:
-- Laravel `7.x` | `9.7` | `11.x`
+- Laravel `12.x`
 - Spatie role permission package  `^6.4`
 
 ## Project Setup
 Git clone -
 ```console
-git clone https://devotion1-admin@bitbucket.org/devotion1/inquiry-mgt-system.git
+git clone https://github.com/GKDevotion/devotion-estate.git
 ```
 
 Go to project folder -
@@ -87,17 +87,6 @@ Custom Error Pages
 Dynamic Sidebar Manage
 ![alt text][sidebarDyanamic]
 
-
-
-#[dashboardImage]: https://i.ibb.co/WyxWFp7/1-Laravel-Role-Dashboard.png "Dashboard Page Laravel Role Management"
-#[roleListImage]: https://i.ibb.co/80jM3Q7/2-Laravel-Manage-Roles.png "2-Laravel-Manage-Roles"
-#[roleCreateImage]: https://i.ibb.co/kgM1ShW/3-Laravel-Role-Create.png "3-Laravel-Role-Create"
-#[roleEditImage]: https://i.ibb.co/b6jNPFr/4-Laravel-Role-Edit.png "4-Laravel-Role-Edit"
-#[adminListImage]: https://i.ibb.co/xY2N6Qd/5-Laravel-Admin-Manage.png "5-Laravel-Admin-Manage"
-#[adminCreateImage]: https://i.ibb.co/Drcn6Xn/6-Laravel-Admin-Create.png "6-Laravel-Admin-Create"
-#[adminLoginImage]: https://i.ibb.co/4g4vs4g/7-Login-Page.png "7-Login-Page"
-#[errorPageImage]: https://i.ibb.co/HYcvRH4/8-Error-Page-Handle.png "8 - Error Page Handling"
-#[sidebarDyanamic]: https://i.ibb.co/Jpq6X8x/9-Sidebar-Manage-Dynamically.png "9-Sidebar-Manage-Dynamically"
 
 ## Wanna talk with me
 Please mail me at - manirujjamanakash@gmail.com
