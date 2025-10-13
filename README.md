@@ -1,11 +1,11 @@
-# Laravel Inquiry Management System - Laravel `11.x`
+# Laravel Real Estate - Laravel `12.x`
 
 A project which manage Role, Permissions and every actions of your Laravel application. A complete solution for Role based Access Control in Laravel.
 
 **Demo:** http://localhost:8000
 ```
-Username - superadmin
-password - 12345678
+Username - ********
+password - ********
 ```
 
 ## Requirements:
@@ -47,20 +47,21 @@ Run Project -
 php artisan serve
 ```
 
-Since, there is any problem to seeder, Please import the .sql file directly - https://bitbucket.org/devotion1/inquiry-mgt-system/src/master/database/sql/laravel_inquiry_mgt_system.sql
+Since, there is any problem to seeder, Please import the .sql file directly - https://bitbucket.org/devotion1/inquiry-mgt-system/src/master/database/sql/***.sql
 
 So, You've got the project of Laravel Role & Permission Management on your http://localhost:8000
 
 ## How it works
 1. Login using Super Admin Credential -
-    1. Username - `superadmin`
-    1. Password - `12345678`
+    1. Username - `********`
+    1. Password - `********`
 2. Create Admin
 3. Create Role
 4. Assign Permission to Roles
 5. Assign Multiple Role to an admin
 6. Check by login with the new credentials.
 7. If you've not enough permission to do any task, you'll get a warning message.
+8. and many more
 
 
 ### Login & Dashboard Page
@@ -87,16 +88,11 @@ Custom Error Pages
 Dynamic Sidebar Manage
 ![alt text][sidebarDyanamic]
 
-
 ## Wanna talk with me
-Please mail me at - manirujjamanakash@gmail.com
-
+Please mail me at - gk@devotiontech.io
 
 ## Support
 #If you like my work you may consider buying me a ☕ / 🍕
-
-#<a href="https://www.patreon.com/maniruzzaman" target="_blank" title="Buy Me A Coffee"> <img src="https://camo.githubusercontent.com/45ce6667a35b63fd6a1ba6978d030a7f52ff5b1b262c5c8aa3ece29afc469ac8/68747470733a2f2f63646e2e6275796d6561636f666665652e636f6d2f627574746f6e732f76322f64656661756c742d7265642e706e67" alt="ManiruzzamanAkash" width="200" />
-#</a>
 
 ## Contribution
 Contribution is open. Create Pull-request and I'll add it to the project if it's good enough.
