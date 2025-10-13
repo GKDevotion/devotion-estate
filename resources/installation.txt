@@ -1,0 +1,59 @@
+//06-04-2025
+
+DROP TABLE IF EXISTS `board_meetings`;
+CREATE TABLE IF NOT EXISTS `board_meetings` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int NOT NULL COMMENT 'reference for the admin table',
+  `user_id` int NOT NULL,
+  `industry_id` int DEFAULT NULL COMMENT 'Reference for the industry table',
+  `company_id` int NOT NULL,
+  `communication_type_id` int UNSIGNED NOT NULL,
+  `segment_id` int DEFAULT NULL COMMENT 'Meeting pupose details',
+  `parent_id` int DEFAULT '0' COMMENT 'concept for parent child, > 0 meand its child otherwise its parent',
+  `title` varchar(250) NOT NULL,
+  `date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `short_description` varchar(500) DEFAULT NULL,
+  `description` text,
+  `member` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'json board members',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:De-Active, 1: Active, 2: Hold, 3: On Going, 4: Completed',
+  `isSendMail` tinyint(1) DEFAULT '0' COMMENT '1: Send, 0: Try to send',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status_IDX` (`status`),
+  KEY `communication_type_IDX` (`communication_type_id`),
+  KEY `admin_IDX` (`admin_id`),
+  KEY `company_IDX` (`company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+
+DROP TABLE IF EXISTS `board_members`;
+CREATE TABLE IF NOT EXISTS `board_members` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `admin_id` int NOT NULL,
+  `industry_id` int UNSIGNED NOT NULL,
+  `company_id` int UNSIGNED NOT NULL,
+  `first_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `middle_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'admin contact detail',
+  `gender` tinyint DEFAULT '1' COMMENT '1: Male, 2: Fe-Male, 3: Trans',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: Active, 0: De-Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admins_email_unique` (`email`),
+  KEY `industry_IDX` (`industry_id`),
+  KEY `company_IDX` (`company_id`),
+  KEY `admin_IDX` (`admin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+//08-04-2024
+ALTER TABLE `person_meetings` ADD `parent_id` INT NOT NULL AFTER `segment_id`;
+ALTER TABLE `person_meetings` ADD `short_description` TEXT NULL DEFAULT NULL AFTER `date`;
+ALTER TABLE `person_meetings` ADD `file_path` VARCHAR(300) NULL DEFAULT NULL AFTER `type`;
+
+//17-04-2025
+ALTER TABLE `admins` ADD `admin_user_group_id` INT NOT NULL COMMENT 'reference for the admin group table' AFTER `industry_id`;
