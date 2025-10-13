@@ -43,7 +43,9 @@ Route::prefix('admin')->group(function () {
         // Route::resource('property-features', 'Backend\PropertyFeatureController', ['names' => 'admin.property_features']);
         Route::get('/property-features', [PropertyFeatureController::class, 'index'])->name('admin.property-features.index');
         Route::get('/property-features/create', [PropertyFeatureController::class, 'create'])->name('admin.property-features.create');
-        Route::get('/property-features/store', [PropertyFeatureController::class, 'store'])->name('admin.property-features.store');
+        Route::post('/property-features/store', [PropertyFeatureController::class, 'store'])->name('admin.property-features.store');
+        Route::get('/property-features/edit/{id}', [PropertyFeatureController::class, 'edit'])->name('admin.property-features.edit');
+        Route::post('/property-features/update', [PropertyFeatureController::class, 'update'])->name('admin.property-features.update');
         Route::get('/property-features-ajax-data', [PropertyFeatureController::class, 'ajaxIndex'])->name('property-features.ajaxIndex');
 
     /**

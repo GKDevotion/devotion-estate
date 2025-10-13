@@ -72,6 +72,9 @@ class PropertyFeatureController extends Controller
             ->addColumn('sort_order', function(PropertyFeature $ar) {
                 return $ar->sort_order;
             })
+            ->addColumn('count', function(PropertyFeature $ar) {
+                return $ar->count;
+            })
             ->addColumn('status', function(PropertyFeature $ar) {
                 $status = "";
                 if( true ){
@@ -115,7 +118,7 @@ class PropertyFeatureController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'description', 'sort_order', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'name', 'description', 'sort_order', 'count', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -173,17 +176,13 @@ class PropertyFeatureController extends Controller
         $location = new PropertyFeature();
         $location->admin_id = $this->user->id;
         $location->name = $request->name;
-        $location->display_name = $request->display_name;
-        $location->address = $request->address;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
+        $location->description = $request->description;
+        $location->sort_order = $request->sort_order;
+        $location->slug = convertStringToSlug( $request->name );
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->display_name.' record has been created !!');
+        session()->flash('success', $request->name.' record has been created !!');
         return redirect()->route('admin.property-features.index');
     }
 
@@ -207,17 +206,12 @@ class PropertyFeatureController extends Controller
     public function edit(int $id)
     {
         if (is_null($this->user) || !$this->user->can('property-features.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit Location !');
+            abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
 
         $data = PropertyFeature::find($id);
 
-        $continentObj = Continent::select('id', 'name')->where(['status' => 1])->get();
-        $countryObj = Country::select('id', 'name')->where(['continent_id' => $data->continent_id, 'status' => 1])->get();
-        $stateObj = State::select('id', 'name')->where(['country_id' => $data->country_id, 'status' => 1])->get();
-        $cityObj = City::select('id', 'name')->where(['state_id' => $data->state_id, 'status' => 1])->get();
-
-        return view('backend.pages.property_feature.edit', compact('data', 'continentObj', 'countryObj', 'stateObj', 'cityObj'));
+        return view('backend.pages.property_feature.edit', compact('data'));
     }
 
     /**
@@ -236,30 +230,21 @@ class PropertyFeatureController extends Controller
         // Validation Data
         $request->validate([
             'name' => 'required',
-            'display_name' => 'required',
-            'address' => 'required',
-            'continent_id' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
-            'zipcode' => 'required',
+            'description' => 'required',
+            'sort_order' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = PropertyFeature::find( $id );
+        // Update Old Feature data
+        $location = new PropertyFeature();
         $location->admin_id = $this->user->id;
         $location->name = $request->name;
-        $location->display_name = $request->display_name;
-        $location->address = $request->address;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
+        $location->description = $request->description;
+        $location->sort_order = $request->sort_order;
+        $location->slug = convertStringToSlug( $request->name );
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->display_name.' record has been updated !!');
+        session()->flash('success', $request->name.' record has been updated !!');
         return redirect()->route('admin.property-features.index');
     }
 
