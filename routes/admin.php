@@ -7,7 +7,11 @@ use App\Http\Controllers\Backend\CitiesController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\PropertyAddController;
+use App\Http\Controllers\Backend\PropertyAllController;
 use App\Http\Controllers\Backend\PropertyFeatureController;
+use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Backend\ReviewsController;
 use App\Http\Controllers\Backend\StatesController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Backend\VisitingCardController;
@@ -47,6 +51,36 @@ Route::prefix('admin')->group(function () {
         Route::get('/property-features/edit/{id}', [PropertyFeatureController::class, 'edit'])->name('admin.property-features.edit');
         Route::post('/property-features/update', [PropertyFeatureController::class, 'update'])->name('admin.property-features.update');
         Route::get('/property-features-ajax-data', [PropertyFeatureController::class, 'ajaxIndex'])->name('property-features.ajaxIndex');
+        
+        Route::get('/property-types', [PropertyTypeController::class, 'index'])->name('admin.property-types.index');
+        Route::get('/property-types/create', [PropertyTypeController::class, 'create'])->name('admin.property-types.create');
+        Route::post('/property-types/store', [PropertyTypeController::class, 'store'])->name('admin.property-types.store');
+        Route::get('/property-types/edit/{id}', [PropertyTypeController::class, 'edit'])->name('admin.property-types.edit');
+        Route::post('/property-types/update', [PropertyTypeController::class, 'update'])->name('admin.property-types.update');
+        Route::get('/property-types-ajax-data', [PropertyTypeController::class, 'ajaxIndex'])->name('property-types.ajaxIndex');
+
+        Route::get('/property-all', [PropertyAllController::class, 'index'])->name('admin.property-all.index');
+        Route::get('/property-all/create', [PropertyAllController::class, 'create'])->name('admin.property-all.create');
+        Route::post('/property-all/store', [PropertyAllController::class, 'store'])->name('admin.property-all.store');
+        Route::get('/property-all/edit/{id}', [PropertyAllController::class, 'edit'])->name('admin.property-all.edit');
+        Route::post('/property-all/update', [PropertyAllController::class, 'update'])->name('admin.property-all.update');
+        Route::get('/property-all-ajax-data', [PropertyAllController::class, 'ajaxIndex'])->name('property-all.ajaxIndex');
+
+        Route::get('/property-add', [PropertyAddController::class, 'index'])->name('admin.property-add.index');
+        Route::get('/property-add/create', [PropertyAddController::class, 'create'])->name('admin.property-add.create');
+        Route::post('/property-add/store', [PropertyAddController::class, 'store'])->name('admin.property-add.store');
+        Route::get('/property-add/edit/{id}', [PropertyAddController::class, 'edit'])->name('admin.property-add.edit');
+        Route::post('/property-add/update', [PropertyAddController::class, 'update'])->name('admin.property-add.update');
+        Route::get('/property-add-ajax-data', [PropertyAddController::class, 'ajaxIndex'])->name('property-add.ajaxIndex');
+
+        
+        Route::get('/reviews', [ReviewsController::class, 'index'])->name('admin.reviews.index');
+        Route::get('/reviews/create', [ReviewsController::class, 'create'])->name('admin.reviews.create');
+        Route::post('/reviews/store', [ReviewsController::class, 'store'])->name('admin.reviews.store');
+        Route::get('/reviews/edit/{id}', [ReviewsController::class, 'edit'])->name('admin.reviews.edit');
+        Route::post('/reviews/update', [ReviewsController::class, 'update'])->name('admin.reviews.update');
+        Route::get('/reviews-ajax-data', [ReviewsController::class, 'ajaxIndex'])->name('reviews.ajaxIndex');
+   
 
     /**
      * User Management

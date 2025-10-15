@@ -57,3 +57,12 @@ ALTER TABLE `person_meetings` ADD `file_path` VARCHAR(300) NULL DEFAULT NULL AFT
 
 //17-04-2025
 ALTER TABLE `admins` ADD `admin_user_group_id` INT NOT NULL COMMENT 'reference for the admin group table' AFTER `industry_id`;
+
+
+//14-10-2025
+CREATE TABLE property_types ( id INT AUTO_INCREMENT PRIMARY KEY, admin_id INT NOT NULL, main_type_name VARCHAR(100) NOT NULL, type_name VARCHAR(100) NOT NULL, slug VARCHAR(100) NOT NULL UNIQUE, description TEXT, status ENUM('active', 'inactive') DEFAULT 'active', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE CASCADE );
+
+ALTER TABLE property_types ADD COLUMN count INT DEFAULT 0 AFTER status;
+
+//15-04-2025
+SELECT p.id, p.name, p.slug, CASE p.type WHEN 0 THEN 'Residential' WHEN 1 THEN 'Commercial' END AS type, CASE p.purpose WHEN 0 THEN 'Sale' WHEN 1 THEN 'Rent' END AS purpose, p.area, p.price, p.address, GROUP_CONCAT(f.name SEPARATOR ', ') AS features, pt.name AS property_type, CASE p.publish WHEN 0 THEN 'No' WHEN 1 THEN 'Yes' END AS publish, CASE p.status WHEN 0 THEN 'Disabled' WHEN 1 THEN 'Enabled' END AS status, p.created_at, p.updated_at FROM properties p LEFT JOIN property_features pf ON pf.id = p.feature_id LEFT JOIN property_types pt ON pt.id = p.type_id LEFT JOIN property_features f ON FIND_IN_SET(f.id, p.feature_id) > 0 GROUP BY p.id ORDER BY p.sort_order ASC;
