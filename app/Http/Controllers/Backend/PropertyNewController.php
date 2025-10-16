@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Review;
+use App\Models\PropertyNew;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class ReviewsController extends Controller
+class PropertyNewController extends Controller
 {
     public $user;
     public $is_assign_super_admin = 0;
@@ -38,11 +38,11 @@ class ReviewsController extends Controller
      */
     public function index(Request $request)
     {
-        if (is_null($this->user) || !$this->user->can('reviews.view')) {
+        if (is_null($this->user) || !$this->user->can('property-new.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
         }
 
-        return view('backend.pages.reviews.index');
+        return view('backend.pages.property_new.index');
     }
 
     /**
@@ -53,42 +53,54 @@ class ReviewsController extends Controller
 
         $this->setPublicVar();
 
-        $query = Review::query();
+        $query = PropertyNew::query();
 
         if (!$this->is_assign_super_admin) {
             $query->where('admin_id', $this->admin_id);
         }
 
-        $query->select('id', 'name', 'email', 'contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status');
+        $query->select('id', 'image', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'address', 'sort_order', 'updated_at', 'status');
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function (Review $ar) {
+            ->addColumn('id', function (PropertyNew $ar) {
                 return $ar->id;
             })
-            ->addColumn('name', function (Review $ar) {
+            ->addColumn('image', function (PropertyNew $ar) {
+                return $ar->image;
+            })
+            ->addColumn('name', function (PropertyNew $ar) {
                 return $ar->name;
             })
-            ->addColumn('email', function (Review $ar) {
-                return $ar->email;
+            ->addColumn('purpose', function (PropertyNew $ar) {
+                return $ar->purpose;
             })
-            ->addColumn('contact_no', function (Review $ar) {
-                return $ar->contact_no;
+            ->addColumn('type', function (PropertyNew $ar) {
+                return $ar->type;
             })
-            ->addColumn('review', function (Review $ar) {
-                return $ar->review;
+            ->addColumn('publish', function (PropertyNew $ar) {
+                return $ar->publish;
             })
-            ->addColumn('rating', function (Review $ar) {
-                return $ar->rating;
+            ->addColumn('area', function (PropertyNew $ar) {
+                return $ar->area;
             })
-            ->addColumn('property_id', function (Review $ar) {
-                return $ar->property_id;
+
+            ->addColumn('price', function (PropertyNew $ar) {
+                return $ar->price;
             })
-            ->addColumn('status', function (Review $ar) {
+
+            ->addColumn('address', function (PropertyNew $ar) {
+                return $ar->address;
+            })
+            ->addColumn('sort_order', function (PropertyNew $ar) {
+                return $ar->sort_order;
+            })
+
+            ->addColumn('status', function (PropertyNew $ar) {
                 $status = "";
                 if (true) {
-                    $status = '<i class="fa fa-' . ($ar->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $ar->status . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="reviews"></i>';
+                    $status = '<i class="fa fa-' . ($ar->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $ar->status . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="corporate_emails"></i>';
                 } else {
-                    $status = '<select class="form-control update-status badge ' . ($ar->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $ar->id . '" data-table="reviews">
+                    $status = '<select class="form-control update-status badge ' . ($ar->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $ar->id . '" data-table="corporate_emails">
                             <option value="1" ' . ($ar->status == 1 ? 'selected' : '') . '>Active</option>
                             <option value="0" ' . ($ar->status == 0 ? 'selected' : '') . '>De-Active</option>
                         </select>';
@@ -96,10 +108,10 @@ class ReviewsController extends Controller
 
                 return $status;
             })
-            ->addColumn('updated_at', function (Review $ar) {
+            ->addColumn('updated_at', function (PropertyNew $ar) {
                 return formatDate("Y-m-d H:i", $ar->updated_at);
             })
-            ->addColumn('action', function (Review $ar) {
+            ->addColumn('action', function (PropertyNew $ar) {
 
                 $action = '
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_' . $ar->id . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,19 +120,16 @@ class ReviewsController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                if ($this->user->can('reviews.edit')) {
-                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.reviews.edit', $ar->id) . '">
+                if ($this->user->can('property-new.edit')) {
+                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.property-new.edit', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
                 }
-                if ($this->user->can('reviews.delete')) {
-                    $action .= '<form method="POST" action="' .  route('admin.reviews.destroy', $ar->id) . '" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
-                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                    </button>
-                </form>';
+
+                if ($this->user->can('property-new.delete')) {
+                    $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="locations">
+                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                                    </button>';
                 }
 
                 $action .= '
@@ -129,13 +138,13 @@ class ReviewsController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'email', 'contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'name', 'description', 'sort_order', 'count', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
                     if ($searchValue != "") {
                         $query->where('name', 'like', "%{$searchValue}%")
-                            ->orWhere('display_name', 'like', "%{$searchValue}%");
+                            ->orWhere('description', 'like', "%{$searchValue}%");
                     }
                 }
             })
@@ -155,14 +164,13 @@ class ReviewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create()
     {
-        if (is_null($this->user) || !$this->user->can('reviews.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create review !');
+        if (is_null($this->user) || !$this->user->can('property-new.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
 
-        return view('backend.pages.reviews.create');
+        return view('backend.pages.property_new.create');
     }
 
     /**
@@ -173,32 +181,35 @@ class ReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        if (is_null($this->user) || !$this->user->can('reviews.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create Review !');
+        if (is_null($this->user) || !$this->user->can('property-new.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
 
         // Validation Data
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'review' => 'required',
-            'rating' => 'required',
-
+          
+            'sort_order' => 'required',
         ]);
 
         // Create New Server Record
-        $location = new Review();
+        $location = new PropertyNew();
         $location->admin_id = $this->user->id;
+        $location->image = $request->image;
         $location->name = $request->name;
-        $location->email = $request->email;
-        $location->contact_no = $request->contact_no;
-        $location->review = $request->review;
-        $location->rating = $request->rating;
+        $location->purpose = $request->purpose;
+        $location->type = $request->type;
+        $location->publish = $request->publish;
+        $location->area = $request->area;
+        $location->price = $request->price;
+        $location->address = $request->address;
+        $location->sort_order = $request->sort_order;
+        $location->slug = convertStringToSlug($request->name);
         $location->status = $request->status;
         $location->save();
 
         session()->flash('success', $request->name . ' record has been created !!');
-        return redirect()->route('admin.reviews.index');
+        return redirect()->route('admin.property-new.index');
     }
 
     /**
@@ -220,14 +231,13 @@ class ReviewsController extends Controller
      */
     public function edit(int $id)
     {
-        if (is_null($this->user) || !$this->user->can('reviews.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit Location !');
+        if (is_null($this->user) || !$this->user->can('property-new.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
 
-        $data = Review::find($id);
+        $data = PropertyNew::find($id);
 
-
-        return view('backend.pages.reviews.edit', compact('data'));
+        return view('backend.pages.property_new.edit', compact('data'));
     }
 
     /**
@@ -239,31 +249,34 @@ class ReviewsController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        if (is_null($this->user) || !$this->user->can('reviews.edit')) {
+        if (is_null($this->user) || !$this->user->can('property-new.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit Location !');
         }
 
         // Validation Data
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'review' => 'required',
-            'rating' => 'required',
+            'sort_order' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = Review::find($id);
+        // Update Old Feature data
+       $location = new PropertyNew();
         $location->admin_id = $this->user->id;
+        $location->image = $request->image;
         $location->name = $request->name;
-        $location->email = $request->email;
-        $location->contact_no = $request->contact_no;
-        $location->review = $request->review;
-        $location->rating = $request->rating;
+        $location->purpose = $request->purpose;
+        $location->type = $request->type;
+        $location->publish = $request->publish;
+        $location->area = $request->area;
+        $location->price = $request->price;
+        $location->address = $request->address;
+        $location->sort_order = $request->sort_order;
+        $location->slug = convertStringToSlug($request->name);
         $location->status = $request->status;
         $location->save();
 
         session()->flash('success', $request->name . ' record has been updated !!');
-        return redirect()->route('admin.reviews.index');
+        return redirect()->route('admin.property-new.index');
     }
 
     /**
@@ -274,11 +287,11 @@ class ReviewsController extends Controller
      */
     public function destroy(int $id)
     {
-        if (is_null($this->user) || !$this->user->can('reviews.delete')) {
+        if (is_null($this->user) || !$this->user->can('property-new.delete')) {
             abort(403, 'Sorry !! You are Unauthorized to delete Location !');
         }
 
-        $record = Review::find($id);
+        $record = PropertyNew::find($id);
 
         if (!is_null($record)) {
             $record->delete();

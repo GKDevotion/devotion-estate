@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
-use App\Models\Continent;
-use App\Models\Country;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\Properties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class LocationController extends Controller
+class PropertiesController extends Controller
 {
     public $user;
     public $is_assign_super_admin = 0;
@@ -41,11 +37,11 @@ class LocationController extends Controller
      */
     public function index( Request $request )
     {
-        if (is_null($this->user) || !$this->user->can('locations.view')) {
+        if (is_null($this->user) || !$this->user->can('properties.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
         }
 
-        return view('backend.pages.location.index');
+        return view('backend.pages.properties.index');
     }
 
     /**
@@ -55,31 +51,55 @@ class LocationController extends Controller
 
         $this->setPublicVar();
 
-        $query = Location::query();
+        $query = Properties::query();
 
         if( !$this->is_assign_super_admin ){
             $query->where( 'admin_id', $this->admin_id );
         }
 
-        $query->select('id', 'name', 'display_name', 'updated_at', 'status');
+        $query->select('id','image', 'name', 'purpose','type','publish','area','price','address', 'sort_order','status', 'updated_at' );
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function(Location $ar) {
+            ->addColumn('id', function(Properties $ar) {
                 return $ar->id;
             })
-            ->addColumn('name', function(Location $ar) {
+                 ->addColumn('image', function(Properties $ar) {
+                return $ar->image;
+            })
+            ->addColumn('name', function(Properties $ar) {
                 return $ar->name;
             })
-            ->addColumn('display_name', function(Location $ar) {
-                return $ar->display_name;
+            ->addColumn('purpose', function(Properties $ar) {
+                return $ar->purpose;
+            })
+            ->addColumn('type', function (Properties $ar) {
+                return $ar->type;
+            })
+            ->addColumn('purpose', function (Properties $ar) {
+                return $ar->purpose;
+            })
+            ->addColumn('publish', function (Properties $ar) {
+                return $ar->publish;
+            })
+            ->addColumn('area', function (Properties $ar) {
+                return $ar->area;
+            })
+            ->addColumn('price', function (Properties $ar) {
+                return $ar->price;
+            })
+            ->addColumn('address', function (Properties $ar) {
+                return $ar->address;
+            })
+            ->addColumn('sort_order', function(Properties $ar) {
+                return $ar->sort_order;
             })
             
-            ->addColumn('status', function(Location $ar) {
+           ->addColumn('status', function(Properties $ar) {
                 $status = "";
                 if( true ){
-                    $status = '<i class="fa fa-'.( $ar->status == 0 ? 'times' : 'check').' update-status" data-status="'.$ar->status.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="corporate_emails"></i>';
+                    $status = '<i class="fa fa-'.( $ar->status == 0 ? 'times' : 'check').' update-status" data-status="'.$ar->status.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="properties"></i>';
                 } else {
-                 $status = '<select class="form-control update-status badge '.( $ar->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$ar->id.'" data-table="corporate_emails">
+                 $status = '<select class="form-control update-status badge '.( $ar->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$ar->id.'" data-table="properties">
                             <option value="1" '.($ar->status == 1 ? 'selected' : '').'>Active</option>
                             <option value="0" '.($ar->status == 0 ? 'selected' : '').'>De-Active</option>
                         </select>';
@@ -87,10 +107,10 @@ class LocationController extends Controller
 
                 return $status;
             })
-            ->addColumn('updated_at', function(Location $ar) {
+            ->addColumn('updated_at', function(Properties $ar) {
                 return formatDate( "Y-m-d H:i", $ar->updated_at );
             })
-            ->addColumn('action', function(Location $ar ) {
+            ->addColumn('action', function(Properties $ar ) {
 
                 $action = '
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_'.$ar->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,14 +119,14 @@ class LocationController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_'.$ar->id.'">
                     ';
 
-                    if ($this->user->can('locations.edit')) {
-                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.locations.edit', $ar->id).'">
+                    if ($this->user->can('properties.edit')) {
+                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.properties.edit', $ar->id).'">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
                     }
 
-                    if ($this->user->can('locations.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->display_name.'" data-segment="locations">
+                    if ($this->user->can('properties.delete')) {
+                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->name.'" data-segment="properties">
                                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                                     </button>';
                     }
@@ -117,13 +137,13 @@ class LocationController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'display_name', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id','image', 'name', 'purpose','type','publish','area','price','address', 'sort_order', 'status','updated_at', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
                     if( $searchValue != "" ){
                         $query->where('name', 'like', "%{$searchValue}%")
-                            ->orWhere('display_name', 'like', "%{$searchValue}%");
+                            ->orWhere('description', 'like', "%{$searchValue}%");
                         }
                 }
             })
@@ -145,12 +165,11 @@ class LocationController extends Controller
      */
     public function create()
     {
-        if (is_null($this->user) || !$this->user->can('locations.create')) {
+        if (is_null($this->user) || !$this->user->can('properties.create')) {
             abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
 
-        $continentObj = Continent::where('status', 1)->get();
-        return view('backend.pages.location.create', compact('continentObj'));
+        return view('backend.pages.properties.create');
     }
 
     /**
@@ -161,38 +180,36 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        if (is_null($this->user) || !$this->user->can('locations.create')) {
+        if (is_null($this->user) || !$this->user->can('properties.create')) {
             abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
 
         // Validation Data
         $request->validate([
             'name' => 'required',
-            'display_name' => 'required',
-            'address' => 'required',
-            'continent_id' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
-            'zipcode' => 'required',
+            'description' => 'required',
+            'sort_order' => 'required',
         ]);
 
         // Create New Server Record
-        $location = new Location();
+        $location = new Properties();
         $location->admin_id = $this->user->id;
+        $location->image = $request->image;
         $location->name = $request->name;
-        $location->display_name = $request->display_name;
+        $location->purpose = $request->purpose;
+        $location->type = $request->type;
+        $location->publish = $request->publish;
+        $location->area = $request->area;
+        $location->price = $request->price;
         $location->address = $request->address;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
+
+        $location->sort_order = $request->sort_order;
+        $location->slug = convertStringToSlug($request->name);
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->display_name.' record has been created !!');
-        return redirect()->route('admin.locations.index');
+        session()->flash('success', $request->name.' record has been created !!');
+        return redirect()->route('admin.properties.index');
     }
 
     /**
@@ -214,18 +231,13 @@ class LocationController extends Controller
      */
     public function edit(int $id)
     {
-        if (is_null($this->user) || !$this->user->can('locations.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit Location !');
+        if (is_null($this->user) || !$this->user->can('properties.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
 
-        $data = Location::find($id);
+        $data = Properties::find($id);
 
-        $continentObj = Continent::select('id', 'name')->where(['status' => 1])->get();
-        $countryObj = Country::select('id', 'name')->where(['continent_id' => $data->continent_id, 'status' => 1])->get();
-        $stateObj = State::select('id', 'name')->where(['country_id' => $data->country_id, 'status' => 1])->get();
-        $cityObj = City::select('id', 'name')->where(['state_id' => $data->state_id, 'status' => 1])->get();
-
-        return view('backend.pages.location.edit', compact('data', 'continentObj', 'countryObj', 'stateObj', 'cityObj'));
+        return view('backend.pages.properties.edit', compact('data'));
     }
 
     /**
@@ -237,38 +249,38 @@ class LocationController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        if (is_null($this->user) || !$this->user->can('locations.edit')) {
+        if (is_null($this->user) || !$this->user->can('properties.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit Location !');
         }
 
         // Validation Data
         $request->validate([
             'name' => 'required',
-            'display_name' => 'required',
-            'address' => 'required',
-            'continent_id' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
-            'zipcode' => 'required',
+            'description' => 'required',
+            'sort_order' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = Location::find( $id );
+        // Update Old Feature data
+        $location = new Properties();
         $location->admin_id = $this->user->id;
+
+         $location->image = $request->image;
         $location->name = $request->name;
-        $location->display_name = $request->display_name;
+        $location->purpose = $request->purpose;
+        $location->type = $request->type;
+        $location->publish = $request->publish;
+        $location->area = $request->area;
+        $location->price = $request->price;
         $location->address = $request->address;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
+
+
+        $location->sort_order = $request->sort_order;
+        $location->slug = convertStringToSlug( $request->name );
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->display_name.' record has been updated !!');
-        return redirect()->route('admin.locations.index');
+        session()->flash('success', $request->name.' record has been updated !!');
+        return redirect()->route('admin.properties.index');
     }
 
     /**
@@ -279,11 +291,11 @@ class LocationController extends Controller
      */
     public function destroy(int $id)
     {
-        if (is_null($this->user) || !$this->user->can('locations.delete')) {
+        if (is_null($this->user) || !$this->user->can('properties.delete')) {
             abort(403, 'Sorry !! You are Unauthorized to delete Location !');
         }
 
-        $record = Location::find($id);
+        $record = Properties::find($id);
 
         if (!is_null($record)) {
             $record->delete();
