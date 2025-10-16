@@ -52,6 +52,15 @@
                 <h3 class="pb-3">Create Review</h3>
                 <div class="card">
                     <div class="card-body">
+{{-- @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif --}}
 
                         <form action="{{ route('admin.reviews.store') }}" onsubmit="return onSubmitValidateForm();"
                             method="POST" autocomplete="off">
@@ -103,7 +112,7 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        {{-- <div class="col-md-4 col-sm-12 mb-3">
+                                        <div class="col-md-4 col-sm-12 mb-3">
                                             <label class="mb-0" for="rating">Rating <span
                                                     class="text-error">*</span></label>
                                             <select name="rating" id="rating" class="form-control required-field"
@@ -127,7 +136,7 @@
                                                     <option value="0">De Active</option>
                                                 </select>
                                             </div>
-                                        </div> --}}
+                                        </div>
 
                                     </div>
                                 </div>

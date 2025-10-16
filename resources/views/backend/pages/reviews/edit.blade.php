@@ -24,19 +24,19 @@ Company Location Edit - Admin Panel
                 <h4 class="page-title pull-left d-none">Location Edit - {{ $data->name }}</h4>
                 <ul class="breadcrumbs pull-left m-2">
                 <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.locations.index') }}">All Location</a></li>
+                    <li><a href="{{ route('admin.reviews.index') }}">All Location</a></li>
                     <li><span>Edit Location</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-3 text-end">
             <p class="float-end">
-                @if (Auth::guard('admin')->user()->can('locations.edit'))
+                @if (Auth::guard('admin')->user()->can('reviews.edit'))
                     <button type="button" class="btn btn-success pr-4 pl-4" onclick="$('#submitForm').click();">
                         <i class="fa fa-save"></i> Update
                     </button>
                 @endif
-                <a href="{{ route('admin.locations.index') }}" class="btn btn-danger">
+                <a href="{{ route('admin.reviews.index') }}" class="btn btn-danger">
                     <i class="fa fa-arrow-left"></i> Back
                 </a>
             </p>
@@ -56,7 +56,7 @@ Company Location Edit - Admin Panel
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{ route('admin.locations.update', $data->id) }}" method="POST">
+                    <form action="{{ route('admin.reviews.update', $data->id) }}" method="POST">
                         @method('PUT')
                         @csrf
                         <div class="row">
@@ -74,73 +74,26 @@ Company Location Edit - Admin Panel
 
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
-                                            <label class="mb-0" for="display_name">Display Name<span class="text-error">*</span></label>
-                                            <input type="text" class="form-control" data-required="yes" id="display_name" name="display_name" value="{{$data->display_name}}" placeholder="Display Name">
+                                            <label class="mb-0" for="email">Display Name<span class="text-error">*</span></label>
+                                            <input type="text" class="form-control" data-required="yes" id="email" name="email" value="{{$data->email}}" placeholder="email">
                                         </div>
-                                        @error('display_name')
+                                        @error('email')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="col-md-12 mb-2">
                                         <div class="form-group">
-                                            <label class="mb-0" for="address">Address<span class="text-error">*</span></label>
-                                            <input type="text" data-required="yes" class="form-control" id="address" name="address" value="{{$data->address}}" placeholder="Address">
+                                            <label class="mb-0" for="contact_no">Contact No.<span class="text-error">*</span></label>
+                                            <input type="text" data-required="yes" class="form-control" id="contact_no" name="contact_no" value="{{$data->contact_no}}" placeholder="contact_no">
                                         </div>
-                                        @error('address')
+                                        @error('contact_no')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-4 col-sm-12 mb-2">
-                                        <label class="mb-0" for="continent_id">Continent<span class="text-error">*</span></label>
-                                        <select name="continent_id" id="continent_id" class="form-control get-country-list continent-id required-field" data-id="country_id" data-required="yes">
-                                            <option value="0" >Select Continent</option>
-                                            @foreach ($continentObj as $ar)
-                                                <option value="{{ $ar->id }}" {{$data->continent_id == $ar->id ? 'selected' : ''}}>{{ $ar->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="error text-error"></div>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-12 mb-2">
-                                        <label class="mb-0" for="country_id">Country<span class="text-error">*</span></label>
-                                        <select name="country_id" id="country_id" class="form-control get-state-list country-id required-field" data-id="state_id" data-required="yes">
-                                            <option value="0" >Select Country</option>
-                                            @foreach ($countryObj as $ar)
-                                                <option value="{{ $ar->id }}" {{$data->country_id == $ar->id ? 'selected' : ''}}>{{ $ar->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="error text-error"></div>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-12 mb-2">
-                                        <label class="mb-0" for="state_id">State<span class="text-error">*</span></label>
-                                        <select name="state_id" id="state_id" class="form-control get-city-list state-id required-field" data-id="city_id" data-required="yes">
-                                            <option value="0" >Select State</option>
-                                            @foreach ($stateObj as $ar)
-                                                <option value="{{ $ar->id }}" {{$data->state_id == $ar->id ? 'selected' : ''}}>{{ $ar->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="error text-error"></div>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-12 mb-2">
-                                        <label class="mb-0" for="city_id">City<span class="text-error">*</span></label>
-                                        <select name="city_id" id="city_id" class="form-control city-id required-field" data-required="yes">
-                                            <option value="0" >Select City</option>
-                                            @foreach ($cityObj as $ar)
-                                                <option value="{{ $ar->id }}" {{$data->city_id == $ar->id ? 'selected' : ''}}>{{ $ar->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="error text-error"></div>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-12 mb-2">
-                                        <label class="mb-0" for="zipcode">Zipcode<span class="text-error">*</span></label>
-                                        <input type="text" class="form-control required-field" id="zipcode" name="zipcode" placeholder="Zipcode" value="{{$data->zipcode}}" data-required="yes">
-                                        <div class="error text-error"></div>
-                                    </div>
+                             
+                                
 
                                     <div class="col-md-4 mb-2">
                                         <div class="form-group">
@@ -160,7 +113,7 @@ Company Location Edit - Admin Panel
                                 <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
                                     <i class="fa fa-save"></i> Update
                                 </button>
-                                <a href="{{ route('admin.locations.index') }}" class="btn btn-danger pr-4 pl-4">
+                                <a href="{{ route('admin.reviews.index') }}" class="btn btn-danger pr-4 pl-4">
                                     <i class="fa fa-arrow-left"></i> Back
                                 </a>
                             </div>
@@ -171,11 +124,7 @@ Company Location Edit - Admin Panel
         </div>
         <!-- data table end -->
 
-        <!-- extra hidden values -->
-        <span class="get-continent-list-url d-none">{{url('api/get-continent-list')}}</span>
-        <span class="get-country-list-url d-none">{{url('api/get-country-list')}}</span>
-        <span class="get-state-list-url d-none">{{url('api/get-state-list')}}</span>
-        <span class="get-city-list-url d-none">{{url('api/get-city-list')}}</span>
+    
     </div>
 </div>
 @endsection

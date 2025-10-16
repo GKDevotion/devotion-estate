@@ -25,7 +25,8 @@ class ReviewsController extends Controller
     /**
      *
      */
-    public function setPublicVar(){
+    public function setPublicVar()
+    {
         $this->is_assign_super_admin = $this->user->is_assign_super_admin;
         $this->admin_id = $this->user->id;
     }
@@ -35,7 +36,7 @@ class ReviewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request )
+    public function index(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('reviews.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
@@ -47,91 +48,92 @@ class ReviewsController extends Controller
     /**
      *
      */
-    public function ajaxIndex( Request $request ){
+    public function ajaxIndex(Request $request)
+    {
 
         $this->setPublicVar();
 
         $query = Review::query();
 
-        if( !$this->is_assign_super_admin ){
-            $query->where( 'admin_id', $this->admin_id );
+        if (!$this->is_assign_super_admin) {
+            $query->where('admin_id', $this->admin_id);
         }
 
-        $query->select('id', 'name', 'email','contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status');
+        $query->select('id', 'name', 'email', 'contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status');
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function(Review $ar) {
+            ->addColumn('id', function (Review $ar) {
                 return $ar->id;
             })
-            ->addColumn('name', function(Review $ar) {
+            ->addColumn('name', function (Review $ar) {
                 return $ar->name;
             })
-            ->addColumn('email', function(Review $ar) {
+            ->addColumn('email', function (Review $ar) {
                 return $ar->email;
             })
-               ->addColumn('contact_no', function(Review $ar) {
+            ->addColumn('contact_no', function (Review $ar) {
                 return $ar->contact_no;
             })
-               ->addColumn('review', function(Review $ar) {
+            ->addColumn('review', function (Review $ar) {
                 return $ar->review;
             })
-               ->addColumn('rating', function(Review $ar) {
+            ->addColumn('rating', function (Review $ar) {
                 return $ar->rating;
             })
-              ->addColumn('property_id', function(Review $ar) {
+            ->addColumn('property_id', function (Review $ar) {
                 return $ar->property_id;
             })
-            ->addColumn('status', function(Review $ar) {
+            ->addColumn('status', function (Review $ar) {
                 $status = "";
-                if( true ){
-                    $status = '<i class="fa fa-'.( $ar->status == 0 ? 'times' : 'check').' update-status" data-status="'.$ar->status.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="reviews"></i>';
+                if (true) {
+                    $status = '<i class="fa fa-' . ($ar->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $ar->status . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="reviews"></i>';
                 } else {
-                 $status = '<select class="form-control update-status badge '.( $ar->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$ar->id.'" data-table="reviews">
-                            <option value="1" '.($ar->status == 1 ? 'selected' : '').'>Active</option>
-                            <option value="0" '.($ar->status == 0 ? 'selected' : '').'>De-Active</option>
+                    $status = '<select class="form-control update-status badge ' . ($ar->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $ar->id . '" data-table="reviews">
+                            <option value="1" ' . ($ar->status == 1 ? 'selected' : '') . '>Active</option>
+                            <option value="0" ' . ($ar->status == 0 ? 'selected' : '') . '>De-Active</option>
                         </select>';
                 }
 
                 return $status;
             })
-            ->addColumn('updated_at', function(Review $ar) {
-                return formatDate( "Y-m-d H:i", $ar->updated_at );
+            ->addColumn('updated_at', function (Review $ar) {
+                return formatDate("Y-m-d H:i", $ar->updated_at);
             })
-            ->addColumn('action', function(Review $ar ) {
+            ->addColumn('action', function (Review $ar) {
 
                 $action = '
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_'.$ar->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_' . $ar->id . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         &#x22EE;
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="action_menu_'.$ar->id.'">
+                    <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                    if ($this->user->can('reviews.edit')) {
-                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.reviews.edit', $ar->id).'">
+                if ($this->user->can('reviews.edit')) {
+                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.reviews.edit', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
-                    }
+                }
 
-                    if ($this->user->can('reviews.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->name.'" data-segment="reviews">
+                if ($this->user->can('reviews.delete')) {
+                    $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="reviews">
                                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                                     </button>';
-                    }
+                }
 
-                    $action.= '
+                $action .= '
                     </div>
                 ';
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'email','contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'name', 'email', 'contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
-                    if( $searchValue != "" ){
+                    if ($searchValue != "") {
                         $query->where('name', 'like', "%{$searchValue}%")
                             ->orWhere('display_name', 'like', "%{$searchValue}%");
-                        }
+                    }
                 }
             })
             ->order(function ($query) {
@@ -150,14 +152,14 @@ class ReviewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         if (is_null($this->user) || !$this->user->can('reviews.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create Location !');
+            abort(403, 'Sorry !! You are Unauthorized to create review !');
         }
 
-        $continentObj = Review::where('status', 1)->get();
-        return view('backend.pages.reviews.create', compact('continentObj'));
+        return view('backend.pages.reviews.create');
     }
 
     /**
@@ -175,11 +177,10 @@ class ReviewsController extends Controller
         // Validation Data
         $request->validate([
             'name' => 'required',
-            'display_name' => 'required',
             'email' => 'required',
             'review' => 'required',
             'rating' => 'required',
-          
+
         ]);
 
         // Create New Server Record
@@ -192,8 +193,8 @@ class ReviewsController extends Controller
         $location->rating = $request->rating;
         $location->status = $request->status;
         $location->save();
-            
-        session()->flash('success', $request->name.' record has been created !!');
+
+        session()->flash('success', $request->name . ' record has been created !!');
         return redirect()->route('admin.reviews.index');
     }
 
@@ -223,7 +224,7 @@ class ReviewsController extends Controller
         $data = Review::find($id);
 
 
-        return view('backend.pages.reviews.edit', compact('data', 'continentObj', 'countryObj', 'stateObj', 'cityObj'));
+        return view('backend.pages.reviews.edit', compact('data'));
     }
 
     /**
@@ -242,30 +243,23 @@ class ReviewsController extends Controller
         // Validation Data
         $request->validate([
             'name' => 'required',
-            'display_name' => 'required',
-            'address' => 'required',
-            'continent_id' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
-            'zipcode' => 'required',
+            'email' => 'required',
+            'review' => 'required',
+            'rating' => 'required',
         ]);
 
         // Create New Server Record
-        $location = Review::find( $id );
+        $location = Review::find($id);
         $location->admin_id = $this->user->id;
         $location->name = $request->name;
-        $location->display_name = $request->display_name;
-        $location->address = $request->address;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
+        $location->email = $request->email;
+        $location->contact_no = $request->contact_no;
+        $location->review = $request->review;
+        $location->rating = $request->rating;
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->display_name.' record has been updated !!');
+        session()->flash('success', $request->name . ' record has been updated !!');
         return redirect()->route('admin.reviews.index');
     }
 
@@ -288,6 +282,6 @@ class ReviewsController extends Controller
         }
 
         // session()->flash('success', 'Record has been deleted !!');
-        return response()->json( ['data' => ['message' => "'".$record->name.'" has been successfully deleted.' ] ], 200);
+        return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
     }
 }
