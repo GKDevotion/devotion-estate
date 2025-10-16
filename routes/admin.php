@@ -79,6 +79,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/reviews/store', [ReviewsController::class, 'store'])->name('admin.reviews.store');
         Route::get('/reviews/edit/{id}', [ReviewsController::class, 'edit'])->name('admin.reviews.edit');
         Route::post('/reviews/update', [ReviewsController::class, 'update'])->name('admin.reviews.update');
+        Route::delete('/admin/reviews/{id}', [ReviewsController::class, 'destroy'])->name('admin.reviews.destroy');
         Route::get('/reviews-ajax-data', [ReviewsController::class, 'ajaxIndex'])->name('reviews.ajaxIndex');
    
 
