@@ -27,7 +27,7 @@ User Edit - Admin Panel
                 <ul class="breadcrumbs pull-left m-2">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('admin.user.index') }}">All Users</a></li>
-                    <li><span>Edit User - {{ $user->name }}</span></li>
+                    <li><span>Edit User - {{ $dataObj->name }}</span></li>
                 </ul>
             </div>
         </div>
@@ -58,99 +58,175 @@ User Edit - Admin Panel
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{ route('admin.user.update', $user->id) }}" method="POST">
+                    <form action="{{ route('admin.user.update', $dataObj->id) }}" method="POST">
                         @method('PUT')
                         @csrf
-                        <div class="form-row">
+                        <div class="row">
 
-                            <div class="form-group col-md-6 col-sm-12 mb-2">
-                                <label class="mb-0" for="name">User Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ $user->name }}">
-                                @error('name')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="login_by">Login By</label>
+                                    <input type="text" class="form-control" id="login_by" name="login_by" placeholder="Enter Name" value="{{old('login_by', $dataObj->login_by)}}">
+                                    @error('login_by')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-6 col-sm-12 mb-2">
-                                <label class="mb-0" for="email">User Email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" value="{{ $user->email }}">
-                                @error('email')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="first_name">First Name</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" value="{{old('first_name', $dataObj->first_name)}}">
+                                    @error('first_name')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-6 col-sm-12 mb-2">
-                                <label class="mb-0" for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
-                                @error('password')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-6 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="last_name">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" value="{{old('last_name', $dataObj->last_name)}}">
+                                    @error('last_name')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-6 col-sm-12 mb-2">
-                                <label class="mb-0" for="password_confirmation">Confirm Password</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password">
-                                @error('password_confirmation')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-6 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="email_id">Email ID</label>
+                                    <input type="text" class="form-control" id="email_id" name="email_id" placeholder="Enter Email ID" value="{{old('email_id', $dataObj->email_id)}}">
+                                    @error('email_id')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-4 col-sm-12 mb-2">
-                                <label class="mb-0" for="industry_id">Industry</label>
-                                <select name="industry_id" id="industry_id" class="industry_id form-control">
-                                    <option value="0">Select Industry</option>
-                                    @foreach ($industries as $ar)
-                                        <option value="{{ $ar->id }}" {{ ( $user->industry_id == $ar->id ) ? 'selected' : '' }}>{{ $ar->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('industry_id')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-3 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                                    @error('password')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-4 col-sm-12 mb-2">
-                                <label class="mb-0" for="company_parent_id">Holding Company</label>
-                                <select name="company_parent_id" id="company_parent_id" class="company_parent_id form-control">
-                                    <option value="0">Select Holding Company</option>
-                                    @foreach ($parent_companies as $ar)
-                                        <option value="{{ $ar->id }}" {{ ( $user->company_parent_id == $ar->id ) ? 'selected' : '' }}>{{ $ar->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('company_parent_id')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-3 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="password_confirmation">Confirm Password</label>
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password">
+                                    @error('password_confirmation')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-4 col-sm-12 mb-2">
-                                <label class="mb-0" for="company_id">Company</label>
-                                <select name="company_id" id="company_id" class="form-control">
-                                    @foreach ($companies as $ar)
-                                        <option class="company-parent-id company_parent_id_{{$ar->parent_id}} {{ ( $user->company_parent_id == $ar->parent_id ) ? '' : 'd-none' }}" value="{{ $ar->id }}" {{ ( $user->company_id == $ar->id ) ? 'selected' : '' }}>{{ $ar->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('company_id')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-6 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="mobile_no">Contact No</label>
+                                    <input type="text" class="form-control" id="mobile_no" name="mobile_no" placeholder="Enter Mobile Number" value="{{old('mobile_no', $dataObj->mobile_no)}}">
+                                    @error('mobile_no')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-6 col-sm-12 mb-2">
-                                <label class="mb-0" for="roles">Assign Roles</label>
-                                <select name="roles[]" id="roles" class="form-control">
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('roles')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="login">Login Allow</label>
+                                    <select name="login" id="login" class="form-control">
+                                        <option value="0" {{0 == $dataObj->login ? 'selected' : ''}}>Disabled</option>
+                                        <option value="1" {{1 == $dataObj->login ? 'selected' : ''}}>Enabled</option>
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-6 col-sm-12 mb-2">
+                            <div class="col-md-4 col-sm-12 mb-2">
                                 <label class="mb-0" for="status">status</label>
                                 <select name="status" id="status" class="form-control">
-                                    <option value="0" {{ ( $user->status == 0 ) ? 'selected' : '' }}>Disabled</option>
-                                    <option value="1" {{ ( $user->status == 1 ) ? 'selected' : '' }}>Enabled</option>
+                                    <option value="0" {{0 == $dataObj->status ? 'selected' : ''}}>Disabled</option>
+                                    <option value="1" {{1 == $dataObj->status ? 'selected' : ''}}>Enabled</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <input type="hidden" name="address_id" value="{{$addressDataObj->id}}">
+                                <div class="form-group">
+                                    <label class="mb-0" for="continent_id">Continent<span class="text-error">*</span></label>
+                                    <select name="continent_id" id="continent_id" class="form-control get-country-list continent-id" data-id="country_id">
+                                        <option value="" >Select Continent</option>
+                                        @foreach ($continentObj as $ar)
+                                            <option value="{{ $ar->id }}" {{$ar->id == $addressDataObj->continent_id ? 'selected' : ''}}>{{ $ar->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('continent_id')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="country_id">Country<span class="text-error">*</span></label>
+                                    <select name="country_id" id="country_id" class="form-control get-state-list country-id" data-id="state_id">
+                                        <option value="" >Select Country</option>
+                                        @foreach ($countryObj as $ar)
+                                            <option value="{{ $ar->id }}" {{$ar->id == $addressDataObj->country_id ? 'selected' : ''}}>{{ $ar->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('country_id')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="state_id">State<span class="text-error">*</span></label>
+                                    <select name="state_id" id="state_id" class="form-control get-city-list state-id" data-id="city_id">
+                                        <option value="" >Select State</option>
+                                        @foreach ($stateObj as $ar)
+                                            <option value="{{ $ar->id }}" {{$ar->id == $addressDataObj->state_id ? 'selected' : ''}}>{{ $ar->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('state_id')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="city_id">City<span class="text-error">*</span></label>
+                                    <select name="city_id" id="city_id" class="form-control city-id">
+                                        <option value="" >Select City</option>
+                                        @foreach ($cityObj as $ar)
+                                            <option value="{{ $ar->id }}" {{$ar->id == $addressDataObj->city_id ? 'selected' : ''}}>{{ $ar->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('city_id')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="zipcode">Zipcode<span class="text-error">*</span></label>
+                                    <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zipcode" value="{{old('Zipcode', $dataObj->Zipcode)}}">
+                                    @error('zipcode')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mb-2">
+                                <div class="form-group">
+                                    <label class="mb-0" for="address">Address<span class="text-error">*</span></label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="{{old('address', $dataObj->address)}}">
+                                    @error('address')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 

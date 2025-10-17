@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
+use App\Models\City;
 use App\Models\Company;
+use App\Models\Continent;
+use App\Models\Country;
 use App\Models\Industry;
+use App\Models\State;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +23,7 @@ class UsersController extends Controller
     public $user;
     public $is_assign_super_admin = 0;
     public $admin_id = 0;
-    public $user_type = 1; //1: User, 2: Employee, 3: Customer
+    public $user_type = 1; //	1: User, 2: Owner, 3: Client, 4: Vendor
 
     public function __construct()
     {
@@ -59,76 +64,64 @@ class UsersController extends Controller
 
         $query = User::query();
 
-        if( $request->cid ){
-            $query->where( 'company_id', _de( $request->cid ) );
-        } else if( $request->iid ){
-            $query->where( 'industry_id', _de( $request->iid ) );
-        }
-
-        if( !$this->is_assign_super_admin ){
-            $query->where( 'admin_id', $this->admin_id );
-        }
-
         $query->where( 'type', $this->user_type );
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function(User $mr) {
-                return $mr->id;
+            ->addColumn('id', function(User $dt) {
+                return $dt->id;
             })
-            ->addColumn('name', function(User $mr) {
-                return $mr->name;
+            ->addColumn('name', function(User $dt) {
+                return $dt->first_name." ".$dt->last_name;
             })
-            ->addColumn('email', function(User $mr) {
-                return $mr->email;
+            ->addColumn('email', function(User $dt) {
+                return $dt->email;
             })
-            ->addColumn('admin', function(User $mr) {
-                return $mr->admin->username;
+            ->addColumn('login_by', function(User $dt) {
+                return $dt->login_by;
             })
-            ->addColumn('industry', function(User $mr) {
-                return $mr->industry->name;
+            ->addColumn('mobile_no', function(User $dt) {
+                return $dt->mobile_no;
             })
-            ->addColumn('company', function(User $mr) {
-                return $mr->company->name;
-            })
-            ->addColumn('company_parent', function(User $mr) {
-                return $mr->company_parent->name;
-            })
-            ->addColumn('status', function(User $mr) {
+            ->addColumn('status', function(User $dt) {
                 $status = "";
                 if( true ){
-                    $status = '<i class="fa fa-'.( $mr->status == 0 ? 'times' : 'check').' update-status" data-status="'.$mr->status.'" data-id="'.$mr->id.'" aria-hidden="true" data-table="users"></i>';
+                    $status = '<i class="fa fa-'.( $dt->status == 0 ? 'times' : 'check').' update-status" data-status="'.$dt->status.'" data-id="'.$dt->id.'" aria-hidden="true" data-table="users"></i>';
                 } else {
-                 $status = '<select class="form-control update-status badge '.( $mr->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$mr->id.'" data-table="users">
-                            <option value="1" '.($mr->status == 1 ? 'selected' : '').'>Active</option>
-                            <option value="0" '.($mr->status == 0 ? 'selected' : '').'>De-Active</option>
+                 $status = '<select class="form-control update-status badge '.( $dt->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$dt->id.'" data-table="users">
+                            <option value="1" '.($dt->status == 1 ? 'selected' : '').'>Active</option>
+                            <option value="0" '.($dt->status == 0 ? 'selected' : '').'>De-Active</option>
                         </select>';
                 }
 
                 return $status;
             })
-            ->addColumn('created_at', function(User $mr) {
-                return formatDate( "Y-m-d H:i", $mr->created_at );
+            ->addColumn('login', function(User $dt) {
+
+                return '<i class="fa fa-'.( $dt->login == 0 ? 'times' : 'check').' update-field-status" data-field="login" data-status="'.$dt->login.'" data-id="'.$dt->id.'" aria-hidden="true" data-table="users"></i>';
             })
-            ->addColumn('updated_at', function(User $mr) {
-                return formatDate( "Y-m-d H:i", $mr->updated_at );
+            ->addColumn('created_at', function(User $dt) {
+                return formatDate( "Y-m-d H:i", $dt->created_at );
             })
-            ->addColumn('action', function(User $mr ) {
+            ->addColumn('updated_at', function(User $dt) {
+                return formatDate( "Y-m-d H:i", $dt->updated_at );
+            })
+            ->addColumn('action', function(User $dt ) {
 
                 $action = '
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_'.$mr->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_'.$dt->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         &#x22EE;
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="action_menu_'.$mr->id.'">
+                    <div class="dropdown-menu" aria-labelledby="action_menu_'.$dt->id.'">
                     ';
 
                     if ($this->user->can('user.edit')) {
-                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.user.edit', $mr->id).'">
+                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.user.edit', $dt->id).'">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
                     }
 
                     if ($this->user->can('city.edit')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$mr->id.'" data-title="'.$mr->name.'" data-segment="users">
+                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$dt->id.'" data-title="'.$dt->name.'" data-segment="users">
                                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                                     </button>';
                     }
@@ -139,7 +132,7 @@ class UsersController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'email', 'admin', 'company', 'company_parent', 'industry', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'name', 'email', 'login_by', 'mobile_no', 'login', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -177,11 +170,10 @@ class UsersController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to create user !');
         }
 
-        $industries  = Industry::select( 'id', 'name' )->where( 'status', 1 )->get();
-        $parent_companies  = Company::select( 'id', 'parent_id', 'name' )->where( ['status' => 1, 'parent_id' => 0 ] )->get();
-        $companies  = Company::select( 'id', 'parent_id', 'name' )->where( 'status', 1 )->where( 'parent_id', '>', 0 )->get();
-        $roles  = Role::where( 'status', 1 )->get();
-        return view('backend.pages.users.create', compact('roles', 'industries', 'parent_companies', 'companies'));
+        $continentArr  = Continent::select( 'id', 'name' )->get();
+        $countryArr  = Country::select( 'id', 'name', 'continent_id' )->get();
+        $stateArr  = State::select( 'id', 'name', 'continent_id', 'country_id' )->get();
+        return view('backend.pages.users.create', compact( 'continentArr', 'countryArr', 'stateArr' ) );
     }
 
     /**
@@ -193,37 +185,52 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('user.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create User !');
+            abort(403, 'Sorry !! You are Unauthorized to create User!');
         }
 
         // Validation Data
         $request->validate([
-            'name' => 'required|max:50',
-            'industry_id' => 'required',
-            'company_id' => 'required',
-            'company_parent_id' => 'required',
-            'email' => 'required|max:100|email|unique:users',
+            'login_by' => 'required|max:20',
+            'first_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
+            'email_id' => 'required|max:100|email',//|unique:users',
             'password' => 'required|min:6|confirmed',
+            'continent_id' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'zipcode' => 'required',
+            'address' => 'required',
         ]);
 
         // Create New User
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->login_by = $request->login_by;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->admin_id = $this->user->id;
-        $user->industry_id = $request->industry_id;
-        $user->company_id = $request->company_id;
-        $user->company_parent_id = $request->company_parent_id;
+        $user->email_id = $request->email_id;
         $user->password = Hash::make($request->password);
+        $user->mobile_no = $request->mobile_no;
+        $user->login = $request->login;
         $user->status = $request->status;
         $user->type = $this->user_type;
         $user->save();
 
-        if ($request->roles) {
-            $user->assignRole($request->roles);
-        }
+        $userAddress = new Address();
+        $userAddress->admin_id  = $this->user->id;
+        $userAddress->person_id = $user->id;
+        $userAddress->name = $user->first_name." ".$user->last_name;
+        $userAddress->continent_id = $request->continent_id;
+        $userAddress->country_id = $request->country_id;
+        $userAddress->state_id = $request->state_id;
+        $userAddress->city_id = $request->city_id;
+        $userAddress->zipcode = $request->zipcode;
+        $userAddress->address = $request->address;
+        $userAddress->person_type = $this->user_type;
+        $userAddress->save();
 
-        session()->flash('success', $request->name.' has been created !!');
+        session()->flash('success', $user->first_name." ".$user->last_name.' has been created !!');
         return redirect()->route('admin.user.index');
     }
 
@@ -250,12 +257,19 @@ class UsersController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to edit User !');
         }
 
-        $user = User::find($id);
-        $industries  = Industry::select( 'id', 'name' )->where( 'status', 1 )->get();
-        $parent_companies  = Company::select( 'id', 'parent_id', 'name' )->where( ['status' => 1, 'parent_id' => 0 ] )->get();
-        $companies  = Company::select( 'id', 'parent_id', 'name' )->where( 'status', 1 )->where( 'parent_id', '>', 0 )->get();
-        $roles  = Role::where( 'status', 1 )->get();
-        return view('backend.pages.users.edit', compact('user', 'roles', 'companies', 'parent_companies', 'industries'));
+        $dataObj = User::find($id);
+        $addressDataObj = Address::where( [
+            'person_id' => $dataObj->id,
+            'person_type' => $this->user_type
+        ] )
+        ->first();
+
+        $continentObj  = Continent::select( 'id', 'name' )->get();
+        $countryObj  = Country::select( 'id', 'name', 'continent_id' )->where( [ 'continent_id' => $addressDataObj->continent_id, 'status' => 1] )->get();
+        $stateObj  = State::select( 'id', 'name', 'continent_id', 'country_id' )->where( [ 'country_id' => $addressDataObj->country_id, 'status' => 1] )->get();
+        $cityObj  = City::select( 'id', 'name', 'continent_id', 'country_id' )->where( [ 'state_id' => $addressDataObj->state_id, 'status' => 1] )->get();
+
+        return view('backend.pages.users.edit', compact('dataObj', 'addressDataObj', 'continentObj', 'countryObj', 'stateObj', 'cityObj'));
     }
 
     /**
@@ -276,20 +290,26 @@ class UsersController extends Controller
 
         // Validation Data
         $request->validate([
-            'name' => 'required|max:50',
-            'email' => 'required|max:100|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:6|confirmed',
-            'company_id' => 'required',
-            'industry_id' => 'required',
-            'company_parent_id' => 'required',
+            'login_by' => 'required|max:20',
+            'first_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
+            'email_id' => 'required|max:100|email',//|unique:users',
+            'password' => 'required|min:6|confirmed',
+            'continent_id' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'zipcode' => 'required',
+            'address' => 'required',
         ]);
 
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->login_by = $request->login_by;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->admin_id = $this->user->id;
-        $user->industry_id = $request->industry_id;
-        $user->company_id = $request->company_id;
-        $user->company_parent_id = $request->company_parent_id;
+        $user->email_id = $request->email_id;
+        $user->mobile_no = $request->mobile_no;
+        $user->login = $request->login;
         $user->status = $request->status;
         $user->type = $this->user_type;
 
@@ -298,13 +318,21 @@ class UsersController extends Controller
         }
         $user->save();
 
-        $user->roles()->detach();
-        if ($request->roles) {
-            $user->assignRole($request->roles);
-        }
+        $userAddress = Address::find( $request->address_id );
+        $userAddress->admin_id  = $this->user->id;
+        $userAddress->person_id = $user->id;
+        $userAddress->name = $user->first_name." ".$user->last_name;
+        $userAddress->continent_id = $request->continent_id;
+        $userAddress->country_id = $request->country_id;
+        $userAddress->state_id = $request->state_id;
+        $userAddress->city_id = $request->city_id;
+        $userAddress->zipcode = $request->zipcode;
+        $userAddress->address = $request->address;
+        $userAddress->person_type = $this->user_type;
+        $userAddress->save();
 
         // session()->flash('success', 'User has been updated !!');
-        session()->flash('success', $request->name.' has been updated !!');
+        session()->flash('success', $user->first_name." ".$user->last_name.' has been updated !!');
         return redirect()->route('admin.user.index');
     }
 
@@ -320,9 +348,19 @@ class UsersController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to delete user !');
         }
 
-        $user = User::find($id);
-        if (!is_null($user)) {
-            $user->delete();
+        $user = User::find( $id );
+        if ( !is_null( $user ) ) {
+
+            $addressDataObj = Address::where( [
+                'person_id' => $id,
+                'person_type' => $this->user_type
+            ] )
+            ->first();
+
+            if ( !is_null( $addressDataObj ) ) {
+                $addressDataObj->delete();
+                $user->delete();
+            }
         }
 
         // session()->flash('success', 'User has been deleted !!');

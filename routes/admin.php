@@ -121,8 +121,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/designations/update', [DesignationsController::class, 'update'])->name('admin.designations.update');
     Route::get('/designations-ajax-data', [DesignationsController::class, 'ajaxIndex'])->name('designations.ajaxIndex');
 
-    Route::resource('users', 'Backend\UsersController', ['names' => 'admin.user']);
-    Route::get('/user-ajax-data', [UsersController::class, 'ajaxIndex'])->name('user.ajaxIndex');
+    Route::get('/users', [UsersController::class, 'index'])->name('admin.user.index');
+    Route::get('/users/create', [UsersController::class, 'create'])->name('admin.user.create');
+    Route::post('/users/store', [UsersController::class, 'store'])->name('admin.user.store');
+    Route::get('/users/edit/{id}', [UsersController::class, 'edit'])->name('admin.user.edit');
+    Route::post('/users/update', [UsersController::class, 'update'])->name('admin.user.update');
+    Route::get('/users-ajax-data', [UsersController::class, 'ajaxIndex'])->name('user.ajaxIndex');
 
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admin']);
 
@@ -161,6 +165,7 @@ Route::prefix('admin')->group(function () {
      * Common Function Routes
      */
     Route::get('update-status/{table}/{id}/{status}', [AdminsController::class, 'updateFieldStatus']);
+    Route::get('update-field-status/{table}/{id}/{status}/{field}', [AdminsController::class, 'updateFieldStatus']);
     Route::get('delete-event/{title}/{id}', [AdminsController::class, 'deleteEvent']);
 
 
