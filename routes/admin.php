@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\CurrencyController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DesignationsController;
 use App\Http\Controllers\Backend\LocationController;
+use App\Http\Controllers\Backend\OwnersController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PropertiesController;
 use App\Http\Controllers\Backend\PropertyAddController;
@@ -127,6 +128,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/edit/{id}', [UsersController::class, 'edit'])->name('admin.user.edit');
     Route::post('/users/update', [UsersController::class, 'update'])->name('admin.user.update');
     Route::get('/users-ajax-data', [UsersController::class, 'ajaxIndex'])->name('user.ajaxIndex');
+
+    Route::get('/owners', [OwnersController::class, 'index'])->name('admin.owners.index');
+    Route::get('/owners/create', [OwnersController::class, 'create'])->name('admin.owners.create');
+    Route::post('/owners/store', [OwnersController::class, 'store'])->name('admin.owners.store');
+    Route::get('/owners/edit/{id}', [OwnersController::class, 'edit'])->name('admin.owners.edit');
+    Route::post('/owners/update', [OwnersController::class, 'update'])->name('admin.owners.update');
+    Route::get('/owners-ajax-data', [OwnersController::class, 'ajaxIndex'])->name('owners.ajaxIndex');
 
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admin']);
 

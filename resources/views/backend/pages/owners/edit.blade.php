@@ -2,7 +2,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-User Edit - Admin Panel
+Owner Edit - Admin Panel
 @endsection
 
 @section('styles')
@@ -23,22 +23,22 @@ User Edit - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-7">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left d-none">User Create</h4>
+                <h4 class="page-title pull-left d-none">Owner Create</h4>
                 <ul class="breadcrumbs pull-left m-2">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.user.index') }}">All Users</a></li>
-                    <li><span>Edit User - {{ $dataObj->name }}</span></li>
+                    <li><a href="{{ route('admin.owners.index') }}">All Users</a></li>
+                    <li><span>Edit Owner - {{ $dataObj->name }}</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-3">
             <p class="float-end">
-                @if (Auth::guard('admin')->user()->can('user.edit'))
+                @if (Auth::guard('admin')->user()->can('owners.edit'))
                     <button type="button" class="btn btn-success pr-4 pl-4" onclick="$('#submitForm').click();">
                         <i class="fa fa-save"></i> Update
                     </button>
                 @endif
-                <a href="{{ route('admin.user.index') }}" class="btn btn-danger">
+                <a href="{{ route('admin.owners.index') }}" class="btn btn-danger">
                     <i class="fa fa-arrow-left"></i> Back
                 </a>
             </p>
@@ -54,11 +54,11 @@ User Edit - Admin Panel
     <div class="row">
         <!-- data table start -->
         <div class="col-12 mt-3">
-            <h3 class="pb-3">Update User</h3>
+            <h3 class="pb-3">Update Owner</h3>
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{ route('admin.user.update', $dataObj->id) }}" method="POST">
+                    <form action="{{ route('admin.owners.update', $dataObj->id) }}" method="POST">
                         @method('PUT')
                         @csrf
                         <div class="row">
@@ -235,7 +235,7 @@ User Edit - Admin Panel
                                 <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
                                     <i class="fa fa-save"></i> Update
                                 </button>
-                                <a href="{{ route('admin.user.index') }}" class="btn btn-danger pr-4 pl-4">
+                                <a href="{{ route('admin.owners.index') }}" class="btn btn-danger pr-4 pl-4">
                                     <i class="fa fa-arrow-left"></i> Back
                                 </a>
                             </div>
@@ -252,5 +252,6 @@ User Edit - Admin Panel
 
 @section('scripts')
 <script>
+
 </script>
 @endsection

@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
-class UsersController extends Controller
+class OwnersController extends Controller
 {
 
     public $user;
     public $is_assign_super_admin = 0;
     public $admin_id = 0;
-    public $user_type = 1; //	1: User, 2: Owner, 3: Client, 4: Vendor
+    public $user_type = 2; //	1: User, 2: Owner, 3: Client, 4: Vendor
 
     public function __construct()
     {
@@ -45,11 +45,11 @@ class UsersController extends Controller
      */
     public function index( Request $request )
     {
-        if (is_null($this->user) || !$this->user->can('user.view')) {
-            abort(403, 'Sorry !! You are Unauthorized to view User !');
+        if (is_null($this->user) || !$this->user->can('owners.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view Owners !');
         }
 
-        return view('backend.pages.users.index', compact( 'request' ) );
+        return view('backend.pages.owners.index', compact( 'request' ) );
     }
 
     /**
@@ -111,8 +111,8 @@ class UsersController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_'.$dt->id.'">
                     ';
 
-                    if ($this->user->can('user.edit')) {
-                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.user.edit', $dt->id).'">
+                    if ($this->user->can('owners.edit')) {
+                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.owners.edit', $dt->id).'">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
                     }
@@ -163,14 +163,14 @@ class UsersController extends Controller
      */
     public function create()
     {
-        if (is_null($this->user) || !$this->user->can('user.create')) {
+        if (is_null($this->user) || !$this->user->can('owners.create')) {
             abort(403, 'Sorry !! You are Unauthorized to create user !');
         }
 
         $continentArr  = Continent::select( 'id', 'name' )->get();
         $countryArr  = Country::select( 'id', 'name', 'continent_id' )->get();
         $stateArr  = State::select( 'id', 'name', 'continent_id', 'country_id' )->get();
-        return view('backend.pages.users.create', compact( 'continentArr', 'countryArr', 'stateArr' ) );
+        return view('backend.pages.owners.create', compact( 'continentArr', 'countryArr', 'stateArr' ) );
     }
 
     /**
@@ -181,7 +181,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        if (is_null($this->user) || !$this->user->can('user.create')) {
+        if (is_null($this->user) || !$this->user->can('owners.create')) {
             abort(403, 'Sorry !! You are Unauthorized to create User!');
         }
 
@@ -228,7 +228,7 @@ class UsersController extends Controller
         $userAddress->save();
 
         session()->flash('success', $user->first_name." ".$user->last_name.' has been created !!');
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.owners.index');
     }
 
     /**
@@ -250,8 +250,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        if (is_null($this->user) || !$this->user->can('user.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit User !');
+        if (is_null($this->user) || !$this->user->can('owners.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit Owners !');
         }
 
         $dataObj = User::find($id);
@@ -266,7 +266,7 @@ class UsersController extends Controller
         $stateObj  = State::select( 'id', 'name', 'continent_id', 'country_id' )->where( [ 'country_id' => $addressDataObj->country_id, 'status' => 1] )->get();
         $cityObj  = City::select( 'id', 'name', 'continent_id', 'country_id' )->where( [ 'state_id' => $addressDataObj->state_id, 'status' => 1] )->get();
 
-        return view('backend.pages.users.edit', compact('dataObj', 'addressDataObj', 'continentObj', 'countryObj', 'stateObj', 'cityObj'));
+        return view('backend.pages.owners.edit', compact('dataObj', 'addressDataObj', 'continentObj', 'countryObj', 'stateObj', 'cityObj'));
     }
 
     /**
@@ -278,8 +278,8 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (is_null($this->user) || !$this->user->can('user.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit user !');
+        if (is_null($this->user) || !$this->user->can('owners.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit Owners !');
         }
 
         // Create New User
@@ -330,7 +330,7 @@ class UsersController extends Controller
 
         // session()->flash('success', 'User has been updated !!');
         session()->flash('success', $user->first_name." ".$user->last_name.' has been updated !!');
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.owners.index');
     }
 
     /**
@@ -341,8 +341,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        if (is_null($this->user) || !$this->user->can('user.delete')) {
-            abort(403, 'Sorry !! You are Unauthorized to delete user !');
+        if (is_null($this->user) || !$this->user->can('owners.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete Owners !');
         }
 
         $user = User::find( $id );
