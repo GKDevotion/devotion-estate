@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminLogController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
+use App\Http\Controllers\Backend\ClientsController;
 use App\Http\Controllers\Backend\CurrencyController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DesignationsController;
@@ -135,6 +136,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/owners/edit/{id}', [OwnersController::class, 'edit'])->name('admin.owners.edit');
     Route::post('/owners/update', [OwnersController::class, 'update'])->name('admin.owners.update');
     Route::get('/owners-ajax-data', [OwnersController::class, 'ajaxIndex'])->name('owners.ajaxIndex');
+
+    Route::get('/clients', [ClientsController::class, 'index'])->name('admin.clients.index');
+    Route::get('/clients/create', [ClientsController::class, 'create'])->name('admin.clients.create');
+    Route::post('/clients/store', [ClientsController::class, 'store'])->name('admin.clients.store');
+    Route::get('/clients/edit/{id}', [ClientsController::class, 'edit'])->name('admin.clients.edit');
+    Route::post('/clients/update', [ClientsController::class, 'update'])->name('admin.clients.update');
+    Route::get('/clients-ajax-data', [ClientsController::class, 'ajaxIndex'])->name('clients.ajaxIndex');
 
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admin']);
 
