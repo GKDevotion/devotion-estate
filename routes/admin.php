@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
 use App\Http\Controllers\Backend\CurrencyController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\DesignationsController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PropertiesController;
@@ -112,6 +113,13 @@ Route::prefix('admin')->group(function () {
     /**
      * User Management
      */
+
+    Route::get('/designations', [DesignationsController::class, 'index'])->name('admin.designations.index');
+    Route::get('/designations/create', [DesignationsController::class, 'create'])->name('admin.designations.create');
+    Route::post('/designations/store', [DesignationsController::class, 'store'])->name('admin.designations.store');
+    Route::get('/designations/edit/{id}', [DesignationsController::class, 'edit'])->name('admin.designations.edit');
+    Route::post('/designations/update', [DesignationsController::class, 'update'])->name('admin.designations.update');
+    Route::get('/designations-ajax-data', [DesignationsController::class, 'ajaxIndex'])->name('designations.ajaxIndex');
 
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.user']);
     Route::get('/user-ajax-data', [UsersController::class, 'ajaxIndex'])->name('user.ajaxIndex');
