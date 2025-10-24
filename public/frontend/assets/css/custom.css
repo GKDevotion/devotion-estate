@@ -1,0 +1,935 @@
+:root,
+[data-bs-theme=light] {
+    --main-theme-color: #ab8134;
+    --main-theme-light-color: #d6a20c;
+    --main-theme-border-color: #ab8134ec;
+    --bs-warning: var( --main-theme-color ) !important;
+    --bs-success-rgb: 154, 113, 56 !important;
+    --bs-warning-rgb: 154, 113, 56 !important;
+}
+
+.nav{
+    --bs-nav-link-color: #000 !important;
+}
+
+.btn-danger,
+.btn-success,
+.btn-info,
+.btn-secondary,
+.btn-primary,
+.btn-warning,
+.btn-outline-secondary,
+.btn-outline-danger,
+.btn-outline-success {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var( --main-theme-color );
+    --bs-btn-border-color: var( --main-theme-color );
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var( --main-theme-light-color );
+    --bs-btn-hover-border-color: var( --main-theme-light-color );
+    --bs-btn-focus-shadow-rgb: 225, 83, 97;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var( --main-theme-light-color );
+    --bs-btn-active-border-color: var( --main-theme-light-color );
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var( --main-theme-color );
+    --bs-btn-disabled-border-color: var( --main-theme-color );
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
+    background-color: var( --main-theme-color ) !important;
+}
+
+.bg-theme{
+    background-color: var( --main-theme-color ) !important;
+}
+
+.active>.page-link, .page-link.active {
+    background-color: var( --main-theme-color );
+    border-color: var( --main-theme-border-color );
+    color: #fff;
+    z-index: 3;
+}
+
+#client_index_wrapper .paginate_button {
+    margin-top: -35px;
+}
+
+#client_meeting_index_wrapper .paginate_button {
+    margin-top: 0px;
+}
+
+/* .bg-primary-dark {
+    background-color: var( --main-theme-color ) !important;
+} */
+
+a.btn.btn-theme.w-100{
+    font-size: 12px !important;
+    padding: 12px;
+}
+
+/* .dtr-data .fa{
+    font-size: 20px !important;
+} */
+
+.text-theme {
+    color: var( --main-theme-color ) !important;
+}
+
+.text-black {
+    color: #333D51 !important;
+}
+
+.industry-company a:hover{
+    color: var( --main-theme-color ) !important;
+}
+
+.nav-tabs .nav-link {
+    border-color: var( --main-theme-color ) !important;
+    margin: 2px;
+    border-radius: 10px;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border-color: var( --main-theme-color ) !important;
+    color: var( --main-theme-color );
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    background-color: var( --main-theme-color ) !important;
+    border-color: var( --main-theme-color ) !important;
+    color: #fff !important;
+}
+
+.text-error {
+    color: red;
+}
+
+.page-item.active .page-link:hover {
+    background-color: #fff;
+    color: var( --main-theme-color );
+}
+
+.box-shadow-10 {
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* .permanent-address-checkbox-div {
+    margin-top: 39px;
+} */
+
+td .update-status {
+    width: 80% !important;
+    display: inherit !important;
+    text-align: center;
+}
+
+/* Basic styles for the toast */
+.toast {
+    visibility: hidden;
+    width: auto;
+    min-width: 300px;
+    margin-left: -125px;
+    background-color: var( --main-theme-color );
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    position: fixed;
+    z-index: 111111;
+    left: 50%;
+    bottom: 30px;
+    font-size: 18px;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+.toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+.dataTables_empty {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+.form-check-label {
+    text-transform: capitalize;
+}
+
+.card {
+    margin-bottom: 10px;
+}
+
+.card-header .title {
+    font-size: 16px;
+    color: #fff;
+}
+
+.card-header .accicon {
+    float: right;
+    font-size: 20px;
+    width: 1.2em;
+}
+
+.card-header {
+    cursor: pointer;
+    border-bottom: none;
+}
+
+.accordion .card {
+    border: 1px solid var( --main-theme-color );
+}
+
+.card-body {
+    border-top: 1px solid var( --main-theme-color );
+}
+
+.card-header:not(.collapsed) .rotate-icon {
+    transform: rotate(180deg);
+}
+
+.card-header {
+    background-color: var( --main-theme-color );
+    ;
+}
+
+.rotate-icon {
+    color: #fff;
+}
+
+#accordionClientHistory fieldset {
+    border: 1px solid var( --main-theme-color );
+    padding: 0 30px;
+}
+
+legend {
+    width: auto;
+}
+
+.form-control-range {
+    accent-color: var( --main-theme-color );
+}
+
+.error-border {
+    /* border-color: red !important; */
+    border: 1px dashed red !important;
+}
+
+span.badge.bg-secondary.cursor-pointer {
+    min-width: 150px;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.alert p:first-of-type {
+    color: #fff !important;
+}
+
+.mt-20 {
+    margin-top: -20px !important;
+}
+
+.border-radius-10 {
+    border-radius: 10px;
+}
+
+.border-radius-15 {
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    border-color: var(--main-theme-border-color) !important;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+html::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 5px;
+}
+
+html::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F5F5F5;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #FFF;
+    background-image: -webkit-gradient(linear,
+            30% 0%,
+            65% 90%,
+            from(var(--main-theme-light-color)),
+            to(var(--main-theme-color)),
+            color-stop(.5, var( --main-theme-color )))
+}
+
+/**
+ * Employee & Client Registration form
+ */
+#employeeRegistrationForm,
+#clientForm {
+    padding: 40px;
+    border-radius: 12px;
+}
+
+#employeeRegistrationForm .form-header,
+#clientForm .form-header {
+    gap: 5px;
+    text-align: center;
+    font-size: 1em;
+}
+
+#employeeRegistrationForm .form-header .stepIndicator,
+#clientForm .form-header .stepIndicator {
+    position: relative;
+    flex: 1;
+    padding-bottom: 30px;
+}
+
+#employeeRegistrationForm .form-header .stepIndicator.active,
+#clientForm .form-header .stepIndicator.active {
+    font-weight: 600;
+}
+
+#employeeRegistrationForm .form-header .stepIndicator.finish,
+#clientForm .form-header .stepIndicator.finish {
+    font-weight: 600;
+    color: var( --main-theme-color );
+}
+
+#employeeRegistrationForm .form-header .stepIndicator::before,
+#clientForm .form-header .stepIndicator::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    z-index: 9;
+    width: 20px;
+    height: 20px;
+    background-color: var( --main-theme-border-color );
+    border-radius: 50%;
+    border: 3px solid var( --main-theme-color );
+}
+
+#employeeRegistrationForm .form-header .stepIndicator.active::before,
+#clientForm .form-header .stepIndicator.active::before {
+    background-color: var( --main-theme-border-color );
+    border: 3px solid var( --main-theme-color );
+}
+
+#employeeRegistrationForm .form-header .stepIndicator.active::before,
+#clientForm .form-header .stepIndicator.active::before {
+    background-color: var( --main-theme-color );
+    border: 3px solid #b7e1dd;
+}
+
+#employeeRegistrationForm .form-header .stepIndicator::after,
+#clientForm .form-header .stepIndicator::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    width: 100%;
+    height: 3px;
+    background-color: var( --main-theme-light-color );
+}
+
+#employeeRegistrationForm .form-header .stepIndicator.active::after,
+#clientForm .form-header .stepIndicator.active::after {
+    background-color: var( --main-theme-border-color );
+}
+
+#employeeRegistrationForm .form-header .stepIndicator.finish::after,
+#clientForm .form-header .stepIndicator.finish::after {
+    background-color: var( --main-theme-color );
+}
+
+#employeeRegistrationForm .form-header .stepIndicator:last-child:after,
+#clientForm .form-header .stepIndicator:last-child:after {
+    display: none;
+}
+
+#employeeRegistrationForm input,
+#employeeRegistrationForm select,
+#clientForm input,
+#clientForm select {
+    padding: 12px;
+    width: 100%;
+    font-size: 1em;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+}
+
+#employeeRegistrationForm input:focus,
+#clientForm input:focus {
+    border: 1px solid var( --main-theme-color );
+    outline: 0;
+}
+
+#employeeRegistrationForm input.invalid,
+#employeeRegistrationForm select.invalid,
+#employeeRegistrationForm textarea.invalid,
+#clientForm input.invalid,
+#clientForm select.invalid,
+#clientForm textarea.invalid {
+    border: 1px solid #ffaba5;
+}
+
+#employeeRegistrationForm .step,
+#clientForm .step {
+    display: none;
+}
+
+#employeeRegistrationForm .form-footer button,
+#clientForm .form-footer button {
+    background-color: var( --main-theme-color );
+    border: 1px solid var( --main-theme-color ) !important;
+    color: #ffffff;
+    border: none;
+    padding: 13px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    flex: 1;
+    margin-top: 5px;
+}
+
+#employeeRegistrationForm .form-footer button:hover,
+#clientForm .form-footer button:hover {
+    opacity: 0.8;
+}
+
+#employeeRegistrationForm .form-footer #prevBtn,
+#clientForm .form-footer #prevBtn {
+    background-color: #fff;
+    color: var( --main-theme-color );
+}
+
+#employeeRegistrationForm .form-footer button,
+#clientForm .form-footer button {
+    min-width: 150px;
+}
+
+#employeeRegistrationForm .text-end,
+#clientForm .text-end {
+    text-align: end;
+}
+
+#employeeRegistrationForm button:disabled,
+#clientForm button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed !important;
+}
+
+.stepIndicator {
+    cursor: pointer;
+}
+
+.iti__selected-flag {
+    top: 6px;
+    border-radius: 4px;
+    transition: .3s;
+}
+
+.mobile-number-with-country-flag {
+    padding-left: 47px !important;
+    top: 6px;
+}
+
+.iti {
+    display: block !important;
+}
+
+/**
+ * End Step Registration form
+ */
+
+/*Dashboard Tres*/
+
+.tree ul {
+    padding-top: 60px;
+    position: relative;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 60px 5px 0 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.tree li::before,
+.tree li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 60px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #ccc;
+}
+
+/*We need to remove left-right connectors from elements without any siblings*/
+.tree li:only-child::after,
+.tree li:only-child::before {
+    display: none;
+}
+
+/*Remove space from the top of single children*/
+.tree li:only-child {
+    padding-top: 0;
+    width: 100%;
+}
+
+/*Remove left connector from first child and
+right connector from last child*/
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before {
+    border-right: 1px solid #ccc;
+    border-radius: 0 5px 0 0;
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+    height: 60px;
+}
+
+/*Time to add downward connectors from parents*/
+.tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 60px;
+}
+
+.tree li a {
+    color: #fff;
+    font-size: 15px;
+    display: inline-block;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+select {
+    -webkit-appearance: auto !important;
+    -moz-appearance: auto !important;
+    appearance: auto !important;
+}
+
+.data-tables .fa-times,
+.data-tables .fa-check {
+    cursor: pointer;
+}
+
+.fa-times {
+    color: red;
+    font-size: 18px;
+}
+
+.fa-check {
+    color: green;
+    font-size: 22px;
+}
+
+/* TOGGLE STYLING */
+.toggle {
+    /* margin: 0 0 1.5rem; */
+    box-sizing: border-box;
+    font-size: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.toggle input {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -9999px;
+}
+
+.toggle input+label {
+    margin: 0;
+    padding: 0.5rem 0.5rem;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    border: solid 1px #DDD;
+    background-color: #FFF;
+    font-size: 1rem;
+    line-height: 140%;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    transition: border-color 0.15s ease-out, color 0.25s ease-out, background-color 0.15s ease-out, box-shadow 0.15s ease-out;
+    /* ADD THESE PROPERTIES TO SWITCH FROM AUTO WIDTH TO FULL WIDTH */
+    /*flex: 0 0 50%; display: flex; justify-content: center; align-items: center;*/
+    /* ----- */
+}
+
+.toggle input+label:first-of-type {
+    border-radius: 6px 0 0 6px;
+    border-right: none;
+}
+
+.toggle input+label:last-of-type {
+    border-radius: 0 6px 6px 0;
+    border-left: none;
+}
+
+.toggle input:hover+label {
+    border-color: #213140;
+}
+
+.toggle input:checked+label {
+    background-color: var( --main-theme-color );
+    color: #FFF;
+    box-shadow: 0 0 10px var(--main-theme-light-color);
+    border-color: var( --main-theme-color );
+    z-index: 1;
+}
+
+.toggle input:focus+label {
+    outline: dotted 1px #CCC;
+    outline-offset: 0.45rem;
+}
+
+@media (max-width: 800px) {
+    .toggle input+label {
+        padding: 0.75rem 0.25rem;
+        flex: 0 0 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* STYLING FOR THE STATUS HELPER TEXT FOR THE DEMO */
+.status {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.status span {
+    font-weight: 600;
+    color: var(--main-theme-light-color);
+}
+
+.status span:first-of-type {
+    display: inline;
+}
+
+.status span:last-of-type {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .status span:first-of-type {
+        display: none;
+    }
+
+    .status span:last-of-type {
+        display: inline;
+    }
+}
+
+.dataTables_wrapper {
+    padding: 1rem !important;
+}
+
+/* Chart.js */
+/*
+* DOM element rendering detection
+* https://davidwalsh.name/detect-node-insertion
+*/
+@keyframes chartjs-render-animation {
+    from {
+        opacity: 0.99;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.chartjs-render-monitor {
+    animation: chartjs-render-animation 0.001s;
+}
+
+/*
+* DOM element resizing detection
+* https://github.com/marcj/css-element-queries
+*/
+.chartjs-size-monitor,
+.chartjs-size-monitor-expand,
+.chartjs-size-monitor-shrink {
+    position: absolute;
+    direction: ltr;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: -1;
+}
+
+.chartjs-size-monitor-expand>div {
+    position: absolute;
+    width: 1000000px;
+    height: 1000000px;
+    left: 0;
+    top: 0;
+}
+
+.chartjs-size-monitor-shrink>div {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 0;
+    top: 0;
+}
+
+.fc-prev-button,
+.fc-next-button,
+.fc-today-button,
+.fc-dayGridMonth-button,
+.fc-dayGridWeek-button,
+.fc-list-button {
+    background-color: var(--main-theme-border-color) !important;
+    border: var(--main-theme-border-color);
+}
+
+.setting-menu li{
+    list-style:none;
+    width:125px;
+    padding: 0 5px;
+    height: 35px;
+    -webkit-transition: all .5s ease-in-out;
+    border-bottom: 1px solid;
+
+}
+
+.setting-menu li:hover{
+    background-color: var(--main-theme-border-color);
+    color: #fff;
+}
+
+.setting-menu li:nth-child(odd){
+    -webkit-transform-origin: top;
+    -webkit-transform: perspective(350px) rotateX(-90deg);
+}
+
+.setting-menu li:nth-child(even){
+    margin-top:-65px;
+    -webkit-transform-origin: bottom;
+    -webkit-transform: perspective(350px) rotateX(90deg);
+}
+
+.hov:hover li:nth-child(odd){
+    -webkit-transform-origin: top;
+    -webkit-transform: perspective(350px) rotateX(0deg);
+    margin-top:0;
+}
+
+.hov:hover li:nth-child(even){
+    -webkit-transform-origin: bottom;
+    -webkit-transform: perspective(350px) rotateX(0deg);
+    margin-top:0;
+}
+
+.hov span{
+    color: #000;
+}
+
+.setting-menu li:first-child{
+    margin-top: 10px !important;
+}
+
+.setting-menu li{
+    background-color: #fff;
+    margin-left: -30px;
+}
+
+.hov{
+    position: relative;
+    height: 40px;
+    color: var( --main-theme-color );
+    font-size: 15px;
+    line-height: 35px;
+    list-style: none;
+}
+
+.notification-area{
+    width: 10%;
+    text-align: center;
+    margin-left: -25px;
+}
+
+.iti--allow-dropdown{
+    margin-top: -5px;
+}
+
+.box .form-check-label{
+    margin-top: 5px;
+}
+.child-nested{
+    margin-left: 15px;
+}
+
+.client-thank-you-content, .employee-thank-you-content{
+    padding :30px;
+    text-align:center;
+}
+
+.thank-you-page h1{
+    font-family: 'Kaushan Script', cursive;
+    font-size:4em;
+    letter-spacing:3px;
+    color: var( --main-theme-color );
+    margin:0;
+    margin-bottom:20px;
+}
+
+.thank-you-page h4 {
+    margin: 0;
+    font-size: 1.3em;
+    margin-bottom: 14px;
+    color: #3e3e3e;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 1px;
+}
+
+.thank-you-page p {
+    margin: 0;
+    color: #5f5f5f;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 1px;
+    font-size: 18px;
+}
+
+.thank-you-page .go-home{
+    color:#fff;
+    background: var( --main-theme-color );
+    border:none;
+    padding:10px 50px;
+    border-radius:30px;
+    text-transform:capitalize;
+    box-shadow: 0 10px 16px 1px var(--main-theme-border-color);
+}
+
+#employeeRegistrationForm input, #employeeRegistrationForm textarea {
+    text-transform: uppercase;
+}
+
+.h1, h1{
+    font-size: 1.4rem !important;
+}
+
+.h3, h3{
+    font-size: 1.2rem !important;
+}
+
+.dropdown-toggle{
+    min-width: 50px !important;
+}
+
+.table-card-body{
+    padding: 0 !important;
+}
+
+.loader {
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid rgb(168, 168, 247);
+    border-right: 10px solid rgb(163, 248, 163);
+    border-bottom: 10px solid rgb(148, 231, 249);
+    border-left: 10px solid var( --main-theme-light-color );
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    }
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -105,7 +105,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/brochures-ajax-data', [BrochuresController::class, 'ajaxIndex'])->name('brochures.ajaxIndex');
 
     Route::get('/properties', [PropertiesController::class, 'index'])->name('admin.properties.index');
-    Route::get('/properties/create', [PropertiesController::class, 'create'])->name('admin.properties.create');
+    Route::get('/properties/cr0eate', [PropertiesController::class, 'create'])->name('admin.properties.create');
     Route::post('/properties/store', [PropertiesController::class, 'store'])->name('admin.properties.store');
     Route::get('/properties/edit/{id}', [PropertiesController::class, 'edit'])->name('admin.properties.edit');
     Route::post('/properties/update', [PropertiesController::class, 'update'])->name('admin.properties.update');
@@ -150,6 +150,14 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('visiting-card', 'Backend\VisitingCardController', ['names' => 'admin.visiting-card']);
     Route::get('/user-ajax-data', [VisitingCardController::class, 'ajaxIndex'])->name('visiting-card.ajaxIndex');
+
+    
+    Route::get('/designations', [DesignationsController::class, 'index'])->name('admin.designations.index');
+    Route::get('/designations/create', [DesignationsController::class, 'create'])->name('admin.designations.create');
+    Route::post('/designations/store', [DesignationsController::class, 'store'])->name('admin.designations.store');
+    Route::get('/designations/edit/{id}', [DesignationsController::class, 'edit'])->name('admin.designations.edit');
+    Route::post('/designations/update', [DesignationsController::class, 'update'])->name('admin.designations.update');
+    Route::get('/designations-ajax-data', [DesignationsController::class, 'ajaxIndex'])->name('designations.ajaxIndex');
 
     /**
      * Continent Management

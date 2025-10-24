@@ -13,13 +13,13 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
-    public function redirectAdmin()
-    {
-        return redirect()->route('admin.dashboard');
-    }
+    // public function redirectAdmin()
+    // {
+    //     return redirect()->route('admin.dashboard');
+    // }
 
     /**
      * Show the application dashboard.

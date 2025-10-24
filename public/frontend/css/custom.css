@@ -1,0 +1,1467 @@
+  * {
+      font-family: "Inter", sans-serif;
+  }
+
+  body {
+      padding-top: 100px;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+  }
+
+  /* navbar */
+  .navbar-brand img {
+      height: 50px;
+  }
+
+  .nav-link {
+      color: #000 !important;
+      font-weight: 500;
+      margin: 0 8px;
+  }
+
+  .nav-link:hover {
+      color: #b88a3d !important;
+  }
+
+  .top-icons {
+      white-space: nowrap;
+      /* prevent items from wrapping */
+      gap: 15px;
+  }
+
+  .top-icons span {
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+  }
+
+  .top-icons i {
+      margin-right: 5px;
+      color: #5a4a3f;
+  }
+
+  .btn-hot-offer {
+      background-color: #e20000;
+      color: white;
+      border-radius: 25px;
+      padding: 8px 20px;
+      font-weight: 600;
+  }
+
+  .btn-hot-offer:hover {
+      border: 1px solid #e20000;
+      /* same red as background */
+  }
+
+  .bi-gift-fill::before {
+      content: "\f3eb";
+      color: #fff;
+  }
+
+
+  .btn-list-property {
+      background-color: #b88a3d;
+      color: white;
+      border-radius: 25px;
+
+      padding: 8px 20px;
+      font-weight: 600;
+  }
+
+  .bi-house-door::before {
+      content: "\f423";
+      color: black;
+  }
+
+  .btn-list-property:hover {
+      border: 1px solid #b88a3d;
+      color: red;
+      /* same red as background */
+  }
+
+  .btn-list-property i {
+      margin-right: 5px;
+  }
+
+  /* Remove dropdown arrow from specific item */
+  .dropdown-toggle::after {
+      display: none !important;
+  }
+
+  /* Open first-level dropdown on hover */
+  .nav-item.dropdown:hover>.dropdown-menu {
+      display: block;
+  }
+
+  /* Open submenu (dropend) on hover */
+  .dropdown-menu .dropend:hover>.dropdown-menu {
+      display: block;
+      margin-left: 0.1rem;
+      /* small offset if needed */
+  }
+
+  /* Prevent default click behavior for parent links */
+  .dropdown-toggle::after {
+      display: none;
+      /* optional: hide arrow if needed */
+      border: none;
+  }
+
+  /* Custom CSS to open Bootstrap Dropdown on Hover */
+  .custom-hover-dropdown .dropdown-menu {
+      display: block;
+      /* Overrides default display: none; for debugging */
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease-in-out;
+      transform: translateY(10px);
+  }
+
+  .custom-hover-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+  }
+
+  /* Ensure the button styles match your image */
+  .btn-gold {
+      background-color: #A38B57;
+      /* Example gold/brown color */
+      color: white;
+      border-color: #A38B57;
+  }
+
+  .btn-gold:hover {
+      background-color: #8C7648;
+      border-color: #8C7648;
+      color: white;
+  }
+
+  .currency-dropdown .dropdown-menu.currency-menu {
+      width: 210px;
+      /* increase as needed */
+      display: flex;
+      /* horizontal layout */
+      gap: 10px;
+      /* spacing between buttons */
+      flex-wrap: wrap;
+      /* wrap to next line if too many */
+  }
+
+  /* Default button style */
+  .btn-currency {
+      background-color: #f0f0f0;
+      /* normal background */
+      color: #000;
+      transition: background-color 0.3s ease;
+      font-size: x-small;
+  }
+
+  /* On hover, make background gold */
+  .btn-currency:hover {
+      background-color: #A38B57;
+      ;
+      /* or #FFD700 */
+      color: #fff;
+      /* optional: change text color */
+  }
+
+  .currency-dropdown-sq .dropdown-menu.currency-menu {
+      width: 210px;
+      /* increase as needed */
+      display: flex;
+      /* horizontal layout */
+      gap: 10px;
+      /* spacing between buttons */
+      flex-wrap: wrap;
+      /* wrap to next line if too many */
+  }
+
+  /* slider page section */
+
+
+  /* Custom CSS for the Indicators and Colors */
+
+  /* Indicator Styling to look like an underscore */
+  #propertyCarousel .carousel-indicators button {
+      width: 30px;
+      /* Make them longer */
+      height: 3px;
+      /* Make them flat like an underscore */
+      background-color: #a08c69;
+      /* Use a color from the image */
+      opacity: 0.5;
+      transition: opacity 0.6s ease;
+      border-top: none;
+      /* Remove default indicator border */
+      border-bottom: none;
+      margin: 0 5px;
+      /* Spacing between indicators */
+  }
+
+  /* Active indicator style */
+  #propertyCarousel .carousel-indicators .active {
+      opacity: 1;
+      background-color: #927e5a;
+      /* A slightly darker/more prominent color when active */
+  }
+
+  /* Custom background color for the section */
+  .py-5 {
+      background-color: #f8f5ee;
+      /* Light tan color from the background */
+  }
+
+  /* Styling for the property value (assuming it's the price at the bottom) */
+  .card-footer .text-danger {
+      color: #927e5a !important;
+      /* Adjusting the price color to match the design */
+  }
+
+
+  .footer-links a {
+      color: #333;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.3s ease;
+  }
+
+  .footer-links a i {
+      width: 12px;
+      /* keeps arrow space fixed */
+      display: inline-block;
+      text-align: center;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* arrow moves to the right + fades */
+  .footer-links a:hover i {
+      opacity: 0;
+      transform: translateX(5px);
+  }
+
+  /* text moves slightly to the left */
+  .footer-links a:hover {
+      color: #a47a46;
+      /* theme color */
+      transform: translateX(-18px);
+  }
+
+
+  /* ===============================
+   Office Address Section
+================================= */
+  .office-address-section {
+      color: #333;
+  }
+
+  .office-heading {
+      font-weight: 500;
+      color: #333;
+  }
+
+  .office-subtitle {
+      font-weight: 500;
+      color: #333;
+  }
+
+  .office-text {
+      color: #333;
+      line-height: 1.6;
+  }
+
+  /* ===============================
+   Social Media Buttons
+================================= */
+  .btn-social {
+      background-color: #a47a46;
+      color: #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+  }
+
+  .btn-social:hover {
+      background-color: #8c6539;
+      transform: scale(1.05);
+      color: #fff;
+  }
+
+  /* Responsive adjustment for small screens */
+  @media (max-width: 576px) {
+      .social-icons {
+          justify-content: center;
+          flex-wrap: wrap;
+      }
+
+      .btn-social {
+          margin-bottom: 10px;
+      }
+  }
+
+  /* ===============================
+   Contact Section
+================================= */
+  .contact-section {
+      color: #333;
+  }
+
+  .contact-heading {
+      font-weight: 500;
+      color: #333;
+  }
+
+  .contact-list {
+      padding: 0;
+      margin: 0;
+  }
+
+  .contact-icon {
+      font-size: 2rem;
+      color: #333;
+  }
+
+  .contact-info {
+      color: #333;
+  }
+
+  .contact-text {
+      font-weight: 500;
+  }
+
+  .contact-link {
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s ease;
+  }
+
+  .contact-link:hover {
+      color: #aa8038;
+      text-decoration: underline;
+  }
+
+
+  /* ===============================
+   Newsletter Form
+================================= */
+  .newsletter-input {
+      border: 1px solid #ccc;
+      padding: 12px 15px;
+      width: 100%;
+      border-radius: 4px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .newsletter-input:focus {
+      border-color: #aa8038;
+      box-shadow: 0 0 5px rgba(164, 122, 70, 0.3);
+      outline: none;
+  }
+
+  .newsletter-button {
+      background-color: #a47a46;
+      color: white;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .newsletter-button:hover {
+      background-color: #8c6539;
+      transform: translateY(-2px);
+  }
+
+
+  /* Default color */
+  .bi-gift-fill::before {
+      content: "\f3eb";
+      color: #fff;
+      transition: color 0.3s;
+      /* smooth color transition */
+  }
+
+  /* Change color on hover of the parent link */
+  a:hover .bi-gift-fill::before {
+      color: black;
+      /* your desired hover color */
+  }
+
+  .bi-house-door::before {
+      content: "\f423";
+      color: white;
+  }
+
+  a:hover .bi-house-door::before {
+      color: black;
+      /* your desired hover color */
+  }
+
+  .btn-list-property:hover {
+      border: 1px solid #b88a3d;
+      color: black;
+      /* same red as background */
+  }
+
+
+
+  /* Carousel Content */
+
+
+  /* Titles */
+  .carousel-title {
+      font-size: 64px;
+      line-height: 72px;
+      font-weight: 600;
+      color: #000;
+  }
+
+  /* Subtitle */
+  .carousel-subtitle {
+      color: #000;
+  }
+
+  /* Tabs */
+  .carousel-tabs {
+      gap: 0;
+  }
+
+  .tab-search {
+      background-color: #aa8038;
+      border-radius: 10px 0 0 0;
+      border: none;
+      margin: 0;
+      color: #fff;
+  }
+
+  .tab-project {
+      background-color: #fdf3de;
+      border-radius: 0 10px 0 0;
+      border: none;
+      margin: 0;
+      color: #000;
+  }
+
+  /* Tab Content Box */
+  .carousel-tab-content {
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 1rem;
+  }
+
+  /* Property Search Inputs */
+  .input-group-search .search-input {
+      width: 250px;
+      border-radius: 0;
+  }
+
+  .input-group-search .search-select {
+      width: 160px;
+      border-radius: 0;
+  }
+
+  /* New Project Inputs */
+  .input-group-project .project-input {
+      width: 100%;
+      border-radius: 0;
+  }
+
+  .input-group-project .project-select {
+      width: 160px;
+      border-radius: 0;
+  }
+
+  /* Buttons */
+  .search-btn {
+      border-radius: 10px;
+      background-color: #aa8038;
+      color: #fff;
+  }
+
+  /* Card Type Button */
+  .btn-type {
+      background-color: #aa8038;
+      color: #fff;
+  }
+
+  /* Badge Colors */
+  .badge-new {
+      background-color: #6c757d;
+      /* Secondary */
+      color: #fff;
+  }
+
+  .badge-sell {
+      background-color: #0d6efd;
+      /* Primary */
+      color: #fff;
+  }
+
+  /* Icon Buttons */
+  .btn-icon {
+      background-color: #aa8038;
+      color: #fff;
+  }
+
+  /* Divider */
+  .property-divider {
+      width: 100%;
+      border: 0.3px solid #be9e67;
+      margin: 0.5rem auto;
+  }
+
+  /* Price Text */
+  .property-price {
+      color: #be9e67;
+  }
+
+  /* Logo */
+  .property-logo {
+      width: 120px;
+  }
+
+  /* Card type button for property type */
+  .btn-type {
+      background-color: #aa8038;
+      color: #fff;
+  }
+
+
+
+  /* Normal dropdown links */
+  .dropdown-item {
+      background-color: transparent;
+      /* default background */
+      color: #333;
+      /* default text color */
+  }
+
+  /* Hover, focus, and active states */
+  .dropdown-item:focus,
+  .dropdown-item:active {
+      background-color: #aa8038 !important;
+      /* your custom color */
+      color: #fff !important;
+      /* optional: white text */
+  }
+
+  .dropdown-item:hover {
+      color: #aa8038;
+  }
+
+  /* Remove the blue focus outline Bootstrap adds */
+  .dropdown-item:focus {
+      outline: none !important;
+      box-shadow: none !important;
+  }
+
+  /* Normal dropdown links */
+  .dropdown-item {
+      background-color: transparent;
+      /* default background */
+      color: #333;
+      /* default text color */
+  }
+
+  /* Hover, focus, and active states */
+  .dropdown-item:focus,
+  .dropdown-item:active {
+      background-color: #aa8038 !important;
+      /* your custom color */
+      color: #fff !important;
+      /* optional: white text */
+  }
+
+  .dropdown-item:hover {
+      color: #aa8038;
+  }
+
+  /* Remove the blue focus outline Bootstrap adds */
+  .dropdown-item:focus {
+      outline: none !important;
+      box-shadow: none !important;
+  }
+
+  .section-title {
+      color: #000;
+      font-size: 45px;
+  }
+
+  .property-card {
+      border-radius: 10px;
+      position: relative;
+      padding-bottom: 6px;
+  }
+
+  .property-icon {
+      display: block;
+      margin: 0 auto;
+      /* centers horizontally */
+      max-width: 50%;
+      height: auto;
+  }
+
+  .card-title {
+      text-align: center;
+  }
+
+  .property-text {
+      text-align: start;
+      color: #000;
+      font-size: small;
+      padding-top: 0.5rem;
+  }
+
+  .property-btn {
+      background-color: #aa8038;
+      border-color: #aa8038;
+      color: #fff;
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      border-radius: 50px;
+      padding: 0.5rem 1rem;
+  }
+
+  .property-btn:hover {
+      border: 1px solid #aa8038;
+      ;
+  }
+
+  .section-title {
+      font-size: 45px;
+      color: #000;
+  }
+
+  .section-subtitle {
+      font-size: smaller;
+      color: #6c757d;
+      /* matches Bootstrap text-muted */
+  }
+
+
+
+  .contact-card {
+      /* Styles to match the rounded white cards */
+      border: none;
+      border-radius: 0.5rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+  }
+
+  .contact-info-section .contact-card {
+      /* Adjustments for the smaller info cards */
+      min-height: 180px;
+      /* Ensures consistent height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+  }
+
+  .icon-box {
+      color: #aa8038;
+      /* Primary color for icons/accents */
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+  }
+
+  .accent-color {
+      color: #aa8038;
+      /* Text color for the heading */
+  }
+
+  .btn-custom {
+      background-color: #aa8038;
+      /* Custom button color */
+      border-color: #aa8038;
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+  }
+
+  .btn-custom:hover {
+      background-color: #aa8038;
+      /* Slightly darker on hover */
+      border-color: #aa8038;
+      color: white;
+  }
+
+  .fs-3 {
+      font-size: 3.75rem !important;
+  }
+
+  .card-text {
+      font-size: 0.9rem;
+      margin-top: 10px;
+  }
+
+
+  .content-container {
+      text-align: justify;
+  }
+
+  .mission-vision-section {
+      padding: 50px 0;
+      /* Add some vertical space */
+      background-color: #f8f8f8;
+      /* Light background for context */
+  }
+
+  .mission-vision-card {
+      border: 1px solid #e0e0e0;
+      /* Light border */
+      border-radius: 10px;
+      /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      /* Subtle shadow */
+      padding-bottom: 20px;
+      /* Space inside the card */
+      min-height: 500px;
+      /* Ensures both cards are the same height */
+  }
+
+  .card-header-line {
+      height: 10px;
+      border-radius: 10px 10px 0 0;
+      background-color: #c49a6c;
+      /* Gold/Brown color from screenshot */
+  }
+
+  .icon-container {
+      padding: 20px;
+      text-align: center;
+  }
+
+  .icon-container img {
+      width: 80px;
+      /* Size for the icon */
+      height: 80px;
+      /* Placeholder for the actual icon image */
+      /* You would replace this with your actual image path or SVG */
+  }
+
+  .card-title-custom {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #584b72;
+      /* Dark purple/blue text color */
+  }
+
+
+  .card-body p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      text-align: justify;
+      color: #555;
+      padding: 0 15px;
+      text-align: left;
+  }
+
+  .main-heading {
+      color: #aa8038 !important;
+      font-size: xx-large;
+      padding-top: 90px;
+  }
+
+  .list-unstyled {
+      color: #575a7b;
+      font-size: 15px;
+      text-align: justify;
+  }
+
+
+  /* Custom Outlined Buttons (Villa, Townhouse, etc.) */
+  .btn-outline-custom {
+      color: var(--custom-gold);
+      border-color: var(--custom-gold);
+      background-color: transparent;
+      border-radius: 8px;
+  }
+
+  /* REMOVING HOVER EFFECT: Set hover and focus to match default state */
+  .btn-outline-custom:hover,
+  .btn-outline-custom:focus {
+      /* Keep default colors */
+      color: var(--custom-gold);
+      /* Stays gold text */
+      background-color: transparent;
+      /* Stays clear background */
+      border-color: var(--custom-gold);
+      /* Stays gold border */
+      box-shadow: none;
+      /* Removes any default Bootstrap focus glow */
+  }
+
+  /* Custom Filled Button (Reset) */
+  .btn-custom-filled {
+      color: #fff;
+      background-color: var(--custom-filled-bg);
+      border-color: var(--custom-filled-bg);
+      border-radius: 8px;
+  }
+
+  /* REMOVING HOVER EFFECT: Set hover and focus to match default state */
+  .btn-custom-filled:hover,
+  .btn-custom-filled:focus {
+      /* Keep default colors */
+      color: #fff;
+      /* Stays white text */
+      background-color: var(--custom-filled-bg);
+      /* Stays original filled background */
+      border-color: var(--custom-filled-bg);
+      /* Stays original border color */
+      box-shadow: none;
+  }
+
+  /* The 'Done' button is a standard Bootstrap light button, so we target its hover/focus */
+  .btn-light:hover,
+  .btn-light:focus {
+      /* Keep its default look */
+      color: #212529;
+      /* Black text */
+      background-color: #f8f9fa;
+      /* White background */
+      border-color: #f8f9fa;
+      /* Light border */
+      box-shadow: none;
+      opacity: 1;
+      /* Ensure no opacity changes from default Bootstrap hover */
+  }
+
+  .custom-nav-links .nav-link {
+      background-color: transparent;
+      color: #000;
+      /* Default text color */
+      border: none;
+      font-weight: bold;
+      padding: 0;
+      margin: 0;
+      opacity: 0.5;
+      /* Fade out the inactive link */
+      transition: opacity 0.2s;
+  }
+
+  /* Remove Blue Color for Active/Selected Link */
+  .custom-nav-links .nav-link.active {
+      background-color: transparent;
+      /* Removes the blue background */
+      color: #000;
+      /* Keeps the text color black */
+      opacity: 1;
+      /* Keep the active link fully visible */
+      border: none;
+      /* Ensure no border */
+      /* Also target the :focus state to prevent blue highlight when tab is clicked */
+  }
+
+  /* Remove blue border/shadow on focus */
+  .custom-nav-links .nav-link:focus {
+      box-shadow: none;
+      border-color: transparent;
+  }
+
+  /* Custom CSS to style the active pagination link */
+  .pagination .page-item.active .page-link {
+      background-color: #aa8038 !important;
+      border-color: var(--custom-gold) !important;
+      color: white !important;
+      /* Text color for the active link */
+      box-shadow: none;
+      /* Remove any default focus glow */
+  }
+
+  /* Also ensure non-active page links have a clean look on hover/focus */
+  .pagination .page-link:hover,
+  .pagination .page-link:focus {
+      color: var(--custom-gold);
+      /* Keep text color your brand gold on hover */
+      background-color: transparent;
+      /* Keep background white/transparent */
+      border-color: #dee2e6;
+      /* Keep default light border */
+      box-shadow: none;
+  }
+
+  .pagination .page-link {
+      color: #000;
+  }
+
+  /* ===============================
+   Filter and Search Buttons
+================================= */
+  .filter-btn {
+      background-color: #fff5e0;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .filter-btn:hover {
+      background-color: #f1e2c8;
+      transform: translateY(-2px);
+  }
+
+  .search-btn {
+      background-color: #aa8038;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .search-btn:hover {
+      background-color: #8c6539;
+      transform: translateY(-2px);
+  }
+
+  /* ===============================
+   Properties Header Section
+================================= */
+  .properties-title {
+      font-size: 2rem;
+      font-weight: 600;
+      /* combines fw-normal and fw-semibold */
+      margin-bottom: 0.5rem;
+  }
+
+  .properties-count {
+      color: #a47a46;
+      font-size: 1rem;
+  }
+
+  /* ===============================
+   Office Address Section
+================================= */
+  .office-address-section {
+      color: #333;
+  }
+
+  .office-heading {
+      font-weight: 500;
+      color: #333;
+  }
+
+  .office-subtitle {
+      font-weight: 500;
+      color: #333;
+  }
+
+  .office-text {
+      color: #333;
+      line-height: 1.6;
+  }
+
+  /* ===============================
+   Social Media Buttons
+================================= */
+  .btn-social {
+      background-color: #a47a46;
+      color: #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+  }
+
+  .btn-social:hover {
+      background-color: #8c6539;
+      transform: scale(1.05);
+      color: #fff;
+  }
+
+  /* Responsive adjustment for small screens */
+  @media (max-width: 576px) {
+      .social-icons {
+          justify-content: center;
+          flex-wrap: wrap;
+      }
+
+      .btn-social {
+          margin-bottom: 10px;
+      }
+  }
+
+
+  /* The main container's width is set by Bootstrap's col-lg-8.
+    We'll set the line and dots relative to the center of this container.
+    */
+  .timeline-container {
+      position: relative;
+      /* No extra padding needed here */
+  }
+
+  /* Vertical Line: Set to 50% from the left */
+  .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      /* Position the line exactly in the middle */
+      transform: translateX(-50%);
+      /* Shift it back by half its width to truly center it */
+      width: 2px;
+      height: 100%;
+      background-color: #ddd;
+      /* Light grey line */
+      z-index: 1;
+      /* Ensure line is behind the dots */
+  }
+
+  .timeline-step {
+      position: relative;
+      margin-bottom: 40px;
+
+  }
+
+  /* Dot: Set to 50% from the left, slightly larger, and centered on the line */
+  .timeline-dot {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      /* Position the dot at the center line */
+      transform: translateX(-50%);
+      /* Shift it back by half its width to truly center it */
+      width: 18px;
+      /* Slightly larger for visibility */
+      height: 18px;
+      background-color: #aa8038;
+      /* Accent color */
+      border-radius: 50%;
+      z-index: 10;
+      /* Ensure dot is on top of the line */
+      border: 2px solid #fff;
+      /* White border to stand out */
+  }
+
+  /* Content Alignment */
+  .step-text-right {
+      text-align: left;
+  }
+
+  .step-text-left {
+      text-align: right;
+  }
+
+  .step-title-color {
+      color: #aa8038;
+  }
+
+  .desc {
+      font-size: 14px;
+      line-height: 1.5em;
+      word-spacing: 1px;
+      color: #888;
+      direction: ltr;
+      text-align: justify;
+  }
+
+  .timeline-title {
+      color: #aa8038;
+      font-size: 14px;
+  }
+
+  /* ===============================
+   Content Section
+================================= */
+  .content-section {
+      padding: 2rem 0;
+  }
+
+  .content-container {
+      text-align: center;
+
+  }
+
+  .content-text {
+      color: #575a7b;
+      font-size: 1rem;
+      line-height: 1.6;
+      text-align: justify;
+  }
+
+  .section-title {
+      color: #aa8038;
+      font-size: x-large;
+      font-weight: 600;
+  }
+
+  .section-subtitle {
+      color: #8e8e93;
+      font-size: 1.2rem;
+
+  }
+
+  /* ===============================
+   Main Heading / Guide Title
+================================= */
+  .guide-title {
+      font-size: 50px;
+      line-height: 72px;
+      font-weight: 700;
+  }
+
+  .guide-heading {
+      font-size: 55px;
+      line-height: 72px;
+      font-weight: 700;
+  }
+
+  .timeline-title {
+      color: #aa8038;
+      font-size: 14px;
+
+  }
+
+  .description {
+      color: #575a7b;
+      font-size: 1rem;
+      text-align: start;
+  }
+
+  .highlight-heading {
+      color: #aa8038;
+      font-size: x-large;
+  }
+
+  .sub-heading {
+      color: #8e8e93;
+      font-size: 1.2rem;
+  }
+
+
+  /* Normal dropdown links */
+  .dropdown-item {
+      background-color: transparent;
+      /* default background */
+      color: #333;
+      /* default text color */
+  }
+
+  /* Hover, focus, and active states */
+  .dropdown-item:focus,
+  .dropdown-item:active {
+      background-color: #aa8038 !important;
+      /* your custom color */
+      color: #fff !important;
+      /* optional: white text */
+  }
+
+  .dropdown-item:hover {
+      color: #aa8038;
+  }
+
+  /* Remove the blue focus outline Bootstrap adds */
+  .dropdown-item:focus {
+      outline: none !important;
+      box-shadow: none !important;
+  }
+
+  /* Custom Outlined Buttons (Villa, Townhouse, etc.) */
+  .btn-outline-custom {
+      color: var(--custom-gold);
+      border-color: var(--custom-gold);
+      background-color: transparent;
+      border-radius: 8px;
+  }
+
+  /* REMOVING HOVER EFFECT: Set hover and focus to match default state */
+  .btn-outline-custom:hover,
+  .btn-outline-custom:focus {
+      /* Keep default colors */
+      color: var(--custom-gold);
+      /* Stays gold text */
+      background-color: transparent;
+      /* Stays clear background */
+      border-color: var(--custom-gold);
+      /* Stays gold border */
+      box-shadow: none;
+      /* Removes any default Bootstrap focus glow */
+  }
+
+  /* Custom Filled Button (Reset) */
+  .btn-custom-filled {
+      color: #fff;
+      background-color: var(--custom-filled-bg);
+      border-color: var(--custom-filled-bg);
+      border-radius: 8px;
+  }
+
+  /* REMOVING HOVER EFFECT: Set hover and focus to match default state */
+  .btn-custom-filled:hover,
+  .btn-custom-filled:focus {
+      /* Keep default colors */
+      color: #fff;
+      /* Stays white text */
+      background-color: var(--custom-filled-bg);
+      /* Stays original filled background */
+      border-color: var(--custom-filled-bg);
+      /* Stays original border color */
+      box-shadow: none;
+  }
+
+  /* The 'Done' button is a standard Bootstrap light button, so we target its hover/focus */
+  .btn-light:hover,
+  .btn-light:focus {
+      /* Keep its default look */
+      color: #212529;
+      /* Black text */
+      background-color: #f8f9fa;
+      /* White background */
+      border-color: #f8f9fa;
+      /* Light border */
+      box-shadow: none;
+      opacity: 1;
+      /* Ensure no opacity changes from default Bootstrap hover */
+  }
+
+  .custom-radio-box {
+      border: 1px solid #dee2e6;
+      /* Light gray border for the box */
+      border-radius: 8px;
+      padding: 5px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #fff;
+  }
+
+  .custom-radio-box .btn {
+      border: 1px solid #aa8038;
+      /* Gold border */
+      color: #000;
+      border-radius: 12px;
+      padding: 1px 14px;
+  }
+
+  .custom-radio-box .btn-check:checked+.btn {
+      background-color: #aa8038;
+      /* Gold background when active */
+      color: #fff;
+      border-color: #aa8038;
+  }
+
+  .custom-radio-box .btn:hover {
+      background-color: #aa8038;
+      color: #fff;
+      border-color: #aa8038;
+  }
+
+  .custom-card {
+      width: 100%;
+      height: 100%;
+      padding: 2em 1.5em;
+      border-radius: 5px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      transition: 0.5s;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      background: #fff;
+  }
+
+  .card-img-top-container {
+      height: 320px;
+      /* Fixed height for consistent image size */
+      overflow: hidden;
+  }
+
+  .card-img-top-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ensures image covers the container */
+  }
+
+  /* Custom styling to match the light background effect around the text */
+  .card-body {
+
+      text-align: justify;
+  }
+
+  .investment-section {
+      color: #575a7b;
+      text-align: justify;
+      padding-left: 50px;
+      font-size: 1rem;
+      /* same as Bootstrap 'small' */
+  }
+
+  .investment-heading {
+      color: #aa8038;
+      font-size: medium;
+      font-weight: normal;
+      text-align: start;
+      margin-bottom: 1.5rem;
+  }
+
+  .investment-text {
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+  }
+
+  .investment-list-section {
+      color: #575a7b;
+      padding-left: 70px;
+      font-size: 1rem;
+      /* matches Bootstrap 'small' */
+  }
+
+  .investment-list-heading {
+      color: #aa8038;
+      font-size: medium;
+      font-weight: normal;
+      text-align: start;
+      margin-bottom: 1.5rem;
+  }
+
+  .investment-list li {
+      margin-bottom: 0.5rem;
+  }
+
+  .main-heading-2 {
+      color: #aa8038 !important;
+      font-size: x-large;
+  }
+
+  .content-container .main-heading {
+      color: #000;
+      font-size: 45px;
+
+  }
+
+  .content-container .sub-heading {
+      color: #575a7b;
+      font-size: 15px;
+      text-align: start;
+      font-weight: 300;
+  }
+
+  .content-container .lead-text {
+      color: #575a7b;
+      font-size: 1rem;
+  }
+
+  .content-container .mortgage-list li {
+      margin-bottom: 0.5rem;
+  }
+
+  .list-unstyled {
+      color: #575a7b;
+      font-size: 15px;
+      text-align: justify;
+  }
+
+
+  .section-title {
+      color: #000;
+      font-size: 45px;
+  }
+
+  .signup-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      background-color: white;
+  }
+
+  .image-column {
+      background-image: url("{{ asset('frontend/assets/images/img/bg-register.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      min-height: 100%;
+  }
+
+  .btn-sign-in {
+      background-color: #d4a761;
+      border-color: #d4a761;
+      color: white;
+      padding: 0.5rem 2rem;
+      transition: background-color 0.3s;
+  }
+
+  .btn-sign-in:hover {
+      background-color: #c09455;
+      border-color: #c09455;
+  }
+
+  .form-control {
+      border-radius: 0%;
+  }
+
+  .form-control:focus {
+      border-color: #d4a761;
+      box-shadow: none;
+  }
+
+   .content-container {
+      text-align: justify;
+    }
+
+    .content-container p {
+      color: #575a7b;
+      font-size: 1rem;
+    }
+
+    /* ===============================
+          Recent Blogs List
+        ================================= */
+
+          .card-img-top-custom {
+      height: 200px;
+      /* Set a fixed height for consistency */
+      object-fit: cover;
+      /* Ensures the image covers the area without distortion */
+    }
+
+    .recent-blogs .blog-item {
+      border: 0;
+      padding: 0;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .recent-blogs .blog-item:hover {
+      background-color: #f8f8f8;
+    }
+
+    .blog-thumb {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .blog-title {
+      font-size: 0.875rem;
+      /* small */
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .recent-blogs .blog-item .flex-grow-1 {
+      overflow: hidden;
+    }
+
+      .text-date-category {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
