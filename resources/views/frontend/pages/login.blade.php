@@ -59,6 +59,15 @@
                 </div>
             </div>
 
+            <style>
+                .image-column {
+                    background-image: url('public/frontend/assets/images/img/bg-register.jpg');
+                    background-size: cover;
+                    background-position: center;
+                    min-height: 100%;
+                }
+
+            </style>
             <!-- Image Column -->
             <div class="col-lg-6 d-none d-lg-block image-column"></div>
         </div>

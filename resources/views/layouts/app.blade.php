@@ -44,7 +44,7 @@
                 <!-- Center: Nav Links -->
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('rent.properties') }}">Rent</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('off-plan') }}">Off Plan</a></li>
@@ -79,7 +79,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="exploreMoreDropdown">
                                 <li class="dropend">
-                                    <a class="dropdown-item" href="{{ route('about-us') }}about-us">About Guide</a>
+                                    <a class="dropdown-item" href="{{ route('about-us') }}">About Guide</a>
                                     <a class="dropdown-item" href="{{ route('buyer-guide') }}">Buyer's Guide</a>
                                     <a class="dropdown-item" href="{{ route('seller-guide') }}">Seller's Guide</a>
                                     <a class="dropdown-item" href="{{ route('tenant-guide') }}">Tenant's Guide</a>

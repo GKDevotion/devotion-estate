@@ -38,7 +38,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/password/reset/submit', 'Backend\Auth\ForgetPasswordController@reset')->name('admin.password.update');
 
     // Dashboard Routes
-    Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
+    Route::get('/admin', 'Backend\DashboardController@index')->name('admin.dashboard');
     Route::get('/{slug?}/{id?}/company', [DashboardController::class, 'CompanyManagement']);
     Route::get('/{slug?}/{id?}/company/{cid?}', [DashboardController::class, 'DepartmentManagement']);
 
