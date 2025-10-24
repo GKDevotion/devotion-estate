@@ -7,12 +7,12 @@
 
 
 
-  <title>{{ config('app.name', 'Devotion') }} / @yield('title', 'Page')</title>
+    <title>{{ config('app.name', 'Devotion') }} / @yield('title', 'Page')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-      <link rel="icon" href="public\frontend\assets\images\Devotion Real Estate.png" type="image/x-icon">
+    <link rel="icon" href="public\frontend\assets\images\Devotion Real Estate.png" type="image/x-icon">
     <!-- Styles -->
     <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -24,9 +24,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
-
-
 <body>
+    
     <div id="app">
 
         <!-- Navbar -->
@@ -46,10 +45,10 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="buy-properties">Buy</a></li>
-                        <li class="nav-item"><a class="nav-link" href="rent-properties">Rent</a></li>
-                        <li class="nav-item"><a class="nav-link" href="off-plan">Off Plan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="luxury-properties">Luxury Properties</a>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('rent.properties') }}">Rent</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('off-plan') }}">Off Plan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('luxury.properties') }}">Luxury Properties</a>
                         </li>
 
                         <!-- Our Services Dropdown -->
@@ -61,15 +60,15 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="ourServicesDropdown" style="min-width: 200px;">
                                 <li>
-                                    <a class="dropdown-item" href="investment-advisory">Investment
+                                    <a class="dropdown-item" href="{{ route('investment-advisory') }}">Investment
                                         And Advisory</a>
-                                    <a class="dropdown-item" href="mortage-advisory">Mortgage
+                                    <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage
                                         Advisory</a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('blog') }}">Blog</a></li>
 
                         <!-- Explore More Dropdown -->
                         <li class="nav-item dropdown">
@@ -80,15 +79,15 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="exploreMoreDropdown">
                                 <li class="dropend">
-                                    <a class="dropdown-item" href="about-us">About Guide</a>
-                                    <a class="dropdown-item" href="buyer-guide">Buyer's Guide</a>
-                                    <a class="dropdown-item" href="seller-guide">Seller's Guide</a>
-                                    <a class="dropdown-item" href="tenant-guide">Tenant's Guide</a>
+                                    <a class="dropdown-item" href="{{ route('about-us') }}about-us">About Guide</a>
+                                    <a class="dropdown-item" href="{{ route('buyer-guide') }}">Buyer's Guide</a>
+                                    <a class="dropdown-item" href="{{ route('seller-guide') }}">Seller's Guide</a>
+                                    <a class="dropdown-item" href="{{ route('tenant-guide') }}">Tenant's Guide</a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="contact-us">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('contact-us') }}">Contact Us</a></li>
                     </ul>
                 </div>
 
@@ -109,7 +108,8 @@
                                         <div class="col-4"><button
                                                 class="btn btn-outline-secondary btn-currency w-100">$ USD</button>
                                         </div>
-                                        <div class="col-4"><button class="btn btn-currency w-100">₹ INR</button></div>
+                                        <div class="col-4"><button class="btn btn-currency w-100">₹ INR</button>
+                                        </div>
                                     </div>
                                     <div class="row gx-2 justify-content-start">
                                         <div class="col-4"><button
@@ -157,7 +157,7 @@
             </div>
         </nav>
 
-        <main class="pt-5" >
+        <main class="pt-5">
             @yield('content')
         </main>
 

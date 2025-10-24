@@ -33,7 +33,7 @@
 
                     <p class="text-muted mb-4">
                         At Devotion Estate, accessible from
-                        <a href="https://devotionestate.com/" target="_blank" class="text-decoration-none text-primary">
+                        <a href="https://devotionestate.com/" target="_blank" class="text-decoration-none" style="color: #aa8038;">
                             https://devotionestate.com/
                         </a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document
                         contains types
@@ -74,7 +74,7 @@
                         information. The purpose is for analyzing trends, administering the site, tracking users' movement,
                         and
                         gathering demographic information. Our Privacy Policy was created with the help of the
-                        <a href="#" target="_blank" class="text-decoration-none text-primary">Privacy Policy
+                        <a href="#" target="_blank" class="text-decoration-none " style="color: #aa8038;">Privacy Policy
                             Generator</a>.
                     </p>
 
@@ -91,8 +91,8 @@
                     <p class="text-muted mb-0">
                         For more general information on cookies, please read the
                         <a href="#" target="_blank" rel="noopener noreferrer"
-                            class="text-decoration-none text-primary"
-                            aria-label="Read our Cookies article in the Privacy Policy">
+                            class="text-decoration-none "
+                            aria-label="Read our Cookies article in the Privacy Policy" style="color: #aa8038;">
                             "Cookies" article from the Privacy Policy Generator
                         </a>.
                     </p>

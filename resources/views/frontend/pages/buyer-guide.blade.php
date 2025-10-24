@@ -48,8 +48,8 @@
                     </p>
 
                     <div class="col-12 text-center">
-                        <h5 class="section-title mb-3">Guide to buying your property in Dubai</h5>
-
+                        <h5 class="section-title mb-3"></h5>
+                        <h5 class="highlight-heading mb-3">Guide to buying your property in Dubai</h5>
                         <p class="content-text text-start mb-4">
                             Buy a property in Dubai with the expertise and understanding of Dubai Land Department's Most
                             Active Agency,
