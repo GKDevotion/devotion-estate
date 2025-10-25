@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Properties extends Model
+class PropertyFeatureMap extends Model
 {
     use HasFactory;
-    // protected $table = 'admin_menus';
-    // protected $guarded = array();
+    protected $table = "property_feature_map";
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'property_id',
+        'feature_id',
+        'status',
+    ];
 
     public static function boot()
     {
@@ -26,11 +37,7 @@ class Properties extends Model
         });
     }
 
-    public function single_image(){
-        return $this->hasOne( PropertyImageMap::class, 'property_id', 'id');
-    }
-
-    public function location(){
-        return $this->hasOne( Location::class, 'id', 'location_id');
-    }
+    // public function user(){
+    //     return $this->hasOne(User::class, 'id', 'user_id');
+    // }
 }

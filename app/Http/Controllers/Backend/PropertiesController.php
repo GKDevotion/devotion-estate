@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Location;
 use App\Models\Properties;
+use App\Models\PropertyType;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -57,29 +60,29 @@ class PropertiesController extends Controller
             $query->where( 'admin_id', $this->admin_id );
         }
 
-        $query->select('id','image', 'name', 'purpose','type','publish','area','price','address', 'sort_order','status', 'updated_at' );
+        $query->select('id', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count','status', 'updated_at' );
 
         return DataTables::eloquent($query)
             ->addColumn('id', function(Properties $ar) {
                 return $ar->id;
             })
-                 ->addColumn('image', function(Properties $ar) {
-                return $ar->image;
+            ->addColumn('unique_id', function(Properties $ar) {
+                return $ar->unique_id;
+            })
+            ->addColumn('image', function(Properties $ar) {
+                return $ar->single_image->image ?? '';
             })
             ->addColumn('name', function(Properties $ar) {
                 return $ar->name;
             })
             ->addColumn('purpose', function(Properties $ar) {
-                return $ar->purpose;
+                return $ar->purpose ? 'Rent' : 'Sale';
             })
             ->addColumn('type', function (Properties $ar) {
-                return $ar->type;
-            })
-            ->addColumn('purpose', function (Properties $ar) {
-                return $ar->purpose;
+                return $ar->type ? 'Commercial' : 'Residential';
             })
             ->addColumn('publish', function (Properties $ar) {
-                return $ar->publish;
+                return $ar->publish ? 'Published' : 'Un Publish';
             })
             ->addColumn('area', function (Properties $ar) {
                 return $ar->area;
@@ -87,13 +90,13 @@ class PropertiesController extends Controller
             ->addColumn('price', function (Properties $ar) {
                 return $ar->price;
             })
-            ->addColumn('address', function (Properties $ar) {
-                return $ar->address;
+            ->addColumn('location_id', function (Properties $ar) {
+                return $ar->location->name;
             })
-            ->addColumn('sort_order', function(Properties $ar) {
-                return $ar->sort_order;
+            ->addColumn('count', function(Properties $ar) {
+                return $ar->count;
             })
-            
+
            ->addColumn('status', function(Properties $ar) {
                 $status = "";
                 if( true ){
@@ -137,7 +140,7 @@ class PropertiesController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id','image', 'name', 'purpose','type','publish','area','price','address', 'sort_order', 'status','updated_at', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'image', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -169,7 +172,14 @@ class PropertiesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
 
-        return view('backend.pages.properties.create');
+        $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where( 'status', 1 )->get();
+        $locationObj = Location::select('id', 'name')->where( 'status', 1 )->get();
+        $agentObj = User::select('id', 'first_name', 'last_name')->where( [
+            'status' => 1,
+            'type' => 4
+        ] )->get();
+
+        return view('backend.pages.properties.create', compact( 'propertyTypeObj', 'locationObj', 'agentObj' ));
     }
 
     /**
@@ -179,6 +189,33 @@ class PropertiesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {
+        if (is_null($this->user) || !$this->user->can('properties.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create Location !');
+        }
+
+        if( $request->step == 1 ){
+
+            $request->validate([
+                'name' => 'required',
+                'seo_title' => 'required',
+                'h1_tag' => 'required',
+                'meta_description' => 'required',
+                'description' => 'required',
+            ]);
+        }
+
+        $propertyId = 0;
+        if( $request->step > 1 || $request->id != 0 ){
+            $propertyId = $request->id;
+        }
+
+        $personDataObj = storePropertyRecord( $request, $this->admin_id, $propertyId, 0 );
+
+        return response()->json( $personDataObj );
+    }
+
+    public function _store(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('properties.create')) {
             abort(403, 'Sorry !! You are Unauthorized to create Location !');
