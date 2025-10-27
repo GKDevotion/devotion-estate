@@ -1383,6 +1383,7 @@
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   .image-column {
       background-image: url("{{ asset('frontend/assets/images/img/bg-register.jpg') }}");
       background-size: cover;
@@ -1393,6 +1394,8 @@
 
 >>>>>>> admin-side
 
+=======
+>>>>>>> front-side
   .btn-sign-in {
       background-color: #d4a761;
       border-color: #d4a761;

@@ -44,7 +44,7 @@ Route::get('clear', function () {
 });
 
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('frontend.pages.home');
 });
 

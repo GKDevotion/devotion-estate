@@ -60,7 +60,10 @@
             </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> front-side
             <style>
                 .image-column {
                     background-image: url('public/frontend/assets/images/img/bg-register.jpg');
@@ -70,7 +73,10 @@
                 }
 
             </style>
+<<<<<<< HEAD
 >>>>>>> admin-side
+=======
+>>>>>>> front-side
             <!-- Image Column -->
             <div class="col-lg-6 d-none d-lg-block image-column"></div>
         </div>
