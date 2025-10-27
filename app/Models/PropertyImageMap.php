@@ -6,11 +6,22 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Properties extends Model
+class PropertyImageMap extends Model
 {
     use HasFactory;
-    // protected $table = 'admin_menus';
+    protected $table = 'property_image_map';
     // protected $guarded = array();
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'property_id',
+        'filename',
+        'status',
+    ];
 
     public static function boot()
     {
@@ -26,11 +37,7 @@ class Properties extends Model
         });
     }
 
-    public function single_image(){
-        return $this->hasOne( PropertyImageMap::class, 'property_id', 'id');
-    }
-
-    public function location(){
-        return $this->hasOne( Location::class, 'id', 'location_id');
-    }
+    // public function parent(){
+    //     return $this->hasOne( PropertyFeature::class, 'id', 'parent_id');
+    // }
 }

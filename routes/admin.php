@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Backend\AdminLogController;
 use App\Http\Controllers\Backend\AdminsController;
+use App\Http\Controllers\Backend\AgentsController;
 use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
 use App\Http\Controllers\Backend\ClientsController;
@@ -136,6 +137,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/owners/edit/{id}', [OwnersController::class, 'edit'])->name('admin.owners.edit');
     Route::post('/owners/update', [OwnersController::class, 'update'])->name('admin.owners.update');
     Route::get('/owners-ajax-data', [OwnersController::class, 'ajaxIndex'])->name('owners.ajaxIndex');
+
+    Route::get('/agents', [AgentsController::class, 'index'])->name('admin.agents.index');
+    Route::get('/agents/create', [AgentsController::class, 'create'])->name('admin.agents.create');
+    Route::post('/agents/store', [AgentsController::class, 'store'])->name('admin.agents.store');
+    Route::get('/agents/edit/{id}', [AgentsController::class, 'edit'])->name('admin.agents.edit');
+    Route::post('/agents/update', [AgentsController::class, 'update'])->name('admin.agents.update');
+    Route::get('/agents-ajax-data', [AgentsController::class, 'ajaxIndex'])->name('agents.ajaxIndex');
 
     Route::get('/clients', [ClientsController::class, 'index'])->name('admin.clients.index');
     Route::get('/clients/create', [ClientsController::class, 'create'])->name('admin.clients.create');

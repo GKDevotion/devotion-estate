@@ -23,8 +23,7 @@ tests
 *.exe
 *.mp4
 doc
-*-bkp.pdf
-*-bkp.php
+*-bkp.*
 step-form
 composer.lock
 /public/backend/assets/css/custom.css

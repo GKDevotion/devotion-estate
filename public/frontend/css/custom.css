@@ -1382,12 +1382,16 @@
       background-color: white;
   }
 
+<<<<<<< HEAD
   .image-column {
       background-image: url("{{ asset('frontend/assets/images/img/bg-register.jpg') }}");
       background-size: cover;
       background-position: center;
       min-height: 100%;
   }
+=======
+
+>>>>>>> admin-side
 
   .btn-sign-in {
       background-color: #d4a761;

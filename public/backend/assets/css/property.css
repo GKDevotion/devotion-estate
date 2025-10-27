@@ -1,0 +1,149 @@
+#PropertyRegistrationForm {
+    padding: 40px;
+    border-radius: 12px;
+}
+
+#PropertyRegistrationForm .form-header {
+    gap: 5px;
+    text-align: center;
+    font-size: 1em;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator {
+    position: relative;
+    flex: 1;
+    padding-bottom: 30px;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator.active {
+    font-weight: 600;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator.finish {
+    font-weight: 600;
+    color: #ab8134;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    z-index: 9;
+    width: 20px;
+    height: 20px;
+    background-color: #ab8134e0;
+    border-radius: 50%;
+    border: 3px solid #ab8134;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator.active::before {
+    background-color: #ab8134e0;
+    border: 3px solid #ab8134;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator.active::before {
+    background-color: #ab8134;
+    border: 3px solid #b7e1dd;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    width: 100%;
+    height: 3px;
+    background-color: #ab813478;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator.active::after {
+    background-color: #ab8134e0;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator.finish::after {
+    background-color: #ab8134;
+}
+
+#PropertyRegistrationForm .form-header .stepIndicator:last-child:after {
+    display: none;
+}
+
+#PropertyRegistrationForm input,
+#PropertyRegistrationForm select {
+    padding: 12px;
+    width: 100%;
+    font-size: 1em;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+}
+
+#PropertyRegistrationForm input:focus {
+    border: 1px solid #ab8134;
+    outline: 0;
+}
+
+#PropertyRegistrationForm input.invalid,
+#PropertyRegistrationForm select.invalid,
+#PropertyRegistrationForm textarea.invalid {
+    border: 1px solid #ffaba5;
+}
+
+#PropertyRegistrationForm .step {
+    display: none;
+}
+
+#PropertyRegistrationForm .form-footer button {
+    background-color: #ab8134;
+    border: 1px solid #ab8134 !important;
+    color: #ffffff;
+    border: none;
+    padding: 13px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    flex: 1;
+    margin-top: 5px;
+}
+
+#PropertyRegistrationForm .form-footer button:hover {
+    opacity: 0.8;
+}
+
+#PropertyRegistrationForm .form-footer #prevBtn {
+    background-color: #fff;
+    color: #ab8134;
+}
+
+#PropertyRegistrationForm .form-footer button {
+    min-width: 150px;
+}
+
+#PropertyRegistrationForm .text-end {
+    text-align: end;
+}
+
+#PropertyRegistrationForm button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed !important;
+}
+
+.stepIndicator {
+    cursor: pointer;
+}
+
+.iti__selected-flag {
+    top: 6px;
+    border-radius: 4px;
+    transition: .3s;
+}
+
+.mobile-number-with-country-flag {
+    padding-left: 47px !important;
+    top: 6px;
+}
+
+.iti {
+    display: block !important;
+}
