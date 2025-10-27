@@ -5,6 +5,7 @@ use App\Models\PropertyFeature;
 use App\Models\PropertyFeatureMap;
 use App\Models\PropertyImageMap;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 /**
  * Create employee records
@@ -93,34 +94,67 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
         if( $request->step == 3 || $request->_method == "PUT" ){
 
 
-            // //reset Property Feature Map status
-            // PropertyImageMap::where( 'property_id', $property_id )->update( ['status' => 0 ] );
+            $uploadedImages = [];
 
-            // foreach( uploadPropertyImageWithCenterLogo() as $filename ){
+            foreach ($request->file('propertyImage') as $file) {
+                // Create unique filename
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-            //     PropertyImageMap::updateOrCreate(
-            //         [
-            //             'property_id' => $property_id,
-            //             'filename' => $filename,
-            //         ], // Search criteria
-            //         [
-            //             'status' => 1
-            //         ] // Attributes to update or create
-            //     );
-            // }
+                // Open image
+                $img = Image::make($file->getRealPath());
 
-            // //update proper property status
-            // $propertyDataObj->publish = $request->publish;
-            // $propertyDataObj->status = $request->status;
-            // $propertyDataObj->save();
+                // Add copyright watermark (icon or text)
+                // 1️⃣ Add copyright text
+                $img->text('©DevotionEstate', $img->width() - 10, $img->height() - 10, function ($font) {
+                    $font->file(public_path('backend/assets/fonts/themify.ttf')); // optional custom font
+                    $font->size(24);
+                    $font->color([255, 255, 255, 0.8]);
+                    $font->align('left');
+                    $font->valign('bottom');
+                });
 
-            // $logoFile = public_path('img/devotion-trusted-real-estate.png');
+                // OR 2️⃣ Add watermark icon (replace with your logo path)
+                $watermark = public_path('img/devotion-trusted-real-estate.png'); // 100x100 transparent PNG
+                if (file_exists($watermark)) {
+                    $img->insert($watermark, 'bottom-right', 20, 10);
+                }
+
+                // Save to storage
+                $path = 'propertyImage/' . $filename;
+                Storage::put($path, (string) $img->encode());
+
+                $uploadedImages[] = [
+                    'image' => Storage::url($path),
+                    'filename' => $filename
+                ];
+            }
+
+            //reset Property Feature Map status
+            PropertyImageMap::where( 'property_id', $property_id )->update( ['status' => 0 ] );
+
+            foreach( $uploadedImages as $ar ){
+
+                PropertyImageMap::updateOrCreate(
+                    [
+                        'property_id' => $property_id,
+                        'image' => $ar['image'],
+                        'filename' => $ar['filename'],
+                    ], // Search criteria
+                    [
+                        'status' => 1
+                    ] // Attributes to update or create
+                );
+            }
+
+            //update proper property status
+            $propertyDataObj->publish = $request->publish;
+            $propertyDataObj->status = $request->status;
+            $propertyDataObj->save();
 
             $isRedirectThankYou = true;
 
         }
 
-        echo "Success";die;
         return [ 'type' => 'success', 'id' => $propertyDataObj->id, 'unique_id' => $propertyDataObj->unique_id,  'message' => $propertyDataObj->name.' has been '.$msg.' !!', 'status_code' => 200, 'isRedirectThankYou' => $isRedirectThankYou ];
 
     } catch ( Exception $e ){
@@ -150,105 +184,4 @@ function setPropertyUniqueNumber( $no = 4 ){
  */
 function getPropertyFeatures(){
     return PropertyFeature::select('id', 'name')->where( 'status', 1 )->get();
-}
-
-/**
- * upload multiple images, store them in a folder, resize/crop logos if needed, and display them centered on a image.
- */
-function uploadPropertyImageWithCenterLogo(){
-
-    // ============================
-    // Configuration
-    // ============================
-    $uploadDir = storage_path('app/property_images/'); // Folder to store images
-
-    //get Website Logo
-    $logoDir = public_path('img/devotion-trusted-real-estate.png'); // Folder to store images
-
-    // Create folder if not exists
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    // ============================
-    // Handle file uploads
-    // ============================
-    $uploadedImages = [];
-    foreach ( $_FILES['propertyImage']['name'] as $key => $name ) {
-        $tmpName = $_FILES['propertyImage']['tmp_name'][$key];
-        $fileExt = pathinfo($name, PATHINFO_EXTENSION);
-        $newName = uniqid('img_') . '.' . $fileExt; // unique filename
-        $destination = $uploadDir . $newName;
-
-        // Move uploaded file
-        if (move_uploaded_file($tmpName, $destination)) {
-
-            // Resize to 200x200 (you can adjust for logos)
-            resizeImage($logoDir, 200, 200, $destination);
-            $uploadedImages[] = $newName;
-        }
-    }
-
-    return $uploadedImages;
-}
-
-// ============================
-// Image resize & center function
-// ============================
-function resizeImage($file, $w, $h, $savePath) {
-    list($width, $height, $type) = getimagesize($file);
-
-    // Load image safely
-    $src = null;
-    switch ($type) {
-        case IMAGETYPE_JPEG:
-            $src = @imagecreatefromjpeg($file);
-            break;
-        case IMAGETYPE_PNG:
-            // Suppress warning for bad ICC profile
-            $src = @imagecreatefrompng($file);
-            // Clean PNG by re-saving it
-            if ($src) {
-                imagepalettetotruecolor($src);
-                imagepng($src, $file);
-            }
-            break;
-        default:
-            return false; // unsupported type
-    }
-
-    if (!$src) return false;
-
-    $dst = imagecreatetruecolor($w, $h);
-
-    // Fill background white for transparency
-    $white = imagecolorallocate($dst, 255, 255, 255);
-    imagefill($dst, 0, 0, $white);
-
-    // Resize and center
-    $src_aspect = $width / $height;
-    $dst_aspect = $w / $h;
-
-    if ($src_aspect > $dst_aspect) {
-        $new_height = $h;
-        $new_width = $width / ($height / $h);
-    } else {
-        $new_width = $w;
-        $new_height = $height / ($width / $w);
-    }
-
-    $x = ($w - $new_width) / 2;
-    $y = ($h - $new_height) / 2;
-
-    imagecopyresampled($dst, $src, $x, $y, 0, 0, $new_width, $new_height, $width, $height);
-
-    // Save the image
-    switch ($type) {
-        case IMAGETYPE_JPEG: imagejpeg($dst, $savePath); break;
-        case IMAGETYPE_PNG:  imagepng($dst, $savePath); break;
-    }
-
-    imagedestroy($src);
-    imagedestroy($dst);
-    return true;
 }
