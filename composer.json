@@ -58,6 +58,7 @@
             "app/Helpers/chart.php",
             "app/Helpers/permission.php",
             "app/Helpers/property.php"
+   
         ]
     },
     "autoload-dev": {

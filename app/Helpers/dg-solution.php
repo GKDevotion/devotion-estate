@@ -17,14 +17,14 @@ use Illuminate\Support\Facades\DB;
  * @param [type] $key
  * @return void
  */
-function getConfigurationfield($key) {
-     $client = Configuration::where('key', $key)->first();
-     if( $client ) {
-         return $client->value;
-     } else {
-         return false;
-     }
-}
+// function getConfigurationfield($key) {
+//      $client = Configuration::where('key', $key)->first();
+//      if( $client ) {
+//          return $client->value;
+//      } else {
+//          return false;
+//      }
+// }
 
 /**
  * @Function:        <getAdminSideMenu>

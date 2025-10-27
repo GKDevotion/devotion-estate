@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    
+
     <div id="app">
 
         <!-- Navbar -->
@@ -48,7 +48,8 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('rent.properties') }}">Rent</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('off-plan') }}">Off Plan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('luxury.properties') }}">Luxury Properties</a>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('luxury.properties') }}">Luxury
+                                Properties</a>
                         </li>
 
                         <!-- Our Services Dropdown -->
@@ -160,7 +161,7 @@
         <main class="pt-5">
             @yield('content')
         </main>
-
+        @include('layouts.loader')
 
         <footer class="text-start py-5" style="background-color: #faf9f6">
             <div class="container">
@@ -174,16 +175,16 @@
                         </p>
 
                         <div class="social-icons d-flex mt-3">
-                            <a href="https://www.facebook.com/profile.php?id=61560753095894" class="btn-social me-2">
+                            <a href="{{ getConfigurationField('SOCIAL_FACEBOOK_LINK') }}" class="btn-social me-2">
                                 <i class="bi bi-facebook"></i>
                             </a>
-                            <a href="https://x.com/devotionestate" class="btn-social me-2">
+                            <a href="{{ getConfigurationField('SOCIAL_TWITTER_LINK') }}" class="btn-social me-2">
                                 <i class="bi bi-twitter-x"></i>
                             </a>
-                            <a href="https://www.pinterest.com/devotionestate/" class="btn-social me-2">
+                            <a href="{{ getConfigurationField('SOCIAL_PINTEREST_LINK') }}" class="btn-social me-2">
                                 <i class="bi bi-pinterest"></i>
                             </a>
-                            <a href="https://www.instagram.com/devotionestate" class="btn-social">
+                            <a href="{{ getConfigurationField('SOCIAL_INSTAGRAM_LINK') }}" class="btn-social">
                                 <i class="bi bi-instagram"></i>
                             </a>
                         </div>
@@ -231,6 +232,7 @@
                             </li>
                         </ul>
                     </div>
+                    
 
                     <div class="col-lg-3 col-md-6 mb-4">
                         <h5 class=" mb-3" style="color: #333;">Newsletter</h5>
@@ -268,6 +270,39 @@
 
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loader = document.getElementById('page-loader');
+            const links = document.querySelectorAll('a.nav-link, .dropdown-item');
+
+            // 1️⃣ Hide loader when page finishes loading
+            window.addEventListener('load', function() {
+                loader.classList.add('hidden');
+            });
+
+            // 2️⃣ Show loader when user clicks a navigation link
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+
+                    // Skip external links or anchor links
+                    if (this.target === '_blank' || href.startsWith('#')) return;
+
+                    e.preventDefault();
+
+                    // Show loader immediately
+                    loader.classList.remove('hidden');
+
+                    // Navigate after a short delay (optional: 300ms for animation smoothness)
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
