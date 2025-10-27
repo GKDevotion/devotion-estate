@@ -272,9 +272,18 @@ class PropertiesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
 
-        $data = Properties::find($id);
+        $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where('status', 1)->get();
+        $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+        $agentObj = User::select('id', 'first_name', 'last_name')->where([
+            'status' => 1,
+            'type' => 4
+        ])->get();
 
-        return view('backend.pages.properties.edit', compact('data'));
+
+        $data = Properties::findOrFail($id);
+
+
+        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj' ));
     }
 
     /**
@@ -284,6 +293,8 @@ class PropertiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    
     public function update(Request $request, int $id)
     {
         if (is_null($this->user) || !$this->user->can('properties.edit')) {
