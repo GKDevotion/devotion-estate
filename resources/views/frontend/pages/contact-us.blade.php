@@ -39,7 +39,7 @@
                             <h5 class="card-title text-center">Address</h5>
                             @if (getConfigurationField('OFFICE_ADDRESS'))
                                 <p class="card-text text-secondary">
-                                    {{ getConfigurationField('OFFICE_ADDRESS') }}
+                                    {!!getConfigurationField('OFFICE_ADDRESS')!!}
                                 </p>
                             @endif
                         </div>
@@ -53,7 +53,7 @@
                             <h5 class="card-title text-center ">Call Us</h5> <!-- Center title -->
                             @if (getConfigurationField('CONTACT_PHONE'))
                                 <p class="card-text text-secondary text-center">
-                                    {{ getConfigurationField('CONTACT_PHONE') }}
+                                    {!! getConfigurationField('CONTACT_PHONE') !!}
                                 </p>
                             @else
                                 <p class="card-text text-secondary text-center">
@@ -74,7 +74,7 @@
                                 <p class="card-text text-secondary text-center">
                                     <a href="mailto:{{ getConfigurationField('CONTACT_EMAIL') }}"
                                         class="text-decoration-none text-secondary">
-                                        {{ getConfigurationField('CONTACT_EMAIL') }}
+                                        {!! getConfigurationField('CONTACT_EMAIL') !!}
                                     </a>
                                 </p>
                             @else
@@ -92,7 +92,7 @@
                         
                             @if (getConfigurationField('OFFICE_HOURS'))
                                 <p class="card-text text-secondary text-center">
-                                    {!! nl2br(e(getConfigurationField('OFFICE_HOURS'))) !!}
+                                    {!! getConfigurationField('OFFICE_HOURS') !!}
                                 </p>
                             @else
                                 <p class="card-text text-secondary text-center">Not Available</p>

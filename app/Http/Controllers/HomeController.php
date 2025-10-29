@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Models\Properties;
 
 class HomeController extends Controller
 {
@@ -31,10 +32,18 @@ class HomeController extends Controller
 
 public function index()
 {
+    $perPage = 6; // Set number of properties per page
+
+    // Fetch properties with their image relationship
+    $properties = Properties::with('image')->paginate($perPage);
+
+    // Other property data
     $allproperties = getPropertiesByType(['sell', 'rent'], 6);
     $saleProperties = getPropertiesByType('sell', 6);
 
-    return view('home', compact('allproperties', 'saleProperties'));
+    // Pass all to the view
+    return view('home', compact('allproperties', 'saleProperties', 'properties'));
 }
+
 
     }

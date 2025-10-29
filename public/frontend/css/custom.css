@@ -1285,7 +1285,7 @@
   /* Custom styling to match the light background effect around the text */
   .card-body {
 
-      text-align: justify;
+    text-align: justify;
   }
 
   .card-body p {

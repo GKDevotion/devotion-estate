@@ -64,18 +64,18 @@
                                             <div class="form-group">
                                                 <label class="mb-0" for="main_type">Main Type <span
                                                         class="text-error">*</span></label>
-                                                <select class="form-control" id="main_type" name="main_type"
-                                                    data-required="yes" required>
+                                                <select class="form-control @error('main_type') is-invalid @enderror"
+                                                    id="main_type" name="main_type" required>
                                                     <option value="">Select Main Type</option>
-                                                    <option value="0" {{ old('main_type') == '0' ? 'selected' : '' }}>
+                                                    <option value="0" {{ old('main_type') === '0' ? 'selected' : '' }}>
                                                         Residential</option>
-                                                    <option value="1" {{ old('main_type') == '1' ? 'selected' : '' }}>
+                                                    <option value="1" {{ old('main_type') === '1' ? 'selected' : '' }}>
                                                         Commercial</option>
                                                 </select>
+                                                @error('main_type')
+                                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                @enderror
                                             </div>
-                                            @error('main_type')
-                                                <div class="error text-error">{{ $message }}</div>
-                                            @enderror
                                         </div>
 
 

@@ -60,6 +60,8 @@
                                 <div class="col-md-6 offset-3">
                                     <div class="row">
 
+
+                                        
                                         <div class="col-md-12 mb-2">
                                             <div class="form-group">
                                                 <label class="mb-0" for="main_type">Main Type <span

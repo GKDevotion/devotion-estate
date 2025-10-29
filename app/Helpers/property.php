@@ -46,11 +46,11 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
             $propertyDataObj->off_plan_sale_type = $request->off_plan_sale_type;
             $propertyDataObj->completed_date = $request->completed_date;
             $propertyDataObj->rent_frequency = $request->rent_frequency;
-            $propertyDataObj->rent_contract_period = $request->rent_contract_period;
-            $propertyDataObj->rent_notice_period = $request->rent_notice_period;
-            $propertyDataObj->maintenance_fees = $request->maintenance_fees;
-            $propertyDataObj->maintenance_paid = $request->maintenance_paid;
-            $propertyDataObj->is_finance_available  = $request->is_finance_available ;
+            $propertyDataObj->rent_contract_period = $request->rent_contract_period ?? 0;
+            $propertyDataObj->rent_notice_period = $request->rent_notice_period ?? 0;
+            $propertyDataObj->maintenance_fees = $request->maintenance_fees ?? 0.00;
+            $propertyDataObj->maintenance_paid = $request->maintenance_paid ?? 0.00;
+            $propertyDataObj->is_finance_available  = $request->is_finance_available;
             $propertyDataObj->finance_name = $request->finance_name;
             $propertyDataObj->rera_number = $request->rera_number;
             $propertyDataObj->permit_number = $request->permit_number;
@@ -117,7 +117,7 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
                 // OR 2️⃣ Add watermark icon (replace with your logo path)
                 $watermark = public_path('img/devotion-trusted-real-estate.png'); // 100x100 transparent PNG
                 if (file_exists($watermark)) {
-                    $img->insert($watermark, 'bottom-right', 20, 10);
+                    $img->insert($watermark, 'bottom-right', 15, 7);
                 }
 
                 // Save to storage
@@ -362,7 +362,7 @@ function getPropertiesByType($type = ['sell', 'rent'], $limit = 6)
     // Convert all to numeric purpose values
     $purposes = array_map(fn($t) => $purposeMap[$t] ?? $t, $type);
 
-    return Properties::with('feature', 'location', 'image')
+    return Properties::with('feature', 'location', 'single_image')
         ->whereIn('purpose', $purposes)
         ->latest()
         ->take($limit)

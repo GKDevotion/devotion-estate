@@ -394,8 +394,8 @@
                                         <div class="col">
                                             <div class="card property-card h-100 border-1 shadow-sm rounded-3">
                                                 <div class="position-relative">
-                                                    <img src="{{ asset('storage/app/propertyImage/' . ($property->image->filename ?? 'devotion-trusted-real-estate.png')) }}"
-                                                        class="card-img-top rounded-top-3" alt="{{ $property->title }}">
+                                                    <img src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                                        class="card-img-top rounded-top-3" alt="{{ $property->name }}">
 
                                                     <span
                                                         class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
@@ -438,7 +438,7 @@
 
                                                 <div
                                                     class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                                    <p class="fs-5 fw-bold property-price mb-0">
+                                                    <p class="fs-5  property-price mb-0">
                                                         AED {{ number_format($property->price, 2) }}</p>
                                                     <div class="text-end">
                                                         <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
@@ -499,7 +499,7 @@
                                         <div class="col">
                                             <div class="card property-card h-100 border-1 shadow-sm rounded-3">
                                                 <div class="position-relative">
-                                                    <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                                    <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
                                                         class="card-img-top rounded-top-3"
                                                         alt="{{ $propertysale->title }}">
 
@@ -547,7 +547,7 @@
 
                                                 <div
                                                     class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                                    <p class="fs-5 fw-bold property-price mb-0">
+                                                    <p class="fs-5  property-price mb-0">
                                                         AED {{ number_format($propertysale->price, 2) }}</p>
                                                     <div class="text-end">
                                                         <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
@@ -589,7 +589,7 @@
 
                 <!-- Sell Residential -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center" style=" background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
                                 <img src="public\frontend\assets\images\img\sell-house.png" alt="Sell Residential Icon"
@@ -600,7 +600,7 @@
                                 We will connect you to thousands of people who need to buy a home.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-house-door-fill me-2"></i>Sell Residential
                         </a>
                     </div>
@@ -608,7 +608,7 @@
 
                 <!-- Rent Residential -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center" style="background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
                                 <img src="public\frontend\assets\images\img\rent-house.png" alt="Rent Residential Icon"
@@ -619,7 +619,7 @@
                                 Tell us your needs, we will give you thousands of suggestions for the dream home.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-house-door-fill me-2"></i>Rent Residential
                         </a>
                     </div>
@@ -627,7 +627,7 @@
 
                 <!-- Sell Commercial -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center" style="background: linear-gradient(#FBEED3, #F9E5B8);" >
                         <div class="card-body p-4">
                             <div class="mb-3">
                                 <img src="public\frontend\assets\images\img\office-1.png" alt="Sell Commercial Icon"
@@ -638,7 +638,7 @@
                                 We will connect you to thousands of people who need to buy an office.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-shop me-2"></i>Sell Commercial
                         </a>
                     </div>
@@ -646,7 +646,7 @@
 
                 <!-- Rent Commercial -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center" style="background: linear-gradient(#FBEED3, #F9E5B8);" >
                         <div class="card-body p-4">
                             <div class="mb-3">
                                 <img src="public\frontend\assets\images\img\rent-office.png" alt="Rent Commercial Icon"
@@ -657,7 +657,7 @@
                                 Tell us your needs, we will give you thousands of suggestions for the dream office.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-shop me-2"></i>Rent Commercial
                         </a>
                     </div>

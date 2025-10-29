@@ -36,12 +36,7 @@ class Properties extends Model
 
         public function feature()
     {
-        return $this->belongsTo(PropertyFeature::class, 'sub_type_id');
-    }
-
-          public function image()
-    {
-        return $this->belongsTo(PropertyImageMap::class, 'sub_type_id');
+        return $this->belongsTo(PropertyType::class, 'sub_type_id');
     }
 
 }

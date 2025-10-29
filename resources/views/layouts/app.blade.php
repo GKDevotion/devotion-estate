@@ -173,7 +173,7 @@
 
                         @if (getConfigurationField('OFFICE_ADDRESS'))
                             <p class="office-text">
-                                {{ getConfigurationField('OFFICE_ADDRESS') }}
+                                {!!getConfigurationField('OFFICE_ADDRESS')!!}
                             </p>
                         @endif
 

@@ -200,201 +200,110 @@
 
 
         <!-- Header -->
-        <div class="row align-items-center mb-3">
-            <div class="col-md-8">
-                <h1 class="h3 fw-normal fw-semibold" style="font-size: 2rem;">Residential Properties for Rent in Dhabi
-                </h1>
-                <p class="medium" style="color: #a47a46;">
-                    There are currently <span id="totalProperties"></span> properties.
+     <div class="row align-items-center mb-3">
+            <div class="col-md-8 properties-header">
+                <h1 class="properties-title">Residential Properties for Rent in Dhabi</h1>
+                <p class="properties-count">
+                    There are currently <span>{{ $total }}</span> properties.
                 </p>
-
             </div>
+
             <div class="col-md-4 text-md-end">
-                <div class="col-12 ">
+                <form method="GET" action="{{ route('rent.properties') }}">
                     <label for="showProps" class="form-label small">Show Property(s) Per Page:</label>
-                    <div class="col-12  d-flex justify-content-end">
-                        <select id="showProps" class="form-select form-select-sm w-50">
-                            <option value="3" selected>3</option>
-                            <option value="4">4</option>
+                    <div class="col-12 d-flex justify-content-end">
+                        <select name="perPage" id="showProps" class="form-select form-select-sm w-50"
+                            onchange="this.form.submit()">
+                            <option value="2" {{ $perPage == 2 ? 'selected' : '' }}>2</option>
+                            <option value="4" {{ $perPage == 4 ? 'selected' : '' }}>4</option>
+                            <option value="6" {{ $perPage == 6 ? 'selected' : '' }}>6</option>
                         </select>
                     </div>
-
-                </div>
-
+                </form>
             </div>
         </div>
 
         <!-- Property Cards Container -->
-        <div id="propertyList"></div>
+        <div class="row">
+            @forelse($properties as $p)
+                <div class="col-md-12 mb-4">
+                    <a href="{{ $p->link ?? '#' }}" class="text-decoration-none text-dark">
+                        <div class="card p-3 shadow-sm border-0 h-100">
+                            <div class="row g-0">
+                                <div class="col-lg-4">
+                                    <img src="{{ asset('storage/app/propertyImage/' . ($p->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                        class="img-fluid rounded-start h-100" alt="Property Image">
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="card-body">
+                                        <div class="row align-items-start">
+
+                                            <div class="col-8">
+                                                <h5 class="">{{ $p->name }}</h5>
+                                                <p class="text-muted mb-1" style="font-size: 0.85rem;">
+                                                    <i class="bi bi-map me-1"></i>
+                                                    {{ $p->location->name ?? 'Unknown Location' }}
+                                                </p>
+                                                <h4 class="fw-bold mt-4 fs-20" style=" color:#aa8038;">
+                                                   AED {{ number_format($p->price, 2) }}
+                                                </h4>
+
+
+                                                <div class="d-flex flex-column align-items-start">
+                                                    <div class="mb-2">
+                                                        <i class="bi bi-door-closed me-1"></i>
+                                                        <span class="small">Beds : {{ $p->beds }}</span>
+                                                    </div>
+
+                                                    <div class="mb-2">
+                                                        <i class="bi bi-bucket me-1"></i>
+                                                        <span class="small">Baths : {{ $p->baths }}</span>
+                                                    </div>
+
+
+                                                    <div class="mb-2">
+                                                         <i class="bi bi-rulers me-1"></i>
+                                                        <span class="small">Area : {{ $p->area }} Sq.Ft.</span>
+                                                    </div>
+
+                                                    <div class="d-flex gap-2">
+                                                        <button class="btn btn-sm"
+                                                            style="background-color: #aa8038; color: white;">
+                                                            <i class="bi bi-compass"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm"
+                                                            style="background-color: #aa8038; color: white;">
+                                                            <i class="bi bi-heart"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4 text-end">
+                                                <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                    alt="Estate Agent Logo" class="img-fluid" style="max-width: 160px;">
+                                                <p class="small text-muted text-end mt-2 mb-0">Devotion Estate Agent</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @empty
+                <div class="col-12 text-center">
+                    <p>No properties found.</p>
+                </div>
+            @endforelse
+        </div>
 
         <!-- Pagination -->
-        <nav>
-            <ul id="pagination" class="pagination justify-content-center mt-4"></ul>
-        </nav>
-
-    </div>
-
-    <script>
-        // Sample property data
-        const properties = [{
-                title: "Fully Furnished | Vacant | Luxury Living | Bills Inclusive",
-                location: "Downtown, Dubai, UAE",
-                price: "AED 175,000.00",
-                beds: "Studio",
-                baths: 2,
-                area: "474 Sq.Ft.",
-                image: "https://admin.devotionestate.com/images/PID125_1151768812_.webp",
-                link: "signup.html"
-            },
-            {
-                title: "Fully Furnished 1 BHK | Bills included | Prime Location",
-                location: "Downtown, Dubai, UAE",
-                price: "AED 199,000.00",
-                beds: 1,
-                baths: 2,
-                area: "839 Sq.Ft.",
-                image: "https://admin.devotionestate.com/images/PID119_12101886615_.webp",
-                link: "signup.html"
-            },
-            {
-                title: "Best Price | Fully Furnished 1 BHK | Prime Location | Spacious Balcony",
-                location: "Elite Business Bay Residence, Business Bay, Dubai",
-                price: "AED 2,200,000.00",
-                beds: 1,
-                baths: 2,
-                area: "853 Sq.Ft.",
-                image: "https://admin.devotionestate.com/images/PID118_1775375364_.webp"
-            },
-
-        ];
-
-        const propertyList = document.getElementById("propertyList");
-        const pagination = document.getElementById("pagination");
-        const totalProperties = document.getElementById("totalProperties");
-        const showProps = document.getElementById("showProps");
-
-        let currentPage = 1;
-        let perPage = parseInt(showProps.value);
-
-        totalProperties.textContent = properties.length;
-
-        function renderProperties() {
-            propertyList.innerHTML = "";
-
-            const start = (currentPage - 1) * perPage;
-            const end = start + perPage;
-            const visible = properties.slice(start, end);
-
-            visible.forEach(p => {
-                propertyList.innerHTML += `
-       <a href="${p.link}" class="text-decoration-none text-dark">
-  <div class="card mb-4 p-3 shadow-sm border-0">
-    <div class="row g-0">
-      <div class="col-lg-4">
-        <img src="${p.image || 'https://via.placeholder.com/350x200?text=Property'}" 
-             class="img-fluid rounded-start h-100 object-fit-cover" 
-             alt="Property Image">
-      </div>
-      <div class="col-lg-8">
-   <div class="card-body">
-    <div class="row align-items-start">
-        
-        <div class="col-8"> 
-            <h5 class="fw-bold w-100">${p.title}</h5>
-        <p class="text-muted mb-1" style="font-size: 0.85rem;">
-        <i class="fas fa-map-marker-alt me-1"></i> ${p.location}
-        </p>
-
-            <h4 class=" fw-bold mt-4" style="font-size: 1.5rem; color:#a47a46;">${p.price}</h4>
-
-           <div class="d-flex flex-column align-items-start">
-            <div class="mb-2">
-                <i class="fas fa-bed me-1 text-muted"></i>
-                <span class="small ">${p.beds}</span>
-            </div>
-
-            <div class="mb-2">
-                <i class="fas fa-bath me-1 text-muted"></i>
-                <span class="small ">Baths: ${p.baths}</span>
-            </div>
-
-            <div class="mb-2">
-                <i class="fas fa-ruler-combined me-1 text-muted"></i>
-                <span class="small ">Area: ${p.area}</span>
-            </div>
-
-            <div class="d-flex gap-2">
-                <button class="btn btn-sm" style="background-color: #aa8038; color: white;">
-                <i class="bi bi-compass"></i>
-                </button>
-                <button class="btn btn-sm" style="background-color: #aa8038; color: white;">
-                <i class="bi bi-heart"></i>
-                </button>
-            </div>
-            </div>
-
+        <div class="d-flex justify-content-center mt-4">
+            {{ $properties->appends(['perPage' => $perPage])->links('pagination::bootstrap-5') }}
         </div>
         
-        <div class="col-4 text-end"> 
-            <img src="public/frontend/assets/images/Devotion Real Estate.png" alt="Estate Agent Logo" class="img-fluid" style="max-width: 160px;">
-            <p class="small text-muted text-end mt-2 mb-0">Devotion Estate Agent</p>
-        </div>
     </div>
-    
-    </div>
-      </div>
-    </div>
-  </div>
-</a>
-`;
-            });
-
-            renderPagination();
-        }
-
-        function renderPagination() {
-            pagination.innerHTML = "";
-            const totalPages = Math.ceil(properties.length / perPage);
-
-            const prevDisabled = currentPage === 1 ? "disabled" : "";
-            const nextDisabled = currentPage === totalPages ? "disabled" : "";
-
-            pagination.innerHTML += `
-      <li class="page-item ${prevDisabled}">
-        <a class="page-link" href="#" onclick="changePage(${currentPage - 1})"><</a>
-      </li>`;
-
-            for (let i = 1; i <= totalPages; i++) {
-                pagination.innerHTML += `
-        <li class="page-item ${i === currentPage ? 'active' : ''}">
-          <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-        </li>`;
-            }
-
-            pagination.innerHTML += `
-      <li class="page-item ${nextDisabled}">
-        <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">></a>
-      </li>`;
-        }
-
-        function changePage(page) {
-            const totalPages = Math.ceil(properties.length / perPage);
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderProperties();
-        }
-
-        showProps.addEventListener("change", () => {
-            perPage = parseInt(showProps.value);
-            currentPage = 1;
-            renderProperties();
-        });
-
-        renderProperties();
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-
 @endsection
+
+

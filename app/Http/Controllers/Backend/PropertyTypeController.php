@@ -63,8 +63,8 @@ class PropertyTypeController extends Controller
             ->addColumn('id', function(PropertyType $ar) {
                 return $ar->id;
             })
-            ->addColumn('type', function(PropertyType $ar) {
-                return $ar->type == 0 ? 'Residential' : 'Commercial';
+            ->addColumn('main_type', function(PropertyType $ar) {
+                return $ar->main_type == 0 ? 'Residential' : 'Commercial';
             })
             ->addColumn('name', function(PropertyType $ar) {
                 return $ar->name;
@@ -118,7 +118,7 @@ class PropertyTypeController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'type','name', 'description', 'count', 'sort_order', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'main_type','name', 'description', 'count', 'sort_order', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -167,7 +167,7 @@ class PropertyTypeController extends Controller
 
         // Validation Data
         $request->validate([
-            'main_type' => 'required',
+            'main_type' => 'required|in:0,1',
             'name' => 'required',
             'description' => 'required',
             'sort_order' => 'required',
@@ -232,7 +232,7 @@ class PropertyTypeController extends Controller
 
         // Validation Data
         $request->validate([
-            'main_type' => 'required',
+             'main_type' => 'required|in:0,1',
             'name' => 'required',
             'description' => 'required',
             'sort_order' => 'required',

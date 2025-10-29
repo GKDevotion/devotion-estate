@@ -105,7 +105,7 @@ Property Types Page
                         }
                     }, // Auto index { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
-                    { data: 'type', name: 'type' },
+                    { data: 'main_type', name: 'main_type' },
                     { data: 'count', name: 'count' },
                     { data: 'sort_order', name: 'sort_order' },
                     { data: 'status', name: 'status' },
