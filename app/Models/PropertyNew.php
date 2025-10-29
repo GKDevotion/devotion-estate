@@ -31,4 +31,5 @@ class PropertyNew extends Model
     // public function parent(){
     //     return $this->hasOne( PropertyFeature::class, 'id', 'parent_id');
     // }
+
 }

@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 fixed-top">
             <div class="container-fluid px-5">
                 <!-- Left: Logo -->
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="public\frontend\assets\images\Devotion Real Estate.png" alt="Devotion Logo">
                 </a>
 
@@ -170,44 +170,64 @@
                     <div class="col-lg-3 col-md-6 mb-4 office-address-section">
                         <h5 class="office-heading mb-3">Office Address</h5>
                         <p class="office-subtitle mb-1">Head office:</p>
-                        <p class="office-text">
-                            Aspect Tower, Bay Avenue - 2801, A Zone, Business Bay, Dubai, UAE
-                        </p>
+
+                        @if (getConfigurationField('OFFICE_ADDRESS'))
+                            <p class="office-text">
+                                {{ getConfigurationField('OFFICE_ADDRESS') }}
+                            </p>
+                        @endif
 
                         <div class="social-icons d-flex mt-3">
-                            <a href="{{ getConfigurationField('SOCIAL_FACEBOOK_LINK') }}" class="btn-social me-2">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-                            <a href="{{ getConfigurationField('SOCIAL_TWITTER_LINK') }}" class="btn-social me-2">
-                                <i class="bi bi-twitter-x"></i>
-                            </a>
-                            <a href="{{ getConfigurationField('SOCIAL_PINTEREST_LINK') }}" class="btn-social me-2">
-                                <i class="bi bi-pinterest"></i>
-                            </a>
-                            <a href="{{ getConfigurationField('SOCIAL_INSTAGRAM_LINK') }}" class="btn-social">
-                                <i class="bi bi-instagram"></i>
-                            </a>
+                            @if (getConfigurationField('SOCIAL_FACEBOOK_LINK'))
+                                <a href="{{ getConfigurationField('SOCIAL_FACEBOOK_LINK') }}"
+                                    class="btn-social me-2">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                            @endif
+                            @if (getConfigurationField('SOCIAL_TWITTER_LINK'))
+                                <a href="{{ getConfigurationField('SOCIAL_TWITTER_LINK') }}" class="btn-social me-2">
+                                    <i class="bi bi-twitter-x"></i>
+                                </a>
+                            @endif
+                            @if (getConfigurationField('SOCIAL_PINTEREST_LINK'))
+                                <a href="{{ getConfigurationField('SOCIAL_PINTEREST_LINK') }}"
+                                    class="btn-social me-2">
+                                    <i class="bi bi-pinterest"></i>
+                                </a>
+                            @endif
+                            @if (getConfigurationField('SOCIAL_INSTAGRAM_LINK'))
+                                <a href="{{ getConfigurationField('SOCIAL_INSTAGRAM_LINK') }}" class="btn-social">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 mb-4 contact-section">
                         <h5 class="contact-heading mb-3">Contact Us</h5>
                         <ul class="list-unstyled contact-list">
-                            <li class="d-flex align-items-start mb-2">
-                                <i class="bi bi-telephone contact-icon me-2"></i>
-                                <div class="contact-info">
-                                    <p class="mb-0">Hotline:</p>
-                                    <p class="mb-0 contact-text">(+971) 44488538</p>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-start mt-4">
-                                <i class="bi bi-envelope-at contact-icon me-2"></i>
-                                <div class="contact-info">
-                                    <p class="mb-0">Email:</p>
-                                    <a href="mailto:admin@devotionestate.com"
-                                        class="contact-link">admin@devotionestate.com</a>
-                                </div>
-                            </li>
+
+                            @if (getConfigurationField('CONTACT_PHONE'))
+                                <li class="d-flex align-items-start mb-2">
+                                    <i class="bi bi-telephone contact-icon me-2"></i>
+                                    <div class="contact-info">
+                                        <p class="mb-0">Hotline:</p>
+                                        <p class="mb-0 contact-text">{{ getConfigurationField('CONTACT_PHONE') }}
+                                        </p>
+                                    </div>
+                                </li>
+                            @endif
+
+                            @if (getConfigurationField('CONTACT_EMAIL'))
+                                <li class="d-flex align-items-start mt-4">
+                                    <i class="bi bi-envelope-at contact-icon me-2"></i>
+                                    <div class="contact-info">
+                                        <p class="mb-0">Email:</p>
+                                        <a href="mailto:{{ getConfigurationField('CONTACT_EMAIL') }}"
+                                            class="contact-link">{{ getConfigurationField('CONTACT_EMAIL') }}</a>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </div>
 
@@ -216,23 +236,23 @@
                         <h5 class="mb-3" style="color: #333;">Our Company</h5>
                         <ul class="list-unstyled">
                             <li><a href="about-us" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;"></i>About Us</a>
+                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem; color:#aa8038"></i>About Us</a>
                             </li>
                             <li><a href="contact-us" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;"></i>Contact
+                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Contact
                                     Us</a></li>
                             <li><a href="privacy-policy" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;"></i>Privacy
+                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Privacy
                                     Policy</a></li>
                             <li><a href="terms-condition" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;"></i>Terms
+                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Terms
                                     Condition</a></li>
                             <li><a href="login" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;"></i>Login</a>
+                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Login</a>
                             </li>
                         </ul>
                     </div>
-                    
+
 
                     <div class="col-lg-3 col-md-6 mb-4">
                         <h5 class=" mb-3" style="color: #333;">Newsletter</h5>
@@ -259,15 +279,12 @@
                 </div>
                 <hr class="mt-0 mb-3" style="border-color: rgba(0,0,0,0.1);">
                 <div class="container text-center">
-                    <p class="mb-0" style="color: #333; font-size: 0.9rem;">All rights reserved by Devotion Estate
-                        &copy; 2025.
+                    <p class="mb-0" style="color: #333; font-size: 0.9rem;">
+                        {{ getConfigurationField('FOOTER_COPYRIGHT') ?? 'All rights reserved by Devotion Estate © ' . date('Y') . '.' }}
                     </p>
-
                 </div>
+
         </footer>
-
-
-
 
     </div>
 

@@ -200,7 +200,7 @@
         <!-- Header -->
         <div class="row align-items-center mb-3">
             <div class="col-md-8 properties-header">
-                <h1 class="properties-title">Properties for sale in Dubai</h1>
+                <h1 class="properties-title">Properties for Buy in Dubai</h1>
                 <p class="properties-count">
                     There are currently <span id="totalProperties"></span> properties.
                 </p>

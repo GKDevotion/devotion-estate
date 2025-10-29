@@ -4,6 +4,7 @@ use App\Models\Properties;
 use App\Models\PropertyFeature;
 use App\Models\PropertyFeatureMap;
 use App\Models\PropertyImageMap;
+use App\Models\PropertyNew;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -333,4 +334,37 @@ function setPropertyUniqueNumber( $no = 4 ){
  */
 function getPropertyFeatures(){
     return PropertyFeature::select('id', 'name')->where( 'status', 1 )->get();
+}
+
+
+// function getPropertiesByType($type = ['sell', 'rent'], $limit = 6)
+// {
+//     // Ensure $type is always an array
+//     $type = is_array($type) ? $type : [$type];
+
+//     return Properties::with('feature', 'location', 'image')
+//         ->whereIn('type', $type)
+//         ->latest()
+//         ->take($limit)
+//         ->get();
+// }
+function getPropertiesByType($type = ['sell', 'rent'], $limit = 6)
+{
+    // Convert readable names to purpose values (based on your DB)
+    $purposeMap = [
+        'sell' => 0,
+        'rent' => 1,
+    ];
+
+    // Normalize to array
+    $type = is_array($type) ? $type : [$type];
+
+    // Convert all to numeric purpose values
+    $purposes = array_map(fn($t) => $purposeMap[$t] ?? $t, $type);
+
+    return Properties::with('feature', 'location', 'image')
+        ->whereIn('purpose', $purposes)
+        ->latest()
+        ->take($limit)
+        ->get();
 }

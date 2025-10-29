@@ -760,21 +760,13 @@
   }
 
 
-  .card-body p {
-      font-size: 0.9rem;
-      line-height: 1.8;
-      text-align: justify;
-      color: #555;
-      padding: 0 15px;
-      text-align: left;
-  }
-
   .main-heading {
       color: #aa8038 !important;
       font-size: xx-large;
       padding-top: 90px;
   }
 
+  
   .list-unstyled {
       color: #575a7b;
       font-size: 15px;
@@ -1296,6 +1288,15 @@
       text-align: justify;
   }
 
+  .card-body p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      text-align: justify;
+      color: #555;
+      text-align: left;
+  }
+
+
   .investment-section {
       color: #575a7b;
       text-align: justify;
@@ -1382,20 +1383,13 @@
       background-color: white;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   .image-column {
       background-image: url("{{ asset('frontend/assets/images/img/bg-register.jpg') }}");
       background-size: cover;
       background-position: center;
       min-height: 100%;
   }
-=======
-
->>>>>>> admin-side
-
-=======
->>>>>>> front-side
   .btn-sign-in {
       background-color: #d4a761;
       border-color: #d4a761;
@@ -1472,3 +1466,6 @@
       font-size: 0.85rem;
       color: #6c757d;
     }
+
+
+    

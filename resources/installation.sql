@@ -36,3 +36,6 @@ ALTER TABLE `properties` CHANGE `meta_desccription` `meta_description` TEXT CHAR
 Create Table "property_feature_map"
 Create Table "property_image_map"
 
+//28-10-2025
+ALTER TABLE `properties` ADD `is_set_new_property` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: No, 1: Yes' AFTER `updated_at`, ADD `is_featured_property` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: No, 1: Yes' AFTER `is_set_new_property`, ADD `is_laxury_Property` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: No, 1: Yes' AFTER `is_featured_property`;
+ALTER TABLE `properties` ADD `is_hot_offer` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: No, 1: Yes' AFTER `is_laxury_Property`;

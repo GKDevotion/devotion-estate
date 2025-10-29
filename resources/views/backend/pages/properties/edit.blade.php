@@ -599,6 +599,90 @@
                                     </div>
                                 </ul>
 
+                                <div class="row mt-4">
+
+                                    <div class="col-md-6 col-sm-12 mb-2">
+                                        <label class="mb-0" for="is_set_new_property">
+                                            Do you want to set this property as new? <span class="text-error">*</span>
+                                        </label>
+                                        <select name="is_set_new_property" id="is_set_new_property"
+                                            class="form-control @error('is_set_new_property') is-invalid @enderror"
+                                            data-required="yes">
+                                            <option value="1"
+                                                {{ old('is_set_new_property', $data->is_set_new_property ?? 0) == 1 ? 'selected' : '' }}>
+                                                Yes</option>
+                                            <option value="0"
+                                                {{ old('is_set_new_property', $data->is_set_new_property ?? 0) == 0 ? 'selected' : '' }}>
+                                                No</option>
+                                        </select>
+                                        @error('is_set_new_property')
+                                            <div class="error text-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6 col-sm-12 mb-2">
+                                        <label class="mb-0" for="is_featured_property">
+                                            Do you want to set this property as featured? <span class="text-error">*</span>
+                                        </label>
+                                        <select name="is_featured_property" id="is_featured_property"
+                                            class="form-control @error('is_featured_property') is-invalid @enderror"
+                                            data-required="yes">
+                                            <option value="1"
+                                                {{ old('is_featured_property', $data->is_featured_property ?? 0) == 1 ? 'selected' : '' }}>
+                                                Yes</option>
+                                            <option value="0"
+                                                {{ old('is_featured_property', $data->is_featured_property ?? 0) == 0 ? 'selected' : '' }}>
+                                                No</option>
+                                        </select>
+                                        @error('is_featured_property')
+                                            <div class="error text-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6 col-sm-12 mb-2">
+                                        <label class="mb-0" for="is_luxury_property">
+                                            Do you want to set this property as luxury property? <span
+                                                class="text-error">*</span>
+                                        </label>
+                                        <select name="is_luxury_property" id="is_luxury_property"
+                                            class="form-control @error('is_luxury_property') is-invalid @enderror"
+                                            data-required="yes">
+                                            <option value="1"
+                                                {{ old('is_luxury_property', $data->is_luxury_property ?? 0) == 1 ? 'selected' : '' }}>
+                                                Yes</option>
+                                            <option value="0"
+                                                {{ old('is_luxury_property', $data->is_luxury_property ?? 0) == 0 ? 'selected' : '' }}>
+                                                No</option>
+                                        </select>
+                                        @error('is_luxury_property')
+                                            <div class="error text-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6 col-sm-12 mb-2">
+                                        <label class="mb-0" for="is_hot_offer">
+                                            Do you want to set this property as Hot Offer Property?
+                                            <span class="text-error">*</span>
+                                        </label>
+                                        <select name="is_hot_offer" id="is_hot_offer" class="form-control"
+                                            data-required="yes">
+                                            <option value="1"
+                                                {{ old('is_hot_offer', $property->is_hot_offer ?? 0) == 1 ? 'selected' : '' }}>
+                                                Yes</option>
+                                            <option value="0"
+                                                {{ old('is_hot_offer', $property->is_hot_offer ?? 0) == 0 ? 'selected' : '' }}>
+                                                No</option>
+                                        </select>
+                                        <div class="error text-error"></div>
+                                    </div>
+
+
+                                </div>
+
+
 
                                 <!-- start previous / next buttons -->
                                 <div class="row mt-4">

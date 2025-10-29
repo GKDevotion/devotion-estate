@@ -33,4 +33,15 @@ class Properties extends Model
     public function location(){
         return $this->hasOne( Location::class, 'id', 'location_id');
     }
+
+        public function feature()
+    {
+        return $this->belongsTo(PropertyFeature::class, 'sub_type_id');
+    }
+
+          public function image()
+    {
+        return $this->belongsTo(PropertyImageMap::class, 'sub_type_id');
+    }
+
 }
