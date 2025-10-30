@@ -74,6 +74,11 @@ $(document).on( "ready", function() {
         var selected = $("#type option:selected").val();
         $(".show-"+selected).removeClass("d-none");
     });
+    /**
+     *
+     */
+
+    
 });
 
 function showOffPlanContent(){

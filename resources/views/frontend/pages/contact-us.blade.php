@@ -39,7 +39,7 @@
                             <h5 class="card-title text-center">Address</h5>
                             @if (getConfigurationField('OFFICE_ADDRESS'))
                                 <p class="card-text text-secondary">
-                                    {!!getConfigurationField('OFFICE_ADDRESS')!!}
+                                    {!! getConfigurationField('OFFICE_ADDRESS') !!}
                                 </p>
                             @endif
                         </div>
@@ -89,7 +89,7 @@
                                 <i class="bi bi-alarm fs-3"></i>
                             </div>
                             <h5 class="card-title text-center">Open Hours</h5>
-                        
+
                             @if (getConfigurationField('OFFICE_HOURS'))
                                 <p class="card-text text-secondary text-center">
                                     {!! getConfigurationField('OFFICE_HOURS') !!}
@@ -101,44 +101,68 @@
                     </div>
                 </div>
             </div>
+            <style>
+                .custom-alert {
+                    background-color: #aa8038 !important;
+                    color: #fff !important;
+                    border: none !important;
+                    font-weight: 300;
+                }
+            </style>
 
             <!-- Contact Form Section -->
             <div class="col-lg-5">
                 <div class="card contact-card p-4 p-md-5">
-                    <h2 class="mb-4 fw-bold text-center" style="font-size: 1.5rem;">Devotion Estate - Contact-Us</h2>
+                    <h2 class="mb-4 fw-bold text-center" style="font-size: 1.5rem;">Devotion Estate - Contact Us</h2>
 
-                    <form>
+                    @if (session('success'))
+                        <div class="alert custom-alert text-center">{{ session('success') }}</div>
+                    @endif
+
+                    <form method="POST" action="{{ route('contact.store') }}">
+                        @csrf
+
                         <div class="mb-3">
-                            <label for="yourName" class="form-label text-muted">Your name</label>
-                            <input type="text" class="form-control" id="yourName" placeholder="Your name">
+                            <label for="name" class="form-label text-muted">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
+                                required>
                         </div>
 
                         <div class="row mb-3">
+
+
                             <div class="col-md-6">
-                                <label for="propertyType" class="form-label text-muted">Property type</label>
-                                <select class="form-select" id="propertyType" style="font-size: 0.9rem;">
-                                    <option selected>Select Property Type</option>
-                                    <option value="1">Residential</option>
-                                    <option value="2">Commercial</option>
+                                <label for="type" class="form-label text-muted">Property type</label>
+                                <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
+                                    required>
+                                    <option value="" selected>Select Property Type</option>
+                                    <option value="0">Residential</option>
+                                    <option value="1">Commercial</option>
                                 </select>
                             </div>
+
                             <div class="col-md-6">
-                                <label for="subType" class="form-label text-muted">Sub type</label>
-                                <select class="form-select" id="subType" style="font-size: 0.9rem;">
-                                    <option selected>Select Property Sub Type</option>
-                                    <option value="1">...</option>
+                                <label for="sub_type" class="form-label text-muted">Sub Type</label>
+                                <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
+                                    required>
+                                    <option value="0">Select Sub Type</option>
+                                    @foreach ($propertyTypeObj as $type)
+                                        <option value="{{ $type->id }}"  class="show-{{ $type->main_type }} default-sub-type-data-hide d-none">{{ $type->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
+
                         </div>
 
                         <div class="mb-3">
-                            <label for="yourEmail" class="form-label text-muted">Your Email</label>
-                            <input type="email" class="form-control" id="yourEmail" placeholder="Your Email">
+                            <label for="email" class="form-label text-muted">Your Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Your Email" required>
                         </div>
 
                         <div class="mb-4">
-                            <label for="yourMessage" class="form-label text-muted">Your Message</label>
-                            <textarea class="form-control" id="yourMessage" rows="5" placeholder="Your message"></textarea>
+                            <label for="comment" class="form-label text-muted">Your Message</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Your comment" required></textarea>
                         </div>
 
                         <div class="text-center">
@@ -149,9 +173,11 @@
                     </form>
                 </div>
             </div>
+
+
         </div>
     </div>
 
-
-
+    <script src="{{ asset('public\backend\assets\js\propertyForm.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/js/select2.min.js') }}"></script>
 @endsection

@@ -121,6 +121,8 @@ Route::get('/sign-up', function () {
 });
 
 Route::get('contact-us', [ContactUsController::class, 'index'])->name('contact-us');
+Route::post('contact/store', [ContactUsController::class, 'store'])->name('contact.store');
+
 
 // Route::get('/contact-us', function () {
 //     return view('frontend.pages.contact-us');
