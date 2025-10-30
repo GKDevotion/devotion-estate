@@ -5,6 +5,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BuyerGuideController;
 use App\Http\Controllers\BuyPropertiesController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\HotOfferController;
 use App\Http\Controllers\InvestmentAdvisoryController;
 use App\Http\Controllers\LuxuryPropertiesController;
 use App\Http\Controllers\MortgageAdvisoryController;
@@ -106,9 +107,11 @@ Route::get('off-plan', [OffPlanController::class, 'index'])->name('off-plan');
 Route::get('/list-your-properties', function () {
     return view('frontend.pages.list-your-properties');
 });
-Route::get('/hot-offer', function () {
-    return view('frontend.pages.hot-offer');
-});
+
+Route::get('hot-offer', [HotOfferController::class, 'index'])->name('hot-offer');
+// Route::get('hot-offer', function () {
+//     return view('frontend.pages.hot-offer');
+// });
 
 Route::get('/login', function () {
     return view('frontend.pages.login');

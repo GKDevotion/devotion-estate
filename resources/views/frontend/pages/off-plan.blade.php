@@ -241,7 +241,7 @@
                         <div class="card p-3 shadow-sm border-0 h-100">
                             <div class="row g-0">
                                 <div class="col-lg-4">
-                                    <img src="{{ asset('storage/app/propertyImage/' . ($p->image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                    <img src="{{ asset('storage/app/propertyImage/' . ($p->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
                                         class="img-fluid rounded-start h-100" alt="Property Image">
                                 </div>
                                 <div class="col-lg-8">

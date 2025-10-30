@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\PropertyNew;
+use App\Models\Properties;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -53,49 +54,52 @@ class PropertyNewController extends Controller
 
         $this->setPublicVar();
 
-        $query = PropertyNew::query();
+        $query = Properties::query();
 
         if (!$this->is_assign_super_admin) {
             $query->where('admin_id', $this->admin_id);
         }
 
+        // ✅ Show only those with is_set_new_property = 0
+        $query->where('is_set_new_property', 0);
+
         $query->select('id', 'image', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'address', 'sort_order', 'updated_at', 'status');
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function (PropertyNew $ar) {
+            ->addColumn('id', function (Properties $ar) {
                 return $ar->id;
             })
-            ->addColumn('image', function (PropertyNew $ar) {
+            ->addColumn('image', function (Properties $ar) {
                 return $ar->image;
             })
-            ->addColumn('name', function (PropertyNew $ar) {
+            ->addColumn('name', function (Properties $ar) {
                 return $ar->name;
             })
-            ->addColumn('purpose', function (PropertyNew $ar) {
+            ->addColumn('purpose', function (Properties $ar) {
                 return $ar->purpose;
             })
-            ->addColumn('type', function (PropertyNew $ar) {
+            ->addColumn('type', function (Properties $ar) {
                 return $ar->type;
             })
-            ->addColumn('publish', function (PropertyNew $ar) {
+            ->addColumn('publish', function (Properties $ar) {
                 return $ar->publish;
             })
-            ->addColumn('area', function (PropertyNew $ar) {
+            ->addColumn('area', function (Properties $ar) {
                 return $ar->area;
             })
 
-            ->addColumn('price', function (PropertyNew $ar) {
+            ->addColumn('price', function (Properties $ar) {
                 return $ar->price;
             })
 
-            ->addColumn('address', function (PropertyNew $ar) {
-                return $ar->address;
+            ->addColumn('location_id', function (Properties $ar) {
+                return $ar->location_id;
             })
-            ->addColumn('sort_order', function (PropertyNew $ar) {
+            ->addColumn('sort_order', function (Properties $ar) {
                 return $ar->sort_order;
             })
 
-            ->addColumn('status', function (PropertyNew $ar) {
+            ->addColumn('status', function (Properties $ar) {
                 $status = "";
                 if (true) {
                     $status = '<i class="fa fa-' . ($ar->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $ar->status . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="corporate_emails"></i>';
@@ -108,10 +112,10 @@ class PropertyNewController extends Controller
 
                 return $status;
             })
-            ->addColumn('updated_at', function (PropertyNew $ar) {
+            ->addColumn('updated_at', function (Properties $ar) {
                 return formatDate("Y-m-d H:i", $ar->updated_at);
             })
-            ->addColumn('action', function (PropertyNew $ar) {
+            ->addColumn('action', function (Properties $ar) {
 
                 $action = '
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_' . $ar->id . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -193,7 +197,7 @@ class PropertyNewController extends Controller
         ]);
 
         // Create New Server Record
-        $location = new PropertyNew();
+        $location = new Properties();
         $location->admin_id = $this->user->id;
         $location->image = $request->image;
         $location->name = $request->name;
@@ -235,7 +239,7 @@ class PropertyNewController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
 
-        $data = PropertyNew::find($id);
+        $data = Properties::find($id);
 
         return view('backend.pages.property_new.edit', compact('data'));
     }
@@ -260,7 +264,7 @@ class PropertyNewController extends Controller
         ]);
 
         // Update Old Feature data
-       $location = new PropertyNew();
+       $location = new Properties();
         $location->admin_id = $this->user->id;
         $location->image = $request->image;
         $location->name = $request->name;
@@ -291,7 +295,7 @@ class PropertyNewController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to delete Location !');
         }
 
-        $record = PropertyNew::find($id);
+        $record = Properties::find($id);
 
         if (!is_null($record)) {
             $record->delete();

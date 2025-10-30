@@ -43,6 +43,7 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
             $propertyDataObj->is_furnish = $request->is_furnish;
             $propertyDataObj->is_complete = $request->is_complete;
             $propertyDataObj->is_occupancy = $request->is_occupancy;
+
             $propertyDataObj->off_plan_sale_type = $request->off_plan_sale_type;
             $propertyDataObj->completed_date = $request->completed_date;
             $propertyDataObj->rent_frequency = $request->rent_frequency;
@@ -66,17 +67,26 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
 
         //2. Job Information -->
         if( $request->step == 2 || $request->_method == "PUT" ){
-            if( COUNT( $request->feature_id ) > 0 ){
+
+            // --- Store property flags safely ---
+            $propertyDataObj->is_set_new_property = $request->has('is_set_new_property') ? 1 : 0;
+            $propertyDataObj->is_featured_property = $request->has('is_featured_property') ? 1 : 0;
+            $propertyDataObj->is_laxury_Property = $request->has('is_laxury_Property') ? 1 : 0;
+            $propertyDataObj->is_hot_offer = $request->has('is_hot_offer') ? 1 : 0;
+
+            // Save before mapping features
+            $propertyDataObj->save();
+            if (COUNT($request->feature_id) > 0) {
 
                 //reset Property Feature Map status
-                PropertyFeatureMap::where( 'property_id', $property_id )->update( ['status' => 0 ] );
+                PropertyFeatureMap::where('property_id', $property_id)->update(['status' => 0]);
 
                 // Remove null and empty values
-                $featureIds = array_filter( $request->feature_id, function($value) {
+                $featureIds = array_filter($request->feature_id, function ($value) {
                     return !is_null($value) && $value !== '';
                 });
 
-                foreach( $featureIds as $id ){
+                foreach ($featureIds as $id) {
 
                     PropertyFeatureMap::updateOrCreate(
                         [
@@ -115,9 +125,17 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
                 });
 
                 // OR 2️⃣ Add watermark icon (replace with your logo path)
-                $watermark = public_path('img/devotion-trusted-real-estate.png'); // 100x100 transparent PNG
+            
+                $watermark = public_path('img/devotion-trusted-real-estate.png'); // original watermark
                 if (file_exists($watermark)) {
-                    $img->insert($watermark, 'bottom-right', 15, 7);
+                    // Load and resize the watermark
+                    $watermarkImg = Image::make($watermark)->resize(400, 100, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    });
+
+                    // Insert resized watermark into main image
+                    $img->insert($watermarkImg, 'bottom-right', 10, 3);
                 }
 
                 // Save to storage
@@ -364,6 +382,7 @@ function getPropertiesByType($type = ['sell', 'rent'], $limit = 6)
 
     return Properties::with('feature', 'location', 'single_image')
         ->whereIn('purpose', $purposes)
+        ->where('status', 1)   
         ->latest()
         ->take($limit)
         ->get();

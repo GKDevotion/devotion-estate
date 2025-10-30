@@ -59,6 +59,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/property-features/store', [PropertyFeatureController::class, 'store'])->name('admin.property-features.store');
     Route::get('/property-features/edit/{id}', [PropertyFeatureController::class, 'edit'])->name('admin.property-features.edit');
     Route::post('/property-features/update', [PropertyFeatureController::class, 'update'])->name('admin.property-features.update');
+    Route::delete('/property-features/{id}', [PropertyFeatureController::class, 'destroy'])->name('admin.property-features.destroy');
     Route::get('/property-features-ajax-data', [PropertyFeatureController::class, 'ajaxIndex'])->name('property-features.ajaxIndex');
 
     Route::get('/property-types', [PropertyTypeController::class, 'index'])->name('admin.property-types.index');
@@ -66,6 +67,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/property-types/store', [PropertyTypeController::class, 'store'])->name('admin.property-types.store');
     Route::get('/property-types/edit/{id}', [PropertyTypeController::class, 'edit'])->name('admin.property-types.edit');
     Route::post('/property-types/update', [PropertyTypeController::class, 'update'])->name('admin.property-types.update');
+    Route::delete('/admin/property-types/{id}', [PropertyTypeController::class, 'destroy'])->name('admin.property-types.destroy');
     Route::get('/property-types-ajax-data', [PropertyTypeController::class, 'ajaxIndex'])->name('property-types.ajaxIndex');
 
     Route::get('/property-all', [PropertyAllController::class, 'index'])->name('admin.property-all.index');
@@ -106,10 +108,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/brochures-ajax-data', [BrochuresController::class, 'ajaxIndex'])->name('brochures.ajaxIndex');
 
     Route::get('/properties', [PropertiesController::class, 'index'])->name('admin.properties.index');
-    Route::get('/properties/cr0eate', [PropertiesController::class, 'create'])->name('admin.properties.create');
+    Route::get('/properties/create', [PropertiesController::class, 'create'])->name('admin.properties.create');
     Route::post('/properties/store', [PropertiesController::class, 'store'])->name('admin.properties.store');
     Route::get('/properties/edit/{id}', [PropertiesController::class, 'edit'])->name('admin.properties.edit');
     Route::post('/properties/update', [PropertiesController::class, 'update'])->name('admin.properties.update');
+    Route::delete('/admin/properties/{id}', [PropertiesController::class, 'destroy'])->name('admin.properties.destroy');
     Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
 
 

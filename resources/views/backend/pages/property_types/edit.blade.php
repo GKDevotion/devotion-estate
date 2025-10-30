@@ -53,15 +53,17 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('admin.property-types.update') }}" onsubmit="return onSubmitValidateForm();"
-                            method="POST" autocomplete="off">
+                        <form action="{{ route('admin.property-types.update', $data->id) }}"
+                            onsubmit="return onSubmitValidateForm();" method="POST">
+                           
                             @csrf
+
                             <div class="row">
                                 <div class="col-md-6 offset-3">
                                     <div class="row">
 
 
-                                        
+
                                         <div class="col-md-12 mb-2">
                                             <div class="form-group">
                                                 <label class="mb-0" for="main_type">Main Type <span

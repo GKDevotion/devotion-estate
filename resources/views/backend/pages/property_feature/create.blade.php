@@ -51,7 +51,7 @@ Property Features - Admin Panel
     <div class="row">
         <!-- data table start -->
         <div class="col-12 mt-3">
-            <h3 class="pb-3">Create Location</h3>
+            <h3 class="pb-3">Create Features</h3>
             <div class="card">
                 <div class="card-body">
 

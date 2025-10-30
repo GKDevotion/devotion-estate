@@ -129,10 +129,15 @@ class PropertiesController extends Controller
                     }
 
                     if ($this->user->can('properties.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->name.'" data-segment="properties">
-                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                                    </button>';
-                    }
+                        $action .= '<form method="POST" action="' .  route('admin.properties.destroy', $ar->id) . '" style="display:inline;">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
+                                <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                            </button>
+                        </form>';
+                        }
+
 
                     $action.= '
                     </div>
@@ -140,7 +145,7 @@ class PropertiesController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'image', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];

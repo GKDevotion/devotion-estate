@@ -53,7 +53,7 @@ class BrochuresController extends Controller
             ->addColumn('file', function (Brochures $city) {
                 if ($city->file) {
                     // Assuming your PDFs are stored in storage/app/public/brochures
-                    $url = asset('storage/brochures/' . $city->file);
+                    $url = asset('storage/app/public/brochures/' . $city->file);
                     return '<a href="' . $url . '" download>' . $city->file . '</a>';
                 }
                 return '-';
@@ -148,27 +148,43 @@ class BrochuresController extends Controller
     public function store(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('brochures.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create City !');
+            abort(403, 'Sorry !! You are Unauthorized to create Brochure !');
         }
 
-        // Validation Data
+        // ✅ Validate input
         $request->validate([
-
-            'location' => 'required',
-
+            'location' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:5120', // up to 5MB
+            'agent' => 'nullable|string|max:255',
+            'status' => 'required|in:0,1',
         ]);
 
-        // Create New Server Record
+        $fileName = null;
+
+        // ✅ Handle upload
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            if ($file->isValid()) { // extra check
+                $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->storeAs('public/brochures', $fileName);
+            } else {
+                return back()->withErrors(['file' => 'The file failed to upload properly.']);
+            }
+        }
+
+        // ✅ Save to database
         $dataObj = new Brochures();
         $dataObj->location = $request->location;
-        $dataObj->file = $request->file;
-        $dataObj->agent  = $request->agent;
+        $dataObj->file = $fileName;
+        $dataObj->agent = $request->agent;
         $dataObj->status = $request->status;
         $dataObj->save();
 
-        session()->flash('success', $dataObj->name . ' record has been created !!');
+        session()->flash('success', 'Brochure record has been created successfully!');
         return redirect()->route('admin.brochures.index');
     }
+
 
     /**
      * Display the specified resource.

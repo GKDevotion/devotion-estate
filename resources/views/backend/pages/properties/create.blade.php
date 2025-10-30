@@ -448,55 +448,70 @@
 
 
                                 <div class="row mt-4">
-                                    <div class="col-md-6 col-sm-12 mb-2 ">
-                                        <label class="mb-0" for="is_set_new_property">Do you want to set this property
-                                            as
-                                            new? <span class="text-error">*</span></label>
-                                        <select name="is_set_new_property" id="	is_set_new_property" class="form-control"
-                                            data-required="yes">
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="is_set_new_property" class="form-label mb-1">
+                                            Do you want to set this property as new? <span class="text-danger">*</span>
+                                        </label>
+                                        <select name="is_set_new_property" id="is_set_new_property" class="form-select"
+                                            required>
+                                            <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
-
                                         </select>
-                                        <div class="error text-error"></div>
+                                        <div class="invalid-feedback">Please select an option.</div>
                                     </div>
 
-                                    <div class="col-md-6 col-sm-12 mb-2 ">
-                                        <label class="mb-0" for="is_featured_property">Do you want to set this property
-                                            as featured?<span class="text-error">*</span></label>
+
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="is_featured_property" class="form-label mb-1">
+                                            Do you want to set this property as featured? <span
+                                                class="text-danger">*</span>
+                                        </label>
                                         <select name="is_featured_property" id="is_featured_property"
-                                            class="form-control" data-required="yes">
+                                            class="form-select @error('is_featured_property') is-invalid @enderror"
+                                            required>
+                                            <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
-
                                         </select>
-                                        <div class="error text-error"></div>
+                                        @error('is_featured_property')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
-                                    <div class="col-md-6 col-sm-12 mb-2 ">
-                                        <label class="mb-0" for="is_laxury_Property">Do you want to set this property as
-                                            luxury
-                                            property?<span class="text-error">*</span></label>
-                                        <select name="is_laxury_Property" id="is_laxury_Property" class="form-control"
-                                            data-required="yes">
+
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="is_luxury_property" class="form-label mb-1">
+                                            Do you want to set this property as a luxury property? <span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <select name="is_laxury_property" id="is_laxury_property"
+                                            class="form-select @error('is_laxury_property') is-invalid @enderror" required>
+                                            <option value="" selected disabled>-- Select Option --</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
-
                                         </select>
-                                        <div class="error text-error"></div>
+                                        @error('is_laxury_property')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
-                                    <div class="col-md-6 col-sm-12 mb-2 ">
-                                        <label class="mb-0" for="is_hot_offer">Do you want to set this property as Hot Offer
-                                            Property?<span class="text-error">*</span></label>
-                                        <select name="is_hot_offer" id="is_hot_offer" class="form-control"
-                                            data-required="yes">
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="is_hot_offer" class="form-label mb-1">
+                                            Do you want to set this property as a Hot Offer Property? <span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <select name="is_hot_offer" id="is_hot_offer"
+                                            class="form-select @error('is_hot_offer') is-invalid @enderror" required>
+                                            <option value="" selected disabled>-- Select Option --</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
-
                                         </select>
-                                        <div class="error text-error"></div>
+                                        @error('is_hot_offer')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
+
 
                                 </div>
 

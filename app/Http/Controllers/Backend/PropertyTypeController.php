@@ -107,10 +107,14 @@ class PropertyTypeController extends Controller
                     }
 
                     if ($this->user->can('property-types.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->name.'" data-segment="locations">
-                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                                    </button>';
-                    }
+                        $action .= '<form method="POST" action="' .  route('admin.property-types.destroy', $ar->id) . '" style="display:inline;">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
+                                <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                            </button>
+                        </form>';
+                        }
 
                     $action.= '
                     </div>
@@ -239,7 +243,7 @@ class PropertyTypeController extends Controller
         ]);
 
         // Update Old Feature data
-        $location = new PropertyType();
+    $location = PropertyType::find($id);
         $location->admin_id = $this->user->id;
         $location->main_type = $request->main_type;
         $location->name = $request->name;

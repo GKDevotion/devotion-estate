@@ -62,7 +62,7 @@
                                 </ul>
                             </div>
                         @endif  --}}
-                        <form action="{{ route('admin.brochures.store') }}" onsubmit="return onSubmitValidateForm();"
+                        <form action="{{ route('admin.brochures.store') }}" onsubmit="return onSubmitValidateForm();"  enctype="multipart/form-data" 
                             method="POST" autocomplete="off">
                             @csrf
                             <div class="row">

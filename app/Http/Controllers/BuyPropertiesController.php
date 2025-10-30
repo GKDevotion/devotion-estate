@@ -8,13 +8,22 @@ use Illuminate\Http\Request;
 class BuyPropertiesController extends Controller
 {
     //
-    public function index(Request $request)
-    {
-        $perPage = $request->get('perPage', 4); // 12 for sale
-        $properties = Properties::where('purpose', 0)->paginate($perPage);
-        $total = Properties::where('purpose', 0)->count();
+public function index(Request $request)
+{
+    $perPage = $request->get('perPage', 4); // Default 4 per page (can be adjusted)
 
-        return view('frontend.pages.buy-properties', compact('properties', 'total', 'perPage'))
-            ->with('type', 'sale');
-    }
+    // ✅ Fetch only active sale properties (purpose = 0, status = 1)
+    $properties = Properties::where('purpose', 0)
+        ->where('status', 1)
+        ->paginate($perPage);
+
+    // ✅ Count only active sale properties
+    $total = Properties::where('purpose', 0)
+        ->where('status', 1)
+        ->count();
+
+    return view('frontend.pages.buy-properties', compact('properties', 'total', 'perPage'))
+        ->with('type', 'sale');
+}
+
 }

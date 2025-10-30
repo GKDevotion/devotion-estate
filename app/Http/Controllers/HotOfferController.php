@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Properties;
 use Illuminate\Http\Request;
 
-class LuxuryPropertiesController extends Controller
+class HotOfferController extends Controller
 {
     //
 
@@ -16,16 +16,16 @@ public function index(Request $request)
         // Fetch only active luxury properties (is_luxury_property = 1)
         $properties = Properties::whereIn('purpose', [0, 1])
             ->where('status', 1)
-            ->where('is_laxury_property', 1) // ✅ Only luxury ones
+            ->where('is_hot_offer', 1) // ✅ Only luxury ones
             ->paginate($perPage);
 
         // Count total luxury properties
         $total = Properties::whereIn('purpose', [0, 1])
             ->where('status', 1)
-            ->where('is_laxury_property', 1) // ✅ Count only luxury ones
+            ->where('is_hot_offer', 1) // ✅ Count only luxury ones
             ->count();
 
-        return view('frontend.pages.luxury-properties', compact('properties', 'total', 'perPage'))
+        return view('frontend.pages.hot-offer', compact('properties', 'total', 'perPage'))
         ->with('type', 'luxury');
 }
 

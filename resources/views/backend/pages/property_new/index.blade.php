@@ -54,8 +54,8 @@
 
                         <div class="data-tables">
                             @include('backend.layouts.partials.messages')
-                            <table id="property-new_index" class="text-center w-100">
-                                <thead id="property-new" class="bg-light text-capitalize">
+                            <table id="properties_index" class="text-center w-100">
+                                <thead id="properties" class="bg-light text-capitalize">
                                     <tr>
                                         <th>Sr</th>
                                         <th>Image</th>
@@ -87,7 +87,7 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#property-new_index').DataTable({
+            var table = $('#properties_index').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -100,7 +100,7 @@
                     [5, 10, 25, 50, "All"]
                 ],
                 pageLength: 10,
-                ajax: "{{ route('property-new.ajaxIndex') }}",
+                ajax: "{{ route('properties.ajaxIndex') }}",
                 columns: [{
                         data: 'id',
                         render: function(data, type, row, meta) {
@@ -136,8 +136,8 @@
                         name: 'price'
                     },
                     {
-                        data: 'address',
-                        name: 'address'
+                        data: 'location_id',
+                        name: 'location_id'
                     },
                     {
                         data: 'status',
