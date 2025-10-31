@@ -19,4 +19,13 @@ public function index(Request $request)
     return view('frontend.pages.rent-properties', compact('properties', 'total', 'perPage'));//->with('type', 'rent');
 }
 
+    public function show($slug)
+    {
+        $property = Properties::where('slug', $slug)
+            ->with(['location', 'feature', 'single_image', 'images'])
+            ->firstOrFail();
+
+        return view('frontend.pages.buy-properties-detail', compact('property'));
+    }
+
 }

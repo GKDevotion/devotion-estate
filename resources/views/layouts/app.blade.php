@@ -33,7 +33,7 @@
             <div class="container-fluid px-5">
                 <!-- Left: Logo -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="public\frontend\assets\images\Devotion Real Estate.png" alt="Devotion Logo">
+                    <img src="{{ asset('public\frontend\assets\images\Devotion Real Estate.png') }}" alt="Devotion Logo">
                 </a>
 
                 <!-- Toggler for mobile -->

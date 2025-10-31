@@ -19,6 +19,14 @@ public function index(Request $request)
     return view('frontend.pages.off-plan', compact('properties', 'total', 'perPage'));
 }
 
+    public function show($slug)
+    {
+        $property = Properties::where('slug', $slug)
+            ->with(['location', 'feature', 'single_image', 'images'])
+            ->firstOrFail();
+
+        return view('frontend.pages.off-plan-detail', compact('property'));
+    }
 
 
 }

@@ -30,6 +30,10 @@ class Properties extends Model
         return $this->hasOne( PropertyImageMap::class, 'property_id', 'id');
     }
 
+       public function images(){
+        return $this->hasMany( PropertyImageMap::class, 'property_id', 'id');
+    }
+
     public function location(){
         return $this->hasOne( Location::class, 'id', 'location_id');
     }

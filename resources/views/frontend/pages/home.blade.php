@@ -395,6 +395,7 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $property)
                                         <div class="col">
+                                            <a href="{{ route('new-properties.detail', $property->slug) }}" class="text-decoration-none text-dark">
                                             <div class="card property-card h-100 border-1 shadow-sm rounded-3">
                                                 <div class="position-relative">
                                                     <img src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
@@ -450,6 +451,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </a>
                                         </div>
                                     @endforeach
                                 </div>
@@ -501,6 +503,7 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $propertysale)
                                         <div class="col">
+                                            <a href="{{ route('sale-properties.detail', $propertysale->slug) }}" class="text-decoration-none text-dark">
                                             <div class="card property-card h-100 border-1 shadow-sm rounded-3">
                                                 <div class="position-relative">
                                                     <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
@@ -559,6 +562,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </a>
                                         </div>
                                     @endforeach
                                 </div>

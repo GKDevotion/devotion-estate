@@ -21,5 +21,15 @@ public function index(Request $request)
         ->with('type', 'luxury');
 }
 
+    public function show($slug)
+    {
+        $property = Properties::where('slug', $slug)
+            ->with(['location', 'feature', 'single_image', 'images'])
+            ->firstOrFail();
+
+        return view('frontend.pages.luxury-properties-detail', compact('property'));
+    }
+
+
 
 }
