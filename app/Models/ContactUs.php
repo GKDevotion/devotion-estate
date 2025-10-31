@@ -21,4 +21,18 @@ class ContactUs extends Model
         'ip_address',
         'comment',
     ];
+
+      // ✅ Add accessor
+    public function getTypeDisplayAttribute()
+    {
+        // Handle nulls gracefully
+        if ($this->type && $this->sub_type) {
+            return "{$this->type} → {$this->sub_type}";
+        }
+
+        return $this->type ?? '-';
+    }
+
+    //use type_display to show both Commercial → Office
+
 }

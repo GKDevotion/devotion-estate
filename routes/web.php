@@ -127,7 +127,7 @@ Route::post('contact/store', [ContactUsController::class, 'store'])->name('conta
 // Route::get('/contact-us', function () {
 //     return view('frontend.pages.contact-us');
 // });
-Route::get('/sign-up', function () {
+Route::get('sign-up', function () {
     return view('frontend.pages.sign-up');
 });
 Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy-policy');

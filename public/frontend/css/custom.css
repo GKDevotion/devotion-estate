@@ -1467,10 +1467,7 @@
       color: #6c757d;
     }
 
+    .btn-sign-in:hover {
+        color: white;
+    }
 
-    .custom-alert {
-    background-color: #aa8038 !important;
-    color: #fff !important;
-    border: none !important;
-    font-weight: 500;
-}

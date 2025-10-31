@@ -36,7 +36,7 @@ class ContactUsController extends Controller
     ContactUs::create([
         'website_id'     => $request->website_id ?? 1,   // Default website_id = 1
         'name'           => $request->name,
-        'type'      => $request->type,
+        'type'           => $request->type,
         'sub_type'       => $request->sub_type,
         'email'          => $request->email,
         'ip_address'     => $request->ip(),              // User IP

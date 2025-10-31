@@ -27,16 +27,16 @@
    
 <div class="container my-5" style="padding-top: 80px; ">
 
-        <div class="signup-card mx-auto row g-0" style="max-width: 700px;">
+        <div class="signup-card mx-auto row g-0" style="max-width: 365px;">
             <!-- Form Column -->
-            <div class="col-lg-6 col-md-12 form-column">
+            <div class="col-lg-12 col-md-12 form-column">
                 <div class="p-4 text-center">
                     <!-- Logo -->
                     <a href="#">
                         <img src="public\frontend\assets\images\Devotion Real Estate.png" alt="Devotion Logo" class="img-fluid mb-3"
                             style="max-height: 80px;">
                     </a>
-                    <h3 class="mb-4 fs-5">Sign In</h3>
+                    <h3 class="mb-4 fs-5">Sign Up</h3>
 
                     <!-- Form -->
                     <form>
@@ -51,16 +51,14 @@
                                 placeholder="Enter Your Password" required>
                         </div>
                         <div class="d-grid mb-3">
-                            <button type="submit" class="btn btn-sign-in">Sign In</button>
+                            <button type="submit" class="btn btn-sign-in">Sign Up</button>
                         </div>
                     </form>
 
-                    <p>Don't have an account yet? <a href="#" class="fw-bold" style="color: #d4a761;">Sign Up</a></p>
+                    <p>Don't have an account yet? <a href="login" class="fw-bold" style="color: #d4a761;">Sign In</a></p>
                 </div>
             </div>
 
-            <!-- Image Column -->
-            <div class="col-lg-6 d-none d-lg-block image-column"></div>
         </div>
 
 
