@@ -49,7 +49,7 @@
                         <!-- Thumbnails -->
                         <div class="d-flex flex-wrap gap-2">
                             @foreach ($property->images as $image)
-                                <img src="{{ asset('storage/app/PropertyImage/' . ($image->filename ?? 'default.jpg')) }}"
+                                <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
                                     class="img-thumbnail small-thumb" onclick="changeMainImage(this)" alt="Property Image"
                                     style="width: 180px; height: 100px; object-fit: cover; cursor: pointer;">
                             @endforeach
