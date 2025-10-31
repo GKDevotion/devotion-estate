@@ -127,9 +127,10 @@
                             <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
                                 required>
                         </div>
+                        <!-- load jQuery if not already loaded -->
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
                         <div class="row mb-3">
-
 
                             <div class="col-md-6">
                                 <label for="type" class="form-label text-muted">Property type</label>
@@ -145,10 +146,16 @@
                                 <label for="sub_type" class="form-label text-muted">Sub Type</label>
                                 <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
                                     required>
-                                    <option value="0">Select Sub Type</option>
+                                    <option value="">Select Sub Type</option>
+
                                     @foreach ($propertyTypeObj as $type)
-                                        <option value="{{ $type->id }}"  class="show-{{ $type->main_type }} default-sub-type-data-hide d-none">{{ $type->name }}</option>
+                                        <!-- note: data-main is used for matching, 'dynamic' marks options we toggle -->
+                                        <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                            class="dynamic default-sub-type-hide d-none">
+                                            {{ $type->name }}
+                                        </option>
                                     @endforeach
+
                                 </select>
                             </div>
 
@@ -178,6 +185,22 @@
         </div>
     </div>
 
-    <script src="{{ asset('public\backend\assets\js\propertyForm.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/select2.min.js') }}"></script>
+    <script>
+        $(function() {
+            const $type = $('#type');
+            const $sub = $('#sub_type');
+            const $opts = $sub.find('option.dynamic, .default-sub-type-hide');
+
+            $type.on('change', function() {
+                const val = String($(this).val() ?? '').trim();
+                $opts.addClass('d-none').prop('disabled', true)
+                    .filter(`[data-main="${val}"], .show-${val}`)
+                    .removeClass('d-none').prop('disabled', false);
+                $sub.val('');
+            });
+
+            // Initial check (for edit pages)
+            $type.trigger('change');
+        });
+    </script>
 @endsection
