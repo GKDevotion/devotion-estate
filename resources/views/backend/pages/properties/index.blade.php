@@ -102,7 +102,15 @@
                     [5, 10, 25, 50, "All"]
                 ],
                 pageLength: 10,
-                ajax: "{{ route('properties.ajaxIndex') }}",
+                // ajax: "{{ route('properties.ajaxIndex') }}",
+                ajax: {
+                    url: "{{ route('properties.ajaxIndex' ) }}",
+                    type: 'GET',
+                    data: function (d) {
+                        d.field = "{{$param['field']}}"; // Pass company parameter
+                        d.value = "{{$param['value']}}"; // Pass industry parameter
+                    }
+                },
                 columns: [{
                         data: 'id',
                         render: function(data, type, row, meta) {

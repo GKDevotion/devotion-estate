@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Properties;
+use App\Models\PropertyFeature;
+use App\Models\PropertyFeatureMap;
+use App\Models\PropertyImageMap;
 use App\Models\PropertyType;
 use App\User;
 use Illuminate\Http\Request;
@@ -44,7 +47,50 @@ class PropertiesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
         }
 
-        return view('backend.pages.properties.index');
+        $param = [
+            'field' => '',
+            'value' => 0
+        ];
+
+        return view('backend.pages.properties.index', compact('param'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function newPropertyindex( Request $request )
+    {
+        if (is_null($this->user) || !$this->user->can('properties.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view Location !');
+        }
+
+        $param = [
+            'field' => 'is_new_property',
+            'value' => 1
+        ];
+
+        return view( 'backend.pages.properties.index', compact('param') );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function featurePropertyindex( Request $request )
+    {
+        if (is_null($this->user) || !$this->user->can('properties.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view Location !');
+        }
+
+        $param = [
+            'field' => 'is_featured_property',
+            'value' => 1
+        ];
+
+        return view( 'backend.pages.properties.index', compact('param') );
     }
 
     /**
@@ -58,6 +104,14 @@ class PropertiesController extends Controller
 
         if( !$this->is_assign_super_admin ){
             $query->where( 'admin_id', $this->admin_id );
+        }
+
+        /**
+         * set dynamic other property features
+         * like: new, feature, luxury, etc...,
+         */
+        if( $request->field && $request->value ){
+            $query->where( $request->field, $request->value );
         }
 
         $query->select('id', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count','status', 'updated_at' );
@@ -220,40 +274,6 @@ class PropertiesController extends Controller
         return response()->json( $personDataObj );
     }
 
-    public function _store(Request $request)
-    {
-        if (is_null($this->user) || !$this->user->can('properties.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create Location !');
-        }
-
-        // Validation Data
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'sort_order' => 'required',
-        ]);
-
-        // Create New Server Record
-        $location = new Properties();
-        $location->admin_id = $this->user->id;
-        $location->image = $request->image;
-        $location->name = $request->name;
-        $location->purpose = $request->purpose;
-        $location->type = $request->type;
-        $location->publish = $request->publish;
-        $location->area = $request->area;
-        $location->price = $request->price;
-        $location->address = $request->address;
-
-        $location->sort_order = $request->sort_order;
-        $location->slug = convertStringToSlug($request->name);
-        $location->status = $request->status;
-        $location->save();
-
-        session()->flash('success', $request->name.' record has been created !!');
-        return redirect()->route('admin.properties.index');
-    }
-
     /**
      * Display the specified resource.
      *
@@ -299,7 +319,7 @@ class PropertiesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
     public function update(Request $request, int $id)
     {
         if (is_null($this->user) || !$this->user->can('properties.edit')) {
@@ -351,10 +371,17 @@ class PropertiesController extends Controller
         $record = Properties::find($id);
 
         if (!is_null($record)) {
+
+            //delete Featured property map if applicable
+            PropertyFeatureMap::where( 'property_id', $id )->delete();
+
+            //delete property image map if applicable
+            PropertyImageMap::where( 'property_id', $id )->delete();
+
+            //delete proerty
             $record->delete();
         }
 
-        // session()->flash('success', 'Record has been deleted !!');
         return response()->json( ['data' => ['message' => "'".$record->name.'" has been successfully deleted.' ] ], 200);
     }
 }

@@ -15,7 +15,7 @@
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
 
-        <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
     </head>
 
     <!-- Hero Carousel -->
@@ -24,7 +24,7 @@
 
             <!-- Carousel Item 1 -->
             <div class="carousel-item active">
-                <img src="public\frontend\assets\images\img\slide3.jpg" class="d-block w-100" alt="Building 1">
+                <img src="{{ url('public/frontend/assets/images/img/slide3.jpg') }}" class="d-block w-100" alt="Building 1">
 
                 <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
                     <div class="carousel-content text-center p-4 rounded-3">
@@ -125,7 +125,7 @@
 
             <!-- Carousel Item 2 -->
             <div class="carousel-item">
-                <img src="public\frontend\assets\images\img\slide1.jpg" class="d-block w-100" alt="Building 1">
+                <img src="{{ url('public/frontend/assets/images/img/slide1.jpg') }}" class="d-block w-100" alt="Building 1">
 
                 <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
                     <div class="carousel-content text-center p-4 rounded-3">
@@ -225,7 +225,8 @@
 
             <!-- Carousel Item 3 -->
             <div class="carousel-item">
-                <img src="public\frontend\assets\images\img\slide2.jpg" class="d-block w-100" alt="Building 1">
+                <img src="{{ url('public/frontend/assets/images/img/slide2.jpg') }}" class="d-block w-100"
+                    alt="Building 1">
 
                 <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
                     <div class="carousel-content text-center p-4 rounded-3">
@@ -323,8 +324,7 @@
 
         </div>
     </div>
-    </div>
-    </div>
+
     <style>
         .btn-type {
             border: 1px solid transparent;
@@ -378,7 +378,10 @@
             </div>
 
             @php
-                $allproperties = getPropertiesByType(['sell', 'rent'], 6);
+                /**
+                 * $type = 0: 'sell', 1: 'rent'
+                 */
+                $allproperties = getPropertiesByType([0, 1]);
                 $chunks = $allproperties->chunk(3);
             @endphp
 
@@ -420,7 +423,8 @@
                                                         {{ ucfirst($property->location->name ?? 'N/A') }}
                                                     </p>
                                                     <p class="card-text small mb-4">
-                                                        <i class="bi bi-door-closed me-2"></i>Beds: {{ $property->beds }} |
+                                                        <i class="bi bi-door-closed me-2"></i>Beds: {{ $property->beds }}
+                                                        |
                                                         <i class="bi bi-bucket me-2"></i>Baths: {{ $property->baths }}
                                                     </p>
                                                     <p class="card-text small">
@@ -483,7 +487,7 @@
             </div>
 
             @php
-                $saleProperties = getPropertiesByType('sell', 6);
+                $saleProperties = getPropertiesByType();
                 $saleChunks = $saleProperties->chunk(3);
             @endphp
 
@@ -582,18 +586,18 @@
     <!-- List Your Property -->
     <section class="py-5 list-property-section">
         <div class="container py-5">
-            <h1 class="text-center mb-5 fw-bold section-title" style="      color: #000;
-      font-size: 45px;">LIST YOUR
+            <h1 class="text-center mb-5 fw-bold section-title" style="color: #000; font-size: 45px;">LIST YOUR
                 PROPERTY</h1>
             <div class="row g-4 justify-content-center">
 
                 <!-- Sell Residential -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center" style=" background: linear-gradient(#FBEED3, #F9E5B8);">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style=" background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\sell-house.png" alt="Sell Residential Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/sell-house.png') }}"
+                                    alt="Sell Residential Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Sell Residential</h4>
                             <p class="card-text property-text">
@@ -608,11 +612,12 @@
 
                 <!-- Rent Residential -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center" style="background: linear-gradient(#FBEED3, #F9E5B8);">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style="background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\rent-house.png" alt="Rent Residential Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/rent-house.png') }}"
+                                    alt="Rent Residential Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Rent Residential</h4>
                             <p class="card-text property-text">
@@ -627,11 +632,12 @@
 
                 <!-- Sell Commercial -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center" style="background: linear-gradient(#FBEED3, #F9E5B8);" >
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style="background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\office-1.png" alt="Sell Commercial Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/office-1.png') }}"
+                                    alt="Sell Commercial Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Sell Commercial</h4>
                             <p class="card-text property-text">
@@ -646,11 +652,12 @@
 
                 <!-- Rent Commercial -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center" style="background: linear-gradient(#FBEED3, #F9E5B8);" >
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style="background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\rent-office.png" alt="Rent Commercial Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/rent-office.png') }}"
+                                    alt="Rent Commercial Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Rent Commercial</h4>
                             <p class="card-text property-text">
@@ -810,16 +817,12 @@
                                 understand our needs and preferences was instrumental in finding the perfect home for our
                                 family."
                                 <br>
-
                                 " Thank you once again for your outstanding service. We will certainly recommend you to
                                 anyone in need
                                 of a top-notch real estate agent. ”
-
                             </p>
                             <p class="text-end fw-bold mb-0" style="text-align: justify;">
-
                                 - Severin
-
                             </p>
                         </div>
                     </div>
@@ -849,8 +852,4 @@
             </div>
         </div>
     </section>
-
-
-
-
 @endsection

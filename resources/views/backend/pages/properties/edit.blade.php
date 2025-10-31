@@ -602,20 +602,18 @@
                                 <div class="row mt-4">
 
                                     <div class="col-md-6 col-sm-12 mb-2">
-                                        <label class="mb-0" for="is_set_new_property">
+                                        <label class="mb-0" for="is_new_property">
                                             Do you want to set this property as new? <span class="text-error">*</span>
                                         </label>
-                                        <select name="is_set_new_property" id="is_set_new_property"
-                                            class="form-control @error('is_set_new_property') is-invalid @enderror"
-                                            data-required="yes">
+                                        <select name="is_new_property" id="is_new_property" class="form-control @error('is_new_property') is-invalid @enderror" data-required="yes">
                                             <option value="1"
-                                                {{ old('is_set_new_property', $data->is_set_new_property ?? 0) == 1 ? 'selected' : '' }}>
+                                                {{ old('is_new_property', $data->is_new_property ?? 0) == 1 ? 'selected' : '' }}>
                                                 Yes</option>
                                             <option value="0"
-                                                {{ old('is_set_new_property', $data->is_set_new_property ?? 0) == 0 ? 'selected' : '' }}>
+                                                {{ old('is_new_property', $data->is_new_property ?? 0) == 0 ? 'selected' : '' }}>
                                                 No</option>
                                         </select>
-                                        @error('is_set_new_property')
+                                        @error('is_new_property')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
                                     </div>

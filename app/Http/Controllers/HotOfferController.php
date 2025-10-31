@@ -7,27 +7,14 @@ use Illuminate\Http\Request;
 
 class HotOfferController extends Controller
 {
-    //
-
-public function index(Request $request)
-{
+    public function index(Request $request)
+    {
         $perPage = $request->get('perPage', 4);
 
-        // Fetch only active luxury properties (is_luxury_property = 1)
-        $properties = Properties::whereIn('purpose', [0, 1])
-            ->where('status', 1)
-            ->where('is_hot_offer', 1) // ✅ Only luxury ones
-            ->paginate($perPage);
+        $query = Properties::where('is_hot_offer', 1)->where('status', 1);
+        $properties = $query->paginate($perPage);
+        $total = $properties->total();
 
-        // Count total luxury properties
-        $total = Properties::whereIn('purpose', [0, 1])
-            ->where('status', 1)
-            ->where('is_hot_offer', 1) // ✅ Count only luxury ones
-            ->count();
-
-        return view('frontend.pages.hot-offer', compact('properties', 'total', 'perPage'))
-        ->with('type', 'luxury');
-}
-
-
+        return view('frontend.pages.hot-offer', compact('properties', 'total', 'perPage'));
+    }
 }

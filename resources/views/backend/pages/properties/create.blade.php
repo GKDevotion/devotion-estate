@@ -449,10 +449,10 @@
 
                                 <div class="row mt-4">
                                     <div class="col-md-6 col-sm-12 mb-3">
-                                        <label for="is_set_new_property" class="form-label mb-1">
+                                        <label for="is_new_property" class="form-label mb-1">
                                             Do you want to set this property as new? <span class="text-danger">*</span>
                                         </label>
-                                        <select name="is_set_new_property" id="is_set_new_property" class="form-select"
+                                        <select name="is_new_property" id="is_new_property" class="form-select"
                                             required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>

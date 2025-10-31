@@ -12,18 +12,11 @@ public function index(Request $request)
 {
     $perPage = $request->get('perPage', 4);
 
-    // Fetch both rent (0) and sale (1) properties that are active (status = 1)
-    $properties = Properties::whereIn('purpose', [0, 1])
-        ->where('status', 1) // ✅ only active properties
-        ->paginate($perPage);
+    $query = Properties::where('is_complete', 3)->where('status', 1);
+    $properties = $query->paginate($perPage);
+    $total = $properties->total();
 
-    // Count total of both active types
-    $total = Properties::whereIn('purpose', [0, 1])
-        ->where('status', 1) // ✅ count only active properties
-        ->count();
-
-    return view('frontend.pages.off-plan', compact('properties', 'total', 'perPage'))
-        ->with('type', 'all'); // optional flag
+    return view('frontend.pages.off-plan', compact('properties', 'total', 'perPage'));
 }
 
 

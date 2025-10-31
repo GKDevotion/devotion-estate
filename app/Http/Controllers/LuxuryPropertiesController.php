@@ -13,17 +13,9 @@ public function index(Request $request)
 {
         $perPage = $request->get('perPage', 4);
 
-        // Fetch only active luxury properties (is_luxury_property = 1)
-        $properties = Properties::whereIn('purpose', [0, 1])
-            ->where('status', 1)
-            ->where('is_laxury_property', 1) // ✅ Only luxury ones
-            ->paginate($perPage);
-
-        // Count total luxury properties
-        $total = Properties::whereIn('purpose', [0, 1])
-            ->where('status', 1)
-            ->where('is_laxury_property', 1) // ✅ Count only luxury ones
-            ->count();
+        $query = Properties::where('is_laxury_property', 1)->where('status', 1);
+        $properties = $query->paginate($perPage);
+        $total = $properties->total();
 
         return view('frontend.pages.luxury-properties', compact('properties', 'total', 'perPage'))
         ->with('type', 'luxury');

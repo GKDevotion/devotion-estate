@@ -124,8 +124,7 @@
 
                         <div class="mb-3">
                             <label for="name" class="form-label text-muted">Your Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
-                                required>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
                         </div>
                         <!-- load jQuery if not already loaded -->
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -134,8 +133,7 @@
 
                             <div class="col-md-6">
                                 <label for="type" class="form-label text-muted">Property type</label>
-                                <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
-                                    required>
+                                <select class="form-select" id="type" name="type" style="font-size: 0.9rem;" required>
                                     <option value="" selected>Select Property Type</option>
                                     <option value="0">Residential</option>
                                     <option value="1">Commercial</option>
