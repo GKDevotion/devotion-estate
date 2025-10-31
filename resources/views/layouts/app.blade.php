@@ -173,7 +173,7 @@
 
                         @if (getConfigurationField('OFFICE_ADDRESS'))
                             <p class="office-text">
-                                {!!getConfigurationField('OFFICE_ADDRESS')!!}
+                                {!! getConfigurationField('OFFICE_ADDRESS') !!}
                             </p>
                         @endif
 
@@ -235,20 +235,25 @@
                     <div class="col-lg-3 col-md-6 mb-4 footer-links">
                         <h5 class="mb-3" style="color: #333;">Our Company</h5>
                         <ul class="list-unstyled">
-                            <li><a href="about-us" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem; color:#aa8038"></i>About Us</a>
+                            <li><a href="about-us" class=" text-decoration-none d-block py-1"><i
+                                        class="bi bi-chevron-right me-2"
+                                        style="font-size: 0.75rem; color:#aa8038"></i>About Us</a>
                             </li>
                             <li><a href="contact-us" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Contact
+                                        class="bi bi-chevron-right me-2"
+                                        style="font-size: 0.75rem;  color:#aa8038"></i>Contact
                                     Us</a></li>
                             <li><a href="privacy-policy" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Privacy
+                                        class="bi bi-chevron-right me-2"
+                                        style="font-size: 0.75rem;  color:#aa8038"></i>Privacy
                                     Policy</a></li>
                             <li><a href="terms-condition" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Terms
+                                        class="bi bi-chevron-right me-2"
+                                        style="font-size: 0.75rem;  color:#aa8038"></i>Terms
                                     Condition</a></li>
                             <li><a href="login" class="text-decoration-none d-block py-1"><i
-                                        class="bi bi-chevron-right me-2" style="font-size: 0.75rem;  color:#aa8038"></i>Login</a>
+                                        class="bi bi-chevron-right me-2"
+                                        style="font-size: 0.75rem;  color:#aa8038"></i>Login</a>
                             </li>
                         </ul>
                     </div>
@@ -293,25 +298,30 @@
             const loader = document.getElementById('page-loader');
             const links = document.querySelectorAll('a.nav-link, .dropdown-item');
 
-            // 1️⃣ Hide loader when page finishes loading
+            // ✅ 1. Hide loader when page finishes loading
             window.addEventListener('load', function() {
                 loader.classList.add('hidden');
             });
 
-            // 2️⃣ Show loader when user clicks a navigation link
+            // ✅ 2. Hide loader when page is restored from cache (Back/Forward navigation)
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) {
+                    loader.classList.add('hidden');
+                }
+            });
+
+            // ✅ 3. Show loader when user clicks navigation link
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
 
-                    // Skip external links or anchor links
+                    // Skip external or anchor links
                     if (this.target === '_blank' || href.startsWith('#')) return;
 
                     e.preventDefault();
-
-                    // Show loader immediately
                     loader.classList.remove('hidden');
 
-                    // Navigate after a short delay (optional: 300ms for animation smoothness)
+                    // Navigate after short delay
                     setTimeout(() => {
                         window.location.href = href;
                     }, 1500);
