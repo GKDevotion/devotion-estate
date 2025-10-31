@@ -5,7 +5,7 @@
 storage/app
 storage/log
 docker
-vendor
+/vendor
 .env
 .env.backup
 .phpunit.result.cache
