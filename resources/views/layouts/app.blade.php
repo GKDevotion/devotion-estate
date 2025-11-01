@@ -74,6 +74,8 @@
                             <ul class="dropdown-menu" aria-labelledby="ourServicesDropdown" style="min-width: 200px;">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('investment-advisory') }}">Investment And Advisory</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage Advisory</a>
                                 </li>
                             </ul>
@@ -91,8 +93,14 @@
                             <ul class="dropdown-menu" aria-labelledby="exploreMoreDropdown">
                                 <li class="dropend">
                                     <a class="dropdown-item" href="{{ route('about-us') }}">About Guide</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="{{ route('buyer-guide') }}">Buyer's Guide</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="{{ route('seller-guide') }}">Seller's Guide</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="{{ route('tenant-guide') }}">Tenant's Guide</a>
                                 </li>
                             </ul>
