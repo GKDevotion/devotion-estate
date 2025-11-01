@@ -126,7 +126,7 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
                 $watermark = public_path('img/devotion-trusted-real-estate.png'); // original watermark
                 if (file_exists($watermark)) {
                     // Load and resize the watermark
-                    $watermarkImg = Image::make($watermark)->resize(400, 100, function ($constraint) {
+                    $watermarkImg = Image::make($watermark)->resize(240, 60, function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     });

@@ -25,7 +25,7 @@
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         <li><a href="{{ route('admin.agents.index') }}">All Agents</a></li>
-                        <li><span>Edit Agent - {{ $dataObj->name }}</span></li>
+                        <li><span>Edit Agent - {{ $dataObj->login_by }}</span></li>
                     </ul>
                 </div>
             </div>
@@ -56,16 +56,15 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('admin.agents.update', $dataObj->id) }}" method="POST">
+                        <form action="{{ route('admin.agents.update', $dataObj->id) }}" method="POST" autocomplete="off">
                             @method('PUT')
                             @csrf
                             <div class="row">
 
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="login_by">Login By</label>
-                                        <input type="text" class="form-control" id="login_by" name="login_by"
-                                            placeholder="Enter Name" value="{{ old('login_by', $dataObj->login_by) }}">
+                                        <label class="mb-0" for="login_by">Login By  <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="login_by" name="login_by" placeholder="Login By" value="{{ old('login_by', $dataObj->login_by) }}">
                                         @error('login_by')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
@@ -74,10 +73,8 @@
 
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="first_name">First Name</label>
-                                        <input type="text" class="form-control" id="first_name" name="first_name"
-                                            placeholder="Enter First Name"
-                                            value="{{ old('first_name', $dataObj->first_name) }}">
+                                        <label class="mb-0" for="first_name">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" value="{{ old('first_name', $dataObj->first_name) }}">
                                         @error('first_name')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
@@ -87,36 +84,18 @@
 
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" id="last_name" name="last_name"
-                                            placeholder="Enter Last Name"
-                                            value="{{ old('last_name', $dataObj->last_name) }}">
+                                        <label class="mb-0" for="last_name">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" value="{{ old('last_name', $dataObj->last_name) }}">
                                         @error('last_name')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
 
-
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="designtation_id">Designation</label>
-                                        <input type="number" class="form-control" id="designtation_id"
-                                            name="designtation_id" placeholder="Enter First Name"
-                                            value="{{ old('designtation_id', $dataObj->designtation_id) }}">
-                                        @error('designtation_id')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-
                                 <div class="col-md-4 col-sm-6 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="email_id">Email ID</label>
-                                        <input type="text" class="form-control" id="email_id" name="email_id"
-                                            placeholder="Enter Email ID" value="{{ old('email_id', $dataObj->email_id) }}">
+                                        <label class="mb-0" for="email_id">Email ID <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="email_id" name="email_id" placeholder="Enter Email ID" value="{{ old('email_id', $dataObj->email_id) }}">
                                         @error('email_id')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
@@ -126,8 +105,7 @@
                                 <div class="col-md-4 col-sm-3 mb-2">
                                     <div class="form-group">
                                         <label class="mb-0" for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Enter Password" value="{{ old('password', $dataObj->password) }}">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" value="">
                                         @error('password')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
@@ -136,185 +114,66 @@
 
                                 <div class="col-md-4 col-sm-3 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="password_confirmation">Confirm Password</label>
-                                        <input type="password" class="form-control" id="password_confirmation"
-                                            name="password_confirmation" placeholder="Enter Password"
-                                            value="{{ old('password_confirmation', $dataObj->password_confirmation) }}">
-                                        @error('password_confirmation')
+                                        <label class="mb-0" for="mobile_no">Contact No. <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="mobile_no" name="mobile_no" placeholder="Enter Password" value="{{ old('mobile_no', $dataObj->mobile_no) }}">
+                                        @error('mobile_no')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
 
+                                <div class="col-md-4 col-sm-12 mb-2">
+                                    <div class="form-group">
+                                        <label class="mb-0" for="designation_id">Designation <span class="text-danger">*</span></label>
+                                        <select name="designation_id" id="designation_id" class="form-control">
+                                            <option value="">Select Designation</option>
+                                            @foreach ( $designationObj as $dt )
+                                                <option value="{{$dt->id}}" {{$dataObj->designation_id == $dt->id ? 'selected' : ''}}>{{$dt->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('designation_id')
+                                            <div class="error text-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
 
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="login">Login Allow</label>
+                                        <label class="mb-0" for="login">Login Allow <span class="text-danger">*</span></label>
                                         <select name="login" id="login" class="form-control">
-                                            <option value="0" {{ 0 == $dataObj->login ? 'selected' : '' }}>Disabled
-                                            </option>
-                                            <option value="1" {{ 1 == $dataObj->login ? 'selected' : '' }}>Enabled
-                                            </option>
+                                            <option value="0" {{ 0 == $dataObj->login ? 'selected' : '' }}>Disabled</option>
+                                            <option value="1" {{ 1 == $dataObj->login ? 'selected' : '' }}>Enabled</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="status">status</label>
+                                        <label class="mb-0" for="status">status <span class="text-danger">*</span></label>
                                         <select name="status" id="status" class="form-control">
-                                            <option value="0" {{ 0 == $dataObj->status ? 'selected' : '' }}>Disabled
-                                            </option>
-                                            <option value="1" {{ 1 == $dataObj->status ? 'selected' : '' }}>Enabled
-                                            </option>
+                                            <option value="0" {{ 0 == $dataObj->status ? 'selected' : '' }}>Disabled</option>
+                                            <option value="1" {{ 1 == $dataObj->status ? 'selected' : '' }}>Enabled</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="continent_id">
-                                            Continent <span class="text-error">*</span>
-                                        </label>
-                                        <select name="continent_id" id="continent_id"
-                                            class="form-control get-country-list continent-id @error('continent_id') is-invalid @enderror"
-                                            data-id="country_id" data-required="yes">
-                                            <option value="">Select Continent</option>
-                                            @if (isset($continentObj) && count($continentObj) > 0)
-                                                @foreach ($continentObj as $ar)
-                                                    <option value="{{ $ar->id }}"
-                                                        {{ old('continent_id', $addressDataObj->continent_id ?? '') == $ar->id ? 'selected' : '' }}>
-                                                        {{ $ar->name }}
-                                                    </option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @error('continent_id')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="country_id">Country <span
-                                                class="text-error">*</span></label>
-                                        <select name="country_id" id="country_id"
-                                            class="form-control get-state-list country-id @error('country_id') is-invalid @enderror"
-                                            data-id="state_id" data-required="yes">
-                                            <option value="">Select Country</option>
-                                            @if (isset($countryObj) && count($countryObj) > 0)
-                                                @foreach ($countryObj as $ar)
-                                                    <option value="{{ $ar->id }}"
-                                                        {{ old('country_id', $addressDataObj->country_id ?? '') == $ar->id ? 'selected' : '' }}>
-                                                        {{ $ar->name }}
-                                                    </option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @error('country_id')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="state_id">State <span
-                                                class="text-error">*</span></label>
-                                        <select name="state_id" id="state_id"
-                                            class="form-control get-city-list state-id @error('state_id') is-invalid @enderror"
-                                            data-id="city_id" data-required="yes">
-                                            <option value="">Select State</option>
-                                            @if (isset($stateObj) && count($stateObj) > 0)
-                                                @foreach ($stateObj as $ar)
-                                                    <option value="{{ $ar->id }}"
-                                                        {{ old('state_id', $addressDataObj->state_id ?? '') == $ar->id ? 'selected' : '' }}>
-                                                        {{ $ar->name }}
-                                                    </option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @error('state_id')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="city_id">City <span
-                                                class="text-error">*</span></label>
-                                        <select name="city_id" id="city_id"
-                                            class="form-control city-id @error('city_id') is-invalid @enderror"
-                                            data-required="yes">
-                                            <option value="">Select City</option>
-                                            @if (isset($cityObj) && count($cityObj) > 0)
-                                                @foreach ($cityObj as $ar)
-                                                    <option value="{{ $ar->id }}"
-                                                        {{ old('city_id', $addressDataObj->city_id ?? '') == $ar->id ? 'selected' : '' }}>
-                                                        {{ $ar->name }}
-                                                    </option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @error('city_id')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="zipcode">Zipcode<span
-                                                class="text-error">*</span></label>
-                                        <input type="text" class="form-control" id="zipcode" name="zipcode"
-                                            placeholder="Zipcode" value="{{ old('zipcode', $addressDataObj->zipcode) }}">
-                                        @error('zipcode')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="address">Address<span
-                                                class="text-error">*</span></label>
-                                        <input type="text" class="form-control" id="address" name="address"
-                                            placeholder="Address" value="{{ old('address', $addressDataObj->address) }}">
-                                        @error('address')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
+                                        <i class="fa fa-save"></i> Update
+                                    </button>
+                                    <a href="{{ route('admin.agents.index') }}" class="btn btn-danger pr-4 pl-4">
+                                        <i class="fa fa-arrow-left"></i> Back
+                                    </a>
                                 </div>
                             </div>
-
+                        </form>
                     </div>
-
-
-
-                    <div class="row mt-4">
-                        <div class="col-md-12 text-center">
-                            <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
-                                <i class="fa fa-save"></i> Update
-                            </button>
-                            <a href="{{ route('admin.agents.index') }}" class="btn btn-danger pr-4 pl-4">
-                                <i class="fa fa-arrow-left"></i> Back
-                            </a>
-                        </div>
-                    </div>
-                    </form>
                 </div>
             </div>
+            <!-- data table end -->
         </div>
-        <!-- data table end -->
-
-    </div>
     </div>
 @endsection
 
