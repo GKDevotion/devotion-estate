@@ -349,8 +349,14 @@ $property = Properties::with('agent')
 
         $data = Properties::findOrFail($id);
 
+        $featureMap = [];
+        if( $data->featureMap ){
+            foreach( $data->featureMap as $dt ){
+                $featureMap[] = $dt->feature_id;
+            }
+        }
 
-        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj' ));
+        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap' ));
     }
 
     /**

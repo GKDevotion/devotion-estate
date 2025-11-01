@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\City;
 use App\Models\Continent;
 use App\Models\Country;
+use App\Models\Designations;
 use App\Models\State;
 use App\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class AgentsController extends Controller
     public $user;
     public $is_assign_super_admin = 0;
     public $admin_id = 0;
-    public $user_type = 4; //	1: User, 2: Owner, 3: Client, 4: Agent 
+    public $user_type = 4; //	1: User, 2: Owner, 3: Client, 4: Agent
 
     public function __construct()
     {
@@ -78,8 +79,8 @@ class AgentsController extends Controller
             ->addColumn('login_by', function (User $dt) {
                 return $dt->login_by;
             })
-            ->addColumn('designtation_id', function (User $dt) {
-                return $dt->designtation_id;
+            ->addColumn('designtation', function (User $dt) {
+                return $dt->designation->name ?? '';
             })
             ->addColumn('status', function (User $dt) {
                 $status = "";
@@ -128,7 +129,7 @@ class AgentsController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'email', 'login_by', 'designtation_id', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'name', 'email', 'login_by', 'designtation', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -166,10 +167,8 @@ class AgentsController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to create user !');
         }
 
-        $continentArr  = Continent::select('id', 'name')->get();
-        $countryArr  = Country::select('id', 'name', 'continent_id')->get();
-        $stateArr  = State::select('id', 'name', 'continent_id', 'country_id')->get();
-        return view('backend.pages.agents.create', compact('continentArr', 'countryArr', 'stateArr'));
+        $designationObj = Designations::select('id', 'name')->where('status', 1)->get();
+        return view('backend.pages.agents.create', compact('designationObj'));
     }
 
     /**
@@ -189,14 +188,10 @@ class AgentsController extends Controller
             'login_by' => 'required|max:20',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
-            'email_id' => 'required|max:100|email', //|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'continent_id' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
-            'zipcode' => 'required',
-            'address' => 'required',
+            'email_id' => 'required|max:50|email', //|unique:users',
+            'password' => 'required|min:6',
+            'mobile_no' => 'required',
+            'designation_id' => 'required',
         ]);
 
         // Create New User
@@ -204,7 +199,7 @@ class AgentsController extends Controller
         $user->login_by = $request->login_by;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->designtation_id = $request->designtation_id;
+        $user->designation_id = $request->designation_id;
         $user->admin_id = $this->user->id;
         $user->email_id = $request->email_id;
         $user->password = Hash::make($request->password);
@@ -214,20 +209,20 @@ class AgentsController extends Controller
         $user->type = $this->user_type;
         $user->save();
 
-        $userAddress = new Address();
-        $userAddress->admin_id  = $this->user->id;
-        $userAddress->person_id = $user->id;
-        $userAddress->name = $user->first_name . " " . $user->last_name;
-        $userAddress->continent_id = $request->continent_id;
-        $userAddress->country_id = $request->country_id;
-        $userAddress->state_id = $request->state_id;
-        $userAddress->city_id = $request->city_id;
-        $userAddress->zipcode = $request->zipcode;
-        $userAddress->address = $request->address;
-        $userAddress->person_type = $this->user_type;
-        $userAddress->save();
+        // $userAddress = new Address();
+        // $userAddress->admin_id  = $this->user->id;
+        // $userAddress->person_id = $user->id;
+        // $userAddress->name = $user->first_name . " " . $user->last_name;
+        // $userAddress->continent_id = $request->continent_id;
+        // $userAddress->country_id = $request->country_id;
+        // $userAddress->state_id = $request->state_id;
+        // $userAddress->city_id = $request->city_id;
+        // $userAddress->zipcode = $request->zipcode;
+        // $userAddress->address = $request->address;
+        // $userAddress->person_type = $this->user_type;
+        // $userAddress->save();
 
-        session()->flash('success', $user->first_name . " " . $user->last_name . ' has been created !!');
+        session()->flash('success', $user->login_by.' has been created !!');
         return redirect()->route('admin.agents.index');
     }
 
@@ -255,18 +250,8 @@ class AgentsController extends Controller
         }
 
         $dataObj = User::find($id);
-        $addressDataObj = Address::where([
-            'person_id' => $dataObj->id,
-            'person_type' => $this->user_type
-        ])
-            ->first();
-
-        $continentObj  = Continent::select('id', 'name')->get();
-        $countryObj  = Country::select('id', 'name', 'continent_id')->where(['continent_id' => $addressDataObj->continent_id, 'status' => 1])->get();
-        $stateObj  = State::select('id', 'name', 'continent_id', 'country_id')->where(['country_id' => $addressDataObj->country_id, 'status' => 1])->get();
-        $cityObj  = City::select('id', 'name', 'continent_id', 'country_id')->where(['state_id' => $addressDataObj->state_id, 'status' => 1])->get();
-
-        return view('backend.pages.agents.edit', compact('dataObj', 'addressDataObj', 'continentObj', 'countryObj', 'stateObj', 'cityObj'));
+        $designationObj = Designations::select('id', 'name')->where('status', 1)->get();
+        return view('backend.pages.agents.edit', compact('dataObj', 'designationObj'));
     }
 
     /**
@@ -290,20 +275,16 @@ class AgentsController extends Controller
             'login_by' => 'required|max:20',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
-            'email_id' => 'required|max:100|email', //|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'continent_id' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
-            'zipcode' => 'required',
-            'address' => 'required',
+            'email_id' => 'required|max:50|email', //|unique:users',
+            'password' => 'required|min:6',
+            'designation_id' => 'required',
+            'mobile_no' => 'required',
         ]);
 
         $user->login_by = $request->login_by;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->designtation_id = $request->designtation_id;
+        $user->designation_id = $request->designation_id;
         $user->admin_id = $this->user->id;
         $user->email_id = $request->email_id;
         $user->mobile_no = $request->mobile_no;
@@ -316,18 +297,18 @@ class AgentsController extends Controller
         }
         $user->save();
 
-        $userAddress = Address::find($request->address_id);
-        $userAddress->admin_id  = $this->user->id;
-        $userAddress->person_id = $user->id;
-        $userAddress->name = $user->first_name . " " . $user->last_name;
-        $userAddress->continent_id = $request->continent_id;
-        $userAddress->country_id = $request->country_id;
-        $userAddress->state_id = $request->state_id;
-        $userAddress->city_id = $request->city_id;
-        $userAddress->zipcode = $request->zipcode;
-        $userAddress->address = $request->address;
-        $userAddress->person_type = $this->user_type;
-        $userAddress->save();
+        // $userAddress = Address::find($request->address_id);
+        // $userAddress->admin_id  = $this->user->id;
+        // $userAddress->person_id = $user->id;
+        // $userAddress->name = $user->first_name . " " . $user->last_name;
+        // $userAddress->continent_id = $request->continent_id;
+        // $userAddress->country_id = $request->country_id;
+        // $userAddress->state_id = $request->state_id;
+        // $userAddress->city_id = $request->city_id;
+        // $userAddress->zipcode = $request->zipcode;
+        // $userAddress->address = $request->address;
+        // $userAddress->person_type = $this->user_type;
+        // $userAddress->save();
 
         // session()->flash('success', 'User has been updated !!');
         session()->flash('success', $user->first_name . " " . $user->last_name . ' has been updated !!');
@@ -347,18 +328,14 @@ class AgentsController extends Controller
         }
 
         $user = User::find($id);
-        if (!is_null($user)) {
+        if ( $user ) {
 
-            $addressDataObj = Address::where([
+            Address::where([
                 'person_id' => $id,
                 'person_type' => $this->user_type
-            ])
-                ->first();
+            ])->delete();
 
-            if (!is_null($addressDataObj)) {
-                $addressDataObj->delete();
-                $user->delete();
-            }
+            $user->delete();
         }
 
         // session()->flash('success', 'User has been deleted !!');

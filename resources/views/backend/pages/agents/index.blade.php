@@ -27,7 +27,7 @@ Owners - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-7">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left d-none">Owners</h4>
+                <h4 class="page-title pull-left d-none">Agent</h4>
                 <ul class="breadcrumbs pull-left m-2">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li><span>All Agents</span></li>
@@ -37,7 +37,7 @@ Owners - Admin Panel
         <div class="col-md-3 text-end">
             @if (Auth::guard('admin')->user()->can('agents.edit'))
                 <a class="btn btn-add text-white" href="{{ route('admin.agents.create') }}">
-                    <i class="fa fa-plus"></i> User
+                    <i class="fa fa-plus"></i> Agent
                 </a>
             @endif
         </div>
@@ -65,7 +65,6 @@ Owners - Admin Panel
                                     <th>Email</th>
                                     <th>Login By</th>
                                     <th>Designation</th>
-                          
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
@@ -114,7 +113,7 @@ Owners - Admin Panel
                     { data: 'name', name: 'name' },
                     { data: 'email_id', name: 'email_id' },
                     { data: 'login_by', name: 'login_by' },
-                    { data: 'designtation_id', name: 'designtation_id' },
+                    { data: 'designtation', name: 'designtation' },
                     { data: 'status', name: 'status', orderable: false, searchable: false },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'updated_at', name: 'updated_at' },

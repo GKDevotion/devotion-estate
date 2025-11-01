@@ -162652,7 +162652,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `admin_id` int NOT NULL DEFAULT '0' COMMENT 'Reference for admin table',
-  `designtation_id` int DEFAULT '0' COMMENT 'reference for the designation table',
+  `designation_id` int DEFAULT '0' COMMENT 'reference for the designation table',
   `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `login_by` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -162676,7 +162676,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   KEY `type_IDX` (`type`),
   KEY `status_IDX` (`status`),
-  KEY `designation_IDX` (`designtation_id`) USING BTREE,
+  KEY `designation_IDX` (`designation_id`) USING BTREE,
   KEY `login_IDX` (`login`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -162684,7 +162684,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `admin_id`, `designtation_id`, `first_name`, `last_name`, `login_by`, `email_id`, `mobile_no`, `type`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `api_token`, `status`, `login`, `isSendAuthMail`, `otp`, `otp_expires_at`, `created_at`, `updated_at`) VALUES
+INSERT INTO `users` (`id`, `admin_id`, `designation_id`, `first_name`, `last_name`, `login_by`, `email_id`, `mobile_no`, `type`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `api_token`, `status`, `login`, `isSendAuthMail`, `otp`, `otp_expires_at`, `created_at`, `updated_at`) VALUES
 (1, 0, 4, 'Gautam Kakadiya', NULL, NULL, 'gk@devotiontech.io', NULL, 1, NULL, '$2y$10$CpWBqvEjQp2s5Zep/o10buKGYgWnunYAiiHmwS9ouKx3O0KHq/Hye', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, '0000-00-00 00:00:00', '2024-06-29 02:26:27', '2025-01-01 23:48:17'),
 (2, 0, 4, 'Princy', NULL, NULL, 'princy@devotiontech.io', NULL, 2, NULL, '$2y$10$anUpxM4RCQ4UMyLjPRayQeiTa9MRzqmaHjm1fgYFw8FZ0E5yN7dwG', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, '2024-12-31 19:26:16', '2024-08-12 02:01:35', '2024-08-12 02:01:35'),
 (3, 0, 4, '23-1 11 2024', NULL, NULL, '23-1@mailinator.com', NULL, 3, NULL, '$2y$10$xjnvszITcvPNEnpslCaW8egHDVdt0xqYYMKk8nNvUlsq2VKhPTWZK', NULL, NULL, NULL, 'LNh4mozj', NULL, 1, 0, 1, NULL, '2024-12-31 19:26:16', '2024-11-23 08:20:36', '2024-11-23 08:35:05'),

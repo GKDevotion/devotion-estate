@@ -40,4 +40,8 @@ class PropertyFeatureMap extends Model
     // public function user(){
     //     return $this->hasOne(User::class, 'id', 'user_id');
     // }
+
+    public function feature(){
+        return $this->hasOne(PropertyFeature::class, 'id', 'feature_id');
+    }
 }

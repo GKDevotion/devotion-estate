@@ -81,11 +81,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/brochures/update', [BrochuresController::class, 'update'])->name('admin.brochures.update');
     Route::get('/brochures-ajax-data', [BrochuresController::class, 'ajaxIndex'])->name('brochures.ajaxIndex');
 
+    // Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
     Route::get('/properties', [PropertiesController::class, 'index'])->name('admin.properties.index');
     Route::get('/properties/create', [PropertiesController::class, 'create'])->name('admin.properties.create');
     Route::post('/properties/store', [PropertiesController::class, 'store'])->name('admin.properties.store');
     Route::get('/properties/edit/{id}', [PropertiesController::class, 'edit'])->name('admin.properties.edit');
-    Route::post('/properties/update', [PropertiesController::class, 'update'])->name('admin.properties.update');
+    // Route::post('/properties/update', [PropertiesController::class, 'update'])->name('admin.properties.update');
     Route::delete('/admin/properties/{id}', [PropertiesController::class, 'destroy'])->name('admin.properties.destroy');
     Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
     Route::get('/new-property', [PropertiesController::class, 'newPropertyindex'])->name('admin.new-property.index');
@@ -116,11 +117,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/owners/update', [OwnersController::class, 'update'])->name('admin.owners.update');
     Route::get('/owners-ajax-data', [OwnersController::class, 'ajaxIndex'])->name('owners.ajaxIndex');
 
-    Route::get('/agents', [AgentsController::class, 'index'])->name('admin.agents.index');
-    Route::get('/agents/create', [AgentsController::class, 'create'])->name('admin.agents.create');
-    Route::post('/agents/store', [AgentsController::class, 'store'])->name('admin.agents.store');
-    Route::get('/agents/edit/{id}', [AgentsController::class, 'edit'])->name('admin.agents.edit');
-    Route::post('/agents/update', [AgentsController::class, 'update'])->name('admin.agents.update');
+    Route::resource('agents', 'Backend\AgentsController', ['names' => 'admin.agents']);
+    // Route::get('/agents', [AgentsController::class, 'index'])->name('admin.agents.index');
+    // Route::get('/agents/create', [AgentsController::class, 'create'])->name('admin.agents.create');
+    // Route::post('/agents/store', [AgentsController::class, 'store'])->name('admin.agents.store');
+    // Route::get('/agents/edit/{id}', [AgentsController::class, 'edit'])->name('admin.agents.edit');
+    // Route::post('/agents/update', [AgentsController::class, 'update'])->name('admin.agents.update');
     Route::get('/agents-ajax-data', [AgentsController::class, 'ajaxIndex'])->name('agents.ajaxIndex');
 
     Route::get('/clients', [ClientsController::class, 'index'])->name('admin.clients.index');
