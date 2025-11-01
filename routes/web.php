@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Backend\AgentsController;
+use App\Http\Controllers\Backend\PropertiesController;
 use App\Http\Controllers\Backend\ReviewsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BuyerGuideController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SellerGuideController;
 use App\Http\Controllers\TenantGuideController;
 use App\Http\Controllers\TermsConditionController;
+use App\Models\Properties;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,35 +58,32 @@ Route::post('review/store', [ReviewController::class, 'store'])->name('review.st
 
 Route::post('property-contact/store', [PropertyContactController::class, 'store'])->name('property-contact.store');
 
-Route::get('/new-properties/{slug}', [HomeController::class, 'showNew'])->name('new-properties.detail');
-Route::get('/sale-properties/{slug}', [HomeController::class, 'showSale'])->name('sale-properties.detail');
+// routes/web.php
+Route::get('/{type}-properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
+
+Route::get('/agent/{id}', [Properties::class, 'show'])->name('agent.show');
+Route::get('/property/send-mail/{agent_id}', [PropertiesController::class, 'sendMail'])->name('property.sendMail');
+
 
 Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
 
 Route::get('buy-properties', [BuyPropertiesController::class, 'index'])->name('buy.properties');
-Route::get('/buy-properties/{slug}', [BuyPropertiesController::class, 'show'])->name('buy.property.detail');
+
 
 
 Route::get('rent-properties', [RentPropertiesController::class, 'index'])->name('rent.properties');
-Route::get('/rent-properties/{slug}', [RentPropertiesController::class, 'show'])->name('rent.property.detail');
-
-Route::get('/luxury-properties/{slug}', [LuxuryPropertiesController::class, 'show'])->name('luxury-property.detail');
 Route::get('luxury-properties', [LuxuryPropertiesController::class, 'index'])->name('luxury.properties');
-
 Route::get('buyer-guide', [BuyerGuideController::class, 'index'])->name('buyer-guide');
 Route::get('seller-guide', [SellerGuideController::class, 'index'])->name('seller-guide');
 Route::get('tenant-guide', [TenantGuideController::class, 'index'])->name('tenant-guide');
 Route::get('investment-advisory', [InvestmentAdvisoryController::class, 'index'])->name('investment-advisory');
 Route::get('mortgage-advisory', [MortgageAdvisoryController::class, 'index'])->name('mortgage-advisory');
-
-Route::get('/off-plan/{slug}', [OffPlanController::class, 'show'])->name('off-plan.detail');
 Route::get('off-plan', [OffPlanController::class, 'index'])->name('off-plan');
 Route::get('/list-your-properties', function () {
     return view('frontend.pages.list-your-properties');
 });
 
-Route::get('/hot-offer/{slug}', [HotOfferController::class, 'show'])->name('hot-offer.detail');
 Route::get('hot-offer', [HotOfferController::class, 'index'])->name('hot-offer');
 
 Route::get('/login', function () {

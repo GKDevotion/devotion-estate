@@ -69,7 +69,7 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
             // --- Store property flags safely ---
             $propertyDataObj->is_new_property = $request->has('is_new_property') ? 1 : 0;
             $propertyDataObj->is_featured_property = $request->has('is_featured_property') ? 1 : 0;
-            $propertyDataObj->is_laxury_Property = $request->has('is_laxury_Property') ? 1 : 0;
+            $propertyDataObj->is_luxury_property = $request->has('is_luxury_property') ? 1 : 0;
             $propertyDataObj->is_hot_offer = $request->has('is_hot_offer') ? 1 : 0;
 
             // Save before mapping features

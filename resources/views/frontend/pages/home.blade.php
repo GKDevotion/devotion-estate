@@ -367,6 +367,7 @@
     </style>
 
 
+
     <section class="py-5" style="background-color: #f8f5ee;">
         <div class="container">
             <div class="text-end mb-5">
@@ -395,62 +396,68 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $property)
                                         <div class="col">
-                                            <a href="{{ route('new-properties.detail', $property->slug) }}" class="text-decoration-none text-dark">
-                                            <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                                <div class="position-relative">
-                                                    <img src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
-                                                        class="card-img-top rounded-top-3" alt="{{ $property->name }}">
+                                            <a href="{{ route('property.detail', ['type' => $property->type == 0 ? 'sale' : 'rent','slug' => $property->slug]) }}"
+                                                class="text-decoration-none text-dark">
 
-                                                    <span
-                                                        class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                                    <span
-                                                        class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
-                                                        {{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}
-                                                    </span>
+                                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
+                                                    <div class="position-relative">
+                                                        <img src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                                            class="card-img-top rounded-top-3"
+                                                            alt="{{ $property->name }}">
 
-                                                </div>
+                                                        <span
+                                                            class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
+                                                        <span
+                                                            class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
+                                                            {{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}
+                                                        </span>
 
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                                        <h5 class="card-title text-truncate mb-0">{{ $property->name }}
-                                                        </h5>
-                                                        <button class="btn btn-type rounded-pill btn-sm">
-                                                            {{ ucfirst($property->feature->name ?? 'N/A') }}
-                                                        </button>
                                                     </div>
 
-                                                    <p class="card-text small text-muted mb-1">
-                                                        <i class="bi bi-map me-2"></i>
-                                                        {{ ucfirst($property->location->name ?? 'N/A') }}
-                                                    </p>
-                                                    <p class="card-text small mb-4">
-                                                        <i class="bi bi-door-closed me-2"></i>Beds: {{ $property->beds }}
-                                                        |
-                                                        <i class="bi bi-bucket me-2"></i>Baths: {{ $property->baths }}
-                                                    </p>
-                                                    <p class="card-text small">
-                                                        <i class="bi bi-rulers me-2"></i>Area:
-                                                        {{ $property->area }} Sq.Ft.
-                                                    </p>
+                                                    <div class="card-body">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2">
+                                                            <h5 class="card-title text-truncate mb-0">
+                                                                {{ $property->name }}
+                                                            </h5>
+                                                            <button class="btn btn-type rounded-pill btn-sm">
+                                                                {{ ucfirst($property->feature->name ?? 'N/A') }}
+                                                            </button>
+                                                        </div>
 
-                                                    <button class="btn btn-sm btn-icon me-2"><i
-                                                            class="bi bi-compass "></i></button>
-                                                    <button class="btn btn-sm btn-icon"><i
-                                                            class="bi bi-heart "></i></button>
-                                                </div>
+                                                        <p class="card-text small text-muted mb-1">
+                                                            <i class="bi bi-map me-2"></i>
+                                                            {{ ucfirst($property->location->name ?? 'N/A') }}
+                                                        </p>
+                                                        <p class="card-text small mb-4">
+                                                            <i class="bi bi-door-closed me-2"></i>Beds:
+                                                            {{ $property->beds }}
+                                                            |
+                                                            <i class="bi bi-bucket me-2"></i>Baths: {{ $property->baths }}
+                                                        </p>
+                                                        <p class="card-text small">
+                                                            <i class="bi bi-rulers me-2"></i>Area:
+                                                            {{ $property->area }} Sq.Ft.
+                                                        </p>
 
-                                                <hr class="property-divider">
+                                                        <button class="btn btn-sm btn-icon me-2"><i
+                                                                class="bi bi-compass "></i></button>
+                                                        <button class="btn btn-sm btn-icon"><i
+                                                                class="bi bi-heart "></i></button>
+                                                    </div>
 
-                                                <div
-                                                    class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                                    <p class="fs-5  property-price mb-0">
-                                                        AED {{ number_format($property->price, 2) }}</p>
-                                                    <div class="text-end">
-                                                        <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
-                                                            alt="Logo" class="property-logo img-fluid">
+                                                    <hr class="property-divider">
+
+                                                    <div
+                                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
+                                                        <p class="fs-5  property-price mb-0">
+                                                            AED {{ number_format($property->price, 2) }}</p>
+                                                        <div class="text-end">
+                                                            <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                                alt="Logo" class="property-logo img-fluid">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </a>
                                         </div>
                                     @endforeach
@@ -489,7 +496,7 @@
             </div>
 
             @php
-                $saleProperties = getPropertiesByType();
+                $saleProperties = getPropertiesByType([0]);
                 $saleChunks = $saleProperties->chunk(3);
             @endphp
 
@@ -503,65 +510,72 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $propertysale)
                                         <div class="col">
-                                            <a href="{{ route('sale-properties.detail', $propertysale->slug) }}" class="text-decoration-none text-dark">
-                                            <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                                <div class="position-relative">
-                                                    <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
-                                                        class="card-img-top rounded-top-3"
-                                                        alt="{{ $propertysale->title }}">
 
-                                                    <span
-                                                        class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                                    <span
-                                                        class="badge {{ $propertysale->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
-                                                        {{ $propertysale->purpose == 1 ? 'For Rent' : 'For Sell' }}
-                                                    </span>
+                                            <a href="{{ route('property.detail', [
+                                                'type' => $propertysale->type == 0 ? 'sale' : 'rent',
+                                                'slug' => $propertysale->slug,
+                                            ]) }}"
+                                                class="text-decoration-none text-dark">
+                                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
+                                                    <div class="position-relative">
+                                                        <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                                            class="card-img-top rounded-top-3"
+                                                            alt="{{ $propertysale->title }}">
 
-                                                </div>
+                                                        <span
+                                                            class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
+                                                        <span
+                                                            class="badge {{ $propertysale->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
+                                                            {{ $propertysale->purpose == 1 ? 'For Rent' : 'For Sell' }}
+                                                        </span>
 
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                                        <h5 class="card-title text-truncate mb-0">
-                                                            {{ $propertysale->name }}
-                                                        </h5>
-                                                        <button class="btn btn-type rounded-pill btn-sm">
-                                                            {{ ucfirst($propertysale->feature->name ?? 'N/A') }}
-                                                        </button>
                                                     </div>
 
-                                                    <p class="card-text small text-muted mb-1">
-                                                        <i class="bi bi-map me-2"></i>
-                                                        {{ ucfirst($propertysale->location->name ?? 'N/A') }}
-                                                    </p>
-                                                    <p class="card-text small mb-4">
-                                                        <i class="bi bi-door-closed me-2"></i>Beds:
-                                                        {{ $propertysale->beds }}
-                                                        |
-                                                        <i class="bi bi-bucket me-2"></i>Baths: {{ $propertysale->baths }}
-                                                    </p>
-                                                    <p class="card-text small">
-                                                        <i class="bi bi-rulers me-2"></i>Area:
-                                                        {{ $propertysale->area }} Sq.Ft.
-                                                    </p>
+                                                    <div class="card-body">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2">
+                                                            <h5 class="card-title text-truncate mb-0">
+                                                                {{ $propertysale->name }}
+                                                            </h5>
+                                                            <button class="btn btn-type rounded-pill btn-sm">
+                                                                {{ ucfirst($propertysale->feature->name ?? 'N/A') }}
+                                                            </button>
+                                                        </div>
 
-                                                    <button class="btn btn-sm btn-icon me-2"><i
-                                                            class="bi bi-compass "></i></button>
-                                                    <button class="btn btn-sm btn-icon"><i
-                                                            class="bi bi-heart "></i></button>
-                                                </div>
+                                                        <p class="card-text small text-muted mb-1">
+                                                            <i class="bi bi-map me-2"></i>
+                                                            {{ ucfirst($propertysale->location->name ?? 'N/A') }}
+                                                        </p>
+                                                        <p class="card-text small mb-4">
+                                                            <i class="bi bi-door-closed me-2"></i>Beds:
+                                                            {{ $propertysale->beds }}
+                                                            |
+                                                            <i class="bi bi-bucket me-2"></i>Baths:
+                                                            {{ $propertysale->baths }}
+                                                        </p>
+                                                        <p class="card-text small">
+                                                            <i class="bi bi-rulers me-2"></i>Area:
+                                                            {{ $propertysale->area }} Sq.Ft.
+                                                        </p>
 
-                                                <hr class="property-divider">
+                                                        <button class="btn btn-sm btn-icon me-2"><i
+                                                                class="bi bi-compass "></i></button>
+                                                        <button class="btn btn-sm btn-icon"><i
+                                                                class="bi bi-heart "></i></button>
+                                                    </div>
 
-                                                <div
-                                                    class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                                    <p class="fs-5  property-price mb-0">
-                                                        AED {{ number_format($propertysale->price, 2) }}</p>
-                                                    <div class="text-end">
-                                                        <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
-                                                            alt="Logo" class="property-logo img-fluid">
+                                                    <hr class="property-divider">
+
+                                                    <div
+                                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
+                                                        <p class="fs-5  property-price mb-0">
+                                                            AED {{ number_format($propertysale->price, 2) }}</p>
+                                                        <div class="text-end">
+                                                            <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                                alt="Logo" class="property-logo img-fluid">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </a>
                                         </div>
                                     @endforeach
@@ -585,6 +599,8 @@
             @endif
         </div>
     </section>
+
+
 
 
     <!-- List Your Property -->

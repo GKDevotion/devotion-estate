@@ -10,9 +10,9 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-            
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-      
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -237,7 +237,9 @@
         <div class="row">
             @forelse($properties as $p)
                 <div class="col-md-12 mb-4">
-                    <a href="{{ route('luxury-property.detail', $p->slug)  }}" class="text-decoration-none text-dark">
+                    <a href="{{ route('property.detail', [ 'type' => $p->is_luxury_property == 1 ? 'luxury' : 'luxury','slug' => $p->slug ]) }}"
+                        class="text-decoration-none text-dark">
+
                         <div class="card p-3 shadow-sm border-0 h-100">
                             <div class="row g-0">
                                 <div class="col-lg-4">

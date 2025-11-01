@@ -485,13 +485,13 @@
                                             Do you want to set this property as a luxury property? <span
                                                 class="text-danger">*</span>
                                         </label>
-                                        <select name="is_laxury_property" id="is_laxury_property"
-                                            class="form-select @error('is_laxury_property') is-invalid @enderror" required>
+                                        <select name="is_luxury_property" id="is_luxury_property"
+                                            class="form-select @error('is_luxury_property') is-invalid @enderror" required>
                                             <option value="" selected disabled>-- Select Option --</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                                         </select>
-                                        @error('is_laxury_property')
+                                        @error('is_luxury_property')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

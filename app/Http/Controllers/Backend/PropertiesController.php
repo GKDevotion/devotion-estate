@@ -12,6 +12,7 @@ use App\Models\PropertyType;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
 class PropertiesController extends Controller
@@ -280,9 +281,50 @@ class PropertiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($type, $slug)
     {
-        //
+        $map = [
+            'sale'        => ['column' => 'type', 'value' => 0],
+            'rent'        => ['column' => 'purpose', 'value' => 1],
+            'luxury'      => ['column' => 'is_luxury_property', 'value' => 1],
+            'new'         => ['column' => 'is_new_property', 'value' => 1],
+            'hot'         => ['column' => 'is_hot_offer', 'value' => 1],
+            'off'    => ['column' => 'is_complete', 'value' => 3],
+        ];
+
+        if (!array_key_exists($type, $map)) {
+            abort(404, 'Invalid property type');
+        }
+
+        //     $property = Properties::where('slug', $slug)
+        //         ->where($map[$type]['column'], $map[$type]['value'])
+        //         ->firstOrFail();
+
+        //           // ✅ Fetch related agent info
+        // $agent = User::where('id', $property->agent_id ?? $id)
+        //     ->where('status', 1)
+        //     ->where('type', 4) // assuming type 4 is agent
+        //     ->first();
+
+        // ✅ Fetch property with related agent (via relationship)
+          // ✅ Fetch property with its linked agent
+$property = Properties::with('agent')
+    ->where('slug', $slug)
+    ->where($map[$type]['column'], $map[$type]['value'])
+    ->firstOrFail();
+
+
+    // ✅ Fetch all active agents linked to any property
+    $agent = User::whereIn(
+            'designtation_id',
+            Properties::whereNotNull('agent_id')->pluck('agent_id')->unique()
+        )
+        ->where('status', 1)
+        ->where('type', 4)
+        ->get();
+
+
+        return view('frontend.pages.properties-detail', compact('property', 'type','agent'));
     }
 
     /**
@@ -384,4 +426,28 @@ class PropertiesController extends Controller
 
         return response()->json( ['data' => ['message' => "'".$record->name.'" has been successfully deleted.' ] ], 200);
     }
+
+
+    public function sendMail($agent_id)
+{
+    $agent = User::where('id', $agent_id)
+        ->where('status', 1)
+        ->where('type', 4)
+        ->firstOrFail();
+
+    $subject = 'Property Inquiry';
+    $messageBody = "Hello {$agent->first_name},\n\nI am interested in one of your properties. Please share more details.";
+
+    try {
+        Mail::raw($messageBody, function ($message) use ($agent, $subject) {
+            $message->to($agent->email_id)
+                    ->subject($subject)
+                    ->from('support@devotionestate.com', 'Devotion Estate');
+        });
+
+        return back()->with('success', 'Inquiry email sent successfully to the agent!');
+    } catch (\Exception $e) {
+        return back()->with('error', 'Failed to send email. Please try again later.');
+    }
+}
 }

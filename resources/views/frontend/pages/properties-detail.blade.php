@@ -187,7 +187,7 @@
                                     class="text-danger">*</span>
                             </p>
 
-                              <form action="{{ route('review.store') }}" method="POST">
+                            <form action="{{ route('review.store') }}" method="POST">
                                 @csrf
 
                                 <!-- Hidden Property ID -->
@@ -203,6 +203,7 @@
 
                                 <!-- Email & Phone -->
                                 <div class="row">
+
                                     <div class="col-md-6 mb-3">
                                         <label for="email" class="form-label">Email address</label>
                                         <input type="email" name="email" id="email" class="form-control"
@@ -242,6 +243,8 @@
                                 </button>
                             </form>
 
+
+
                         </div>
                     </div>
 
@@ -255,14 +258,34 @@
                                 <img src="{{ asset('public/img/devotion-trusted-real-estate.png') }}" alt="Devotion Logo"
                                     class="me-3" style="width: 100px; height: 100; object-fit: contain;">
                                 <div>
-                                    <p class="mb-0 fw-semibold">Devotion Estate Agent</p>
-                                    <p class="text-muted small mb-0">(+971) 44488538</p>
-                                    <p class="text-muted small">support@devotionestate.com</p>
+
+                                    <div>
+                                        {{-- <p class="mb-0 fw-semibold">Devotion Estate Agent</p> --}}
+                                        <p class="mb-0 fw-semibold">{{ $property->agent->first_name ?? 'Agent Name' }}</p>
+                                        <p class="text-muted small mb-0">
+                                            <a href="tel:{{ $property->agent->mobile_no ?? '' }}"
+                                                class="text-muted text-decoration-none">
+                                                {{ $property->agent->mobile_no ?? '(+971) 00000000' }}
+                                            </a>
+                                        </p>
+                                        <p class="text-muted small">
+                                            @if (isset($property->agent))
+                                                <a href="{{ route('property.sendMail', $property->agent->email_id) }}"
+                                                    class="text-muted text-decoration-none"
+                                                    onclick="return confirm('Send inquiry email to {{ $property->agent->first_name }}?')">
+                                                    {{ $property->agent->email_id ?? 'support@devotionestate.com' }}
+                                                </a>
+                                            @else
+                                                <span class="text-muted">Agent info not available</span>
+                                            @endif
+
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Contact Form -->
-                                 <form action="{{ route('property-contact.store') }}" method="POST">
+                            <form action="{{ route('property-contact.store') }}" method="POST">
                                 @csrf
 
                                 <input type="hidden" name="property_id" value="{{ $property->unique_id }}">
@@ -303,7 +326,7 @@
         </div>
     </div>
 
-      <script>
+    <script>
         function changeMainImage(element) {
             document.getElementById('mainImage').src = element.src;
         }

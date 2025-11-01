@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,5 +43,11 @@ class Properties extends Model
     {
         return $this->belongsTo(PropertyType::class, 'sub_type_id');
     }
+
+    public function agent()
+{
+    return $this->belongsTo(User::class, 'agent_id', 'designtation_id');
+}
+
 
 }

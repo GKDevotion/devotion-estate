@@ -224,7 +224,8 @@
         <div class="row">
             @forelse($properties as $p)
                 <div class="col-md-12 mb-4">
-                    <a href="{{route('hot-offer.detail', $p->slug) }}" class="text-decoration-none text-dark">
+                     <a href="{{ route('property.detail', [ 'type' => 'hot', 'slug' => $p->slug ]) }}"
+                        class="text-decoration-none text-dark">
                         <div class="card p-3 shadow-sm border-0 h-100">
                             <div class="row g-0">
                                 <div class="col-lg-4">
