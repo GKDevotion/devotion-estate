@@ -45,11 +45,23 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a></li>
+                        {{-- <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('rent.properties') }}">Rent</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('off-plan') }}">Off Plan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('luxury.properties') }}">Luxury
-                                Properties</a>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('luxury.properties') }}">Luxury Properties</a></li> --}}
+
+                        <!-- Our Services Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" id="propertyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Properties
+                                <span class="caret-icon transition">&#9662;</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="propertyDropdown" style="min-width: 200px;">
+                                <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('rent.properties') }}">Rent</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('off-plan') }}">Off Plan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('luxury.properties') }}">Luxury</a></li>
+                            </ul>
                         </li>
 
                         <!-- Our Services Dropdown -->
@@ -61,10 +73,8 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="ourServicesDropdown" style="min-width: 200px;">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('investment-advisory') }}">Investment
-                                        And Advisory</a>
-                                    <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage
-                                        Advisory</a>
+                                    <a class="dropdown-item" href="{{ route('investment-advisory') }}">Investment And Advisory</a>
+                                    <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage Advisory</a>
                                 </li>
                             </ul>
                         </li>
