@@ -39,12 +39,16 @@ class Properties extends Model
         return $this->hasOne( Location::class, 'id', 'location_id');
     }
 
-    public function type(){
-        return $this->belongsTo(PropertyType::class, 'sub_type_id');
+    public function subType(){
+        return $this->hasOne(PropertyType::class, 'id', 'sub_type_id');
     }
 
     public function featureMap(){
         return $this->hasMany(PropertyFeatureMap::class, 'property_id', 'id')->where( 'status', 1 );
+    }
+
+    public function agent(){
+        return $this->hasOne(User::class, 'id', 'agent_id');
     }
 
 }

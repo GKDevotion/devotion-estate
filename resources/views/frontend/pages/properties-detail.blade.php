@@ -248,8 +248,15 @@
                         </div>
                     </div>
 
+                    <style>
+                        .seller-review-form i{
+                            font-size: 15px;
+                            margin-left: -3px;
+                            color: #b88a3d;
+                        }
+                    </style>
                     <!-- Right: Contact Seller / Review Form -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 seller-review-form">
                         <div class="card shadow-sm border-0 rounded-4 p-4">
                             <h5 class=" mb-3">Contact seller</h5>
 
@@ -261,19 +268,17 @@
 
                                     <div>
                                         {{-- <p class="mb-0 fw-semibold">Devotion Estate Agent</p> --}}
-                                        <p class="mb-0 fw-semibold">{{ $property->agent->first_name ?? 'Agent Name' }}</p>
+                                        <p class="mb-0 fw-semibold">{{ $property->agent->first_name }}</p>
                                         <p class="text-muted small mb-0">
                                             <a href="tel:{{ $property->agent->mobile_no ?? '' }}"
                                                 class="text-muted text-decoration-none">
-                                                {{ $property->agent->mobile_no ?? '(+971) 00000000' }}
+                                                <i class="bi bi-phone" aria-hidden="true"></i> {{ $property->agent->mobile_no}}
                                             </a>
                                         </p>
                                         <p class="text-muted small">
                                             @if (isset($property->agent))
-                                                <a href="{{ route('property.sendMail', $property->agent->email_id) }}"
-                                                    class="text-muted text-decoration-none"
-                                                    onclick="return confirm('Send inquiry email to {{ $property->agent->first_name }}?')">
-                                                    {{ $property->agent->email_id ?? 'support@devotionestate.com' }}
+                                                <a href="mailto:{{$property->agent->email_id}}" class="text-muted text-decoration-none">
+                                                    <i class="bi bi-envelope" aria-hidden="true"></i> {{ $property->agent->email_id  }}
                                                 </a>
                                             @else
                                                 <span class="text-muted">Agent info not available</span>

@@ -420,8 +420,8 @@
                                                             <h5 class="card-title text-truncate mb-0">
                                                                 {{ $property->name }}
                                                             </h5>
-                                                            <button class="btn btn-type rounded-pill btn-sm">
-                                                                {{ ucfirst($property->feature->name ?? 'N/A') }}
+                                                            <button class="btn btn-type rounded-pill btn-sm featureMap">
+                                                                {{$property->subType->name ?? ''}}
                                                             </button>
                                                         </div>
 

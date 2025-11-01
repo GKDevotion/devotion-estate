@@ -307,22 +307,21 @@ class PropertiesController extends Controller
         //     ->first();
 
         // ✅ Fetch property with related agent (via relationship)
-          // ✅ Fetch property with its linked agent
-$property = Properties::with('agent')
-    ->where('slug', $slug)
-    ->where($map[$type]['column'], $map[$type]['value'])
-    ->firstOrFail();
+        // ✅ Fetch property with its linked agent
+        $property = Properties::with('agent')
+            ->where('slug', $slug)
+            ->where($map[$type]['column'], $map[$type]['value'])
+            ->firstOrFail();
 
 
-    // ✅ Fetch all active agents linked to any property
-    $agent = User::whereIn(
-            'designtation_id',
+        // ✅ Fetch all active agents linked to any property
+        $agent = User::whereIn(
+            'designation_id',
             Properties::whereNotNull('agent_id')->pluck('agent_id')->unique()
         )
         ->where('status', 1)
         ->where('type', 4)
         ->get();
-
 
         return view('frontend.pages.properties-detail', compact('property', 'type','agent'));
     }

@@ -70,8 +70,6 @@ Route::get('blog', [BlogController::class, 'index'])->name('blog');
 
 Route::get('buy-properties', [BuyPropertiesController::class, 'index'])->name('buy.properties');
 
-
-
 Route::get('rent-properties', [RentPropertiesController::class, 'index'])->name('rent.properties');
 Route::get('luxury-properties', [LuxuryPropertiesController::class, 'index'])->name('luxury.properties');
 Route::get('buyer-guide', [BuyerGuideController::class, 'index'])->name('buyer-guide');
@@ -102,3 +100,4 @@ Route::get('sign-up', function () {
 Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy-policy');
 Route::get('terms-condition', [TermsConditionController::class, 'index'])->name('terms-condition');
 
+Route::get('execute-sql-statement', [HomeController::class, 'setSqlStatement']);

@@ -209,7 +209,7 @@ function getPropertyFeatures(){
 function getPropertiesByType($type = [0])
 {
     $sliderPage = getConfigurationField('SLIDER_PER_PAGE');//get slider per page
-    return Properties::with('feature', 'location', 'single_image')
+    return Properties::with('subType', 'location', 'single_image')
         ->whereIn('purpose', $type)
         ->where('status', 1)
         ->latest()

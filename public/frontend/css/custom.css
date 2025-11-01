@@ -766,7 +766,7 @@
       padding-top: 90px;
   }
 
-  
+
   .list-unstyled {
       color: #575a7b;
       font-size: 15px;
@@ -1285,7 +1285,7 @@
   /* Custom styling to match the light background effect around the text */
   .card-body {
 
-    text-align: justify;
+      text-align: justify;
   }
 
   .card-body p {
@@ -1390,6 +1390,7 @@
       background-position: center;
       min-height: 100%;
   }
+
   .btn-sign-in {
       background-color: #d4a761;
       border-color: #d4a761;
@@ -1412,62 +1413,65 @@
       box-shadow: none;
   }
 
-   .content-container {
+  .content-container {
       text-align: justify;
-    }
+  }
 
-    .content-container p {
+  .content-container p {
       color: #575a7b;
       font-size: 1rem;
-    }
+  }
 
-    /* ===============================
+  /* ===============================
           Recent Blogs List
         ================================= */
 
-          .card-img-top-custom {
+  .card-img-top-custom {
       height: 200px;
       /* Set a fixed height for consistency */
       object-fit: cover;
       /* Ensures the image covers the area without distortion */
-    }
+  }
 
-    .recent-blogs .blog-item {
+  .recent-blogs .blog-item {
       border: 0;
       padding: 0;
       text-decoration: none;
       transition: background-color 0.3s ease;
-    }
+  }
 
-    .recent-blogs .blog-item:hover {
+  .recent-blogs .blog-item:hover {
       background-color: #f8f8f8;
-    }
+  }
 
-    .blog-thumb {
+  .blog-thumb {
       width: 80px;
       height: 60px;
       object-fit: cover;
       border-radius: 4px;
-    }
+  }
 
-    .blog-title {
+  .blog-title {
       font-size: 0.875rem;
       /* small */
       font-weight: 600;
       color: #333;
       margin: 0;
-    }
+  }
 
-    .recent-blogs .blog-item .flex-grow-1 {
+  .recent-blogs .blog-item .flex-grow-1 {
       overflow: hidden;
-    }
+  }
 
-      .text-date-category {
+  .text-date-category {
       font-size: 0.85rem;
       color: #6c757d;
-    }
+  }
 
-    .btn-sign-in:hover {
-        color: white;
-    }
-
+  .btn-sign-in:hover {
+      color: white;
+  }
+.card-img-top{
+    min-height: 250px;
+    max-height: 250px;
+}
