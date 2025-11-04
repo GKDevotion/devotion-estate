@@ -17,6 +17,21 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
         <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
+
+        <!-- LightGallery CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" rel="stylesheet">
+
+        <!-- LightGallery JS -->
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.umd.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+
         <style>
             .badge-rent,
             .badge-sell {
@@ -26,6 +41,45 @@
                 border-radius: 4px;
                 font-size: 0.9rem;
             }
+
+            .lg-outer .lg-thumb-item.active,
+            .lg-outer .lg-thumb-item:hover {
+                border-color: #aa8038;
+            }
+
+            /* 🔽 Vertical Right-Side Feedback Button (Slightly Below Center) */
+            .btn-feedback {
+                position: fixed;
+                top: 70%;
+                /* 👈 moves button a bit below center (adjust 55–65% as needed) */
+                right: 0;
+                transform: translateY(-50%);
+                background-color: #aa8038;
+                color: #fff;
+                border: none;
+                border-radius: 8px 0 0 8px;
+                font-family: "Inter", sans-serif;
+                padding: 3px 5px;
+                font-weight: 500;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 1055;
+                writing-mode: vertical-rl;
+                /* vertical text */
+                text-orientation: mixed;
+
+                transition: all 0.3s ease;
+            }
+
+            .btn-feedback i {
+                transform: rotate(90deg);
+                margin-bottom: 5px;
+            }
+
+            .btn-feedback:hover {
+                background-color: #8c682c;
+                color: #fff;
+                transform: translateY(-50%) scale(1.05);
+            }
         </style>
     </head>
 
@@ -34,28 +88,40 @@
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
-                <!-- 🔽 Image Gallery Section (Now Below) -->
-                <div class="card p-4 shadow-sm  mb-3">
+                <!-- 🔽 Image Gallery Section with Slider -->
+                <div class="card p-4 shadow-sm mb-3">
                     <h5 class="fw-semibold mb-3">Gallery</h5>
 
-                    <div class="d-flex align-items-start flex-wrap">
-                        <!-- Main Image -->
-                        <div class="flex-grow-1 position-relative mb-3 me-3">
-                            <img id="mainImage"
-                                src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'default.jpg')) }}"
-                                class="img-fluid rounded shadow" alt="{{ $property->name }}">
+                    <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="lightgallery">
+
+                            @foreach ($property->images as $index => $image)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <a href="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
+                                        data-sub-html="<h6>Devotion Property {{ $index + 1 }}</h6>">
+                                        <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
+                                            class="d-block w-100 rounded shadow" style="height: 600px; ">
+                                    </a>
+                                </div>
+                            @endforeach
+
                         </div>
 
-                        <!-- Thumbnails -->
-                        <div class="d-flex flex-wrap gap-2">
-                            @foreach ($property->images as $image)
-                                <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
-                                    class="img-thumbnail small-thumb" onclick="changeMainImage(this)" alt="Property Image"
-                                    style="width: 180px; height: 100px; object-fit: cover; cursor: pointer;">
-                            @endforeach
-                        </div>
+                        <!-- Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
+
+
 
                 <!-- Property Info Card -->
                 <div class="property-info-card shadow-lg rounded-4 p-3 bg-white mb-4">
@@ -93,7 +159,8 @@
                             <div class="card-body">
                                 <h5 class="fw-semibold mb-3">Overview</h5>
                                 <div class="row text-muted">
-                                    <div class="col-md-3"><i class="bi bi-door-closed me-1"></i> Beds: {{ $property->beds }}
+                                    <div class="col-md-3"><i class="bi bi-door-closed me-1"></i> Beds:
+                                        {{ $property->beds }}
                                     </div>
                                     <div class="col-md-3"><i class="bi bi-bucket me-1"></i> Baths: {{ $property->baths }}
                                     </div>
@@ -153,7 +220,8 @@
                                     <div class="col-md-4"><strong>ID:</strong> <span
                                             class="ms-2">{{ $property->unique_id }}</span></div>
                                     <div class="col-md-4"><strong>Status:</strong>
-                                        <span class="ms-2">{{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}</span>
+                                        <span
+                                            class="ms-2">{{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}</span>
                                     </div>
                                     <div class="col-md-4"><strong>Type:</strong>
                                         <span
@@ -180,76 +248,10 @@
                             </div>
                         </div>
 
-                        <div class="card shadow-sm border-1 rounded-4 p-4">
-                            <h5 class="fw-semibold mb-2">Leave a review</h5>
-                            <p class="text-muted small mb-4">
-                                Your email address will not be published. Required fields are marked <span
-                                    class="text-danger">*</span>
-                            </p>
-
-                            <form action="{{ route('review.store') }}" method="POST">
-                                @csrf
-
-                                <!-- Hidden Property ID -->
-                                <input type="hidden" name="property_id" value="{{ $property->unique_id }}">
-
-                                <!-- Name -->
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Your name <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="name" id="name" class="form-control"
-                                        placeholder="Your name" required>
-                                </div>
-
-                                <!-- Email & Phone -->
-                                <div class="row">
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="email" class="form-label">Email address</label>
-                                        <input type="email" name="email" id="email" class="form-control"
-                                            placeholder="Your email">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="contact_no" class="form-label">Phone number</label>
-                                        <input type="text" name="contact_no" id="contact_no" class="form-control"
-                                            placeholder="Your phone">
-                                    </div>
-                                </div>
-
-                                <!-- Review -->
-                                <div class="mb-3">
-                                    <label for="review" class="form-label">Your review <span
-                                            class="text-danger">*</span></label>
-                                    <textarea name="review" id="review" class="form-control" rows="4" placeholder="Your message" required></textarea>
-                                </div>
-
-                                <!-- Rating -->
-                                <div class="mb-4">
-                                    <label class="form-label">Rating <span class="text-danger">*</span></label>
-                                    <div class="rating">
-                                        <i class="bi bi-star" data-value="1"></i>
-                                        <i class="bi bi-star" data-value="2"></i>
-                                        <i class="bi bi-star" data-value="3"></i>
-                                        <i class="bi bi-star" data-value="4"></i>
-                                        <i class="bi bi-star" data-value="5"></i>
-                                        <input type="hidden" name="rating" id="rating" required>
-                                    </div>
-                                </div>
-
-                                <!-- Submit -->
-                                <button type="submit" class="btn w-100 py-2 fw-semibold text-white"
-                                    style="background-color: #aa8038; border-radius: 30px;">
-                                    Send review
-                                </button>
-                            </form>
-
-
-
-                        </div>
                     </div>
 
                     <style>
-                        .seller-review-form i{
+                        .seller-review-form i {
                             font-size: 15px;
                             margin-left: -3px;
                             color: #b88a3d;
@@ -272,13 +274,16 @@
                                         <p class="text-muted small mb-0">
                                             <a href="tel:{{ $property->agent->mobile_no ?? '' }}"
                                                 class="text-muted text-decoration-none">
-                                                <i class="bi bi-phone" aria-hidden="true"></i> {{ $property->agent->mobile_no}}
+                                                <i class="bi bi-phone" aria-hidden="true"></i>
+                                                {{ $property->agent->mobile_no }}
                                             </a>
                                         </p>
                                         <p class="text-muted small">
                                             @if (isset($property->agent))
-                                                <a href="mailto:{{$property->agent->email_id}}" class="text-muted text-decoration-none">
-                                                    <i class="bi bi-envelope" aria-hidden="true"></i> {{ $property->agent->email_id  }}
+                                                <a href="mailto:{{ $property->agent->email_id }}"
+                                                    class="text-muted text-decoration-none">
+                                                    <i class="bi bi-envelope" aria-hidden="true"></i>
+                                                    {{ $property->agent->email_id }}
                                                 </a>
                                             @else
                                                 <span class="text-muted">Agent info not available</span>
@@ -331,6 +336,72 @@
         </div>
     </div>
 
+
+    <!-- 🔽 Fixed Vertical Feedback Button -->
+    <button type="button" class="btn btn-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+        <i class="bi bi-chat-left-text me-1"></i> Send Feedback
+    </button>
+
+    <!-- 🔽 Feedback Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-semibold" id="feedbackModalLabel">Leave a review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('review.store') }}" method="POST">
+                        @csrf
+
+                        <!-- Hidden Property ID -->
+                        <input type="hidden" name="property_id" value="{{ $property->unique_id }}">
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your name <span class="text-danger">*</span></label>
+                            <input type="text" name="name" id="name" class="form-control"
+                                placeholder="Your name" required>
+                        </div>
+
+                        <!-- Email & Phone -->
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" name="email" id="email" class="form-control"
+                                    placeholder="Your email">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="contact_no" class="form-label">Phone number</label>
+                                <input type="text" name="contact_no" id="contact_no" class="form-control"
+                                    placeholder="Your phone">
+                            </div>
+                        </div>
+
+                        <!-- Review -->
+                        <div class="mb-3">
+                            <label for="review" class="form-label">Your review <span
+                                    class="text-danger">*</span></label>
+                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Your message" required></textarea>
+                        </div>
+
+
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn w-100 py-2 fw-semibold text-white"
+                            style="background-color: #aa8038; border-radius: 30px;">
+                            Send review
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         function changeMainImage(element) {
             document.getElementById('mainImage').src = element.src;
@@ -353,6 +424,35 @@
                 });
             });
         });
+
+      document.addEventListener("DOMContentLoaded", function() {
+    const gallery = document.getElementById("lightgallery");
+    const feedbackBtn = document.querySelector(".btn-feedback");
+
+    if (gallery) {
+        const lgInstance = lightGallery(gallery, {
+            selector: 'a',
+            plugins: [lgZoom, lgThumbnail],
+            thumbnail: true,
+            zoom: true,
+            fullScreen: true,
+            animateThumb: true,
+            showThumbByDefault: true,
+            download: true
+        });
+
+        // 🔽 Hide Feedback Button When Gallery Opens
+        gallery.addEventListener('lgAfterOpen', () => {
+            feedbackBtn.style.display = 'none';
+        });
+
+        // 🔽 Show Feedback Button When Gallery Closes
+        gallery.addEventListener('lgAfterClose', () => {
+            feedbackBtn.style.display = 'block';
+        });
+    }
+});
+
     </script>
 
 @endsection
