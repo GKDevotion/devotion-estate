@@ -69,6 +69,7 @@ Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
 
 Route::get('buy-properties', [BuyPropertiesController::class, 'index'])->name('buy.properties');
+Route::get('/properties/search', [BuyPropertiesController::class, 'search'])->name('properties.search');
 
 Route::get('rent-properties', [RentPropertiesController::class, 'index'])->name('rent.properties');
 Route::get('luxury-properties', [LuxuryPropertiesController::class, 'index'])->name('luxury.properties');
