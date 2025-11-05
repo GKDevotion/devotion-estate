@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DesignationsController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\OwnersController;
+use App\Http\Controllers\Backend\PaymentPlanController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PropertiesController;
 use App\Http\Controllers\Backend\PropertyFeatureController;
@@ -49,6 +50,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('locations', 'Backend\LocationController', ['names' => 'admin.locations']);
     Route::get('/locations-ajax-data', [LocationController::class, 'ajaxIndex'])->name('locations.ajaxIndex');
 
+    // Route::resource('payment-plan', 'Backend\PaymentPlanController', ['names' => 'admin.payment-plan']);
+    // Route::get('/payment-plan-ajax-data', [PaymentPlanController::class, 'ajaxIndex'])->name('payment-plan.ajaxIndex');
+
     // Route::resource('property-features', 'Backend\PropertyFeatureController', ['names' => 'admin.property_features']);
     Route::get('/property-features', [PropertyFeatureController::class, 'index'])->name('admin.property-features.index');
     Route::get('/property-features/create', [PropertyFeatureController::class, 'create'])->name('admin.property-features.create');
@@ -73,6 +77,14 @@ Route::prefix('admin')->group(function () {
     Route::post('/reviews/update', [ReviewsController::class, 'update'])->name('admin.reviews.update');
     Route::delete('/admin/reviews/{id}', [ReviewsController::class, 'destroy'])->name('admin.reviews.destroy');
     Route::get('/reviews-ajax-data', [ReviewsController::class, 'ajaxIndex'])->name('reviews.ajaxIndex');
+
+    Route::get('/payment-plan', [PaymentPlanController::class, 'index'])->name('admin.payment-plan.index');
+    Route::get('/payment-plan/create', [PaymentPlanController::class, 'create'])->name('admin.payment-plan.create');
+    Route::post('/payment-plan/store', [PaymentPlanController::class, 'store'])->name('admin.payment-plan.store');
+    Route::get('/reviews/edit/{id}', [PaymentPlanController::class, 'edit'])->name('admin.payment-plan.edit');
+    Route::post('/payment-plan/update', [PaymentPlanController::class, 'update'])->name('admin.payment-plan.update');
+    Route::delete('/admin/payment-plan/{id}', [PaymentPlanController::class, 'destroy'])->name('admin.payment-plan.destroy');
+    Route::get('/payment-plan-ajax-data', [PaymentPlanController::class, 'ajaxIndex'])->name('payment-plan.ajaxIndex');
 
     Route::get('/brochures', [BrochuresController::class, 'index'])->name('admin.brochures.index');
     Route::get('/brochures/create', [BrochuresController::class, 'create'])->name('admin.brochures.create');
