@@ -87,22 +87,10 @@
 
                 <div class="modal-header text-white">
                     <h5 class="modal-title" id="paymentPlanModalLabel">Add Payment Plan</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"
                         aria-label="Close"></button>
 
-                    <div class="col-md-6">
-                        <p class="float-end">
-                            @if (Auth::guard('admin')->user()->can('payment-plan.create'))
-                                <button type="button" class="btn btn-success pr-4 pl-4"
-                                    onclick="$('#submitForm').click();">
-                                    <i class="fa fa-save"></i> Save
-                                </button>
-                            @endif
-                            <a href="{{ route('admin.payment-plan.index') }}" class="btn btn-danger">
-                                <i class="fa fa-arrow-left"></i> Back
-                            </a>
-                        </p>
-                    </div>
+
                 </div>
 
                 <form action="{{ route('admin.payment-plan.store') }}" onsubmit="return onSubmitValidateForm();"
@@ -115,9 +103,8 @@
                                 <div class="col-md-12 m-2">
                                     <div class="form-group">
                                         <label class="mb-0" for="name">Value <span class="text-error">*</span></label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Enter value (e.g. 98 - 60%)" pattern="[0-9+\-*/%(). ]+"
-                                            title="Only numbers and symbols like + - * / % are allowed" autofocus required>
+                                        <input type="number" class="form-control" id="name" name="name"
+                                            placeholder="Enter value" step="any" min="0" required>
                                     </div>
                                     @error('name')
                                         <div class="error text-error">{{ $message }}</div>
