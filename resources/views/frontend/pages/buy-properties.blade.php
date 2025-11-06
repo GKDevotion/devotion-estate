@@ -89,7 +89,7 @@
                                                         <i class="bi bi-rulers me-1"></i>
                                                         <span class="small">Area : {{ $p->area }} Sq.Ft.</span>
                                                     </div>
-                                                    <div class="d-flex gap-2">
+                                                    <div class="d-flex gap-2 d-none">
                                                         <button class="btn btn-sm"
                                                             style="background-color: #aa8038; color: white;">
                                                             <i class="bi bi-compass"></i>

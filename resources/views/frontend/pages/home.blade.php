@@ -80,7 +80,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <select class="form-select search-select">
                                         <option selected>All</option>
                                         <option>Rent</option>
@@ -91,7 +91,7 @@
                                         <option selected>Residential</option>
                                         <option>Commercial</option>
                                     </select>
-                                    
+
                                     <select class="form-select search-select">
                                         <option selected>Bed/Bath</option>
                                         <option>1 BHK</option>
@@ -180,7 +180,7 @@
                             <div class="tab-pane fade show active p-2" id="content-search-1" role="tabpanel"
                                 aria-labelledby="tab-search-1">
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                       <!-- Location Dropdown -->
+                                    <!-- Location Dropdown -->
                                     <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
                                         <div class="input-group">
                                             <span class="input-group-text bg-white border-end-0">
@@ -299,7 +299,7 @@
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
 
 
-                                       <!-- Location Dropdown -->
+                                    <!-- Location Dropdown -->
                                     <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
                                         <div class="input-group">
                                             <span class="input-group-text bg-white border-end-0">
@@ -474,14 +474,11 @@
                                                     </div>
 
                                                     <div class="card-body">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-2">
-                                                            <h5 class="card-title text-truncate mb-0">
+
+                                                        <div class="d-flex align-items-start mb-2">
+                                                            <h5 class="card-title mb-0 me-3">
                                                                 {{ $property->name }}
                                                             </h5>
-                                                            <button class="btn btn-type rounded-pill btn-sm featureMap">
-                                                                {{ $property->subType->name ?? '' }}
-                                                            </button>
                                                         </div>
 
                                                         <p class="card-text small text-muted mb-1">
@@ -499,10 +496,10 @@
                                                             {{ $property->area }} Sq.Ft.
                                                         </p>
 
-                                                        <button class="btn btn-sm btn-icon me-2"><i
-                                                                class="bi bi-compass "></i></button>
-                                                        <button class="btn btn-sm btn-icon"><i
-                                                                class="bi bi-heart "></i></button>
+                                                        <button class="btn btn-type rounded-pill btn-sm featureMap">
+                                                            {{ $property->subType->name ?? '' }}
+                                                        </button>
+
                                                     </div>
 
                                                     <hr class="property-divider">
@@ -591,14 +588,12 @@
                                                     </div>
 
                                                     <div class="card-body">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-2">
-                                                            <h5 class="card-title text-truncate mb-0">
+
+                                                        <div class="d-flex align-items-start mb-2">
+                                                            <h5 class="card-title mb-0 me-3">
                                                                 {{ $propertysale->name }}
                                                             </h5>
-                                                            <button class="btn btn-type rounded-pill btn-sm">
-                                                                {{ ucfirst($propertysale->feature->name ?? 'N/A') }}
-                                                            </button>
+
                                                         </div>
 
                                                         <p class="card-text small text-muted mb-1">
@@ -617,10 +612,9 @@
                                                             {{ $propertysale->area }} Sq.Ft.
                                                         </p>
 
-                                                        <button class="btn btn-sm btn-icon me-2"><i
-                                                                class="bi bi-compass "></i></button>
-                                                        <button class="btn btn-sm btn-icon"><i
-                                                                class="bi bi-heart "></i></button>
+                                                        <button class="btn btn-type rounded-pill btn-sm featureMap">
+                                                            {{ ucfirst($propertysale->feature->name ?? 'N/A') }}
+                                                        </button>
                                                     </div>
 
                                                     <hr class="property-divider">
