@@ -108,11 +108,11 @@ class ReviewsController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                if ($this->user->can('reviews.edit')) {
-                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.reviews.edit', $ar->id) . '">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>';
-                }
+                // if ($this->user->can('reviews.edit')) {
+                //     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.reviews.edit', $ar->id) . '">
+                //             <i class="fa fa-pencil"></i> Edit
+                //         </a>';
+                // }
                 if ($this->user->can('reviews.delete')) {
                     $action .= '<form method="POST" action="' .  route('admin.reviews.destroy', $ar->id) . '" style="display:inline;">
                     ' . csrf_field() . '

@@ -438,7 +438,7 @@
             fullScreen: true,
             animateThumb: true,
             showThumbByDefault: true,
-            download: true
+            download: false
         });
 
         // 🔽 Hide Feedback Button When Gallery Opens

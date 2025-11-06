@@ -227,25 +227,19 @@
 
     <div class="row justify-content-center mb-5">
         <div class="col-auto">
-            {{-- <button type="button" class="btn filter-btn me-2 fw-semibold p-3" id="resetAllFilters">
-                Reset Filters <i class="bi bi-x-circle"></i>
-            </button> --}}
 
-            <button type="button" class="btn filter-btn me-2 fw-semibold p-3" id="toggleFilters">
+            {{-- <button type="button" class="btn filter-btn me-2 fw-semibold p-3" id="toggleFilters">
                 <i class="bi bi-funnel"></i> Filters
-            </button>
-
+            </button> --}}
 
             <button type="submit" class="btn search-btn p-3">
                 Search Now <i class="fas fa-search"></i>
             </button>
 
-
         </div>
 
-
         <!-- Advanced Filter Section (Hidden by Default) -->
-        <div id="advancedFilters" class="container mt-4" style="display: none;">
+        <div id="advancedFilters" class="container mt-4 d-none" style="display: none; ">
             <div class="row align-items-end g-3">
 
                 <!-- Area -->

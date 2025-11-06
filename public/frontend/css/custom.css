@@ -8,6 +8,35 @@
       padding: 0;
       background-color: white;
   }
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+    /* width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* track color */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #aa8038;
+    /* scrollbar color — your theme’s gold tone */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #aa8038;
+    /* darker shade on hover */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #aa8038 #f1f1f1;
+}
+
 
   /* navbar */
   .navbar-brand img {
@@ -732,7 +761,65 @@
       min-height: 500px;
       /* Ensures both cards are the same height */
   }
+  .advertisers-service-sec .service-card{
+        width: 100%;
+    height: 100%;
+    padding: 2em 1.5em;
+    border-radius: 5px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: 0.5s;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    background: #fff;
+  }
+.advertisers-service-sec .service-card::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#FFF, #aa8038);
+    position: absolute;
+    left: 0%;
+    top: -98%;
+    z-index: -2;
+    transition: all 0.4s cubic-bezier(0.77, -0.04, 0, 0.99);
+}
 
+.service-sec .service-card{
+        width: 100%;
+    height: 100%;
+    padding: 2em 1.5em;
+    border-radius: 5px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
+    transition: 0.5s;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    background: #fff;
+}
+
+.service-sec h3{
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 350;
+    color: #1f194c;
+    margin: 1em 0;
+}
+.service-sec h5{
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 350;
+    color: #aa8038;
+    margin: 1em 0;
+}
+.service-sec p{
+    color: #575a7b;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: justify;
+    letter-spacing: 0.03em;
+}
   .card-header-line {
       height: 10px;
       border-radius: 10px 10px 0 0;
@@ -1113,7 +1200,7 @@
   }
 
   .guide-heading {
-      font-size: 55px;
+ 
       line-height: 72px;
       font-weight: 700;
   }
@@ -1265,7 +1352,6 @@
       padding: 2em 1.5em;
       border-radius: 5px;
       box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
-      cursor: pointer;
       transition: 0.5s;
       position: relative;
       z-index: 2;
@@ -1274,21 +1360,23 @@
   }
 
   .card-img-top-container {
-      height: 320px;
-      /* Fixed height for consistent image size */
-      overflow: hidden;
+         width: 100%;
+    height: 15vw;
+    object-fit: cover;
+    opacity: 0.8;
   }
 
-  .card-img-top-container img {
+  .card-image-top {
       width: 100%;
-      height: 100%;
+      height: 18vw;
       object-fit: cover;
+ 
       /* Ensures image covers the container */
   }
 
   /* Custom styling to match the light background effect around the text */
   .card-body {
-      box-shadow: 0px 4px 26px 0px rgba(66, 71, 76, 0.0784313725);
+      /* box-shadow: 0px 4px 26px 0px rgba(66, 71, 76, 0.0784313725); */
       text-align: justify;
   }
 
@@ -1299,7 +1387,13 @@
       color: #555;
       text-align: left;
   }
+.card-body-investment p{
+     font-size: 1rem;
+      line-height: 1.8;
+      text-align: justify;
+      color: #555;
 
+}
 
   .investment-section {
       color: #575a7b;
@@ -1353,9 +1447,9 @@
   }
 
   .content-container .sub-heading {
-      color: #575a7b;
-      font-size: 15px;
-      text-align: start;
+      color: #8E8E93 !important;
+      font-size: 16px;
+      text-align: center;
       font-weight: 300;
   }
 
@@ -1423,7 +1517,8 @@
 
   .content-container p {
       color: #575a7b;
-      font-size: 1rem;
+      font-size: 15px;
+      text-align: justify;
   }
 
   /* ===============================
@@ -1479,3 +1574,4 @@
     min-height: 250px;
     max-height: 250px;
 }
+

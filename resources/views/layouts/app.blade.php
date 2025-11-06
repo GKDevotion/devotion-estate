@@ -92,7 +92,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="exploreMoreDropdown">
                                 <li class="dropend">
-                                    <a class="dropdown-item" href="{{ route('about-us') }}">About Guide</a>
+                                    <a class="dropdown-item" href="{{ route('about-us') }}">About Us</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('buyer-guide') }}">Buyer's Guide</a>

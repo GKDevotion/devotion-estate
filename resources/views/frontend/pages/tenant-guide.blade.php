@@ -22,7 +22,7 @@
     <div class="container" style="padding-top: 10px">
 
         <div class="main-heading">
-            <h1 class="text-center mb-5 pt-5 guide-heading">
+            <h1 class="text-center guide-heading">
                 How to Rent a Property in Dubai - Tenant Guide
             </h1>
         </div>
