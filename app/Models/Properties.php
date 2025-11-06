@@ -38,6 +38,11 @@ class Properties extends Model
     public function location(){
         return $this->hasOne( Location::class, 'id', 'location_id');
     }
+    
+    public function feature()
+    {
+        return $this->hasOne(PropertyFeature::class, 'id', 'name');
+    }
 
 
     public function subType(){

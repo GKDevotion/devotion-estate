@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use App\Models\Properties;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 
 class LuxuryPropertiesController extends Controller
@@ -17,19 +19,30 @@ public function index(Request $request)
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 
-        return view('frontend.pages.luxury-properties', compact('properties', 'total', 'perPage'))
+        $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+        $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
+
+        // Fetch Residential (main_type = 0)
+        $residentialTypes = PropertyType::where('main_type', 0)
+            ->where('status', 1)
+            ->get();
+
+        // Fetch Commercial (main_type = 1)
+        $commercialTypes = PropertyType::where('main_type', 1)
+            ->where('status', 1)
+            ->get();
+
+        return view('frontend.pages.luxury-properties', compact(
+            'properties',
+            'locationObj',
+            'propertyTypeObj',
+            'residentialTypes',
+            'commercialTypes',
+            'total',
+            'perPage'
+        ))
         ->with('type', 'luxury');
 }
-
-    public function show($slug)
-    {
-        $property = Properties::where('slug', $slug)
-            ->with(['location', 'feature', 'single_image', 'images'])
-            ->firstOrFail();
-
-        return view('frontend.pages.luxury-properties-detail', compact('property'));
-    }
-
 
 
 }

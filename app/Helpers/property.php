@@ -1,26 +1,29 @@
 <?php
 
+use App\Models\Location;
 use App\Models\Properties;
 use App\Models\PropertyFeature;
 use App\Models\PropertyFeatureMap;
 use App\Models\PropertyImageMap;
+use App\Models\PropertyType;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 /**
  * Create employee records
  */
-function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegisterMail=1 ){
+function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegisterMail = 1)
+{
 
     $msg = "created";
 
     $isRedirectThankYou = false;
-    try{
+    try {
 
         //creat new client or person
-        if( $property_id ){
+        if ($property_id) {
             $propertyDataObj = Properties::find($property_id);
-            $propertyDataObj->unique_id = "PID".setPropertyUniqueNumber( 4 );
+            $propertyDataObj->unique_id = "PID" . setPropertyUniqueNumber(4);
             $msg = "updated";
         } else {
             $propertyDataObj = new Properties();
@@ -28,10 +31,10 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
         }
 
         //1. Basic Information -->
-        if( $request->step == 1 || $request->_method == "PUT" ){
+        if ($request->step == 1 || $request->_method == "PUT") {
 
             $propertyDataObj->name = $request->name;
-            $propertyDataObj->slug = convertStringToSlug( $request->name );
+            $propertyDataObj->slug = convertStringToSlug($request->name);
             $propertyDataObj->h1_tag = $request->h1_tag;
             $propertyDataObj->seo_title = $request->seo_title;
             $propertyDataObj->meta_description = $request->meta_description;
@@ -54,7 +57,7 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
             $propertyDataObj->rera_number = $request->rera_number;
             $propertyDataObj->permit_number = $request->permit_number;
             $propertyDataObj->location_id = $request->location_id;
-            $propertyDataObj->agent_id  = $request->agent_id ;
+            $propertyDataObj->agent_id  = $request->agent_id;
             $propertyDataObj->publish = 0;
             $propertyDataObj->area = $request->area;
             $propertyDataObj->price = $request->price;
@@ -64,7 +67,7 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
         }
 
         //2. Job Information -->
-        if( $request->step == 2 || $request->_method == "PUT" ){
+        if ($request->step == 2 || $request->_method == "PUT") {
 
             // --- Store property flags safely ---
             $propertyDataObj->is_new_property = $request->has('is_new_property') ? 1 : 0;
@@ -100,11 +103,11 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
         }
 
         //3. Reference Information -->
-        if( $request->step == 3 || $request->_method == "PUT" ){
+        if ($request->step == 3 || $request->_method == "PUT") {
 
             $uploadedImages = [];
 
-            if( $request->file('propertyImage') ){
+            if ($request->file('propertyImage')) {
                 foreach ($request->file('propertyImage') as $file) {
                     // Create unique filename
                     $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -147,9 +150,9 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
                 }
 
                 //reset Property Feature Map status
-                PropertyImageMap::where( 'property_id', $property_id )->update( ['status' => 0 ] );
+                PropertyImageMap::where('property_id', $property_id)->update(['status' => 0]);
 
-                foreach( $uploadedImages as $ar ){
+                foreach ($uploadedImages as $ar) {
 
                     PropertyImageMap::updateOrCreate(
                         [
@@ -172,14 +175,12 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
             $isRedirectThankYou = true;
         }
 
-        return [ 'type' => 'success', 'id' => $propertyDataObj->id, 'unique_id' => $propertyDataObj->unique_id,  'message' => $propertyDataObj->name.' has been '.$msg.' !!', 'status_code' => 200, 'isRedirectThankYou' => $isRedirectThankYou ];
-
-    } catch ( Exception $e ){
+        return ['type' => 'success', 'id' => $propertyDataObj->id, 'unique_id' => $propertyDataObj->unique_id,  'message' => $propertyDataObj->name . ' has been ' . $msg . ' !!', 'status_code' => 200, 'isRedirectThankYou' => $isRedirectThankYou];
+    } catch (Exception $e) {
 
         // removeEmployeeHistoryData( $personId );
-        return [ 'type' => 'error', 'message' => $e->getMessage(), 'status_code' => 500 ];
+        return ['type' => 'error', 'message' => $e->getMessage(), 'status_code' => 500];
     }
-
 }
 
 /**
@@ -190,7 +191,8 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
  * @param integer $company_id
  * @return void
  */
-function setPropertyUniqueNumber( $no = 4 ){
+function setPropertyUniqueNumber($no = 4)
+{
     $propertyCountObj = Properties::select('id');
     $value = $propertyCountObj->count() + 1;
     return str_pad($value, $no, '0', STR_PAD_LEFT);
@@ -199,8 +201,9 @@ function setPropertyUniqueNumber( $no = 4 ){
 /**
  *
  */
-function getPropertyFeatures(){
-    return PropertyFeature::select('id', 'name')->where( 'status', 1 )->get();
+function getPropertyFeatures()
+{
+    return PropertyFeature::select('id', 'name')->where('status', 1)->get();
 }
 
 /**
@@ -208,11 +211,94 @@ function getPropertyFeatures(){
  */
 function getPropertiesByType($type = [0])
 {
-    $sliderPage = getConfigurationField('SLIDER_PER_PAGE');//get slider per page
+    $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
     return Properties::with('subType', 'location', 'single_image')
         ->whereIn('purpose', $type)
         ->where('status', 1)
         ->latest()
         ->take($sliderPage)
         ->get();
+}
+
+
+function getSearchByProperties(array $filters, $perPage = 4)
+{
+    // Define property type mappings
+    $map = [
+        'sale'   => ['column' => 'type', 'value' => 0],
+        'rent'   => ['column' => 'purpose', 'value' => 1],
+        'luxury' => ['column' => 'is_luxury_property', 'value' => 1],
+        'new'    => ['column' => 'is_new_property', 'value' => 1],
+        'hot'    => ['column' => 'is_hot_offer', 'value' => 1],
+        'off'    => ['column' => 'is_complete', 'value' => 3], // for off-plan
+    ];
+
+    // Determine the type (default: sale)
+    $type = $filters['type'] ?? 'sale';
+    if (!array_key_exists($type, $map)) {
+        abort(404, 'Invalid property type');
+    }
+
+    // Start base query
+    $query = Properties::where('status', 1);
+
+    // Apply mapping filter
+    $query->where($map[$type]['column'], $map[$type]['value']);
+
+    // ✅ Handle "off-plan" explicitly if requested
+    if ($type === 'off') {
+        $query->where('is_complete', 3);
+    }
+    if ($type === 'luxury') {
+        $query->where('is_luxury_property', 1);
+    }
+
+    // ✅ Price range filter
+    if (!empty($filters['min_price']) && !empty($filters['max_price'])) {
+        $query->whereBetween('price', [$filters['min_price'], $filters['max_price']]);
+    } else {
+        if (!empty($filters['min_price'])) {
+            $query->where('price', '>=', $filters['min_price']);
+        }
+        if (!empty($filters['max_price'])) {
+            $query->where('price', '<=', $filters['max_price']);
+        }
+    }
+
+    // ✅ Property type filter
+    if (!empty($filters['property_type'])) {
+        $query->where('type', (int)$filters['property_type']);
+    }
+
+    // ✅ Location filter
+    if (!empty($filters['location_id'])) {
+        $query->where('location_id', $filters['location_id']);
+    }
+
+    // ✅ Pagination
+    $properties = $query->paginate($perPage)->withQueryString();
+    $total = $properties->total();
+
+    // ✅ Supporting data for the view
+    $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+   $featureObj = PropertyFeature::select('id', 'name')
+    ->where('status', 1)
+    ->get();
+
+    $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
+    $residentialTypes = PropertyType::where('main_type', 0)->where('status', 1)->get();
+    $commercialTypes = PropertyType::where('main_type', 1)->where('status', 1)->get();
+
+    return compact(
+        'properties',
+        'locationObj',
+        'featureObj',
+        'propertyTypeObj',
+        'residentialTypes',
+        'commercialTypes',
+        'total',
+        'perPage',
+        'type'
+
+    );
 }

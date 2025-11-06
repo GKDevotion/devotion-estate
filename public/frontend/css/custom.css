@@ -454,6 +454,7 @@
   .carousel-tab-content {
       background-color: rgba(255, 255, 255, 0.5);
       padding: 1rem;
+      width: 900px;
   }
 
   /* Property Search Inputs */
@@ -902,7 +903,8 @@
   }
 
   .filter-btn:hover {
-      background-color: #f1e2c8;
+      background-color: #fff5e0;
+      color: black;
       transform: translateY(-2px);
   }
 
@@ -915,7 +917,8 @@
   }
 
   .search-btn:hover {
-      background-color: #8c6539;
+      background-color: #aa8038;
+      color: white;
       transform: translateY(-2px);
   }
 
@@ -1240,6 +1243,7 @@
       color: #000;
       border-radius: 12px;
       padding: 1px 14px;
+          width: 127px;
   }
 
   .custom-radio-box .btn-check:checked+.btn {
@@ -1284,7 +1288,7 @@
 
   /* Custom styling to match the light background effect around the text */
   .card-body {
-
+      box-shadow: 0px 4px 26px 0px rgba(66, 71, 76, 0.0784313725);
       text-align: justify;
   }
 

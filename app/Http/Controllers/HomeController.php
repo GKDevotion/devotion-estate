@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use App\Models\Properties;
+use App\Models\PropertyFeature;
+use App\Models\PropertyType;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -27,25 +30,19 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('frontend.pages.home');
-    }
+        $location = Location::select('id', 'name')->where('status', 1)->get();
+        // Fetch Residential (main_type = 0)
+        $residentialTypes = PropertyType::where('main_type', 0)
+            ->where('status', 1)
+            ->get();
 
-    public function showNew($slug)
-    {
-        $property = Properties::with(['location', 'feature', 'single_image', 'images'])
-            ->where('slug', $slug)
-            ->firstOrFail();
+        // Fetch Commercial (main_type = 1)
+        $commercialTypes = PropertyType::where('main_type', 1)
+            ->where('status', 1)
+            ->get();
 
-        return view('frontend.pages.new-properties-detail', compact('property'));
-    }
-
-    public function showSale($slug)
-    {
-        $property = Properties::with(['location', 'feature', 'single_image', 'images'])
-            ->where('slug', $slug)
-            ->firstOrFail();
-
-        return view('frontend.pages.sale-properties-detail', compact('property'));
+          
+        return view('frontend.pages.home' , compact('location','residentialTypes','commercialTypes'));
     }
 
     /**

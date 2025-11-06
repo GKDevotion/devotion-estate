@@ -2,31 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use App\Models\Properties;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 
 class OffPlanController extends Controller
 {
     //
-public function index(Request $request)
-{
-    $perPage = $request->get('perPage', 4);
-
-    $query = Properties::where('is_complete', 3)->where('status', 1);
-    $properties = $query->paginate($perPage);
-    $total = $properties->total();
-
-    return view('frontend.pages.off-plan', compact('properties', 'total', 'perPage'));
-}
-
-    public function show($slug)
+    public function index(Request $request)
     {
-        $property = Properties::where('slug', $slug)
-            ->with(['location', 'feature', 'single_image', 'images'])
-            ->firstOrFail();
+        $perPage = $request->get('perPage', 4);
 
-        return view('frontend.pages.off-plan-detail', compact('property'));
+        $query = Properties::where('is_complete', 3)->where('status', 1);
+        $properties = $query->paginate($perPage);
+        $total = $properties->total();
+
+        $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+        $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
+
+        // Fetch Residential (main_type = 0)
+        $residentialTypes = PropertyType::where('main_type', 0)
+            ->where('status', 1)
+            ->get();
+
+        // Fetch Commercial (main_type = 1)
+        $commercialTypes = PropertyType::where('main_type', 1)
+            ->where('status', 1)
+            ->get();
+
+        return view('frontend.pages.off-plan', compact(
+            'properties',
+            'locationObj',
+            'propertyTypeObj',
+            'residentialTypes',
+            'commercialTypes',
+            'total',
+            'perPage'
+        ))->with('type', 'off');
     }
+
 
 
 }

@@ -296,18 +296,6 @@ class PropertiesController extends Controller
             abort(404, 'Invalid property type');
         }
 
-        //     $property = Properties::where('slug', $slug)
-        //         ->where($map[$type]['column'], $map[$type]['value'])
-        //         ->firstOrFail();
-
-        //           // ✅ Fetch related agent info
-        // $agent = User::where('id', $property->agent_id ?? $id)
-        //     ->where('status', 1)
-        //     ->where('type', 4) // assuming type 4 is agent
-        //     ->first();
-
-        // ✅ Fetch property with related agent (via relationship)
-        // ✅ Fetch property with its linked agent
         $property = Properties::with('agent')
             ->where('slug', $slug)
             ->where($map[$type]['column'], $map[$type]['value'])
@@ -325,6 +313,47 @@ class PropertiesController extends Controller
 
         return view('frontend.pages.properties-detail', compact('property', 'type','agent'));
     }
+
+    public function search(Request $request)
+    {
+        $perPage = $request->get('perPage', 4);
+
+        $filters = [
+            'min_price'     => $request->min_price,
+            'max_price'     => $request->max_price,
+            'property_type' => $request->property_type,
+            'location_id'   => $request->location_id,
+            'type'          => $request->type ?? 'sale', // 'sale', 'rent', 'off-plan'
+    
+        ];
+
+        // Fetch data
+        $data = getSearchByProperties($filters, $perPage);
+    
+        // Add extra values for blade
+        $data['perPage'] = $perPage;
+        $data['type'] = $filters['type']; // ✅ ensure $type is available in blade
+   
+        // Detect which main blade to load
+        switch ($filters['type']) {
+            case 'rent':
+                $view = 'frontend.pages.rent-properties';
+                break;
+            case 'off':
+                $view = 'frontend.pages.off-plan';
+                break;
+            case 'luxury':
+                $view = 'frontend.pages.luxury-properties';
+                break;
+            default:
+                $view = 'frontend.pages.buy-properties';
+                break;
+        }
+
+        // ✅ Return main page with data
+        return view($view, $data );
+    }
+
 
     /**
      * Show the form for editing the specified resource.

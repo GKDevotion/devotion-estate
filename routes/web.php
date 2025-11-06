@@ -61,6 +61,9 @@ Route::post('property-contact/store', [PropertyContactController::class, 'store'
 // routes/web.php
 Route::get('/{type}-properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
 
+// properties serach section/web.php
+Route::get('/properties/search', [PropertiesController::class, 'search'])->name('properties.search');
+
 Route::get('/agent/{id}', [Properties::class, 'show'])->name('agent.show');
 Route::get('/property/send-mail/{agent_id}', [PropertiesController::class, 'sendMail'])->name('property.sendMail');
 
@@ -69,7 +72,7 @@ Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
 
 Route::get('buy-properties', [BuyPropertiesController::class, 'index'])->name('buy.properties');
-Route::get('/properties/search', [BuyPropertiesController::class, 'search'])->name('properties.search');
+
 
 Route::get('rent-properties', [RentPropertiesController::class, 'index'])->name('rent.properties');
 Route::get('luxury-properties', [LuxuryPropertiesController::class, 'index'])->name('luxury.properties');

@@ -59,17 +59,39 @@
                             <!-- Property Search -->
                             <div class="tab-pane fade show active p-2" id="content-search" role="tabpanel"
                                 aria-labelledby="tab-search">
+
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control search-input" placeholder="Enter Location">
+
+                                    <!-- Location Dropdown -->
+                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select id="locationInput" name="location_id"
+                                                class="form-select border-start-1">
+                                                <option value="">Select Location</option>
+                                                @forelse($location as $p)
+                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
+                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
+                                                        {{ $p->name ?? 'Unknown Location' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
                                     <select class="form-select search-select">
                                         <option selected>All</option>
                                         <option>Rent</option>
                                         <option>Buy</option>
                                     </select>
+
                                     <select class="form-select search-select">
                                         <option selected>Residential</option>
                                         <option>Commercial</option>
                                     </select>
+                                    
                                     <select class="form-select search-select">
                                         <option selected>Bed/Bath</option>
                                         <option>1 BHK</option>
@@ -158,7 +180,24 @@
                             <div class="tab-pane fade show active p-2" id="content-search-1" role="tabpanel"
                                 aria-labelledby="tab-search-1">
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control search-input" placeholder="Enter Location">
+                                       <!-- Location Dropdown -->
+                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select id="locationInput" name="location_id"
+                                                class="form-select border-start-1">
+                                                <option value="">Select Location</option>
+                                                @forelse($location as $p)
+                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
+                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
+                                                        {{ $p->name ?? 'Unknown Location' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <select class="form-select search-select">
                                         <option selected>All</option>
                                         <option>Rent</option>
@@ -258,7 +297,28 @@
                             <div class="tab-pane fade show active p-2" id="content-search-2" role="tabpanel"
                                 aria-labelledby="tab-search-2">
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control search-input" placeholder="Enter Location">
+
+
+                                       <!-- Location Dropdown -->
+                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select id="locationInput" name="location_id"
+                                                class="form-select border-start-1">
+                                                <option value="">Select Location</option>
+                                                @forelse($location as $p)
+                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
+                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
+                                                        {{ $p->name ?? 'Unknown Location' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
                                     <select class="form-select search-select">
                                         <option selected>All</option>
                                         <option>Rent</option>
@@ -366,8 +426,7 @@
         }
     </style>
 
-
-
+    <!-- Properties For New -->
     <section class="py-5" style="background-color: #f8f5ee;">
         <div class="container">
             <div class="text-end mb-5">
@@ -396,7 +455,7 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $property)
                                         <div class="col">
-                                            <a href="{{ route('property.detail', ['type' => $property->type == 0 ? 'sale' : 'rent','slug' => $property->slug]) }}"
+                                            <a href="{{ route('property.detail', ['type' => $property->type == 0 ? 'sale' : 'rent', 'slug' => $property->slug]) }}"
                                                 class="text-decoration-none text-dark">
 
                                                 <div class="card property-card h-100 border-1 shadow-sm rounded-3">
@@ -421,7 +480,7 @@
                                                                 {{ $property->name }}
                                                             </h5>
                                                             <button class="btn btn-type rounded-pill btn-sm featureMap">
-                                                                {{$property->subType->name ?? ''}}
+                                                                {{ $property->subType->name ?? '' }}
                                                             </button>
                                                         </div>
 
@@ -482,7 +541,7 @@
         </div>
     </section>
 
-
+    <!-- Properties For Sale -->
     <section class="py-5" style="background-color: #fefefe;">
         <div class="container">
             <div class="text-end mb-5">
@@ -600,9 +659,6 @@
         </div>
     </section>
 
-
-
-
     <!-- List Your Property -->
     <section class="py-5 list-property-section">
         <div class="container py-5">
@@ -694,7 +750,7 @@
         </div>
     </section>
 
-
+    <!-- Our Blog -->
     <section class="py-5 text-center" style="background: #fffaf5;">
         <div class="container">
             <div class="col-12 blog-header text-center mb-4">
@@ -781,6 +837,7 @@
         </div>
     </section>
 
+    <!-- OUR HAPPY CUSTOMERS  -->
     <section class="py-5" style="background-color: white;">
         <div class="container">
             <div class="row text-center mb-5">
