@@ -253,6 +253,10 @@ function getSearchByProperties(array $filters, $perPage = 4)
         $query->where('is_luxury_property', 1);
     }
 
+    if ($type === 'hot') {
+        $query->where('is_hot_offer', 1);
+    }
+
     // ✅ Price range filter
     if (!empty($filters['min_price']) && !empty($filters['max_price'])) {
         $query->whereBetween('price', [$filters['min_price'], $filters['max_price']]);
@@ -281,7 +285,7 @@ function getSearchByProperties(array $filters, $perPage = 4)
 
     // ✅ Supporting data for the view
     $locationObj = Location::select('id', 'name')->where('status', 1)->get();
-   $featureObj = PropertyFeature::select('id', 'name')
+    $featureObj = PropertyFeature::select('id', 'name')
     ->where('status', 1)
     ->get();
 

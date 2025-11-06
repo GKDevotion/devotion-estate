@@ -345,6 +345,9 @@ class PropertiesController extends Controller
             case 'luxury':
                 $view = 'frontend.pages.luxury-properties';
                 break;
+            case 'hot':
+                $view = 'frontend.pages.hot-offer';
+                break;
             default:
                 $view = 'frontend.pages.buy-properties';
                 break;

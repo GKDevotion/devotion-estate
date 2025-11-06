@@ -36,6 +36,11 @@
         <input type="hidden" name="type" id="propertyTypeInput" value="luxury">
     @endif
 
+    @if (isset($type) && $type === 'hot')
+        <input type="hidden" name="type" id="propertyTypeInput" value="hot">
+    @endif
+
+
 
     <!-- Filters and Search Section -->
     <div class="row g-2 justify-content-center mb-4" style="padding-top: 100px">
@@ -245,7 +250,7 @@
                 <!-- Area -->
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="dropdown">
-                         <label for="area" class="form-label fw-semibold">Area(s)</label>
+                        <label for="area" class="form-label fw-semibold">Area(s)</label>
                         <button
                             class="btn btn-outline w-100 border bg-white d-flex justify-content-between align-items-center"
                             type="button" id="areaBtn" data-bs-toggle="dropdown" aria-expanded="false">
@@ -255,13 +260,15 @@
                         <div class="dropdown-menu p-3" style="min-width: 250px;">
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <label for="min-area" class="form-label small text-muted mb-1">Minimum Sq.Ft.(s)</label>
+                                    <label for="min-area" class="form-label small text-muted mb-1">Minimum
+                                        Sq.Ft.(s)</label>
                                     <input type="number" name="min-area" class="form-control" id="min-area"
                                         value="0" placeholder="0" min="0">
                                 </div>
 
                                 <div class="col-6">
-                                    <label for="max-area" class="form-label small text-muted mb-1">Maximum Sq.Ft.(s)</label>
+                                    <label for="max-area" class="form-label small text-muted mb-1">Maximum
+                                        Sq.Ft.(s)</label>
                                     <input type="number" name="max-area" class="form-control" id="max-area"
                                         value="0" placeholder="0" min="0">
                                 </div>
@@ -282,7 +289,7 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <!-- Furnishing -->
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <label class="form-label fw-semibold d-block">Furnishing</label>
