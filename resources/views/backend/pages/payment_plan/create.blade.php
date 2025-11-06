@@ -63,7 +63,7 @@ Payment Plan Create - Admin Panel
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <label class="mb-0" for="name">Name<span class="text-error">*</span></label>
-                                            <input type="text" data-required="yes" class="form-control" id="name" name="name" placeholder="Location Name" autofocus>
+                                            <input type="number" data-required="yes" class="form-control" id="name" name="name" placeholder="Location Name" autofocus>
                                         </div>
                                         @error('name')
                                             <div class="error text-error">{{ $message }}</div>
