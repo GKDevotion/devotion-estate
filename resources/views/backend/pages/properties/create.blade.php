@@ -247,6 +247,21 @@
                                             <div class="error text-error"></div>
                                         </div>
 
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="payment_plan">Payment Plan <span
+                                                    class="text-error">*</span></label>
+                                            <select name="payment_plan" id="payment_plan" class="form-control"
+                                                data-required="yes">
+                                                <option value="0">Payment Plan</option>
+                                                @foreach ($paymentPlanObj as $ar)
+                                                    <option value="{{ $ar->id }}"
+                                                        class="{{ $ar->name }}">
+                                                        {{ $ar->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="error text-error"></div>
+                                        </div>
+
                                     </div>
                                 </fieldset>
 
@@ -446,14 +461,30 @@
                                     </div>
                                 </ul>
 
+                                <div class="row mt-4">
+                                    <div class="col-md-6 col-sm-12 mb-2">
+                                        <label class="mb-0" for="beds">Beds<span
+                                                class="text-error">*</span></label>
+                                        <input type="text" class="form-control mb-2" data-required="yes"
+                                            id="beds" name="beds" placeholder="Beds" value="">
+                                        <div class="error text-error"></div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12 mb-2">
+                                        <label class="mb-0" for="baths">Baths<span
+                                                class="text-error">*</span></label>
+                                        <input type="text" class="form-control mb-2" data-required="yes"
+                                            id="baths" name="baths" placeholder="baths" value="">
+                                        <div class="error text-error"></div>
+                                    </div>
+                                </div>
 
                                 <div class="row mt-4">
                                     <div class="col-md-6 col-sm-12 mb-3">
                                         <label for="is_new_property" class="form-label mb-1">
                                             Do you want to set this property as new? <span class="text-danger">*</span>
                                         </label>
-                                        <select name="is_new_property" id="is_new_property" class="form-select"
-                                            required>
+                                        <select name="is_new_property" id="is_new_property" required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -468,8 +499,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <select name="is_featured_property" id="is_featured_property"
-                                            class="form-select @error('is_featured_property') is-invalid @enderror"
-                                            required>
+                                            class="@error('is_featured_property') is-invalid @enderror" required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -486,7 +516,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <select name="is_luxury_property" id="is_luxury_property"
-                                            class="form-select @error('is_luxury_property') is-invalid @enderror" required>
+                                            class=" @error('is_luxury_property') is-invalid @enderror" required>
                                             <option value="" selected disabled>-- Select Option --</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -502,7 +532,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <select name="is_hot_offer" id="is_hot_offer"
-                                            class="form-select @error('is_hot_offer') is-invalid @enderror" required>
+                                            class=" @error('is_hot_offer') is-invalid @enderror" required>
                                             <option value="" selected disabled>-- Select Option --</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>

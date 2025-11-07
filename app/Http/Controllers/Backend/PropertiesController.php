@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Location;
+use App\Models\PaymentPlan;
 use App\Models\Properties;
 use App\Models\PropertyFeature;
 use App\Models\PropertyFeatureMap;
@@ -231,7 +232,7 @@ class PropertiesController extends Controller
         if (is_null($this->user) || !$this->user->can('properties.create')) {
             abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
-
+        $paymentPlanObj = PaymentPlan::select('id', 'name')->where( 'status', 1 )->get();
         $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where( 'status', 1 )->get();
         $locationObj = Location::select('id', 'name')->where( 'status', 1 )->get();
         $agentObj = User::select('id', 'first_name', 'last_name')->where( [
@@ -239,7 +240,7 @@ class PropertiesController extends Controller
             'type' => 4
         ] )->get();
 
-        return view('backend.pages.properties.create', compact( 'propertyTypeObj', 'locationObj', 'agentObj' ));
+        return view('backend.pages.properties.create', compact( 'propertyTypeObj', 'locationObj','paymentPlanObj', 'agentObj' ));
     }
 
     /**
