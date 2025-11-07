@@ -785,9 +785,9 @@
 }
 
 .service-sec .service-card{
-        width: 100%;
+    width: 100%;
     height: 100%;
-    padding: 2em 1.5em;
+    padding: 1.5em;
     border-radius: 5px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
     transition: 0.5s;
@@ -1198,7 +1198,7 @@
   }
 
   .guide-heading {
- 
+
       line-height: 72px;
       font-weight: 700;
   }
@@ -1368,7 +1368,7 @@
       width: 100%;
       height: 18vw;
       object-fit: cover;
- 
+
       /* Ensures image covers the container */
   }
 

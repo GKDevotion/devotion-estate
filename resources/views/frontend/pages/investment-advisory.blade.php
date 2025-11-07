@@ -72,7 +72,7 @@
 
             <div class="row mt-5 mt-md-4 justify-content-lg-center justify-content-md-center">
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card ">
 
                         <div>
@@ -84,7 +84,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Debt financing is when a company raises funds for working capital by selling debt
                                 instruments to
                                 individual or institutional investors. The alternative approach to raise funds in debt
@@ -95,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
 
                         <div>
@@ -107,7 +107,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Devotion Estate, a well-known name in the UAE, takes pleasure in providing accurate real
                                 estate
                                 financial due diligence (FDD) services through a team of experienced specialists. Land
@@ -121,7 +121,7 @@
                 </div>
 
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
 
                         <div>
@@ -133,7 +133,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Investment due diligence is what distinguishes professionals from amateurs. Before handing
                                 over your
                                 money, thoroughly investigate each investment, broker, and money manager to protect yourself
@@ -144,7 +144,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
                         <div>
                             <img src="public\frontend\assets\images\img\sales-acquisition.jpg" class="card-image-top"
@@ -155,7 +155,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Our staff has extensive knowledge in the most significant parts of sales and acquisition,
                                 which will
                                 assist in identifying the appropriate consideration factors for transactions. Acquisitions
@@ -170,7 +170,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
                         <div>
                             <img src="public\frontend\assets\images\img\investment-optimization.jpg" class="card-image-top"
@@ -181,7 +181,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 At Devotion Estate, we specialize in educating clients about various investing alternatives,
                                 such as
                                 equities, bonds, mutual funds, and the lucrative world of real estate. While various paths
@@ -194,7 +194,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
                         <div>
                             <img src="public\frontend\assets\images\img\Built-To-Suit-Structuring.jpg"
@@ -205,7 +205,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 A built-to-suit structure is a commercial building constructed according to the design
                                 parameters
                                 provided by the client. It is a tailored structure that is intended to fit the operational
@@ -216,7 +216,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
 
                         <div>
@@ -228,7 +228,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Devotion Estate is well-known for its competence and comprehensive real estate consultancy
                                 services. The
                                 Property Portfolio Assessment and Review service, one of our core solutions, serves as a
@@ -241,7 +241,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
                         <div>
                             <img src="public\frontend\assets\images\img\Portfolio-Assessment-And-Review(1).jpg"
@@ -252,7 +252,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 A Real Estate Investment Trust (REIT) is a firm that owns, manages, or finances
                                 income-producing assets.
                                 REITs allow investors to generate passive income by investing in real estate without having
@@ -263,7 +263,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
 
                         <div>
@@ -275,7 +275,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 is a top-rated Dubai property debt consulting firm having access to a large network of debt
                                 financing
                                 sources across Europe, the Middle East, and Africa. We help property investors make informed
@@ -286,7 +286,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
 
                         <div>
@@ -298,7 +298,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Dubai's real estate sector has developed as a magnet for international investors looking for
                                 attractive
                                 opportunities. In today's lively landscape, wise real estate investors must ensure extensive
@@ -313,7 +313,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
 
                         <div>
@@ -326,7 +326,7 @@
 
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Having a diverse portfolio is the most effective way to reduce risk in investment decisions.
                                 A diverse
                                 real estate portfolio allows you to balance high-risk and low-risk properties.
@@ -335,7 +335,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                     <div class="service-card">
                         <div>
                             <img src="public\frontend\assets\images\img\Sale-Leaseback.jpg" class="card-image-top"
@@ -344,7 +344,7 @@
                         <h3 class="text-center">Sale & Leaseback</h3>
                         <div class="card-body-investment">
 
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Sale & Leaseback is a novel technique to obtain funding without the requirement for bank
                                 loans or monies
                                 from independent lenders. Sale and leaseback allow the seller of a property to continue to
@@ -367,9 +367,9 @@
 
                 <div class="row mt-5 mt-md-4 justify-content-lg-center justify-content-md-center">
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                         <div class="service-card">
-                    
+
 
                                 <h5 class="text-center">Expert Research & Analysis</h5>
                                 <p class="text-justify">
@@ -380,11 +380,11 @@
                                     in-depth market study.
                                 </p>
                             </div>
-                     
+
                     </div>
 
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                         <div class="service-card">
 
                             <h5 class="text-center">Connections in the Industry</h5>
@@ -399,13 +399,13 @@
 
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
 
                         <div class="service-card">
 
 
                             <h5 class="card-title text-center">Professional Negotiation</h5>
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Our real estate investment experts will negotiate on your behalf to ensure that your
                                 real estate
                                 investment remains lucrative. They bargain on your behalf so you can get a fantastic
@@ -415,13 +415,13 @@
 
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
 
                         <div class="service-card">
 
 
                             <h5 class="card-title text-center">Location Expertise</h5>
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Our real estate investment advisors have extensive knowledge of European, Middle
                                 Eastern, and African
                                 countries. You can use our real estate investment knowledge in these areas to determine
@@ -432,13 +432,13 @@
 
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
 
                         <div class="service-card">
 
 
                             <h5 class="card-title text-center">Legal Documentation</h5>
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Our property consultants in Dubai are skilled at dealing with complex legal papers
                                 related to property
                                 investments. We will draft the documents and submit them to the appropriate authorities
@@ -450,13 +450,13 @@
 
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
 
                         <div class="service-card">
 
 
                             <h5 class="card-title text-center">Handling Post-sale Concerns</h5>
-                            <p class="card-text text-secondary pt-3">
+                            <p class="card-text text-secondary">
                                 Our real estate investment advisors stay with you even after the investment has been
                                 made to help you
                                 navigate complications associated with the investment. Our experts offer assistance with
