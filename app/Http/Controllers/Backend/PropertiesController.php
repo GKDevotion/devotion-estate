@@ -325,16 +325,16 @@ class PropertiesController extends Controller
             'property_type' => $request->property_type,
             'location_id'   => $request->location_id,
             'type'          => $request->type ?? 'sale', // 'sale', 'rent', 'off-plan'
-    
+
         ];
 
         // Fetch data
         $data = getSearchByProperties($filters, $perPage);
-    
+
         // Add extra values for blade
         $data['perPage'] = $perPage;
         $data['type'] = $filters['type']; // ✅ ensure $type is available in blade
-   
+
         // Detect which main blade to load
         switch ($filters['type']) {
             case 'rent':

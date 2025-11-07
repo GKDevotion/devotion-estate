@@ -41,7 +41,6 @@ class HomeController extends Controller
             ->where('status', 1)
             ->get();
 
-          
         return view('frontend.pages.home' , compact('location','residentialTypes','commercialTypes'));
     }
 
