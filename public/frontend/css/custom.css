@@ -697,7 +697,10 @@
       align-items: center;
       text-align: center;
   }
-
+    .contact-heading {
+        color: #aa8038;
+        font-weight: 700;
+    }
   .icon-box {
       color: #aa8038;
       /* Primary color for icons/accents */

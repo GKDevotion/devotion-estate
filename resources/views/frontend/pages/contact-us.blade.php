@@ -24,163 +24,183 @@
         <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
     </head>
 
+    <div class="container" style="padding-top: 80px;">
+        <div class="row justify-content-center g-5 pt-5 align-items-stretch">
 
-    <div class="container" style="padding-top: 80px; ">
+            <h1 class="contact-heading text-center">
+                Contact Us
+            </h1>
 
-        <div class="row justify-content-center g-5 pt-5"> <!-- Added gap with g-5 -->
             <!-- Contact Info Section -->
-            <div class="col-lg-5">
-                <div class="row g-4 pt-5">
-                    <div class="col-md-6 d-flex">
-                        <div class="card contact-card flex-fill p-4" style="min-height: 220px;">
-                            <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-geo-alt fs-3"></i>
+            <div class="col-lg-5 d-flex">
+                <div class="w-100">
+                    <div class="row g-4 h-100">
+                        <div class="col-md-6 d-flex">
+                            <div class="card contact-card flex-fill p-4 text-center">
+                                <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-geo-alt fs-3"></i>
+                                </div>
+                                <h5 class="card-title">Address</h5>
+                                <p class="card-text text-start text-secondary mb-0">
+                                    {!! getConfigurationField('OFFICE_ADDRESS') ?? 'Not Available' !!}
+                                </p>
                             </div>
-                            <h5 class="card-title text-center">Address</h5>
-                            @if (getConfigurationField('OFFICE_ADDRESS'))
-                                <p class="card-text text-secondary">
-                                    {!! getConfigurationField('OFFICE_ADDRESS') !!}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 d-flex">
-                        <div class="card contact-card flex-fill p-4" style="min-height: 220px;"> <!-- Increased height -->
-                            <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-telephone fs-3"></i> <!-- Increased icon size -->
-                            </div>
-                            <h5 class="card-title text-center ">Call Us</h5> <!-- Center title -->
-                            @if (getConfigurationField('CONTACT_PHONE'))
-                                <p class="card-text text-secondary text-center">
-                                    {!! getConfigurationField('CONTACT_PHONE') !!}
-                                </p>
-                            @else
-                                <p class="card-text text-secondary text-center">
-                                    Not Available
-                                </p>
-                            @endif
                         </div>
 
-                    </div>
-
-                    <div class="col-md-6 d-flex">
-                        <div class="card contact-card flex-fill p-4" style="min-height: 220px;">
-                            <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-envelope fs-3"></i>
-                            </div>
-                            <h5 class="card-title text-center">Email Us</h5>
-                            @if (getConfigurationField('CONTACT_EMAIL'))
-                                <p class="card-text text-secondary text-center">
-                                    <a href="mailto:{{ getConfigurationField('CONTACT_EMAIL') }}"
-                                        class="text-decoration-none text-secondary">
-                                        {!! getConfigurationField('CONTACT_EMAIL') !!}
+                        <div class="col-md-6 d-flex">
+                            <div class="card contact-card flex-fill p-4 text-center">
+                                <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-telephone fs-3"></i>
+                                </div>
+                                <h5 class="card-title">Call Us</h5>
+                                <p class="card-text text-secondary mb-0">
+                                    <a href="tel:{!! getConfigurationField('CONTACT_PHONE') ?? '' !!}" class="text-decoration-none text-secondary">
+                                        {!! getConfigurationField('CONTACT_PHONE') ?? 'Not Available' !!}
                                     </a>
                                 </p>
-                            @else
-                                <p class="card-text text-secondary text-center">Not Available</p>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 d-flex">
-                        <div class="card contact-card flex-fill p-4" style="min-height: 220px;">
-                            <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-alarm fs-3"></i>
                             </div>
-                            <h5 class="card-title text-center">Open Hours</h5>
+                        </div>
 
-                            @if (getConfigurationField('OFFICE_HOURS'))
-                                <p class="card-text text-secondary text-center">
-                                    {!! getConfigurationField('OFFICE_HOURS') !!}
+                        <div class="col-md-6 d-flex">
+                            <div class="card contact-card flex-fill p-4 text-center">
+                                <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-envelope fs-3"></i>
+                                </div>
+                                <h5 class="card-title">Email Us</h5>
+                                @if (getConfigurationField('CONTACT_EMAIL'))
+                                    <p class="card-text text-secondary mb-0">
+                                        <a href="mailto:{{ getConfigurationField('CONTACT_EMAIL') }}"
+                                            class="text-decoration-none text-secondary">
+                                            {!! getConfigurationField('CONTACT_EMAIL') !!}
+                                        </a>
+                                    </p>
+                                @else
+                                    <p class="card-text text-secondary mb-0">Not Available</p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex">
+                            <div class="card contact-card flex-fill p-4 text-center">
+                                <div class="icon-box mb-3 d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-alarm fs-3"></i>
+                                </div>
+                                <h5 class="card-title">Open Hours</h5>
+                                <p class="card-text text-secondary mb-0">
+                                    {!! getConfigurationField('OFFICE_HOURS') ?? 'Not Available' !!}
                                 </p>
-                            @else
-                                <p class="card-text text-secondary text-center">Not Available</p>
-                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <style>
+            {{-- <style>
                 .custom-alert {
                     background-color: #aa8038 !important;
                     color: #fff !important;
                     border: none !important;
                     font-weight: 300;
                 }
-            </style>
+            </style> --}}
 
             <!-- Contact Form Section -->
-            <div class="col-lg-5">
-                <div class="card contact-card p-4 p-md-5">
-                    <h2 class="mb-4 fw-bold text-center" style="font-size: 1.5rem;">Devotion Estate - Contact Us</h2>
+            <div class="col-lg-5 d-flex">
+                <div class="card contact-card p-4 p-md-5 flex-fill d-flex flex-column justify-content-between">
+                    <div>
+                        <h2 class="mb-4 fw-bold text-center" style="font-size: 1.5rem;">Devotion Estate - Contact Us</h2>
 
-                    @if (session('success'))
-                        <div class="alert custom-alert text-center">{{ session('success') }}</div>
-                    @endif
+                        @if (session('success'))
+                            <div class="alert custom-alert text-center mb-4">{{ session('success') }}</div>
+                        @endif
 
-                    <form method="POST" action="{{ route('contact.store') }}">
-                        @csrf
+                        <form method="POST" action="{{ route('contact.store') }}">
+                            @csrf
 
-                        <div class="mb-3">
-                            <label for="name" class="form-label text-muted">Your Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
-                        </div>
-                        <!-- load jQuery if not already loaded -->
-                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-                        <div class="row mb-3">
-
-                            <div class="col-md-6">
-                                <label for="type" class="form-label text-muted">Property type</label>
-                                <select class="form-select" id="type" name="type" style="font-size: 0.9rem;" required>
-                                    <option value="" selected>Select Property Type</option>
-                                    <option value="0">Residential</option>
-                                    <option value="1">Commercial</option>
-                                </select>
+                            <div class="mb-3">
+                                <label for="name" class="form-label text-muted">Your Name</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Your Name" required>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="sub_type" class="form-label text-muted">Sub Type</label>
-                                <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
-                                    required>
-                                    <option value="">Select Sub Type</option>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="type" class="form-label text-muted">Property Type</label>
+                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="" selected>Select Property Type</option>
+                                        <option value="0">Residential</option>
+                                        <option value="1">Commercial</option>
+                                    </select>
+                                </div>
 
-                                    @foreach ($propertyTypeObj as $type)
-                                        <!-- note: data-main is used for matching, 'dynamic' marks options we toggle -->
-                                        <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
-                                            class="dynamic default-sub-type-hide d-none">
-                                            {{ $type->name }}
-                                        </option>
-                                    @endforeach
-
-                                </select>
+                                <div class="col-md-6">
+                                    <label for="sub_type" class="form-label text-muted">Sub Type</label>
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="">Select Sub Type</option>
+                                        @foreach ($propertyTypeObj as $type)
+                                            <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                class="dynamic default-sub-type-hide d-none">
+                                                {{ $type->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
-                        </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label text-muted">Your Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Your Email" required>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label text-muted">Your Email</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Your Email" required>
-                        </div>
+                            <div class="mb-4">
+                                <label for="comment" class="form-label text-muted">Your Message</label>
+                                <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Your Comment" required></textarea>
+                            </div>
 
-                        <div class="mb-4">
-                            <label for="comment" class="form-label text-muted">Your Message</label>
-                            <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Your comment" required></textarea>
-                        </div>
-
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-custom">
-                                <i class="fas fa-paper-plane me-2"></i>Send request
-                            </button>
-                        </div>
-                    </form>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-custom">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-
         </div>
+
+        <style>
+        .contact-card {
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        .custom-alert {
+            background-color: #aa8038 !important;
+            color: #fff !important;
+            border: none !important;
+            font-weight: 300;
+        }
+
+        .btn-custom {
+            background-color: #aa8038;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #8c692d;
+        }
+    </style>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </div>
 
     <script>

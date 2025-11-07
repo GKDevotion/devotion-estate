@@ -21,10 +21,11 @@
 
     <div class="container" style="padding-top: 10px">
 
+        
         <div class="main-heading">
-            <h1 class="guide-heading text-center">
+            <h2 class="guide-heading text-center">
                 How To Write a Buyer's Guide and Why You Need One
-            </h1>
+            </h2>
         </div>
 
 
