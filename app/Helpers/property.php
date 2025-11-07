@@ -44,6 +44,7 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
             $propertyDataObj->is_occupancy = $request->is_occupancy;
             $propertyDataObj->off_plan_sale_type = $request->off_plan_sale_type;
             $propertyDataObj->completed_date = $request->completed_date;
+            $propertyDataObj->payment_plan = $request->payment_plan;
             $propertyDataObj->rent_frequency = $request->rent_frequency;
             $propertyDataObj->rent_contract_period = $request->rent_contract_period ?? 0;
             $propertyDataObj->rent_notice_period = $request->rent_notice_period ?? 0;
@@ -66,6 +67,8 @@ function storePropertyRecord( $request, $admin_id, $property_id=0, $sendRegister
         //2. Job Information -->
         if( $request->step == 2 || $request->_method == "PUT" ){
 
+            $propertyDataObj->beds = $request->beds;
+            $propertyDataObj->baths = $request->baths;
             // --- Store property flags safely ---
             $propertyDataObj->is_new_property = $request->has('is_new_property') ? 1 : 0;
             $propertyDataObj->is_featured_property = $request->has('is_featured_property') ? 1 : 0;

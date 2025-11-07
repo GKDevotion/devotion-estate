@@ -46,4 +46,9 @@ class Properties extends Model
         return $this->hasMany(PropertyFeatureMap::class, 'property_id', 'id')->where( 'status', 1 );
     }
 
+    public function paymentPlan()
+    {
+        return $this->hasOne(PaymentPlan::class, 'id','name');
+    }
+
 }
