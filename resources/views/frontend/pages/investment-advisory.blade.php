@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row mb-4" style="padding-top: 100px">
                 <div class="col-12 text-center">
-                    <h2 class="text-brown " style="color: #aa8038; ">
+                    <h2 class="text-brown " style="color: #aa8038; font-weight: 700; ">
                         Investment Advisory Services Dubai | Financial Advisers UAE
                     </h2>
                 </div>
