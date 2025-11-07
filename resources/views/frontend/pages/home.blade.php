@@ -18,371 +18,157 @@
         <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
     </head>
 
+    <style>
+        .search-overlay {
+            z-index: 50;
+            pointer-events: auto;
+        }
+
+        .carousel-caption{
+            position: absolute;
+            right: 15%;
+            top: 5.5rem;
+            left: 15%;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+            color: var(--bs-carousel-caption-color);
+            text-align: center;
+        }
+    </style>
     <!-- Hero Carousel -->
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+
         <div class="carousel-inner">
 
-            <!-- Carousel Item 1 -->
+            <!-- Slide 1 -->
             <div class="carousel-item active">
-                <img src="{{ url('public/frontend/assets/images/img/slide3.jpg') }}" class="d-block w-100" alt="Building 1">
-
-                <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
-                    <div class="carousel-content text-center p-4 rounded-3">
-
-                        <h1 class="carousel-title mb-2">Find your dream home</h1>
-                        <h1 class="carousel-title mb-4">with Us</h1>
-                        <p class="carousel-subtitle mb-4">
-                            Affordable options, easy financing, expert advice every step of the way
-                        </p>
-
-                        <!-- Tabs -->
-                        <ul class="nav nav-tabs justify-content-center border-0 carousel-tabs">
-                            <li class="nav-item">
-                                <button class="nav-link active tab-search" id="tab-search" data-bs-toggle="tab"
-                                    data-bs-target="#content-search" type="button" role="tab"
-                                    aria-controls="content-search" aria-selected="true">
-                                    Property Search <i class="bi bi-search"></i>
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link tab-project" id="tab-project" data-bs-toggle="tab"
-                                    data-bs-target="#content-project" type="button" role="tab"
-                                    aria-controls="content-project" aria-selected="false">
-                                    New Project <i class="bi bi-house"></i>
-                                </button>
-                            </li>
-                        </ul>
-
-                        <!-- Tab Content -->
-                        <div class="tab-content carousel-tab-content shadow-sm rounded-3">
-
-                            <!-- Property Search -->
-                            <div class="tab-pane fade show active p-2" id="content-search" role="tabpanel"
-                                aria-labelledby="tab-search">
-
-                                <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-
-                                    <!-- Location Dropdown -->
-                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white border-end-0">
-                                                <i class="bi bi-geo-alt"></i>
-                                            </span>
-                                            <select id="locationInput" name="location_id"
-                                                class="form-select border-start-1">
-                                                <option value="">Select Location</option>
-                                                @forelse($location as $p)
-                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
-                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
-                                                        {{ $p->name ?? 'Unknown Location' }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <select class="form-select search-select">
-                                        <option selected>All</option>
-                                        <option>Rent</option>
-                                        <option>Buy</option>
-                                    </select>
-
-                                    <select class="form-select search-select">
-                                        <option selected>Residential</option>
-                                        <option>Commercial</option>
-                                    </select>
-
-                                    <select class="form-select search-select">
-                                        <option selected>Bed/Bath</option>
-                                        <option>1 BHK</option>
-                                        <option>2 BHK</option>
-                                    </select>
-                                </div>
-                                <button class="btn search-btn">Search Now <i class="bi bi-search"></i></button>
-                            </div>
-
-                            <!-- New Project -->
-                            <div class="tab-pane fade p-3 text-center" id="content-project" role="tabpanel"
-                                aria-labelledby="tab-project">
-                                <div class="input-group mb-3 input-group-project rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control project-input" placeholder="Enter Location">
-                                    <select class="form-select project-select">
-                                        <option selected>Residential</option>
-                                        <option>Commercial</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>Handover By</option>
-                                        <option>Q2 2024</option>
-                                        <option>Q3 2024</option>
-                                        <option>Q4 2024</option>
-                                        <option>Q1 2025</option>
-                                        <option>Q2 2025</option>
-                                        <option>Q3 2025</option>
-                                        <option>Q4 2025</option>
-                                        <option>2026</option>
-                                        <option>2027</option>
-                                        <option>2028</option>
-                                        <option>2029</option>
-                                        <option>2030</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>(%) Completion</option>
-                                        <option>0 - 25 %</option>
-                                        <option>25 - 50 %</option>
-                                        <option>50 - 75 %</option>
-                                        <option>75 - 100 %</option>
-                                        <option>Any</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>Up to 100% pre-handover</option>
-                                    </select>
-                                </div>
-                                <button class="btn search-btn">Search Now <i class="bi bi-search"></i></button>
-                            </div>
-
-                        </div>
-                    </div>
+                <img src="{{ url('public/frontend/assets/images/img/slide3.jpg') }}" class="d-block w-100" alt="">
+                <div class="carousel-caption">
+                    <h1 class="carousel-title mb-2">Find your dream home</h1>
+                    <h1 class="carousel-title mb-4">with Us</h1>
+                    <p class="carousel-subtitle mb-4">
+                        Affordable options, easy financing, expert advice every step of the way
+                    </p>
                 </div>
             </div>
 
-            <!-- Carousel Item 2 -->
+            <!-- Slide 2 -->
             <div class="carousel-item">
-                <img src="{{ url('public/frontend/assets/images/img/slide1.jpg') }}" class="d-block w-100" alt="Building 1">
-
-                <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
-                    <div class="carousel-content text-center p-4 rounded-3">
-
-                        <h1 class="carousel-title mb-2">Find your perfect</h1>
-                        <h1 class="carousel-title mb-4">home</h1>
-
-                        <!-- Tabs -->
-                        <ul class="nav nav-tabs justify-content-center border-0 carousel-tabs">
-                            <li class="nav-item">
-                                <button class="nav-link active tab-search" id="tab-search-1" data-bs-toggle="tab"
-                                    data-bs-target="#content-search-1" type="button" role="tab"
-                                    aria-controls="content-search-1" aria-selected="true">
-                                    Property Search <i class="bi bi-search"></i>
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link tab-project" id="tab-project-1" data-bs-toggle="tab"
-                                    data-bs-target="#content-project-1" type="button" role="tab"
-                                    aria-controls="content-project-1" aria-selected="false">
-                                    New Project <i class="bi bi-house"></i>
-                                </button>
-                            </li>
-                        </ul>
-
-                        <!-- Tab Content -->
-                        <div class="tab-content carousel-tab-content shadow-sm rounded-3">
-
-                            <!-- Property Search -->
-                            <div class="tab-pane fade show active p-2" id="content-search-1" role="tabpanel"
-                                aria-labelledby="tab-search-1">
-                                <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                    <!-- Location Dropdown -->
-                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white border-end-0">
-                                                <i class="bi bi-geo-alt"></i>
-                                            </span>
-                                            <select id="locationInput" name="location_id"
-                                                class="form-select border-start-1">
-                                                <option value="">Select Location</option>
-                                                @forelse($location as $p)
-                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
-                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
-                                                        {{ $p->name ?? 'Unknown Location' }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <select class="form-select search-select">
-                                        <option selected>All</option>
-                                        <option>Rent</option>
-                                        <option>Buy</option>
-                                    </select>
-                                    <select class="form-select search-select">
-                                        <option selected>Residential</option>
-                                        <option>Commercial</option>
-                                    </select>
-                                    <select class="form-select search-select">
-                                        <option selected>Bed/Bath</option>
-                                        <option>1 BHK</option>
-                                        <option>2 BHK</option>
-                                    </select>
-                                </div>
-                                <button class="btn search-btn">Search Now <i class="bi bi-search"></i></button>
-                            </div>
-
-                            <!-- New Project -->
-                            <div class="tab-pane fade p-3 text-center" id="content-project-1" role="tabpanel"
-                                aria-labelledby="tab-project-1">
-                                <div class="input-group mb-3 input-group-project rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control project-input"
-                                        placeholder="Enter Location">
-                                    <select class="form-select project-select">
-                                        <option selected>Residential</option>
-                                        <option>Commercial</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>Handover By</option>
-                                        <option>Q2 2024</option>
-                                        <option>Q3 2024</option>
-                                        <option>Q4 2024</option>
-                                        <option>Q1 2025</option>
-                                        <option>Q2 2025</option>
-                                        <option>Q3 2025</option>
-                                        <option>Q4 2025</option>
-                                        <option>2026</option>
-                                        <option>2027</option>
-                                        <option>2028</option>
-                                        <option>2029</option>
-                                        <option>2030</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>(%) Completion</option>
-                                        <option>0 - 25 %</option>
-                                        <option>25 - 50 %</option>
-                                        <option>50 - 75 %</option>
-                                        <option>75 - 100 %</option>
-                                        <option>Any</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>Up to 100% pre-handover</option>
-                                    </select>
-                                </div>
-                                <button class="btn search-btn">Search Now <i class="bi bi-search"></i></button>
-                            </div>
-
-                        </div>
-                    </div>
+                <img src="{{ url('public/frontend/assets/images/img/slide1.jpg') }}" class="d-block w-100" alt="">
+                <div class="carousel-caption">
+                    <h1 class="carousel-title mb-2">Find your perfect</h1>
+                    <h1 class="carousel-title mb-4">home</h1>
                 </div>
             </div>
 
-
-            <!-- Carousel Item 3 -->
+            <!-- Slide 3 -->
             <div class="carousel-item">
-                <img src="{{ url('public/frontend/assets/images/img/slide2.jpg') }}" class="d-block w-100"
-                    alt="Building 1">
-
-                <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
-                    <div class="carousel-content text-center p-4 rounded-3">
-
-                        <h1 class="carousel-title mb-4">Start your journey</h1>
-
-                        <!-- Tabs -->
-                        <ul class="nav nav-tabs justify-content-center border-0 carousel-tabs">
-                            <li class="nav-item">
-                                <button class="nav-link active tab-search" id="tab-search-2" data-bs-toggle="tab"
-                                    data-bs-target="#content-search-2" type="button" role="tab"
-                                    aria-controls="content-search-2" aria-selected="true">
-                                    Property Search <i class="bi bi-search"></i>
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link tab-project" id="tab-project-2" data-bs-toggle="tab"
-                                    data-bs-target="#content-project-2" type="button" role="tab"
-                                    aria-controls="content-project-2" aria-selected="false">
-                                    New Project <i class="bi bi-house"></i>
-                                </button>
-                            </li>
-                        </ul>
-
-                        <!-- Tab Content -->
-                        <div class="tab-content carousel-tab-content shadow-sm rounded-3">
-
-                            <!-- Property Search -->
-                            <div class="tab-pane fade show active p-2" id="content-search-2" role="tabpanel"
-                                aria-labelledby="tab-search-2">
-                                <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-
-
-                                    <!-- Location Dropdown -->
-                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white border-end-0">
-                                                <i class="bi bi-geo-alt"></i>
-                                            </span>
-                                            <select id="locationInput" name="location_id"
-                                                class="form-select border-start-1">
-                                                <option value="">Select Location</option>
-                                                @forelse($location as $p)
-                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
-                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
-                                                        {{ $p->name ?? 'Unknown Location' }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <select class="form-select search-select">
-                                        <option selected>All</option>
-                                        <option>Rent</option>
-                                        <option>Buy</option>
-                                    </select>
-                                    <select class="form-select search-select">
-                                        <option selected>Residential</option>
-                                        <option>Commercial</option>
-                                    </select>
-                                    <select class="form-select search-select">
-                                        <option selected>Bed/Bath</option>
-                                        <option>1 BHK</option>
-                                        <option>2 BHK</option>
-                                    </select>
-                                </div>
-                                <button class="btn search-btn">Search Now <i class="bi bi-search"></i></button>
-                            </div>
-
-                            <!-- New Project -->
-                            <div class="tab-pane fade p-3 text-center" id="content-project-2" role="tabpanel"
-                                aria-labelledby="tab-project-2">
-                                <div class="input-group mb-3 input-group-project rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control project-input"
-                                        placeholder="Enter Location">
-                                    <select class="form-select project-select">
-                                        <option selected>Residential</option>
-                                        <option>Commercial</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>Handover By</option>
-                                        <option>Q2 2024</option>
-                                        <option>Q3 2024</option>
-                                        <option>Q4 2024</option>
-                                        <option>Q1 2025</option>
-                                        <option>Q2 2025</option>
-                                        <option>Q3 2025</option>
-                                        <option>Q4 2025</option>
-                                        <option>2026</option>
-                                        <option>2027</option>
-                                        <option>2028</option>
-                                        <option>2029</option>
-                                        <option>2030</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>(%) Completion</option>
-                                        <option>0 - 25 %</option>
-                                        <option>25 - 50 %</option>
-                                        <option>50 - 75 %</option>
-                                        <option>75 - 100 %</option>
-                                        <option>Any</option>
-                                    </select>
-                                    <select class="form-select project-select">
-                                        <option selected>Up to 100% pre-handover</option>
-                                    </select>
-                                </div>
-                                <button class="btn search-btn">Search Now <i class="bi bi-search"></i></button>
-                            </div>
-
-                        </div>
-                    </div>
+                <img src="{{ url('public/frontend/assets/images/img/slide2.jpg') }}" class="d-block w-100" alt="">
+                <div class="carousel-caption">
+                    <h1 class="carousel-title mb-4">Start your journey</h1>
                 </div>
             </div>
 
         </div>
+
+        <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
+        <div class="search-overlay position-absolute top-50 start-50 translate-middle w-100 d-flex justify-content-center">
+            <div class="carousel-content text-center p-4 rounded-3">
+
+                <!-- Tab Content -->
+                <div class="tab-content carousel-tab-content shadow-sm rounded-3">
+
+                    <!-- Property Search -->
+                    <div class="tab-pane fade show active p-3" id="content-search">
+                        <form action="{{route('properties.search')}}" autocomplete="off">
+                            <div class="row g-3 align-items-center justify-content-center">
+
+                                <!-- Location -->
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+                                        <select name="location" class="form-select border-start-1">
+                                            <option value="0">Select Location</option>
+                                            @foreach($location as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Rent/Buy/Land -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select name="purpose" class="form-select">
+                                        <option value="0">All</option>
+                                        <option value="1">Rent</option>
+                                        <option value="2">Buy</option>
+                                        <option value="3">Land</option>
+                                    </select>
+                                </div>
+
+                                <!-- Residential/Commercial -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select name="type" class="form-select">
+                                        <option value="0">All</option>
+                                        <option value="1">Residential</option>
+                                        <option value="2">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Keyword -->
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <input type="text" class="form-control" name="keyword" placeholder="Search Keyword here">
+                                </div>
+
+                            </div>
+
+                            <button class="btn search-btn mt-4" type="submit">
+                                Search Now <i class="bi bi-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- New Project -->
+                    <div class="tab-pane fade p-3 text-center" id="content-project">
+
+                        <div class="input-group mb-3 input-group-project rounded gap-3 justify-content-center">
+                            <input type="text" class="form-control" placeholder="Enter Location">
+
+                            <select class="form-select">
+                                <option selected>Residential</option>
+                                <option>Commercial</option>
+                            </select>
+
+                            <select class="form-select">
+                                <option selected>Handover By</option>
+                                <option>Q1 2025</option>
+                                <option>Q2 2025</option>
+                                <option>2026</option>
+                                <option>2027</option>
+                            </select>
+
+                            <select class="form-select">
+                                <option selected>(%) Completion</option>
+                                <option>0 - 25%</option>
+                                <option>25 - 50%</option>
+                                <option>50 - 75%</option>
+                                <option>75 - 100%</option>
+                            </select>
+
+                            <select class="form-select">
+                                <option selected>Up to 100% pre-handover</option>
+                            </select>
+                        </div>
+
+                        <button class="btn search-btn">Search Now <i class="bi bi-search"></i></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <style>

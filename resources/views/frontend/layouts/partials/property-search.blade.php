@@ -19,28 +19,14 @@
     </style>
 </head>
 
-<form action="{{ route('properties.search') }}" method="GET" id="propertySearchForm">
+<form action="{{ route('properties.search') }}" method="GET" id="propertySearchForm" autocomplete="off">
 
     <!-- Hidden input for property type -->
-    <input type="hidden" name="type" id="propertyTypeInput" value="sale">
-
-    @if (isset($type) && $type === 'rent')
-        <input type="hidden" name="type" id="propertyTypeInput" value="rent">
+    @if (isset($type))
+        <input type="hidden" name="type" id="propertyTypeInput" value="{{$type}}">
+    @else
+        <input type="hidden" name="type" id="propertyTypeInput" value="sale">
     @endif
-
-    @if (isset($type) && $type === 'off')
-        <input type="hidden" name="type" id="propertyTypeInput" value="off">
-    @endif
-
-    @if (isset($type) && $type === 'luxury')
-        <input type="hidden" name="type" id="propertyTypeInput" value="luxury">
-    @endif
-
-    @if (isset($type) && $type === 'hot')
-        <input type="hidden" name="type" id="propertyTypeInput" value="hot">
-    @endif
-
-
 
     <!-- Filters and Search Section -->
     <div class="row g-2 justify-content-center mb-4" style="padding-top: 100px">
@@ -151,42 +137,9 @@
 
         <!-- Beds/Baths Dropdown -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-            <div class="dropdown">
-                <button class="btn btn-outline w-100 border bg-white d-flex justify-content-between align-items-center"
-                    type="button" id="bedsBathsBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                    Beds/Baths
-                    <i class="bi bi-chevron-down"></i>
-                </button>
-                <div class="dropdown-menu p-3" style="min-width: 250px;">
-                    <div class="row g-2">
-                        <div class="col-6">
-                            <label for="beds" class="form-label small text-muted mb-1">Bed Room(s)</label>
-                            <input type="number" name="beds" class="form-control" id="beds" value="0"
-                                placeholder="0" min="0">
-                        </div>
-
-                        <div class="col-6">
-                            <label for="baths" class="form-label small text-muted mb-1">Bath Room(s)</label>
-                            <input type="number" name="baths" class="form-control" id="baths" value="0"
-                                placeholder="0" min="0">
-                        </div>
-                    </div>
-
-                    <hr class="dropdown-divider my-3">
-
-                    <div class="row g-2">
-                        <div class="col-6">
-                            <button type="button" class="btn btn-light border w-100 py-2"
-                                id="resetBedsBaths">Reset</button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-light border w-100 py-2"
-                                id="doneBedsBaths">Done</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           <input type="text" class="form-control" name="keyword" placeholder="Search Keyword here">
         </div>
+
         <!-- Price Dropdown -->
         <div class="col-lg-2 col-md-4 col-sm-6">
             <div class="dropdown">
