@@ -53,14 +53,12 @@ class Properties extends Model
         return $this->hasMany(PropertyFeatureMap::class, 'property_id', 'id')->where( 'status', 1 );
     }
 
-<<<<<<< HEAD
-    public function agent(){
-        return $this->hasOne(User::class, 'id', 'agent_id');
-=======
     public function paymentPlan()
     {
         return $this->hasOne(PaymentPlan::class, 'id','name');
->>>>>>> admin-side
     }
 
+     public function agent(){
+        return $this->hasOne(User::class, 'id', 'agent_id');
+     }
 }
