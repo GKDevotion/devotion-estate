@@ -9,3 +9,5 @@ ALTER TABLE `properties` ADD `beds` INT NOT NULL DEFAULT '0' AFTER `publish`, AD
 ALTER TABLE `properties` CHANGE `purpose` `purpose` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Sale, 1: Rent, 2: Land';
 ALTER TABLE `properties` CHANGE `purpose` `purpose` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: All, 1: Sale, 2: Rent, 3: Land';
 ALTER TABLE `properties` CHANGE `type` `type` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: All, 1: Residential, 2: Commercial';
+ALTER TABLE `properties` ADD `payment_plan_id` INT NULL DEFAULT NULL COMMENT '0: NO, >0 = Reference for the payment plan table' AFTER `completed_date`;
+ALTER TABLE `properties` ADD INDEX `payment_plan_IDX` (`payment_plan_id`);
