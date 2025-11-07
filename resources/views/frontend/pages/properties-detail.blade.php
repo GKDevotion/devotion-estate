@@ -132,12 +132,12 @@
                                 <i class="bi bi-geo-alt"></i> {{ $property->location->name ?? 'N/A' }}
                             </p>
 
-                            <span class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sell' }}">
-                                {{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}
+                            <span class="badge badge-rent {{ $property->purpose == 1 ? 'badge-rent' : 'badge-Sale' }}">
+                                {{ $property->purpose == 1 ? 'For Sale' : 'For Rent' }}
                             </span>
                         </div>
                         <div class="text-end">
-                            <div class="gap-2 pb-3">
+                            <div class="gap-2 pb-3 d-none">
                                 <button class="btn btn-sm" style="background-color: #aa8038; color: white;">
                                     <i class="bi bi-compass"></i>
                                 </button>
@@ -168,14 +168,14 @@
                                         Sq.Ft.
                                     </div>
                                     <div class="col-md-3"><i class="bi bi-house"></i>
-                                        Type:{{ $property->type == 1 ? 'Commercial' : 'Residential' }}</div>
+                                        Type:{{ $property->type == 1 ? 'Residential' : 'Commercial' }}</div>
 
                                 </div>
                             </div>
                         </div>
 
                         <!-- Description -->
-                        <div class="card mb-5">
+                        <div class="card mb-4">
                             <div class="card-body">
                                 <h5 class="fw-semibold mb-3">Property Description</h5>
                                 <p>{{ strip_tags($property->description ?? 'No description available.') }}</p>
@@ -191,7 +191,7 @@
                                 <div class="row g-3 text-muted">
                                     <div class="col-md-4">
                                         <strong>Purpose:</strong>
-                                        <span class="ms-2">{{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}</span>
+                                        <span class="ms-2">{{ $property->purpose == 1 ? 'For Sale' : 'For Rent' }}</span>
                                     </div>
 
 
@@ -220,8 +220,7 @@
                                     <div class="col-md-4"><strong>ID:</strong> <span
                                             class="ms-2">{{ $property->unique_id }}</span></div>
                                     <div class="col-md-4"><strong>Status:</strong>
-                                        <span
-                                            class="ms-2">{{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}</span>
+                                        <span class="ms-2">{{ $property->status == 0 ? 'No' : 'Yes' }}</span>
                                     </div>
                                     <div class="col-md-4"><strong>Type:</strong>
                                         <span
@@ -254,7 +253,7 @@
                         .seller-review-form i {
                             font-size: 15px;
                             margin-left: -3px;
-                            color: #b88a3d;
+
                         }
                     </style>
                     <!-- Right: Contact Seller / Review Form -->
@@ -425,34 +424,33 @@
             });
         });
 
-      document.addEventListener("DOMContentLoaded", function() {
-    const gallery = document.getElementById("lightgallery");
-    const feedbackBtn = document.querySelector(".btn-feedback");
+        document.addEventListener("DOMContentLoaded", function() {
+            const gallery = document.getElementById("lightgallery");
+            const feedbackBtn = document.querySelector(".btn-feedback");
 
-    if (gallery) {
-        const lgInstance = lightGallery(gallery, {
-            selector: 'a',
-            plugins: [lgZoom, lgThumbnail],
-            thumbnail: true,
-            zoom: true,
-            fullScreen: true,
-            animateThumb: true,
-            showThumbByDefault: true,
-            download: false
+            if (gallery) {
+                const lgInstance = lightGallery(gallery, {
+                    selector: 'a',
+                    plugins: [lgZoom, lgThumbnail],
+                    thumbnail: true,
+                    zoom: true,
+                    fullScreen: true,
+                    animateThumb: true,
+                    showThumbByDefault: true,
+                    download: false
+                });
+
+                // 🔽 Hide Feedback Button When Gallery Opens
+                gallery.addEventListener('lgAfterOpen', () => {
+                    feedbackBtn.style.display = 'none';
+                });
+
+                // 🔽 Show Feedback Button When Gallery Closes
+                gallery.addEventListener('lgAfterClose', () => {
+                    feedbackBtn.style.display = 'block';
+                });
+            }
         });
-
-        // 🔽 Hide Feedback Button When Gallery Opens
-        gallery.addEventListener('lgAfterOpen', () => {
-            feedbackBtn.style.display = 'none';
-        });
-
-        // 🔽 Show Feedback Button When Gallery Closes
-        gallery.addEventListener('lgAfterClose', () => {
-            feedbackBtn.style.display = 'block';
-        });
-    }
-});
-
     </script>
 
 @endsection

@@ -441,7 +441,7 @@
                 /**
                  * $type = 0: 'sell', 1: 'rent'
                  */
-                $allproperties = getPropertiesByType([0, 1]);
+                $allproperties = getPropertiesByType([ 1, 2]);
                 $chunks = $allproperties->chunk(3);
             @endphp
 
@@ -455,7 +455,7 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $property)
                                         <div class="col">
-                                            <a href="{{ route('property.detail', ['type' => $property->type == 0 ? 'sale' : 'rent', 'slug' => $property->slug]) }}"
+                                            <a href="{{ route('property.detail', $property->slug) }}"
                                                 class="text-decoration-none text-dark">
 
                                                 <div class="card property-card h-100 border-1 shadow-sm rounded-3">
@@ -467,8 +467,8 @@
                                                         <span
                                                             class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
                                                         <span
-                                                            class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
-                                                            {{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}
+                                                            class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sale' }} position-absolute top-0 end-0 m-2">
+                                                            {{ $property->purpose == 1 ? 'For Rent' : 'For sale' }}
                                                         </span>
 
                                                     </div>
@@ -552,7 +552,7 @@
             </div>
 
             @php
-                $saleProperties = getPropertiesByType([0]);
+                $saleProperties = getPropertiesByType([1]);
                 $saleChunks = $saleProperties->chunk(3);
             @endphp
 
@@ -567,10 +567,7 @@
                                     @foreach ($chunk as $propertysale)
                                         <div class="col">
 
-                                            <a href="{{ route('property.detail', [
-                                                'type' => $propertysale->type == 0 ? 'sale' : 'rent',
-                                                'slug' => $propertysale->slug,
-                                            ]) }}"
+                                            <a href="{{ route('property.detail', $propertysale->slug) }}"
                                                 class="text-decoration-none text-dark">
                                                 <div class="card property-card h-100 border-1 shadow-sm rounded-3">
                                                     <div class="position-relative">
@@ -582,7 +579,7 @@
                                                             class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
                                                         <span
                                                             class="badge {{ $propertysale->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
-                                                            {{ $propertysale->purpose == 1 ? 'For Rent' : 'For Sell' }}
+                                                            {{ $propertysale->purpose == 1 ? 'For sale' : 'For Rent' }}
                                                         </span>
 
                                                     </div>

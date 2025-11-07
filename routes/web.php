@@ -59,7 +59,8 @@ Route::post('review/store', [ReviewController::class, 'store'])->name('review.st
 Route::post('property-contact/store', [PropertyContactController::class, 'store'])->name('property-contact.store');
 
 // routes/web.php
-Route::get('/{type}-properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
+// Route::get('/{type}-properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
+Route::get('properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
 
 // properties serach section/web.php
 Route::get('/properties/search', [PropertiesController::class, 'search'])->name('properties.search');

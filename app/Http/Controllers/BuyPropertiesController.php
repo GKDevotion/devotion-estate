@@ -11,13 +11,9 @@ class BuyPropertiesController extends Controller
 {
     public function index(Request $request)
     {
-<<<<<<< HEAD
-        $perPage = $request->get('perPage', 4); // Default 4 per page
-        $query = Properties::where('purpose', 0)->where('status', 1);
-=======
         $perPage = $request->get('perPage', 4); // Default 4 per page (can be adjusted)
+        // 0:all , 1:sale , 2:rent , 3 :land
         $query = Properties::where('purpose', 1)->where('status', 1);
->>>>>>> admin-side
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 
@@ -25,12 +21,12 @@ class BuyPropertiesController extends Controller
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
 
         // Fetch Residential (main_type = 0)
-        $residentialTypes = PropertyType::where('main_type', 0)
+        $residentialTypes = PropertyType::where('main_type', 1)
             ->where('status', 1)
             ->get();
 
         // Fetch Commercial (main_type = 1)
-        $commercialTypes = PropertyType::where('main_type', 1)
+        $commercialTypes = PropertyType::where('main_type', 2)
             ->where('status', 1)
             ->get();
 

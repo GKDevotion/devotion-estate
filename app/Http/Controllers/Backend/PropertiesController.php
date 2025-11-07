@@ -131,12 +131,30 @@ class PropertiesController extends Controller
             ->addColumn('name', function(Properties $ar) {
                 return $ar->name;
             })
-            ->addColumn('purpose', function(Properties $ar) {
-                return $ar->purpose ? 'Rent' : 'Sale';
+            ->addColumn('purpose', function (Properties $ar) {
+                switch ($ar->purpose) {
+                    case 1:
+                        return 'Sale';
+                    case 2:
+                        return 'Rent';
+                    case 2:
+                        return 'Land';
+                    default:
+                        return 'All';
+                }
             })
+
             ->addColumn('type', function (Properties $ar) {
-                return $ar->type ? 'Commercial' : 'Residential';
+                switch ($ar->type) {
+                    case 1:
+                        return 'Residential';
+                    case 2:
+                        return 'Commercial';
+                    default:
+                        return 'All';
+                }
             })
+
             ->addColumn('publish', function (Properties $ar) {
                 return $ar->publish ? 'Published' : 'Un Publish';
             })
@@ -282,38 +300,31 @@ class PropertiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($type, $slug)
+    public function show($slug)
     {
-        $map = [
-            'sale'        => ['column' => 'type', 'value' => 0],
-            'rent'        => ['column' => 'purpose', 'value' => 1],
-            'luxury'      => ['column' => 'is_luxury_property', 'value' => 1],
-            'new'         => ['column' => 'is_new_property', 'value' => 1],
-            'hot'         => ['column' => 'is_hot_offer', 'value' => 1],
-            'off'    => ['column' => 'is_complete', 'value' => 3],
+        $property = Properties::with('agent')->where('slug', $slug)->firstOrFail();
+
+        // Determine the property type label based on DB value
+        $typeMap = [
+            0 => 'All',
+            1 => 'Sale',
+            2 => 'Rent'
         ];
 
-        if (!array_key_exists($type, $map)) {
-            abort(404, 'Invalid property type');
-        }
-
-        $property = Properties::with('agent')
-            ->where('slug', $slug)
-            ->where($map[$type]['column'], $map[$type]['value'])
-            ->firstOrFail();
-
+        $type = $typeMap[$property->type] ?? 'Unknown';
 
         // ✅ Fetch all active agents linked to any property
         $agent = User::whereIn(
             'designation_id',
             Properties::whereNotNull('agent_id')->pluck('agent_id')->unique()
         )
-        ->where('status', 1)
-        ->where('type', 4)
-        ->get();
+            ->where('status', 1)
+            ->where('type', 4)
+            ->get();
 
-        return view('frontend.pages.properties-detail', compact('property', 'type','agent'));
+        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent'));
     }
+
 
     public function search(Request $request)
     {

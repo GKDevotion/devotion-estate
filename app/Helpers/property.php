@@ -47,7 +47,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->is_occupancy = $request->is_occupancy;
             $propertyDataObj->off_plan_sale_type = $request->off_plan_sale_type;
             $propertyDataObj->completed_date = $request->completed_date;
-            $propertyDataObj->payment_plan = $request->payment_plan;
+            $propertyDataObj->payment_plan_id = $request->payment_plan_id;
             $propertyDataObj->rent_frequency = $request->rent_frequency;
             $propertyDataObj->rent_contract_period = $request->rent_contract_period ?? 0;
             $propertyDataObj->rent_notice_period = $request->rent_notice_period ?? 0;
@@ -210,9 +210,9 @@ function getPropertyFeatures()
 }
 
 /**
- * $type = 0: 'sell', 1: 'rent'
+ * $type = 0: 'All', 1: 'Sale', 2:'rent , 3:'land'
  */
-function getPropertiesByType($type = [0])
+function getPropertiesByType($type = [1])
 {
     $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
     return Properties::with('subType', 'location', 'single_image')
@@ -228,8 +228,8 @@ function getSearchByProperties(array $filters, $perPage = 4)
 {
     // Define property type mappings
     $map = [
-        'sale'   => ['column' => 'type', 'value' => 0],
-        'rent'   => ['column' => 'purpose', 'value' => 1],
+        'sale'   => ['column' => 'type', 'value' => 1],
+        'rent'   => ['column' => 'purpose', 'value' => 2],
         'luxury' => ['column' => 'is_luxury_property', 'value' => 1],
         'new'    => ['column' => 'is_new_property', 'value' => 1],
         'hot'    => ['column' => 'is_hot_offer', 'value' => 1],
@@ -293,8 +293,8 @@ function getSearchByProperties(array $filters, $perPage = 4)
     ->get();
 
     $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
-    $residentialTypes = PropertyType::where('main_type', 0)->where('status', 1)->get();
-    $commercialTypes = PropertyType::where('main_type', 1)->where('status', 1)->get();
+    $residentialTypes = PropertyType::where('main_type', 1)->where('status', 1)->get();
+    $commercialTypes = PropertyType::where('main_type', 2)->where('status', 1)->get();
 
     return compact(
         'properties',

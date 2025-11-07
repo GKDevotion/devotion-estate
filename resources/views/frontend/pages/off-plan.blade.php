@@ -54,7 +54,7 @@
         <div class="row">
             @forelse($properties as $p)
                 <div class="col-md-12 mb-4">
-                    <a href="{{ route('property.detail', ['type' => 'off', 'slug' => $p->slug]) }}"
+                    <a href="{{ route('property.detail', $p->slug)  }}"
                         class="text-decoration-none text-dark">
 
                         <div class="card p-3 shadow-sm border-0 h-100">

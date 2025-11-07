@@ -252,9 +252,9 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="payment_plan">Payment Plan <span
+                                            <label class="mb-0" for="payment_plan_id">Payment Plan <span
                                                     class="text-error">*</span></label>
-                                            <select name="payment_plan" id="payment_plan" class="form-control"
+                                            <select name="payment_plan_id" id="payment_plan_id" class="form-control"
                                                 data-required="yes">
                                                 <option value="0">Payment Plan</option>
                                                 @foreach ($paymentPlanObj as $ar)

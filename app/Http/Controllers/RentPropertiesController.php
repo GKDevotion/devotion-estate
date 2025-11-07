@@ -11,24 +11,10 @@ class RentPropertiesController extends Controller
 {
     //
 
-<<<<<<< HEAD
     public function index(Request $request)
-=======
-public function index(Request $request)
-{
-    $perPage = $request->get('perPage', 4); // Default 4 per page
-    $query = Properties::where('purpose', 2)->where('status', 1);
-    $properties = $query->paginate($perPage);
-    $total = $properties->total();
-
-    return view('frontend.pages.rent-properties', compact('properties', 'total', 'perPage'));//->with('type', 'rent');
-}
-
-    public function show($slug)
->>>>>>> admin-side
     {
         $perPage = $request->get('perPage', 4); // Default 4 per page
-        $query = Properties::where('purpose', 1)->where('status', 1);
+        $query = Properties::where('purpose', 2)->where('status', 1);
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 
@@ -36,12 +22,12 @@ public function index(Request $request)
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
 
         // Fetch Residential (main_type = 0)
-        $residentialTypes = PropertyType::where('main_type', 0)
+        $residentialTypes = PropertyType::where('main_type', 1)
             ->where('status', 1)
             ->get();
 
         // Fetch Commercial (main_type = 1)
-        $commercialTypes = PropertyType::where('main_type', 1)
+        $commercialTypes = PropertyType::where('main_type', 2)
             ->where('status', 1)
             ->get();
 

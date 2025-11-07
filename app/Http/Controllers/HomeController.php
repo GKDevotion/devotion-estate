@@ -32,12 +32,12 @@ class HomeController extends Controller
     {
         $location = Location::select('id', 'name')->where('status', 1)->get();
         // Fetch Residential (main_type = 0)
-        $residentialTypes = PropertyType::where('main_type', 0)
+        $residentialTypes = PropertyType::where('main_type', 1)
             ->where('status', 1)
             ->get();
 
         // Fetch Commercial (main_type = 1)
-        $commercialTypes = PropertyType::where('main_type', 1)
+        $commercialTypes = PropertyType::where('main_type', 2)
             ->where('status', 1)
             ->get();
 
