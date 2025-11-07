@@ -143,8 +143,10 @@
                                             <label class="mb-0" for="purpose">Purpose <span class="text-error">*</span></label>
                                             <select name="purpose" id="purpose" class="form-control @error('purpose') is-invalid @enderror" data-required="yes">
                                                 <option value=""> Select Purpose </option>
-                                                <option value="0" {{ old('purpose', $data->purpose ?? '') == '0' ? 'selected' : '' }}>Sale</option>
-                                                <option value="1" {{ old('purpose', $data->purpose ?? '') == '1' ? 'selected' : '' }}>Rent</option>
+                                                <option value="0" {{ old('purpose', $data->purpose ?? '') == '0' ? 'selected' : '' }}>All</option>
+                                                <option value="1" {{ old('purpose', $data->purpose ?? '') == '1' ? 'selected' : '' }}>Sale</option>
+                                                <option value="2" {{ old('purpose', $data->purpose ?? '') == '2' ? 'selected' : '' }}>Rent</option>
+                                                <option value="3" {{ old('purpose', $data->purpose ?? '') == '3' ? 'selected' : '' }}>Land</option>
                                             </select>
 
                                             @error('purpose')
@@ -157,8 +159,9 @@
                                             <label class="mb-0" for="type">Type <span class="text-error">*</span></label>
                                             <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" data-required="yes">
                                                 <option value="">Select Type</option>
-                                                <option value="0" {{ old('type', $data->type ?? '') == '0' ? 'selected' : '' }}>Residential</option>
-                                                <option value="1" {{ old('type', $data->type ?? '') == '1' ? 'selected' : '' }}>Commercial</option>
+                                                <option value="0" {{ old('type', $data->type ?? '') == '0' ? 'selected' : '' }}>All</option>
+                                                <option value="1" {{ old('type', $data->type ?? '') == '1' ? 'selected' : '' }}>Residential</option>
+                                                <option value="2" {{ old('type', $data->type ?? '') == '2' ? 'selected' : '' }}>Commercial</option>
                                             </select>
 
                                             @error('type')
