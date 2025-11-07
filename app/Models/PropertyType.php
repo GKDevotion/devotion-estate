@@ -11,7 +11,7 @@ class PropertyType extends Model
     use HasFactory;
     // protected $table = 'admin_menus';
     // protected $guarded = array();
-
+  protected $fillable = ['main_type','admin_id','name']; 
     public static function boot()
     {
         parent::boot();

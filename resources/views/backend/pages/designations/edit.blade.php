@@ -22,7 +22,7 @@
                     <h4 class="page-title pull-left d-none">Designation Edit - {{ $data->name }}</h4>
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('admin.designations.index') }}">All Brochure</a></li>
+                        <li><a href="{{ route('admin.designations.index') }}">All Designations</a></li>
                         <li><span>Edit Designation</span></li>
                     </ul>
                 </div>
@@ -49,7 +49,7 @@
     <div class="main-content-inner">
         <div class="row">
             <div class="col-12 mt-3">
-                <h3 class="pb-3">Update Brochure</h3>
+                <h3 class="pb-3">Update Designation</h3>
                 <div class="card">
                     <div class="card-body">
 

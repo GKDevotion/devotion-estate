@@ -61,7 +61,7 @@ Configuration Edit - Admin Panel
                         @csrf
 
                         <div class="row">
-                            <div class="col-md-6 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <div class="form-group">
                                     <label class="mb-0" for="display_name">Configuration Name<span class="text-error">*</span></label>
                                     <input type="text" data-required="yes" class="form-control" id="display_name" name="display_name" placeholder="Configuration Name" value="{{$data->display_name}}">
@@ -81,7 +81,7 @@ Configuration Edit - Admin Panel
                                 @enderror
                             </div>
 
-                            <div class="col-md-3 mb-2">
+                            <div class="col-md-6 mb-2">
                                 <div class="form-group">
                                     <label class="mb-0" for="value">Configuration Value<span class="text-error">*</span></label>
                                     <input type="text" data-required="yes" class="form-control" id="value" name="value" placeholder="Configuration Value" value="{{$data->value}}">

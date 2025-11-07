@@ -57,16 +57,15 @@ Users - Admin Panel
                 <div class="card-body">
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="user_index">
+                        <table id="user_index" class="w-100">
                             <thead id="user" class="bg-light text-capitalize">
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Industry</th>
-                                    <th>Parent Company</th>
-                                    <th>Company</th>
-                                    <th>Admin</th>
+                                    <th>Login By</th>
+                                    <th>Contact No.</th>
+                                    <th>Login</th>
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
@@ -101,23 +100,22 @@ Users - Admin Panel
                 buttons: ['excel', 'pdf'],
                 lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 pageLength: 10,
-                // ajax: "{{ route('user.ajaxIndex') }}",
-                ajax: {
-                    url: "{{ route('user.ajaxIndex' ) }}",
-                    type: 'GET',
-                    data: function (d) {
-                        d.cid = "{{$request->cid}}"; // Pass company parameter
-                        d.iid = "{{$request->iid}}"; // Pass industry parameter
-                    }
-                },
+                ajax: "{{ route('user.ajaxIndex') }}",
+                // ajax: {
+                //     url: "{{ route('user.ajaxIndex' ) }}",
+                //     type: 'GET',
+                //     data: function (d) {
+                //         d.cid = "{{$request->cid}}"; // Pass company parameter
+                //         d.iid = "{{$request->iid}}"; // Pass industry parameter
+                //     }
+                // },
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
-                    { data: 'industry', name: 'industry' },
-                    { data: 'company_parent', name: 'company_parent' },
-                    { data: 'company', name: 'company' },
-                    { data: 'admin', name: 'admin' },
+                    { data: 'login_by', name: 'login_by' },
+                    { data: 'mobile_no', name: 'mobile_no' },
+                    { data: 'login', name: 'login' },
                     { data: 'status', name: 'status', orderable: false, searchable: false },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'updated_at', name: 'updated_at' },

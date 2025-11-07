@@ -5,6 +5,7 @@ use App\Mail\ClientOnBoardMail;
 use App\Models\Address;
 use App\Models\AdminLog;
 use App\Models\City;
+use App\Models\Configuration;
 use App\Models\Continent;
 use App\Models\Country;
 use App\Models\Customer;
@@ -598,4 +599,19 @@ function saveCkeditorContentAsDoc( $title, $htmlContent, $folderName='board-meet
     Storage::put($path, $docContent);
 
     return 'app/' . $path;
+}
+
+if (!function_exists('getConfigurationField')) {
+    /**
+     * Get configuration value by key.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    function getConfigurationField($key, $default = null)
+    {
+        $config = Configuration::where('key', $key)->first();
+        return $config ? $config->value : $default;
+    }
 }

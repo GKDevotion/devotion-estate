@@ -24,15 +24,15 @@ Property Features - Admin Panel
                 <ul class="breadcrumbs pull-left m-2">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('admin.property-features.index') }}">All Property Feature</a></li>
-                    <li><span>Create Property Feature</span></li>
+                    <li><span>Edit Property Feature</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-3">
             <p class="float-end">
-                @if (Auth::guard('admin')->user()->can('property-features.create'))
+                @if (Auth::guard('admin')->user()->can('property-features.edit'))
                     <button type="button" class="btn btn-success pr-4 pl-4" onclick="$('#submitForm').click();">
-                        <i class="fa fa-save"></i> Save
+                        <i class="fa fa-save"></i> Update
                     </button>
                 @endif
                 <a href="{{ route('admin.property-features.index') }}" class="btn btn-danger">
@@ -51,11 +51,13 @@ Property Features - Admin Panel
     <div class="row">
         <!-- data table start -->
         <div class="col-12 mt-3">
-            <h3 class="pb-3">Create Location</h3>
+            <h3 class="pb-3">Create Features</h3>
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{ route('admin.property-features.update') }}" onsubmit="return onSubmitValidateForm();" method="POST" autocomplete="off">
+                    
+                    <form action="{{ route('admin.property-features.update', $data->id) }}" method="POST">
+                        @method('PUT')
                         @csrf
                         <div class="row">
                             <div class="col-md-6 offset-3">

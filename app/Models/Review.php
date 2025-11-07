@@ -11,6 +11,18 @@ class Review extends Model
 {
     use HasFactory;
   protected $table = 'reviews';
+  protected $fillable = [
+    'admin_id',
+    'name',
+    'email',
+    'contact_no',
+    'review',
+    'rating',
+    'property_id',
+    'status',
+];
+
+
     public static function boot()
     {
         parent::boot();
@@ -25,6 +37,16 @@ class Review extends Model
         });
     }
 
+
+        public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
+
+      public function property()
+    {
+        return $this->belongsTo(Properties::class, 'property_id');
+    }
     // public function user(){
     //     return $this->hasOne(User::class, 'id', 'user_id');
     // }

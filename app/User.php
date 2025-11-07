@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Admin;
 use App\Models\Company;
+use App\Models\Designations;
 use App\Models\Industry;
 use App\Models\Permission;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -23,8 +24,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 
-        'email', 
+        'name',
+        'email',
         'password',
         'otp',
         'otp_expires_at',
@@ -36,7 +37,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token',
     ];
 
@@ -73,7 +74,7 @@ class User extends Authenticatable
         if( $guard_name ){
             $p->where('guard_name', $guard_name);
         }
-        
+
         $permissions = $p->get();
         return $permissions;
     }
@@ -102,8 +103,8 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class, 'id', 'admin_id');
     }
 
-    public function industry(){
-        return $this->hasOne(Industry::class, 'id', 'industry_id');
+    public function designation(){
+        return $this->hasOne(Designations::class, 'id', 'designation_id');
     }
 
 }

@@ -277,9 +277,11 @@ class AdminsController extends Controller
     /**
      *
      */
-    public function updateFieldStatus($table, $id, $status)
+    public function updateFieldStatus( Request $request, $table, $id, $status, $field='status'  )
     {
-        DB::table($table)->where('id', $id)->update(['status' => $status]);
+        DB::table($table)->where('id', $id)->update([
+            $field => $status
+        ]);
 
         $response = [
             'success' => true,

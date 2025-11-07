@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="{{ asset('public/backend/assets/css/dropify.css') }}"/>
 
 <!-- modernizr css -->
-<script src="{{ asset('public/backend/assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+{{-- <script src="{{ asset('public/backend/assets/js/vendor/modernizr-2.8.3.min.js') }}"></script> --}}
 
 <!-- jquery latest version -->
 <script src="{{ asset('public/backend/assets/js/vendor/jquery-2.2.4.min.js') }}"></script>

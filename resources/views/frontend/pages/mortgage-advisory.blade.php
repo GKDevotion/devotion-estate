@@ -19,17 +19,19 @@
     </head>
 
 
-    <div class="container" style="padding-top: 30px">
+    <div class="container" >
 
         <div class="container content-section">
 
             <div class="row justify-content-center">
                 <div class="col-lg-10 content-container">
 
-                    <h2 class="text-center mb-5 main-heading pt-5">
-                        How to Do Mortgage Advisory Services in Dubai?
-                    </h2>
-
+                    <div class="main-heading">
+                        <h2 class="guide-heading text-center">
+                            How to Do Mortgage Advisory Services in Dubai?
+                        </h2>
+                    </div>
+                
                     <p class="mb-4 text-muted lead-text text-start">
                         A real estate mortgage is a legal agreement where a borrower (typically a property owner) pledges
                         real
@@ -40,7 +42,7 @@
                         property if the borrower fails to repay the loan according to the agreed terms.
                     </p>
 
-                    <h5 class="mt-5 mb-3  sub-heading">
+                    <h5 class="mt-5 mb-3 text-start sub-heading">
                         Key elements of a mortgage include:
                     </h5>
 
@@ -63,7 +65,8 @@
                         </li>
                         <li><span class="fw-semibold">6. Types of Mortgages:</span> Various types exist, including
                             <strong>fixed-rate
-                                mortgages</strong>, adjustable-rate mortgages, and government-backed mortgages.</li>
+                                mortgages</strong>, adjustable-rate mortgages, and government-backed mortgages.
+                        </li>
                         <li><span class="fw-semibold">7. Legal Documentation:</span> A mortgage is documented through a
                             legal contract
                             specifying the rights and responsibilities of both parties.</li>
@@ -88,7 +91,7 @@
 
                     <ol class="list-unstyled">
                         <li class="mb-2">
-                            <span class="fw-semibold">1. Mortgage and Mortgagor:</span>
+                            <span class="fw-semibold">1. Primary Market Deals:</span>
                             <p class="mb-3">Primary market deals are loans booked for homes purchased directly from a
                                 developer and
                                 mortgaged to a

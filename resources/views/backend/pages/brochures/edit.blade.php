@@ -54,7 +54,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('admin.brochures.update', $data->id) }}"
+                        <form action="{{ route('admin.brochures.update', $data->id) }}" enctype="multipart/form-data" 
                             onsubmit="return onSubmitValidateForm();" method="POST">
                             @method('PUT')
                             @csrf

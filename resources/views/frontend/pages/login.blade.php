@@ -55,9 +55,10 @@
                         </div>
                     </form>
 
-                    <p>Don't have an account yet? <a href="#" class="fw-bold" style="color: #d4a761;">Sign Up</a></p>
+                    <p>Don't have an account yet? <a href="sign-up" class="fw-bold" style="color: #d4a761;">Sign Up</a></p>
                 </div>
             </div>
+
 
             <style>
                 .image-column {
@@ -68,6 +69,7 @@
                 }
 
             </style>
+
             <!-- Image Column -->
             <div class="col-lg-6 d-none d-lg-block image-column"></div>
         </div>

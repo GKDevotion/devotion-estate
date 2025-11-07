@@ -63,8 +63,8 @@ class PropertyTypeController extends Controller
             ->addColumn('id', function(PropertyType $ar) {
                 return $ar->id;
             })
-            ->addColumn('type', function(PropertyType $ar) {
-                return $ar->type == 0 ? 'Residential' : 'Commercial';
+            ->addColumn('main_type', function(PropertyType $ar) {
+                return $ar->main_type == 0 ? 'Residential' : 'Commercial';
             })
             ->addColumn('name', function(PropertyType $ar) {
                 return $ar->name;
@@ -107,10 +107,14 @@ class PropertyTypeController extends Controller
                     }
 
                     if ($this->user->can('property-types.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->name.'" data-segment="locations">
-                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                                    </button>';
-                    }
+                        $action .= '<form method="POST" action="' .  route('admin.property-types.destroy', $ar->id) . '" style="display:inline;">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
+                                <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                            </button>
+                        </form>';
+                        }
 
                     $action.= '
                     </div>
@@ -118,7 +122,7 @@ class PropertyTypeController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'type','name', 'description', 'count', 'sort_order', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'main_type','name', 'description', 'count', 'sort_order', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -167,7 +171,7 @@ class PropertyTypeController extends Controller
 
         // Validation Data
         $request->validate([
-            'main_type' => 'required',
+            'main_type' => 'required|in:0,1',
             'name' => 'required',
             'description' => 'required',
             'sort_order' => 'required',
@@ -232,14 +236,14 @@ class PropertyTypeController extends Controller
 
         // Validation Data
         $request->validate([
-            'main_type' => 'required',
+             'main_type' => 'required|in:0,1',
             'name' => 'required',
             'description' => 'required',
             'sort_order' => 'required',
         ]);
 
         // Update Old Feature data
-        $location = new PropertyType();
+    $location = PropertyType::find($id);
         $location->admin_id = $this->user->id;
         $location->main_type = $request->main_type;
         $location->name = $request->name;

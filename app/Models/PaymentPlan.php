@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PropertyNew extends Model
+class PaymentPlan extends Model
 {
-
-    
     use HasFactory;
-    // protected $table = 'admin_menus';
-    // protected $guarded = array();
 
     public static function boot()
     {
@@ -28,7 +25,12 @@ class PropertyNew extends Model
         });
     }
 
-    // public function parent(){
-    //     return $this->hasOne( PropertyFeature::class, 'id', 'parent_id');
+    // public function user(){
+    //     return $this->hasOne(User::class, 'id', 'user_id');
     // }
+
+    public function properties()
+    {
+        return $this->belongsTo(Properties::class);
+    }
 }

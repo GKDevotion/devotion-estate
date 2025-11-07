@@ -337,6 +337,39 @@ $.ajaxSetup({
         }
     });
 
+    /*
+    +---------------------------------------------+
+        Update Listing status
+    +---------------------------------------------+
+    */
+    $(document).on( "click", ".update-field-status", function(){
+        var status = $(this).attr('data-status');//$(this).val();
+        var table = $(this).attr('data-table');
+        var field = $(this).attr('data-field');
+        var id = $(this).attr('data-id');
+
+        var updateStatus = ( status == 0 ) ? 1 : 0;
+        $.ajax({
+            url: url + '/admin/update-field-status/'+table+'/'+id+'/'+updateStatus+'/'+field,
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            success: function(result) {
+                showToast( "Status update successfully.");
+            }
+        });
+
+        if( status == 0 ){
+            $(this).removeClass('fa-times');
+            $(this).addClass('fa-check');
+            $(this).attr('data-status', 1 );
+        } else {
+            $(this).removeClass('fa-check');
+            $(this).addClass('fa-times');
+            $(this).attr('data-status', 0);
+        }
+    });
+
     /**
      * get industry list
      */

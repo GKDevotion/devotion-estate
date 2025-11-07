@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 14, 2025 at 05:04 AM
+-- Generation Time: Oct 24, 2025 at 09:13 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.3.6
 
@@ -31,21 +31,16 @@ DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` int NOT NULL AUTO_INCREMENT,
   `admin_id` int NOT NULL COMMENT 'reference for the admin table',
-  `person_id` int UNSIGNED NOT NULL,
-  `client_id` int DEFAULT NULL COMMENT 'reference for the client table',
-  `unique_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `person_id` int UNSIGNED NOT NULL COMMENT 'reference for the user or admin table',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'address/business name',
-  `email_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `contact_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'customer address contact number',
   `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `continent_id` int UNSIGNED DEFAULT NULL,
   `country_id` int UNSIGNED DEFAULT NULL,
   `state_id` int UNSIGNED DEFAULT NULL,
   `city_id` int UNSIGNED DEFAULT NULL,
   `zipcode` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `person_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: Employee, 2: Customer, 3: Client	',
+  `person_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: Admin, 1: User, 2: Owner, 3: Client, 4: Vendor',
   `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: Permanent, 2: Temporary, 3: Business',
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -57,7 +52,14 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   KEY `fk_address_city_id` (`city_id`),
   KEY `continent_IDX` (`continent_id`,`country_id`,`state_id`,`city_id`,`zipcode`) USING BTREE,
   KEY `admin_IDX` (`admin_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `addresses`
+--
+
+INSERT INTO `addresses` (`id`, `admin_id`, `person_id`, `name`, `address`, `continent_id`, `country_id`, `state_id`, `city_id`, `zipcode`, `person_type`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 8, 'Gautam Kakadiya', 'Surat', 4, 75, 4825, 39501, '321654', 1, 1, '2025-10-17 15:34:04', '2025-10-17 10:04:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -93,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `admins_email_unique` (`email`),
   UNIQUE KEY `admins_username_unique` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admins`
@@ -152,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `admin_menus` (
   PRIMARY KEY (`id`),
   KEY `parent_IDX` (`parent_id`),
   KEY `status_IDX` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin_menus`
@@ -242,7 +244,18 @@ INSERT INTO `admin_menus` (`id`, `class_name`, `parent_id`, `name`, `slug`, `gro
 (104, 'board-member', 8, 'Board Member', 'board-member', 'board-member', 'fa fa-user-secret', 0, 20, '2025-04-07 08:55:01', '2025-04-07 08:55:01'),
 (106, 'visiting-card', 8, 'Visiting Card', 'visiting-card', 'visiting-card', 'fa fa-user-secret', 1, 25, '2025-05-01 14:51:43', '2025-05-01 14:51:43'),
 (107, '/', 0, 'Property Management', 'property-management', 'property-management', 'fa fa-home', 1, 1, '2025-10-08 08:13:37', '2025-10-08 08:13:37'),
-(108, 'property-features', 107, 'Features', 'features', 'property-features', 'fa fa-homes', 1, 20, '2025-10-13 04:01:09', '2025-10-13 04:01:09');
+(108, 'property-features', 107, 'Features', 'features', 'property-features', 'fa fa-home', 1, 20, '2025-10-13 04:01:09', '2025-10-16 06:14:06'),
+(109, 'property-types', 107, 'Property Types', 'property-types', 'property-types', 'fa fa-list', 1, 15, '2025-10-14 04:47:39', '2025-10-16 11:34:55'),
+(122, 'property-all', 107, 'All', 'property-all', 'property-all', 'fa', 0, 5, '2025-10-14 10:39:09', '2025-10-14 10:39:09'),
+(123, 'property-add', 107, 'Add', 'add', 'property-add', 'fa fa-plus', 0, 1, '2025-10-15 04:40:27', '2025-10-15 10:57:41'),
+(124, 'reviews', 107, 'Reviews', 'reviews', 'reviews', 'fa fa-star', 1, 30, '2025-10-15 11:18:46', '2025-10-15 12:08:00'),
+(126, 'property-new', 107, 'New', 'new', 'property-new', 'fa fa-tag', 1, 35, '2025-10-16 04:53:47', '2025-10-16 11:31:17'),
+(127, 'currency', 48, 'Currency', 'currency', 'currency', 'fas fa-dollar-sign', 1, 25, '2025-10-16 07:12:01', '2025-10-16 11:37:04'),
+(128, 'brochures', 107, 'Pdf/Brochure(s)', 'pdf-brochure-s', 'brochures', 'fa fa-file-pdf-o', 1, 25, '2025-10-16 09:39:40', '2025-10-16 11:28:20'),
+(129, 'properties', 107, 'Properties', 'properties', 'properties', 'fa fa-building', 1, 1, '2025-10-16 10:48:39', '2025-10-16 11:33:00'),
+(130, 'designations', 8, 'Designations', 'designations', 'designations', 'fa fa-level-up', 1, 1, '2025-10-17 04:24:39', '2025-10-17 04:25:17'),
+(131, 'owners', 8, 'Owner', 'owner', 'owners', 'fa fa-user', 1, 15, '2025-10-17 10:40:53', '2025-10-17 10:40:53'),
+(132, 'clients', 8, 'Clients', 'clients', 'clients', 'fa fa-user', 1, 20, '2025-10-17 11:09:34', '2025-10-17 11:09:34');
 
 -- --------------------------------------------------------
 
@@ -326,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `awards` (
   KEY `person_IDX` (`person_id`),
   KEY `date_IDX` (`date`),
   KEY `admin_IDX` (`admin_id`,`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -381,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `base_permissions` (
   UNIQUE KEY `Un_user_menu_id` (`admin_menu_id`,`admin_user_id`),
   KEY `InAdMenuID` (`admin_menu_id`),
   KEY `InAdUserID` (`admin_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb3 COMMENT='permissions for admin menu';
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb3 COMMENT='permissions for admin menu';
 
 --
 -- Dumping data for table `base_permissions`
@@ -503,6 +516,32 @@ CREATE TABLE IF NOT EXISTS `board_members` (
   KEY `company_IDX` (`company_id`),
   KEY `admin_IDX` (`admin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `brochures`
+--
+
+DROP TABLE IF EXISTS `brochures`;
+CREATE TABLE IF NOT EXISTS `brochures` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `location` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `agent` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `brochures`
+--
+
+INSERT INTO `brochures` (`id`, `location`, `file`, `agent`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'New York', 'file.pdf', 'John Doe', 0, '2025-10-16 11:32:40', '2025-10-16 11:32:40'),
+(2, 'ahemdabad', 'devotion-owner-register.pdf', 'hardik', 1, '2025-10-16 10:11:54', '2025-10-16 10:11:54');
 
 -- --------------------------------------------------------
 
@@ -153427,7 +153466,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
   PRIMARY KEY (`id`),
   KEY `continent_IDX` (`continent_id`),
   KEY `status_IDX` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `countries`
@@ -153688,6 +153727,45 @@ INSERT INTO `countries` (`id`, `continent_id`, `name`, `slug`, `iso3`, `numeric_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `currencies`
+--
+
+DROP TABLE IF EXISTS `currencies`;
+CREATE TABLE IF NOT EXISTS `currencies` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Currency name, e.g., US Dollar',
+  `currency_code` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'ISO 4217 currency code, e.g., USD',
+  `currency_value` decimal(10,2) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 = Active, 0 = Inactive',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Record creation time',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Record last update time',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_currency_code` (`currency_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Table to store currency info';
+
+--
+-- Dumping data for table `currencies`
+--
+
+INSERT INTO `currencies` (`id`, `name`, `currency_code`, `currency_value`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'United State Dollar', 'USA', 0.27, 1, '2025-10-16 08:17:35', '2025-10-16 10:22:12'),
+(2, 'Indian Rupee', 'INR', 23.23, 1, '2025-10-16 08:53:18', '2025-10-16 10:45:48'),
+(3, 'Great British Pound', 'GBP', 0.20, 1, '2025-10-16 08:59:35', '2025-10-16 10:45:48'),
+(4, 'Euro', 'EUR', 0.24, 1, '2025-10-16 09:00:17', '2025-10-16 10:45:48'),
+(5, 'Singapore Dollar', 'SGD', 0.37, 1, '2025-10-16 09:00:52', '2025-10-16 10:45:48'),
+(6, 'Saudi Riyal', 'SAR', 0.00, 1, '2025-10-16 09:01:57', '2025-10-16 10:45:48'),
+(7, 'Malaysian Ringgit', 'MYR', 0.00, 1, '2025-10-16 09:02:40', '2025-10-16 10:45:48'),
+(8, 'South African Rand', 'ZAR', 0.00, 1, '2025-10-16 09:03:15', '2025-10-16 10:45:48'),
+(9, 'Thai Baht', 'THB', 0.00, 1, '2025-10-16 09:03:46', '2025-10-16 10:45:48'),
+(10, 'Omani Rial', 'OMR', 0.00, 1, '2025-10-16 09:04:26', '2025-10-16 10:45:48'),
+(11, 'Georgian Lari', 'GEL', 0.00, 1, '2025-10-16 09:05:05', '2025-10-16 10:45:48'),
+(12, 'Armenian Dram', 'AMD', 0.00, 1, '2025-10-16 09:05:32', '2025-10-16 10:45:48'),
+(13, 'Hong Kong Dollar', 'HKD', 0.00, 1, '2025-10-16 09:06:00', '2025-10-16 10:45:48'),
+(14, 'Macanese Pataca', 'MOP', 0.00, 1, '2025-10-16 09:06:35', '2025-10-16 10:45:48');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `departments`
 --
 
@@ -153841,6 +153919,112 @@ INSERT INTO `departments` (`id`, `admin_id`, `industry_id`, `company_id`, `admin
 (121, 1, 4, 9, NULL, 'NIRAL D', 'pvl-tours-travels-pvt-ltd-india-niral-d', 'dccde3', '220, 205, 227', 54, 1, '2025-01-16 06:24:53', '2025-01-16 06:25:40', 0),
 (122, 1, 87, 1, 90, 'Board Meeting Record', 'devotion-corporate-services-llc-dubai-uae-board-meeting-record', '1ac66d', '26, 198, 109', 60, 1, '2025-04-02 06:39:07', '2025-04-02 06:39:07', 0),
 (123, 1, 87, 11, 90, 'Board Meeting Record', 'dibn-business-service-dubai-uae-board-meeting-record', '6f8190', '111, 129, 144', 65, 1, '2025-04-02 06:41:09', '2025-04-02 06:41:09', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designations`
+--
+
+DROP TABLE IF EXISTS `designations`;
+CREATE TABLE IF NOT EXISTS `designations` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int UNSIGNED NOT NULL COMMENT 'reference for the admin table',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'comfine of the industry, company and department name',
+  `sort_order` tinyint NOT NULL DEFAULT '0' COMMENT 'sort ordering',
+  `status` tinyint(1) DEFAULT '0' COMMENT '0: De-Active, 1: Active',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` tinyint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `admin_IDX` (`admin_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Store Server Records fo better understand';
+
+--
+-- Dumping data for table `designations`
+--
+
+INSERT INTO `designations` (`id`, `admin_id`, `name`, `slug`, `sort_order`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'Chief Executive Officer (CEO)', 'chief-executive-officer-ceo', 1, 1, '2025-10-17 04:51:33', '2025-10-17 04:51:33', 0),
+(2, 1, 'Chief Operating Officer (COO)', 'chief-operating-officer-coo', 5, 1, '2025-10-17 04:51:46', '2025-10-17 04:51:46', 0),
+(3, 1, 'Chief Financial Officer (CFO)', 'chief-financial-officer-cfo', 10, 1, '2025-10-17 04:51:58', '2025-10-17 04:51:58', 0),
+(4, 1, 'Chief Technology Officer', 'chief-technology-officer', 15, 1, '2025-10-17 10:51:27', '2025-10-17 10:51:27', 0),
+(5, 1, 'Managing Director (MD)', 'managing-director-md', 20, 1, '2025-10-17 10:52:45', '2025-10-17 10:52:45', 0),
+(6, 1, 'General Manager (GM)', 'general-manager-gm', 25, 1, '2025-10-17 10:53:01', '2025-10-17 10:53:01', 0),
+(7, 1, 'Operations Manager', 'operations-manager', 30, 1, '2025-10-17 10:53:27', '2025-10-17 10:53:27', 0),
+(8, 1, 'Office Administrator', 'office-administrator', 35, 1, '2025-10-17 10:53:56', '2025-10-17 10:53:56', 0),
+(9, 1, 'Executive Assistant', 'executive-assistant', 40, 1, '2025-10-17 10:54:09', '2025-10-17 10:54:09', 0),
+(10, 1, 'HR Director / HR Head', 'hr-director-hr-head', 45, 1, '2025-10-17 10:54:51', '2025-10-17 10:54:51', 0),
+(11, 1, 'HR Manager', 'hr-manager', 50, 1, '2025-10-17 10:55:38', '2025-10-17 10:55:38', 0),
+(12, 1, 'HR Executive / Officer', 'hr-executive-officer', 55, 1, '2025-10-17 10:55:51', '2025-10-17 10:55:51', 0),
+(13, 1, 'HR Assistant', 'hr-assistant', 60, 1, '2025-10-17 10:56:11', '2025-10-17 10:56:11', 0),
+(14, 1, 'Talent Acquisition Manager', 'talent-acquisition-manager', 65, 1, '2025-10-17 10:56:24', '2025-10-17 10:56:24', 0),
+(15, 1, 'Recruiter / Hiring Specialist', 'recruiter-hiring-specialist', 70, 1, '2025-10-17 10:56:36', '2025-10-17 10:56:36', 0),
+(16, 1, 'Training & Development Manager', 'training-development-manager', 80, 1, '2025-10-17 10:56:48', '2025-10-17 10:56:48', 0),
+(17, 1, 'Payroll Executive', 'payroll-executive', 85, 1, '2025-10-17 10:57:15', '2025-10-17 10:57:15', 0),
+(18, 1, 'HR Intern', 'hr-intern', 90, 1, '2025-10-17 10:57:27', '2025-10-17 10:57:27', 0),
+(19, 1, 'Finance Manager', 'finance-manager', 95, 1, '2025-10-17 10:57:43', '2025-10-17 10:57:43', 0),
+(20, 1, 'Accounts Manager', 'accounts-manager', 100, 1, '2025-10-17 10:58:02', '2025-10-17 10:58:02', 0),
+(21, 1, 'Senior Accountant', 'senior-accountant', 105, 1, '2025-10-17 10:58:17', '2025-10-17 10:58:17', 0),
+(22, 1, 'Junior Accountant', 'junior-accountant', 110, 1, '2025-10-17 10:58:39', '2025-10-17 10:58:39', 0),
+(23, 1, 'Accounts Executive', 'accounts-executive', 115, 1, '2025-10-17 10:58:53', '2025-10-17 10:58:53', 0),
+(24, 1, 'Internal Auditor', 'internal-auditor', 120, 1, '2025-10-17 10:59:08', '2025-10-17 10:59:08', 0),
+(25, 1, 'Financial Analyst', 'financial-analyst', 125, 1, '2025-10-17 10:59:19', '2025-10-17 10:59:19', 0),
+(26, 1, 'Tax Consultant', 'tax-consultant', 127, 1, '2025-10-17 10:59:34', '2025-10-17 10:59:34', 0),
+(27, 1, 'Payroll Officer', 'payroll-officer', 127, 1, '2025-10-17 10:59:45', '2025-10-17 10:59:45', 0),
+(28, 1, 'Accounts Assistant', 'accounts-assistant', 127, 1, '2025-10-17 10:59:56', '2025-10-17 10:59:56', 0),
+(29, 1, 'Marketing Director', 'marketing-director', 127, 1, '2025-10-17 11:00:10', '2025-10-17 11:00:10', 0),
+(30, 1, 'Marketing Manager', 'marketing-manager', 127, 1, '2025-10-17 11:00:26', '2025-10-17 11:00:26', 0),
+(31, 1, 'Brand Manager', 'brand-manager', 127, 1, '2025-10-17 11:00:37', '2025-10-17 11:00:37', 0),
+(32, 1, 'Digital Marketing Manager', 'digital-marketing-manager', 127, 1, '2025-10-17 11:00:48', '2025-10-17 11:00:48', 0),
+(33, 1, 'Social Media Executive', 'social-media-executive', 127, 1, '2025-10-17 11:01:00', '2025-10-17 11:01:00', 0),
+(34, 1, 'SEO Specialist', 'seo-specialist', 127, 1, '2025-10-17 11:01:11', '2025-10-17 11:01:11', 0),
+(35, 1, 'Content Writer', 'content-writer', 127, 1, '2025-10-17 11:01:25', '2025-10-17 11:01:25', 0),
+(36, 1, 'Sales Manager', 'sales-manager', 127, 1, '2025-10-17 11:01:37', '2025-10-17 11:01:37', 0),
+(37, 1, 'Business Development Executive (BDE)', 'business-development-executive-bde', 127, 1, '2025-10-17 11:01:50', '2025-10-17 11:01:50', 0),
+(38, 1, 'Sales Executive / Sales Representative', 'sales-executive-sales-representative', 127, 1, '2025-10-17 11:02:35', '2025-10-17 11:02:35', 0),
+(39, 1, 'IT Manager', 'it-manager', 127, 1, '2025-10-17 11:02:49', '2025-10-17 11:02:49', 0),
+(40, 1, 'Software Developer / Engineer', 'software-developer-engineer', 127, 1, '2025-10-17 11:03:04', '2025-10-17 11:03:04', 0),
+(41, 1, 'Web Developer', 'web-developer', 127, 1, '2025-10-17 11:04:20', '2025-10-17 11:04:20', 0),
+(42, 1, 'Frontend / Backend Developer', 'frontend-backend-developer', 127, 1, '2025-10-17 11:04:35', '2025-10-17 11:04:35', 0),
+(43, 1, 'Full Stack Developer', 'full-stack-developer', 127, 1, '2025-10-17 11:04:48', '2025-10-17 11:04:48', 0),
+(44, 1, 'System Administrator', 'system-administrator', 127, 1, '2025-10-17 11:05:00', '2025-10-17 11:05:00', 0),
+(45, 1, 'Network Engineer', 'network-engineer', 127, 1, '2025-10-17 11:05:12', '2025-10-17 11:05:12', 0),
+(46, 1, 'Database Administrator (DBA)', 'database-administrator-dba', 127, 1, '2025-10-17 11:05:25', '2025-10-17 11:05:25', 0),
+(47, 1, 'UI/UX Designer', 'ui-ux-designer', 127, 1, '2025-10-17 11:05:43', '2025-10-17 11:05:43', 0),
+(48, 1, 'QA / Test Engineer', 'qa-test-engineer', 127, 1, '2025-10-17 11:06:01', '2025-10-17 11:06:01', 0),
+(49, 1, 'IT Support Technician', 'it-support-technician', 127, 1, '2025-10-17 11:06:17', '2025-10-17 11:06:17', 0),
+(50, 1, 'Operations Head', 'operations-head', 127, 1, '2025-10-17 11:06:32', '2025-10-17 11:06:32', 0),
+(51, 1, 'Production Manager', 'production-manager', 127, 1, '2025-10-17 11:06:43', '2025-10-17 11:06:43', 0),
+(52, 1, 'Quality Control Manager', 'quality-control-manager', 127, 1, '2025-10-17 11:09:17', '2025-10-17 11:09:17', 0),
+(53, 1, 'Production Supervisor', 'production-supervisor', 127, 1, '2025-10-17 11:09:30', '2025-10-17 11:09:30', 0),
+(54, 1, 'Machine Operator', 'machine-operator', 127, 1, '2025-10-17 11:09:43', '2025-10-17 11:09:43', 0),
+(55, 1, 'Logistics Coordinator', 'logistics-coordinator', 127, 1, '2025-10-17 11:09:55', '2025-10-17 11:09:55', 0),
+(56, 1, 'Warehouse Manager', 'warehouse-manager', 127, 1, '2025-10-17 11:10:08', '2025-10-17 11:10:08', 0),
+(57, 1, 'Inventory Controller', 'inventory-controller', 127, 1, '2025-10-17 11:10:19', '2025-10-17 11:10:19', 0),
+(58, 1, 'Creative Director', 'creative-director', 127, 1, '2025-10-17 11:10:39', '2025-10-17 11:10:39', 0),
+(59, 1, 'Graphic Designer', 'graphic-designer', 127, 1, '2025-10-17 11:10:53', '2025-10-17 11:10:53', 0),
+(60, 1, 'Visual Designer', 'visual-designer', 127, 1, '2025-10-17 11:11:11', '2025-10-17 11:11:11', 0),
+(61, 1, 'UI/UX Designer', 'ui-ux-designer', 127, 1, '2025-10-17 11:11:24', '2025-10-17 11:11:24', 0),
+(62, 1, 'Video Editor', 'video-editor', 127, 1, '2025-10-17 11:11:50', '2025-10-17 11:11:50', 0),
+(63, 1, 'Animator', 'animator', 127, 1, '2025-10-17 11:12:05', '2025-10-17 11:12:05', 0),
+(64, 1, 'Art Director', 'art-director', 127, 1, '2025-10-17 11:12:16', '2025-10-17 11:12:16', 0),
+(65, 1, 'Photographer', 'photographer', 127, 1, '2025-10-17 11:12:31', '2025-10-17 11:12:31', 0),
+(66, 1, 'Customer Support Executive', 'customer-support-executive', 127, 1, '2025-10-17 11:12:47', '2025-10-17 11:12:47', 0),
+(67, 1, 'Customer Relationship Manager', 'customer-relationship-manager', 127, 1, '2025-10-17 11:13:00', '2025-10-17 11:13:00', 0),
+(68, 1, 'Call Center Executive', 'call-center-executive', 127, 1, '2025-10-17 11:13:15', '2025-10-17 11:13:15', 0),
+(69, 1, 'Technical Support Specialist', 'technical-support-specialist', 127, 1, '2025-10-17 11:13:28', '2025-10-17 11:13:28', 0),
+(70, 1, 'Client Service Manager', 'client-service-manager', 127, 1, '2025-10-17 11:13:41', '2025-10-17 11:13:41', 0),
+(71, 1, 'Purchase Manager', 'purchase-manager', 127, 1, '2025-10-17 11:13:56', '2025-10-17 11:13:56', 0),
+(72, 1, 'Procurement Officer', 'procurement-officer', 127, 1, '2025-10-17 11:14:15', '2025-10-17 11:14:15', 0),
+(73, 1, 'Vendor Manager', 'vendor-manager', 127, 1, '2025-10-17 11:14:31', '2025-10-17 11:14:31', 0),
+(74, 1, 'Supply Chain Executive', 'supply-chain-executive', 127, 1, '2025-10-17 11:14:45', '2025-10-17 11:14:45', 0),
+(75, 1, 'Store In-Charge', 'store-in-charge', 127, 1, '2025-10-17 11:14:58', '2025-10-17 11:14:58', 0),
+(76, 1, 'R&D Manager', 'r-d-manager', 127, 1, '2025-10-17 11:15:14', '2025-10-17 11:15:14', 0),
+(77, 1, 'Research Analyst', 'research-analyst', 127, 1, '2025-10-17 11:15:27', '2025-10-17 11:15:27', 0),
+(78, 1, 'Product Development Engineer', 'product-development-engineer', 127, 1, '2025-10-17 11:15:43', '2025-10-17 11:15:43', 0),
+(79, 1, 'Laboratory Technician', 'laboratory-technician', 127, 1, '2025-10-17 11:16:03', '2025-10-17 11:16:03', 0);
 
 -- --------------------------------------------------------
 
@@ -154587,7 +154771,7 @@ CREATE TABLE IF NOT EXISTS `leaves` (
   KEY `person_IDX` (`person_id`),
   KEY `leave_type_IDX` (`leave_type_id`),
   KEY `status_IDX` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -154643,8 +154827,6 @@ CREATE TABLE IF NOT EXISTS `locations` (
 
 INSERT INTO `locations` (`id`, `admin_id`, `continent_id`, `country_id`, `state_id`, `city_id`, `name`, `address`, `zipcode`, `display_name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 3, 231, 3391, 32, 'IMPZ & Sports City', 'IMPZ & Sports City', '0', 'IMPZ & Sports City', 1, '2025-10-08 08:41:48', '2025-10-08 08:41:48'),
-(2, 1, 3, 231, 3391, 32, 'Dubai Residential Complex', 'Dubai Residential Complex', '0', 'Dubai Residential Complex', 1, '2025-10-08 09:01:32', '2025-10-08 09:01:32'),
-(3, 1, 3, 231, 3391, 32, 'Jumairah Village Triangle', 'Jumairah Village Triangle', '0', 'Jumairah Village Triangle', 1, '2025-10-08 09:02:35', '2025-10-08 09:02:35'),
 (4, 1, 3, 231, 3391, 32, 'Jumeirah Village Circle', 'Jumeirah Village Circle', '0', 'Jumeirah Village Circle', 1, '2025-10-08 09:02:53', '2025-10-08 09:02:53'),
 (5, 1, 3, 231, 3391, 32, 'World Island', 'World Island', '0', 'World Island', 1, '2025-10-08 09:03:13', '2025-10-08 09:03:13'),
 (6, 1, 3, 231, 3391, 32, 'Damac Hills 2', 'Damac Hills 2', '0', 'Damac Hills 2', 1, '2025-10-08 09:03:30', '2025-10-08 09:03:30'),
@@ -155007,7 +155189,7 @@ CREATE TABLE IF NOT EXISTS `payrolls` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -155026,7 +155208,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status_IDX` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=527 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=583 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `permissions`
@@ -155550,7 +155732,64 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `group_name`, `status`, `
 (523, 'property-features.create', 'admin', 'property-features', 1, '2025-10-13 00:01:09', '2025-10-13 00:01:09'),
 (524, 'property-features.view', 'admin', 'property-features', 1, '2025-10-13 00:01:10', '2025-10-13 00:01:10'),
 (525, 'property-features.edit', 'admin', 'property-features', 1, '2025-10-13 00:01:11', '2025-10-13 00:01:11'),
-(526, 'property-features.delete', 'admin', 'property-features', 1, '2025-10-13 00:01:11', '2025-10-13 00:01:11');
+(526, 'property-features.delete', 'admin', 'property-features', 1, '2025-10-13 00:01:11', '2025-10-13 00:01:11'),
+(527, 'property-types.create', 'admin', 'property-types', 1, '2025-10-14 00:47:39', '2025-10-14 00:47:39');
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `group_name`, `status`, `created_at`, `updated_at`) VALUES
+(528, 'property-types.view', 'admin', 'property-types', 1, '2025-10-14 00:47:40', '2025-10-14 00:47:40'),
+(529, 'property-types.edit', 'admin', 'property-types', 1, '2025-10-14 00:47:41', '2025-10-14 00:47:41'),
+(530, 'property-types.delete', 'admin', 'property-types', 1, '2025-10-14 00:47:42', '2025-10-14 00:47:42'),
+(531, 'new.create', 'admin', 'new', 1, '2025-10-14 05:40:51', '2025-10-14 05:40:51'),
+(532, 'new.view', 'admin', 'new', 1, '2025-10-14 05:40:52', '2025-10-14 05:40:52'),
+(533, 'new.edit', 'admin', 'new', 1, '2025-10-14 05:40:53', '2025-10-14 05:40:53'),
+(534, 'new.delete', 'admin', 'new', 1, '2025-10-14 05:40:54', '2025-10-14 05:40:54'),
+(535, 'new-property.create', 'admin', 'new-property', 1, '2025-10-14 05:48:47', '2025-10-14 05:48:47'),
+(536, 'new-property.view', 'admin', 'new-property', 1, '2025-10-14 05:48:48', '2025-10-14 05:48:48'),
+(537, 'new-property.edit', 'admin', 'new-property', 1, '2025-10-14 05:48:49', '2025-10-14 05:48:49'),
+(538, 'new-property.delete', 'admin', 'new-property', 1, '2025-10-14 05:48:50', '2025-10-14 05:48:50'),
+(539, 'property-all.create', 'admin', 'property-all', 1, '2025-10-14 06:22:09', '2025-10-14 06:22:09'),
+(540, 'property-all.view', 'admin', 'property-all', 1, '2025-10-14 06:22:10', '2025-10-14 06:22:10'),
+(541, 'property-all.edit', 'admin', 'property-all', 1, '2025-10-14 06:22:11', '2025-10-14 06:22:11'),
+(542, 'property-all.delete', 'admin', 'property-all', 1, '2025-10-14 06:22:12', '2025-10-14 06:22:12'),
+(543, 'property-add.create', 'admin', 'property-add', 1, '2025-10-15 00:40:27', '2025-10-15 00:40:27'),
+(544, 'property-add.view', 'admin', 'property-add', 1, '2025-10-15 00:40:28', '2025-10-15 00:40:28'),
+(545, 'property-add.edit', 'admin', 'property-add', 1, '2025-10-15 00:40:29', '2025-10-15 00:40:29'),
+(546, 'property-add.delete', 'admin', 'property-add', 1, '2025-10-15 00:40:30', '2025-10-15 00:40:30'),
+(547, 'reviews.create', 'admin', 'reviews', 1, '2025-10-15 07:18:46', '2025-10-15 07:18:46'),
+(548, 'reviews.view', 'admin', 'reviews', 1, '2025-10-15 07:18:47', '2025-10-15 07:18:47'),
+(549, 'reviews.edit', 'admin', 'reviews', 1, '2025-10-15 07:18:48', '2025-10-15 07:18:48'),
+(550, 'reviews.delete', 'admin', 'reviews', 1, '2025-10-15 07:18:49', '2025-10-15 07:18:49'),
+(551, 'property_new.create', 'admin', 'property_new', 1, '2025-10-16 00:51:58', '2025-10-16 00:51:58'),
+(552, 'property_new.view', 'admin', 'property_new', 1, '2025-10-16 00:51:59', '2025-10-16 00:51:59'),
+(553, 'property_new.edit', 'admin', 'property_new', 1, '2025-10-16 00:52:00', '2025-10-16 00:52:00'),
+(554, 'property_new.delete', 'admin', 'property_new', 1, '2025-10-16 00:52:01', '2025-10-16 00:52:01'),
+(555, 'property-new.create', 'admin', 'property-new', 1, '2025-10-16 00:53:47', '2025-10-16 00:53:47'),
+(556, 'property-new.view', 'admin', 'property-new', 1, '2025-10-16 00:53:48', '2025-10-16 00:53:48'),
+(557, 'property-new.edit', 'admin', 'property-new', 1, '2025-10-16 00:53:49', '2025-10-16 00:53:49'),
+(558, 'property-new.delete', 'admin', 'property-new', 1, '2025-10-16 00:53:50', '2025-10-16 00:53:50'),
+(559, 'currency.create', 'admin', 'currency', 1, '2025-10-16 03:12:01', '2025-10-16 03:12:01'),
+(560, 'currency.view', 'admin', 'currency', 1, '2025-10-16 03:12:03', '2025-10-16 03:12:03'),
+(561, 'currency.edit', 'admin', 'currency', 1, '2025-10-16 03:12:04', '2025-10-16 03:12:04'),
+(562, 'currency.delete', 'admin', 'currency', 1, '2025-10-16 03:12:05', '2025-10-16 03:12:05'),
+(563, 'brochures.create', 'admin', 'brochures', 1, '2025-10-16 05:39:40', '2025-10-16 05:39:40'),
+(564, 'brochures.view', 'admin', 'brochures', 1, '2025-10-16 05:39:41', '2025-10-16 05:39:41'),
+(565, 'brochures.edit', 'admin', 'brochures', 1, '2025-10-16 05:39:42', '2025-10-16 05:39:42'),
+(566, 'brochures.delete', 'admin', 'brochures', 1, '2025-10-16 05:39:43', '2025-10-16 05:39:43'),
+(567, 'properties.create', 'admin', 'properties', 1, '2025-10-16 06:48:39', '2025-10-16 06:48:39'),
+(568, 'properties.view', 'admin', 'properties', 1, '2025-10-16 06:48:40', '2025-10-16 06:48:40'),
+(569, 'properties.edit', 'admin', 'properties', 1, '2025-10-16 06:48:41', '2025-10-16 06:48:41'),
+(570, 'properties.delete', 'admin', 'properties', 1, '2025-10-16 06:48:42', '2025-10-16 06:48:42'),
+(571, 'designations.create', 'admin', 'designations', 1, '2025-10-17 00:24:39', '2025-10-17 00:24:39'),
+(572, 'designations.view', 'admin', 'designations', 1, '2025-10-17 00:24:40', '2025-10-17 00:24:40'),
+(573, 'designations.edit', 'admin', 'designations', 1, '2025-10-17 00:24:41', '2025-10-17 00:24:41'),
+(574, 'designations.delete', 'admin', 'designations', 1, '2025-10-17 00:24:41', '2025-10-17 00:24:41'),
+(575, 'owners.create', 'admin', 'owners', 1, '2025-10-17 06:40:53', '2025-10-17 06:40:53'),
+(576, 'owners.view', 'admin', 'owners', 1, '2025-10-17 06:40:54', '2025-10-17 06:40:54'),
+(577, 'owners.edit', 'admin', 'owners', 1, '2025-10-17 06:40:55', '2025-10-17 06:40:55'),
+(578, 'owners.delete', 'admin', 'owners', 1, '2025-10-17 06:40:56', '2025-10-17 06:40:56'),
+(579, 'clients.create', 'admin', 'clients', 1, '2025-10-17 07:09:34', '2025-10-17 07:09:34'),
+(580, 'clients.view', 'admin', 'clients', 1, '2025-10-17 07:09:34', '2025-10-17 07:09:34'),
+(581, 'clients.edit', 'admin', 'clients', 1, '2025-10-17 07:09:35', '2025-10-17 07:09:35'),
+(582, 'clients.delete', 'admin', 'clients', 1, '2025-10-17 07:09:36', '2025-10-17 07:09:36');
 
 -- --------------------------------------------------------
 
@@ -155888,6 +156127,44 @@ CREATE TABLE IF NOT EXISTS `project_status` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `properties`
+--
+
+DROP TABLE IF EXISTS `properties`;
+CREATE TABLE IF NOT EXISTS `properties` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `feature_id` int UNSIGNED DEFAULT NULL,
+  `type_id` int UNSIGNED DEFAULT NULL,
+  `admin_id` int NOT NULL COMMENT 'reference for the admin table',
+  `image` varchar(150) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `slug` varchar(100) NOT NULL,
+  `purpose` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '0: Sale, 1: Rent',
+  `type` tinyint NOT NULL DEFAULT '0' COMMENT '0: Residential, 1: Commercial',
+  `publish` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'no' COMMENT '0: Yes, 1: No',
+  `area` varchar(255) DEFAULT NULL,
+  `price` decimal(15,2) DEFAULT '0.00',
+  `address` varchar(255) DEFAULT NULL,
+  `sort_order` int DEFAULT '0',
+  `count` int DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0' COMMENT '0: Disabled, 1: Enabled',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `admin_id` (`admin_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `properties`
+--
+
+INSERT INTO `properties` (`id`, `feature_id`, `type_id`, `admin_id`, `image`, `name`, `slug`, `purpose`, `type`, `publish`, `area`, `price`, `address`, `sort_order`, `count`, `status`, `created_at`, `updated_at`) VALUES
+(3, 0, 0, 1, 'example.jpg', 'Sample Name', 'sample-name', 'Sample Purpose', 0, 'no', '1200', 50000.00, '123 Example St', 1, 10, 1, '2025-10-16 12:18:02', '2025-10-16 12:18:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `property_features`
 --
 
@@ -155905,14 +156182,88 @@ CREATE TABLE IF NOT EXISTS `property_features` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `admin_IDX` (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `property_features`
 --
 
 INSERT INTO `property_features` (`id`, `admin_id`, `name`, `slug`, `description`, `status`, `sort_order`, `count`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Balcony', 'balcony', 'Spacious balcony ideal for relaxing or entertaining.', 1, 1, 0, '2025-10-13 04:12:17', '2025-10-13 04:12:17');
+(1, 1, 'Balcony', 'balcony', 'Spacious balcony ideal for relaxing or entertaining.', 1, 1, 0, '2025-10-13 04:12:17', '2025-10-13 04:12:17'),
+(2, 1, 'Villa', 'villa', 'hgedahfrhsdfh', 1, 10, 0, '2025-10-14 08:37:24', '2025-10-14 08:37:24'),
+(3, 1, 'villa', 'villa', 'gdujhjgfds', 1, 10, 0, '2025-10-14 08:51:33', '2025-10-14 08:51:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_news`
+--
+
+DROP TABLE IF EXISTS `property_news`;
+CREATE TABLE IF NOT EXISTS `property_news` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `feature_id` int UNSIGNED DEFAULT NULL,
+  `type_id` int UNSIGNED DEFAULT NULL,
+  `admin_id` int NOT NULL COMMENT 'reference for the admin table',
+  `image` varchar(150) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `slug` varchar(100) NOT NULL,
+  `purpose` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '0: Sale, 1: Rent',
+  `type` tinyint NOT NULL DEFAULT '0' COMMENT '0: Residential, 1: Commercial',
+  `publish` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'no' COMMENT '0: Yes, 1: No',
+  `area` varchar(255) DEFAULT NULL,
+  `price` decimal(15,2) DEFAULT '0.00',
+  `address` varchar(255) DEFAULT NULL,
+  `sort_order` int DEFAULT '0',
+  `count` int DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0' COMMENT '0: Disabled, 1: Enabled',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `admin_id` (`admin_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `property_news`
+--
+
+INSERT INTO `property_news` (`id`, `feature_id`, `type_id`, `admin_id`, `image`, `name`, `slug`, `purpose`, `type`, `publish`, `area`, `price`, `address`, `sort_order`, `count`, `status`, `created_at`, `updated_at`) VALUES
+(3, 1, 0, 1, 'property1.jpg', 'Luxury Apartment', 'luxury-apartment', 'Residential Living', 0, '1', '1200', 7500000.00, '123 Main Street, City', 1, 1, 1, '2025-10-16 06:54:31', '2025-10-16 06:54:31'),
+(4, NULL, NULL, 1, 'jammu and kashmir.png', 'akhjgbjkgdhskgbh', 'akhjgbjkgdhskgbh', '1', 1, '1', 'hdajhrwj', 5461652.00, 'ojmoklvjmsv', 5, 0, 1, '2025-10-16 05:41:14', '2025-10-16 05:41:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `property_types`
+--
+
+DROP TABLE IF EXISTS `property_types`;
+CREATE TABLE IF NOT EXISTS `property_types` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int NOT NULL COMMENT 'reference for the admin table',
+  `main_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: Residential, 1: Commercial',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `slug` varchar(100) NOT NULL,
+  `description` text,
+  `status` tinyint(1) DEFAULT '0' COMMENT '0: Disabled, 1: Enabled',
+  `count` int DEFAULT '0',
+  `sort_order` tinyint DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `admin_IDX` (`admin_id`),
+  KEY `type_IDX` (`main_type`),
+  KEY `status_IDX` (`status`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `property_types`
+--
+
+INSERT INTO `property_types` (`id`, `admin_id`, `main_type`, `name`, `slug`, `description`, `status`, `count`, `sort_order`, `created_at`, `updated_at`) VALUES
+(1, 1, 0, 'villa', '', 'added data success', 1, 0, 0, '2025-10-14 09:33:47', '2025-10-14 09:33:47'),
+(2, 1, 1, 'office', 'office', 'added successsfullly', 1, 0, 2, '2025-10-14 10:14:11', '2025-10-14 10:14:11');
 
 -- --------------------------------------------------------
 
@@ -155949,7 +156300,7 @@ CREATE TABLE IF NOT EXISTS `religions` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `status_IDX` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `religions`
@@ -155981,6 +156332,36 @@ INSERT INTO `religions` (`id`, `name`, `status`, `created_at`, `updated_at`) VAL
 (23, 'Zoroastrianism', 1, '2024-07-16 10:59:35', '2024-07-16 10:59:35'),
 (24, 'Primal Indigenous', 1, '2024-07-16 10:59:35', '2024-07-16 10:59:35'),
 (25, 'Other', 1, '2024-07-16 10:59:35', '2024-07-16 10:59:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+DROP TABLE IF EXISTS `reviews`;
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `admin_id` int NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `contact_no` varchar(20) DEFAULT NULL,
+  `review` text NOT NULL,
+  `rating` decimal(2,1) NOT NULL,
+  `property_id` int UNSIGNED NOT NULL,
+  `status` tinyint(1) DEFAULT '0' COMMENT '0:pending,1:approved,2:rejected',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `property_id` (`property_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `admin_id`, `name`, `email`, `contact_no`, `review`, `rating`, `property_id`, `status`, `created_at`, `updated_at`) VALUES
+(2, 1, 'Hardik Prajapati', 'hardikprajapati8104@gmail.com', '9173307640', 'The property was excellent, location is perfect.', 5.0, 102, 1, '2025-10-15 13:37:10', '2025-10-15 13:37:22');
 
 -- --------------------------------------------------------
 
@@ -156726,7 +157107,63 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (523, 1),
 (524, 1),
 (525, 1),
-(526, 1);
+(526, 1),
+(527, 1),
+(528, 1),
+(529, 1),
+(530, 1),
+(531, 1),
+(532, 1),
+(533, 1),
+(534, 1),
+(535, 1),
+(536, 1),
+(537, 1),
+(538, 1),
+(539, 1),
+(540, 1),
+(541, 1),
+(542, 1),
+(543, 1),
+(544, 1),
+(545, 1),
+(546, 1),
+(547, 1),
+(548, 1),
+(549, 1),
+(550, 1),
+(551, 1),
+(552, 1),
+(553, 1),
+(554, 1),
+(555, 1),
+(556, 1),
+(557, 1),
+(558, 1),
+(559, 1),
+(560, 1),
+(561, 1),
+(562, 1),
+(563, 1),
+(564, 1),
+(565, 1),
+(566, 1),
+(567, 1),
+(568, 1),
+(569, 1),
+(570, 1),
+(571, 1),
+(572, 1),
+(573, 1),
+(574, 1),
+(575, 1),
+(576, 1),
+(577, 1),
+(578, 1),
+(579, 1),
+(580, 1),
+(581, 1),
+(582, 1);
 
 -- --------------------------------------------------------
 
@@ -156751,7 +157188,7 @@ CREATE TABLE IF NOT EXISTS `schedule_lists` (
   PRIMARY KEY (`id`),
   KEY `admin_IDX` (`admin_id`),
   KEY `user_IDX` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -162214,15 +162651,14 @@ CREATE TABLE IF NOT EXISTS `time_logs` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `admin_id` int NOT NULL COMMENT 'reference for the admin table',
-  `person_id` int DEFAULT NULL COMMENT 'reference for the person table',
-  `industry_id` int NOT NULL,
-  `company_parent_id` int DEFAULT NULL,
-  `company_id` int NOT NULL DEFAULT '1' COMMENT 'reference for the company table',
-  `admin_user_group_id` int NOT NULL DEFAULT '1' COMMENT 'reference for admin user group table',
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: Employee, 2: Customer, 3: Client, 4: User',
+  `admin_id` int NOT NULL DEFAULT '0' COMMENT 'Reference for admin table',
+  `designation_id` int DEFAULT '0' COMMENT 'reference for the designation table',
+  `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `login_by` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile_no` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: User, 2: Owner, 3: Client, 4: Vendor',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `two_factor_secret` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -162231,29 +162667,30 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `api_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1:Active, 0:De-Active',
+  `login` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: Disabled, 1: Enabled',
   `isSendAuthMail` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1: Sent, 0: Waiting',
   `otp` int DEFAULT NULL COMMENT 'set change or forgot password OTP',
   `otp_expires_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'set password OTP expire time',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`),
   KEY `type_IDX` (`type`),
   KEY `status_IDX` (`status`),
-  KEY `admin_IDX` (`admin_id`),
-  KEY `industry_company_IDX` (`company_id`,`industry_id`,`company_parent_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `designation_IDX` (`designation_id`) USING BTREE,
+  KEY `login_IDX` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `admin_id`, `person_id`, `industry_id`, `company_parent_id`, `company_id`, `admin_user_group_id`, `name`, `email`, `type`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `api_token`, `status`, `isSendAuthMail`, `otp`, `otp_expires_at`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 40, 3, 4, 1, 'Gautam Kakadiya', 'gk@devotiontech.io', 4, NULL, '$2y$10$CpWBqvEjQp2s5Zep/o10buKGYgWnunYAiiHmwS9ouKx3O0KHq/Hye', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, '0000-00-00 00:00:00', '2024-06-29 02:26:27', '2025-01-01 23:48:17'),
-(2, 1, NULL, 40, 3, 4, 1, 'Princy', 'princy@devotiontech.io', 4, NULL, '$2y$10$anUpxM4RCQ4UMyLjPRayQeiTa9MRzqmaHjm1fgYFw8FZ0E5yN7dwG', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, '2024-12-31 19:26:16', '2024-08-12 02:01:35', '2024-08-12 02:01:35'),
-(3, 0, NULL, 4, 3, 4, 1, '23-1 11 2024', '23-1@mailinator.com', 1, NULL, '$2y$10$xjnvszITcvPNEnpslCaW8egHDVdt0xqYYMKk8nNvUlsq2VKhPTWZK', NULL, NULL, NULL, 'LNh4mozj', NULL, 1, 1, NULL, '2024-12-31 19:26:16', '2024-11-23 08:20:36', '2024-11-23 08:35:05'),
-(4, 0, 592, 4, 3, 4, 1, 'check employee auth', '25-1@mailinator.com', 1, NULL, '$2y$10$RhOkFG34claqW0jVJIxVVeO8LdbG9BTHUa5cSkXMlkebvqoNUeqOm', NULL, NULL, NULL, 'mqOihjRj', NULL, 1, 1, NULL, '2024-12-31 19:26:16', '2024-11-25 03:52:51', '2024-11-25 03:52:55'),
-(7, 0, 596, 4, 3, 9, 1, 'Vishwa Maheshbhai Kakadiya', 'vishwa@mailinator.com', 1, NULL, '$2y$10$uBH8qWt.plmQzJoij0FjR.nlPGVkX8XQxq1iuUewWvFNfX/XRGOk2', NULL, NULL, NULL, '1iHLHwOH', NULL, 1, 1, NULL, '2024-12-31 19:26:16', '2024-12-30 07:54:38', '2024-12-30 07:54:38');
+INSERT INTO `users` (`id`, `admin_id`, `designation_id`, `first_name`, `last_name`, `login_by`, `email_id`, `mobile_no`, `type`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `api_token`, `status`, `login`, `isSendAuthMail`, `otp`, `otp_expires_at`, `created_at`, `updated_at`) VALUES
+(1, 0, 4, 'Gautam Kakadiya', NULL, NULL, 'gk@devotiontech.io', NULL, 1, NULL, '$2y$10$CpWBqvEjQp2s5Zep/o10buKGYgWnunYAiiHmwS9ouKx3O0KHq/Hye', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, '0000-00-00 00:00:00', '2024-06-29 02:26:27', '2025-01-01 23:48:17'),
+(2, 0, 4, 'Princy', NULL, NULL, 'princy@devotiontech.io', NULL, 2, NULL, '$2y$10$anUpxM4RCQ4UMyLjPRayQeiTa9MRzqmaHjm1fgYFw8FZ0E5yN7dwG', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, '2024-12-31 19:26:16', '2024-08-12 02:01:35', '2024-08-12 02:01:35'),
+(3, 0, 4, '23-1 11 2024', NULL, NULL, '23-1@mailinator.com', NULL, 3, NULL, '$2y$10$xjnvszITcvPNEnpslCaW8egHDVdt0xqYYMKk8nNvUlsq2VKhPTWZK', NULL, NULL, NULL, 'LNh4mozj', NULL, 1, 0, 1, NULL, '2024-12-31 19:26:16', '2024-11-23 08:20:36', '2024-11-23 08:35:05'),
+(4, 0, 4, 'check employee auth', NULL, NULL, '25-1@mailinator.com', NULL, 4, NULL, '$2y$10$RhOkFG34claqW0jVJIxVVeO8LdbG9BTHUa5cSkXMlkebvqoNUeqOm', NULL, NULL, NULL, 'mqOihjRj', NULL, 1, 0, 1, NULL, '2024-12-31 19:26:16', '2024-11-25 03:52:51', '2024-11-25 03:52:55'),
+(7, 0, 9, 'Vishwa Maheshbhai Kakadiya', NULL, NULL, 'vishwa@mailinator.com', NULL, 1, NULL, '$2y$10$uBH8qWt.plmQzJoij0FjR.nlPGVkX8XQxq1iuUewWvFNfX/XRGOk2', NULL, NULL, NULL, '1iHLHwOH', NULL, 1, 0, 1, NULL, '2024-12-31 19:26:16', '2024-12-30 07:54:38', '2024-12-30 07:54:38'),
+(8, 1, 0, 'Gautam', 'Kakadiya', 'gk268', 'gk@mailinator.com', '9428854599', 1, NULL, '$2y$10$SdtUd6nq5I2cMp2l8wHvduxpyz1e/auCelzKXAngmNb7O4cMatbqm', NULL, NULL, NULL, NULL, NULL, 1, 1, 0, NULL, '2025-10-17 17:04:04', '2025-10-17 06:04:04', '2025-10-17 06:04:04');
 
 -- --------------------------------------------------------
 
@@ -162306,94 +162743,12 @@ ALTER TABLE `addresses`
   ADD CONSTRAINT `fk_address_state_id` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
--- Constraints for table `businesses`
---
-ALTER TABLE `businesses`
-  ADD CONSTRAINT `fk_business_person_id` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
 -- Constraints for table `cities`
 --
 ALTER TABLE `cities`
   ADD CONSTRAINT `fk_city_continent_id` FOREIGN KEY (`continent_id`) REFERENCES `continents` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `fk_city_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `fk_city_state_id` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `companies`
---
-ALTER TABLE `companies`
-  ADD CONSTRAINT `fk_company_industry_id` FOREIGN KEY (`industry_id`) REFERENCES `industries` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `configurations`
---
-ALTER TABLE `configurations`
-  ADD CONSTRAINT `fk_config_aui` FOREIGN KEY (`admin_id`) REFERENCES `codeigniter_miracle`.`admin_user` (`admin_user_id`);
-
---
--- Constraints for table `corporate_emails`
---
-ALTER TABLE `corporate_emails`
-  ADD CONSTRAINT `fk_ce_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_ce_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `countries`
---
-ALTER TABLE `countries`
-  ADD CONSTRAINT `fk_country_continent_id` FOREIGN KEY (`continent_id`) REFERENCES `continents` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `departments`
---
-ALTER TABLE `departments`
-  ADD CONSTRAINT `fk_dept_admin_id` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_dept_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_dept_industry_id` FOREIGN KEY (`industry_id`) REFERENCES `industries` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `laptop_records`
---
-ALTER TABLE `laptop_records`
-  ADD CONSTRAINT `fk_lr_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `mobile_records`
---
-ALTER TABLE `mobile_records`
-  ADD CONSTRAINT `fk_mr_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `persons`
---
-ALTER TABLE `persons`
-  ADD CONSTRAINT `fk_person_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `server_records`
---
-ALTER TABLE `server_records`
-  ADD CONSTRAINT `fk_sr_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `shift_details`
---
-ALTER TABLE `shift_details`
-  ADD CONSTRAINT `fk_shift_id` FOREIGN KEY (`shift_id`) REFERENCES `shifts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `states`
---
-ALTER TABLE `states`
-  ADD CONSTRAINT `fk_state_continent_id` FOREIGN KEY (`continent_id`) REFERENCES `continents` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_state_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `fk_user_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

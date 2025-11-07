@@ -101,18 +101,22 @@ class PropertyFeatureController extends Controller
                     ';
 
                     if ($this->user->can('property-features.edit')) {
-                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.property-features.edit', $ar->id).'">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>';
+                        $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.property-features.edit', $ar->id) . '">
+                                    <i class="fa fa-pencil"></i> Edit
+                                </a>';
                     }
 
                     if ($this->user->can('property-features.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->name.'" data-segment="locations">
-                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                                    </button>';
+                        $action .= '<button class="btn btn-edit text-white dropdown-item delete-record"
+                                data-id="' . $ar->id . '"
+                                data-title="' . $ar->name . '"
+                                data-segment="property-features">
+                            <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                        </button>';
                     }
 
-                    $action.= '
+
+            $action.= '
                     </div>
                 ';
 
@@ -235,7 +239,7 @@ class PropertyFeatureController extends Controller
         ]);
 
         // Update Old Feature data
-        $location = new PropertyFeature();
+        $location = PropertyFeature::find( $id );
         $location->admin_id = $this->user->id;
         $location->name = $request->name;
         $location->description = $request->description;

@@ -15,7 +15,7 @@
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
 
-        <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
     </head>
 
     <!-- Hero Carousel -->
@@ -24,7 +24,7 @@
 
             <!-- Carousel Item 1 -->
             <div class="carousel-item active">
-                <img src="public\frontend\assets\images\img\slide3.jpg" class="d-block w-100" alt="Building 1">
+                <img src="{{ url('public/frontend/assets/images/img/slide3.jpg') }}" class="d-block w-100" alt="Building 1">
 
                 <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
                     <div class="carousel-content text-center p-4 rounded-3">
@@ -59,17 +59,39 @@
                             <!-- Property Search -->
                             <div class="tab-pane fade show active p-2" id="content-search" role="tabpanel"
                                 aria-labelledby="tab-search">
+
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control search-input" placeholder="Enter Location">
+
+                                    <!-- Location Dropdown -->
+                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select id="locationInput" name="location_id"
+                                                class="form-select border-start-1">
+                                                <option value="">Select Location</option>
+                                                @forelse($location as $p)
+                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
+                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
+                                                        {{ $p->name ?? 'Unknown Location' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <select class="form-select search-select">
                                         <option selected>All</option>
                                         <option>Rent</option>
                                         <option>Buy</option>
                                     </select>
+
                                     <select class="form-select search-select">
                                         <option selected>Residential</option>
                                         <option>Commercial</option>
                                     </select>
+
                                     <select class="form-select search-select">
                                         <option selected>Bed/Bath</option>
                                         <option>1 BHK</option>
@@ -125,7 +147,7 @@
 
             <!-- Carousel Item 2 -->
             <div class="carousel-item">
-                <img src="public\frontend\assets\images\img\slide1.jpg" class="d-block w-100" alt="Building 1">
+                <img src="{{ url('public/frontend/assets/images/img/slide1.jpg') }}" class="d-block w-100" alt="Building 1">
 
                 <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
                     <div class="carousel-content text-center p-4 rounded-3">
@@ -158,7 +180,24 @@
                             <div class="tab-pane fade show active p-2" id="content-search-1" role="tabpanel"
                                 aria-labelledby="tab-search-1">
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control search-input" placeholder="Enter Location">
+                                    <!-- Location Dropdown -->
+                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select id="locationInput" name="location_id"
+                                                class="form-select border-start-1">
+                                                <option value="">Select Location</option>
+                                                @forelse($location as $p)
+                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
+                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
+                                                        {{ $p->name ?? 'Unknown Location' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <select class="form-select search-select">
                                         <option selected>All</option>
                                         <option>Rent</option>
@@ -225,7 +264,8 @@
 
             <!-- Carousel Item 3 -->
             <div class="carousel-item">
-                <img src="public\frontend\assets\images\img\slide2.jpg" class="d-block w-100" alt="Building 1">
+                <img src="{{ url('public/frontend/assets/images/img/slide2.jpg') }}" class="d-block w-100"
+                    alt="Building 1">
 
                 <div class="carousel-caption d-flex align-items-center justify-content-center h-100">
                     <div class="carousel-content text-center p-4 rounded-3">
@@ -257,7 +297,28 @@
                             <div class="tab-pane fade show active p-2" id="content-search-2" role="tabpanel"
                                 aria-labelledby="tab-search-2">
                                 <div class="input-group mb-3 input-group-search rounded gap-3 justify-content-center">
-                                    <input type="text" class="form-control search-input" placeholder="Enter Location">
+
+
+                                    <!-- Location Dropdown -->
+                                    <div class="col-lg-4 col-md-4 col-sm-4 position-relative">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select id="locationInput" name="location_id"
+                                                class="form-select border-start-1">
+                                                <option value="">Select Location</option>
+                                                @forelse($location as $p)
+                                                    <option value="{{ $p->id ?? 'Unknown Location id' }}"
+                                                        {{ request('location_id') == $p->id ? 'selected' : '' }}>
+                                                        {{ $p->name ?? 'Unknown Location' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
                                     <select class="form-select search-select">
                                         <option selected>All</option>
                                         <option>Rent</option>
@@ -323,453 +384,297 @@
 
         </div>
     </div>
-    </div>
-    </div>
 
+    <style>
+        .btn-type {
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-type:hover {
+            border-color: lightgray;
+            background-color: #aa8038;
+            color: white;
+            /* black border on hover */
+        }
+
+        /* Custom hover style */
+        .btn-icon {
+
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20%;
+            border: 1px solid transparent;
+            /* default border invisible */
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            border-color: #aa8038;
+            color: #aa8038;
+            /* black border on hover */
+            background-color: #f8f9fa;
+            /* light background (optional) */
+        }
+
+        .carousel-item {
+            transition: transform 0.8s ease-in-out;
+            /* smoother slide */
+        }
+    </style>
+
+    <!-- Properties For New -->
     <section class="py-5" style="background-color: #f8f5ee;">
         <div class="container">
             <div class="text-end mb-5">
                 <div class="text-center flex-grow-1">
-                    <h2 class="fw-bold text-uppercase mb-1" style=" font-size: 45px;">New Properties</h2>
+                    <h2 class="fw-bold text-uppercase mb-1" style="font-size: 45px;">New Properties</h2>
                     <p class="text-muted mb-0">Find newly listed properties in your local area with best pricing.</p>
                 </div>
-                <a href="#" class="text-decoration-none small text-secondary">View all &rarr;</a>
+                <a href="" class="text-decoration-none small text-secondary">View all &rarr;</a>
             </div>
 
-            <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+            @php
+                /**
+                 * $type = 0: 'sell', 1: 'rent'
+                 */
+                $allproperties = getPropertiesByType([0, 1]);
+                $chunks = $allproperties->chunk(3);
+            @endphp
 
-                <div class="carousel-inner">
 
-                    <div class="carousel-item active">
+            @if ($allproperties->isNotEmpty())
+                <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
 
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                        @foreach ($chunks as $chunkIndex => $chunk)
+                            <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+                                    @foreach ($chunk as $property)
+                                        <div class="col">
+                                            <a href="{{ route('property.detail', ['type' => $property->type == 0 ? 'sale' : 'rent', 'slug' => $property->slug]) }}"
+                                                class="text-decoration-none text-dark">
 
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property1.jpg"
-                                            class="card-img-top rounded-top-3" alt="Townhouse">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-sell position-absolute top-0 end-0 m-2">For Sell</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Ultra Luxury &...</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Townhouse</button>
+                                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
+                                                    <div class="position-relative">
+                                                        <img src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                                            class="card-img-top rounded-top-3"
+                                                            alt="{{ $property->name }}">
+
+                                                        <span
+                                                            class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
+                                                        <span
+                                                            class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
+                                                            {{ $property->purpose == 1 ? 'For Rent' : 'For Sell' }}
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div class="card-body">
+
+                                                        <div class="d-flex align-items-start mb-2">
+                                                            <h5 class="card-title mb-0 me-3">
+                                                                {{ $property->name }}
+                                                            </h5>
+                                                        </div>
+
+                                                        <p class="card-text small text-muted mb-1">
+                                                            <i class="bi bi-map me-2"></i>
+                                                            {{ ucfirst($property->location->name ?? 'N/A') }}
+                                                        </p>
+                                                        <p class="card-text small mb-4">
+                                                            <i class="bi bi-door-closed me-2"></i>Beds:
+                                                            {{ $property->beds }}
+                                                            |
+                                                            <i class="bi bi-bucket me-2"></i>Baths: {{ $property->baths }}
+                                                        </p>
+                                                        <p class="card-text small">
+                                                            <i class="bi bi-rulers me-2"></i>Area:
+                                                            {{ $property->area }} Sq.Ft.
+                                                        </p>
+
+                                                        <button class="btn btn-type rounded-pill btn-sm featureMap">
+                                                            {{ $property->subType->name ?? '' }}
+                                                        </button>
+
+                                                    </div>
+
+                                                    <hr class="property-divider">
+
+                                                    <div
+                                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
+                                                        <p class="fs-5  property-price mb-0">
+                                                            AED {{ number_format($property->price, 2) }}</p>
+                                                        <div class="text-end">
+                                                            <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                                alt="Logo" class="property-logo img-fluid">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-
-                                        <p class="card-text small text-muted mb-1"><i class="bi bi-map me-2"></i>Jumeirah
-                                            Village Circle,
-                                            Dubai...</p>
-                                        <p class="card-text small mb-4"><i class="bi bi-door-closed me-2"></i>Beds: 4 | <i
-                                                class="bi bi-bucket me-2"></i>Baths: 5</p>
-                                        <p class="card-text small"><i class="bi bi-rulers me-2"></i>Area: 3203.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹83,722,383.66</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
+                        @endforeach
 
-
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property2.jpg"
-                                            class="card-img-top rounded-top-3" alt="Apartment">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-rent position-absolute top-0 end-0 m-2">For Rent</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Modern 2-Bed Flat</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Apartment</button>
-                                        </div>
-
-                                        <p class="card-text small text-muted mb-1"><i class="bi bi-map me-2"></i>Downtown,
-                                            New York City...
-                                        </p>
-                                        <p class="card-text small mb-4"><i class="bi bi-door-closed me-2"></i>Beds: 2 | <i
-                                                class="bi bi-bucket me-2"></i>Baths: 2</p>
-                                        <p class="card-text small"><i class="bi bi-rulers me-2"></i>Area: 1100.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹2,50,000 / Month</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property3.jpg"
-                                            class="card-img-top rounded-top-3" alt="Villa">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-sell position-absolute top-0 end-0 m-2">For Sell</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Luxury Garden Villa</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Villa</button>
-                                        </div>
-
-                                        <p class="card-text small text-muted mb-1"><i class="bi bi-map me-2"></i>Beverly
-                                            Hills,
-                                            California...</p>
-                                        <p class="card-text small mb-4"><i class="bi bi-door-closed me-2"></i>Beds: 6 | <i
-                                                class="bi bi-bucket me-2"></i>Baths: 7</p>
-                                        <p class="card-text small"><i class="bi bi-rulers me-2"></i>Area: 8500.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹417,000,000 / Sell</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
                     </div>
 
-                    <div class="carousel-item">
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
-
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property1.jpg"
-                                            class="card-img-top rounded-top-3" alt="Apartment">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-rent position-absolute top-0 end-0 m-2">For Rent</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Modern 2-Bed Flat</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Apartment</button>
-                                        </div>
-
-                                        <p class="card-text small text-muted mb-1"><i class="bi bi-map me-2"></i>Downtown,
-                                            New York City...
-                                        </p>
-                                        <p class="card-text small mb-4"><i class="bi bi-door-closed me-2"></i>Beds: 2 | <i
-                                                class="bi bi-bucket me-2"></i>Baths: 2</p>
-                                        <p class="card-text small"><i class="bi bi-rulers me-2"></i>Area: 1100.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹2,50,000 / Month</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col">
-                            </div>
-
-                            <div class="col">
-                            </div>
-                        </div>
+                    <div class="carousel-indicators position-relative mt-4">
+                        @foreach ($chunks as $index => $chunk)
+                            <button type="button" data-bs-target="#propertyCarousel"
+                                data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"
+                                aria-current="{{ $index == 0 ? 'true' : 'false' }}"
+                                aria-label="Slide {{ $index + 1 }}"></button>
+                        @endforeach
                     </div>
-
                 </div>
-                <div class="carousel-indicators position-relative mt-4">
-                    <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                </div>
-            </div>
+            @else
+                <p class="text-center text-muted">No new properties available at the moment.</p>
+            @endif
         </div>
     </section>
 
-    <!-- third section -->
-    <section class="py-5" style="background-color: white;">
+    <!-- Properties For Sale -->
+    <section class="py-5" style="background-color: #fefefe;">
         <div class="container">
             <div class="text-end mb-5">
                 <div class="text-center flex-grow-1">
-                    <h2 class="fw-bold text-uppercase mb-1" style=" font-size: 45px;">Properties for sale</h2>
+                    <h2 class="fw-bold text-uppercase mb-1" style="font-size: 45px;">Properties for sale</h2>
                     <p class="text-muted mb-0">Search properties which are listed as available for sale in your local area
                         with
                         best pricing.</p>
                 </div>
-                <a href="#" class="text-decoration-none small text-secondary">View all &rarr;</a>
+                <a href="" class="text-decoration-none small text-secondary">View all &rarr;</a>
             </div>
 
-            <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+            @php
+                $saleProperties = getPropertiesByType([0]);
+                $saleChunks = $saleProperties->chunk(3);
+            @endphp
 
-                <div class="carousel-inner">
 
-                    <div class="carousel-item active">
+            @if ($saleProperties->isNotEmpty())
+                <div id="salePropertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
 
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                        @foreach ($saleChunks as $chunkIndex => $chunk)
+                            <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+                                    @foreach ($chunk as $propertysale)
+                                        <div class="col">
 
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property1.jpg"
-                                            class="card-img-top rounded-top-3" alt="Townhouse">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-sell position-absolute top-0 end-0 m-2">For Sell</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Ultra Luxury &...</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Townhouse</button>
+                                            <a href="{{ route('property.detail', [
+                                                'type' => $propertysale->type == 0 ? 'sale' : 'rent',
+                                                'slug' => $propertysale->slug,
+                                            ]) }}"
+                                                class="text-decoration-none text-dark">
+                                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
+                                                    <div class="position-relative">
+                                                        <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                                            class="card-img-top rounded-top-3"
+                                                            alt="{{ $propertysale->title }}">
+
+                                                        <span
+                                                            class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
+                                                        <span
+                                                            class="badge {{ $propertysale->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
+                                                            {{ $propertysale->purpose == 1 ? 'For Rent' : 'For Sell' }}
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div class="card-body">
+
+                                                        <div class="d-flex align-items-start mb-2">
+                                                            <h5 class="card-title mb-0 me-3">
+                                                                {{ $propertysale->name }}
+                                                            </h5>
+
+                                                        </div>
+
+                                                        <p class="card-text small text-muted mb-1">
+                                                            <i class="bi bi-map me-2"></i>
+                                                            {{ ucfirst($propertysale->location->name ?? 'N/A') }}
+                                                        </p>
+                                                        <p class="card-text small mb-4">
+                                                            <i class="bi bi-door-closed me-2"></i>Beds:
+                                                            {{ $propertysale->beds }}
+                                                            |
+                                                            <i class="bi bi-bucket me-2"></i>Baths:
+                                                            {{ $propertysale->baths }}
+                                                        </p>
+                                                        <p class="card-text small">
+                                                            <i class="bi bi-rulers me-2"></i>Area:
+                                                            {{ $propertysale->area }} Sq.Ft.
+                                                        </p>
+
+                                                        <button class="btn btn-type rounded-pill btn-sm featureMap">
+                                                            {{ ucfirst($propertysale->feature->name ?? 'N/A') }}
+                                                        </button>
+                                                    </div>
+
+                                                    <hr class="property-divider">
+
+                                                    <div
+                                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
+                                                        <p class="fs-5  property-price mb-0">
+                                                            AED {{ number_format($propertysale->price, 2) }}</p>
+                                                        <div class="text-end">
+                                                            <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                                alt="Logo" class="property-logo img-fluid">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-
-                                        <p class="card-text small text-muted mb-1"><i class="bi bi-map me-2"></i>Jumeirah
-                                            Village Circle,
-                                            Dubai...</p>
-                                        <p class="card-text small mb-4"><i class="bi bi-door-closed me-2"></i>Beds: 4 | <i
-                                                class="bi bi-bucket me-2"></i>Baths: 5</p>
-                                        <p class="card-text small"><i class="bi bi-rulers me-2"></i>Area: 3203.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹83,722,383.66</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
+                        @endforeach
 
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property2.jpg"
-                                            class="card-img-top rounded-top-3" alt="Apartment">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-rent position-absolute top-0 end-0 m-2">For Rent</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Modern 2-Bed Flat</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Apartment</button>
-                                        </div>
-
-                                        <p class="card-text small text-muted mb-1"><i class="bi bi-map me-2"></i>Downtown,
-                                            New York City...
-                                        </p>
-                                        <p class="card-text small mb-4"><i class="bi bi-door-closed me-2"></i>Beds: 2 | <i
-                                                class="bi bi-bucket me-2"></i>Baths: 2</p>
-                                        <p class="card-text small"><i class="bi bi-rulers me-2"></i>Area: 1100.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹2,50,000 / Month</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property3.jpg"
-                                            class="card-img-top rounded-top-3" alt="Villa">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-sell position-absolute top-0 end-0 m-2">For Sell</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Luxury Garden Villa</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Villa</button>
-                                        </div>
-
-                                        <p class="card-text small text-muted mb-1"><i class="bi bi-map me-2"></i>Beverly
-                                            Hills,
-                                            California...</p>
-                                        <p class="card-text small mb-4"><i class="bi bi-door-closed me-2"></i>Beds: 6 | <i
-                                                class="bi bi-bucket me-2"></i>Baths: 7</p>
-                                        <p class="card-text small"><i class="bi bi-rulers me-2"></i>Area: 8500.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹417,000,000 / Sell</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
 
-                    <div class="carousel-item">
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
-
-                            <div class="col">
-                                <div class="card property-card h-100 border-1 shadow-sm rounded-3">
-                                    <div class="position-relative">
-                                        <img src="public\frontend\assets\images\img\property1.jpg"
-                                            class="card-img-top rounded-top-3" alt="Apartment">
-                                        <span class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                        <span class="badge badge-rent position-absolute top-0 end-0 m-2">For Rent</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 class="card-title text-truncate mb-0">Modern 2-Bed Flat</h5>
-                                            <button class="btn btn-type rounded-pill btn-sm">Apartment</button>
-                                        </div>
-
-                                        <p class="card-text small text-muted mb-1">
-                                            <i class="bi bi-map me-2"></i>Downtown, New York City...
-                                        </p>
-                                        <p class="card-text small mb-4">
-                                            <i class="bi bi-door-closed me-2"></i>Beds: 2 |
-                                            <i class="bi bi-bucket me-2"></i>Baths: 2
-                                        </p>
-                                        <p class="card-text small">
-                                            <i class="bi bi-rulers me-2"></i>Area: 1100.00 Sq.Ft.
-                                        </p>
-
-                                        <button class="btn btn-sm btn-icon me-2"><i class="bi bi-compass"></i></button>
-                                        <button class="btn btn-sm btn-icon"><i class="bi bi-heart"></i></button>
-                                    </div>
-
-                                    <hr class="property-divider">
-
-                                    <div
-                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <p class="small fw-bold property-price mb-0">₹2,50,000 / Month</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <img src="public\frontend\assets\images\Devotion Real Estate.png"
-                                                alt="Logo" class="property-logo img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                            </div>
-
-                            <div class="col">
-                            </div>
-                        </div>
+                    <div class="carousel-indicators position-relative mt-4">
+                        @foreach ($saleChunks as $index => $chunk)
+                            <button type="button" data-bs-target="#salePropertyCarousel"
+                                data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"
+                                aria-current="{{ $index == 0 ? 'true' : 'false' }}"
+                                aria-label="Slide {{ $index + 1 }}" style="background-color: lightgray"></button>
+                        @endforeach
                     </div>
-
                 </div>
-                <div class="carousel-indicators position-relative mt-4">
-                    <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                </div>
-            </div>
+            @else
+                <p class="text-center text-muted">No new properties available at the moment.</p>
+            @endif
         </div>
     </section>
 
     <!-- List Your Property -->
     <section class="py-5 list-property-section">
         <div class="container py-5">
-            <h1 class="text-center mb-5 fw-bold section-title" style="      color: #000;
-      font-size: 45px;">LIST YOUR PROPERTY</h1>
+            <h1 class="text-center mb-5 fw-bold section-title" style="color: #000; font-size: 45px;">LIST YOUR
+                PROPERTY</h1>
             <div class="row g-4 justify-content-center">
 
                 <!-- Sell Residential -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style=" background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\sell-house.png" alt="Sell Residential Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/sell-house.png') }}"
+                                    alt="Sell Residential Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Sell Residential</h4>
                             <p class="card-text property-text">
                                 We will connect you to thousands of people who need to buy a home.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-house-door-fill me-2"></i>Sell Residential
                         </a>
                     </div>
@@ -777,18 +682,19 @@
 
                 <!-- Rent Residential -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style="background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\rent-house.png" alt="Rent Residential Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/rent-house.png') }}"
+                                    alt="Rent Residential Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Rent Residential</h4>
                             <p class="card-text property-text">
                                 Tell us your needs, we will give you thousands of suggestions for the dream home.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-house-door-fill me-2"></i>Rent Residential
                         </a>
                     </div>
@@ -796,18 +702,19 @@
 
                 <!-- Sell Commercial -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style="background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\office-1.png" alt="Sell Commercial Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/office-1.png') }}"
+                                    alt="Sell Commercial Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Sell Commercial</h4>
                             <p class="card-text property-text">
                                 We will connect you to thousands of people who need to buy an office.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-shop me-2"></i>Sell Commercial
                         </a>
                     </div>
@@ -815,18 +722,19 @@
 
                 <!-- Rent Commercial -->
                 <div class="col-lg-3 col-md-6 col-sm-10 mx-auto">
-                    <div class="card property-card h-100 border-0 shadow-sm text-center">
+                    <div class="card property-card h-100 border-0 shadow-sm text-center"
+                        style="background: linear-gradient(#FBEED3, #F9E5B8);">
                         <div class="card-body p-4">
                             <div class="mb-3">
-                                <img src="public\frontend\assets\images\img\rent-office.png" alt="Rent Commercial Icon"
-                                    class="property-icon">
+                                <img src="{{ url('public/frontend/assets/images/img/rent-office.png') }}"
+                                    alt="Rent Commercial Icon" class="property-icon">
                             </div>
                             <h4 class="card-title fw-semibold">Rent Commercial</h4>
                             <p class="card-text property-text">
                                 Tell us your needs, we will give you thousands of suggestions for the dream office.
                             </p>
                         </div>
-                        <a href="../devotion/owner-register.html" class="btn property-btn">
+                        <a href="login" class="btn property-btn">
                             <i class="bi bi-shop me-2"></i>Rent Commercial
                         </a>
                     </div>
@@ -836,7 +744,7 @@
         </div>
     </section>
 
-
+    <!-- Our Blog -->
     <section class="py-5 text-center" style="background: #fffaf5;">
         <div class="container">
             <div class="col-12 blog-header text-center mb-4">
@@ -923,6 +831,7 @@
         </div>
     </section>
 
+    <!-- OUR HAPPY CUSTOMERS  -->
     <section class="py-5" style="background-color: white;">
         <div class="container">
             <div class="row text-center mb-5">
@@ -979,16 +888,12 @@
                                 understand our needs and preferences was instrumental in finding the perfect home for our
                                 family."
                                 <br>
-
                                 " Thank you once again for your outstanding service. We will certainly recommend you to
                                 anyone in need
                                 of a top-notch real estate agent. ”
-
                             </p>
                             <p class="text-end fw-bold mb-0" style="text-align: justify;">
-
                                 - Severin
-
                             </p>
                         </div>
                     </div>
@@ -1018,8 +923,4 @@
             </div>
         </div>
     </section>
-
-
-
-
 @endsection

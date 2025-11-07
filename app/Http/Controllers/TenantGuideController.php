@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class TenantGuideController extends Controller
 {
-    //
-
     public function index()
     {
         // If you later connect to database, fetch properties here

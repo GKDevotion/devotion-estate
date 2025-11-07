@@ -98,14 +98,15 @@ Property Types Page
                 pageLength: 10,
                 ajax: "{{ route('property-types.ajaxIndex') }}",
                 columns: [
-                    {
-                        data: 'id',
-                        render: function (data, type, row, meta) {
-                            return meta.row + 1; // Auto-increment based on row index
-                        }
-                    }, // Auto index { data: 'id', name: 'id' },
+                    // {
+                    //     data: 'id',
+                    //     render: function (data, type, row, meta) {
+                    //         return meta.row + 1; // Auto-increment based on row index
+                    //     }
+                    // }, // Auto index { data: 'id', name: 'id' },
+                      { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
-                    { data: 'type', name: 'type' },
+                    { data: 'main_type', name: 'main_type' },
                     { data: 'count', name: 'count' },
                     { data: 'sort_order', name: 'sort_order' },
                     { data: 'status', name: 'status' },
@@ -119,9 +120,9 @@ Property Types Page
                 var data = table.ajax.json().data;
 
                 if (data.length === 0) {
-                    $('#Property Features_index').css('width', '100%');
+                    $('#Property Types_index').css('width', '100%');
                 } else {
-                    $('#Property Features_index').css('width', 'auto');
+                    $('#Property Types_index').css('width', 'auto');
                 }
             });
         });
