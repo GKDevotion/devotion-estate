@@ -67,10 +67,13 @@
                                                 <select class="form-control @error('main_type') is-invalid @enderror"
                                                     id="main_type" name="main_type" required>
                                                     <option value="">Select Main Type</option>
-                                                    <option value="0" {{ old('main_type') === '0' ? 'selected' : '' }}>
-                                                        Residential</option>
+                                                        <option value="0" {{ old('main_type') === '0' ? 'selected' : '' }}>
+                                                        All</option>
                                                     <option value="1" {{ old('main_type') === '1' ? 'selected' : '' }}>
+                                                        Residential</option>
+                                                    <option value="2" {{ old('main_type') === '2' ? 'selected' : '' }}>
                                                         Commercial</option>
+                                                     
                                                 </select>
                                                 @error('main_type')
                                                     <div class="invalid-feedback d-block">{{ $message }}</div>

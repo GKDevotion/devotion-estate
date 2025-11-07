@@ -146,8 +146,11 @@
                                                     class="text-error">*</span></label>
                                             <select name="purpose" id="purpose" class="form-control"
                                                 data-required="yes">
-                                                <option value="0">Sale</option>
-                                                <option value="1">Rent</option>
+                                                <option value="" selected disabled>Select Purpose</option>
+                                                <option value="0">ALL</option>
+                                                <option value="1">Sale</option>
+                                                <option value="2">Rent</option>
+                                                <option value="3">Land</option>
                                             </select>
                                             <div class="error text-error"></div>
                                         </div>
@@ -157,9 +160,10 @@
                                                     class="text-error">*</span></label>
                                             <select name="type" id="type" class="form-control"
                                                 data-required="yes">
-                                                <option value="" selected>Select Type</option>
-                                                <option value="0">Residential</option>
-                                                <option value="1">Commercial</option>
+                                                <option value="" selected disabled>Select Type</option>
+                                                <option value="0">All</option>
+                                                <option value="1">Residential</option>
+                                                <option value="2">Commercial</option>
                                             </select>
                                             <div class="error text-error"></div>
                                         </div>
@@ -169,7 +173,7 @@
                                                     class="text-error">*</span></label>
                                             <select name="sub_type_id" id="sub_type_id" class="form-control"
                                                 data-required="yes">
-                                                <option value="0">Select Sub Type</option>
+                                                <option value="0" selected disabled>Select Sub Type</option>
                                                 @foreach ($propertyTypeObj as $ar)
                                                     <option value="{{ $ar->id }}"
                                                         class="show-{{ $ar->main_type }} default-sub-type-hide d-none">
@@ -195,7 +199,7 @@
                                                     class="text-error">*</span></label>
                                             <select name="is_complete" id="is_complete" class="form-control"
                                                 data-required="yes">
-                                                <option value="0">Select Completion Status</option>
+                                                <option value="0" selected disabled>Select Completion Status</option>
                                                 <option value="1">Ready</option>
                                                 <option value="2">Secondary</option>
                                                 <option value="3">Off Plan</option>
@@ -254,8 +258,7 @@
                                                 data-required="yes">
                                                 <option value="0">Payment Plan</option>
                                                 @foreach ($paymentPlanObj as $ar)
-                                                    <option value="{{ $ar->id }}"
-                                                        class="{{ $ar->name }}">
+                                                    <option value="{{ $ar->id }}" class="{{ $ar->name }}">
                                                         {{ $ar->name }}</option>
                                                 @endforeach
                                             </select>
@@ -517,7 +520,7 @@
                                         </label>
                                         <select name="is_luxury_property" id="is_luxury_property"
                                             class=" @error('is_luxury_property') is-invalid @enderror" required>
-                                            <option value="" selected disabled>-- Select Option --</option>
+                                            <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                                         </select>
@@ -533,7 +536,7 @@
                                         </label>
                                         <select name="is_hot_offer" id="is_hot_offer"
                                             class=" @error('is_hot_offer') is-invalid @enderror" required>
-                                            <option value="" selected disabled>-- Select Option --</option>
+                                            <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                                         </select>

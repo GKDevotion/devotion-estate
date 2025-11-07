@@ -12,7 +12,7 @@ class BuyPropertiesController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->get('perPage', 4); // Default 4 per page (can be adjusted)
-        $query = Properties::where('purpose', 0)->where('status', 1);
+        $query = Properties::where('purpose', 1)->where('status', 1);
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 
