@@ -143,7 +143,6 @@
                                             <label class="mb-0" for="purpose">Purpose <span class="text-error">*</span></label>
                                             <select name="purpose" id="purpose" class="form-control @error('purpose') is-invalid @enderror" data-required="yes">
                                                 <option value=""> Select Purpose </option>
-                                                <option value="0" {{ old('purpose', $data->purpose ?? '') == '0' ? 'selected' : '' }}>All</option>
                                                 <option value="1" {{ old('purpose', $data->purpose ?? '') == '1' ? 'selected' : '' }}>Sale</option>
                                                 <option value="2" {{ old('purpose', $data->purpose ?? '') == '2' ? 'selected' : '' }}>Rent</option>
                                                 <option value="3" {{ old('purpose', $data->purpose ?? '') == '3' ? 'selected' : '' }}>Land</option>
@@ -189,8 +188,8 @@
                                             <label class="mb-0" for="is_furnish">Furnished Status <span class="text-error">*</span></label>
                                             <select name="is_furnish" id="is_furnish" class="form-control @error('is_furnish') is-invalid @enderror" data-required="yes">
                                                 <option value="">Select Furnished Status</option>
-                                                <option value="0" {{ old('is_furnish', $data->is_furnish ?? '') == '0' ? 'selected' : '' }}>Furnished</option>
-                                                <option value="1" {{ old('is_furnish', $data->is_furnish ?? '') == '1' ? 'selected' : '' }}>Unfurnished</option>
+                                                <option value="0" {{ old('is_furnish', $data->is_furnish ?? '') == 0 ? 'selected' : '' }}>Furnished</option>
+                                                <option value="1" {{ old('is_furnish', $data->is_furnish ?? '') == 1 ? 'selected' : '' }}>Unfurnished</option>
                                             </select>
 
                                             @error('is_furnish')
@@ -203,9 +202,9 @@
                                             <label class="mb-0" for="is_complete">Completion Status <span class="text-error">*</span></label>
                                             <select name="is_complete" id="is_complete" class="form-control @error('is_complete') is-invalid @enderror" data-required="yes">
                                                 <option value="">Select Completion Status</option>
-                                                <option value="1" {{ old('is_complete', $data->is_complete ?? '') == '1' ? 'selected' : '' }}>Ready</option>
-                                                <option value="2" {{ old('is_complete', $data->is_complete ?? '') == '2' ? 'selected' : '' }}>Secondary</option>
-                                                <option value="3" {{ old('is_complete', $data->is_complete ?? '') == '3' ? 'selected' : '' }}>Off Plan</option>
+                                                <option value="1" {{ old('is_complete', $data->is_complete ?? '') == 1 ? 'selected' : '' }}>Ready</option>
+                                                <option value="2" {{ old('is_complete', $data->is_complete ?? '') == 2 ? 'selected' : '' }}>Secondary</option>
+                                                <option value="3" {{ old('is_complete', $data->is_complete ?? '') == 3 ? 'selected' : '' }}>Off Plan</option>
                                             </select>
 
                                             @error('is_complete')
@@ -215,10 +214,10 @@
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none purpose-for-rent">
                                             <label class="mb-0" for="is_occupancy">Occupancy Status <span class="text-error">*</span></label>
-                                            <select name="is_occupancy" id="is_occupancy" class="form-control @error('is_occupancy') is-invalid @enderror" data-required="yes">
+                                            <select name="is_occupancy" id="is_occupancy" class="form-control" data-required="yes">
                                                 <option value=""> Select Occupancy Status </option>
-                                                <option value="1" {{ old('is_occupancy', $data->is_occupancy ?? '') == '1' ? 'selected' : '' }}>Vacant</option>
-                                                <option value="2" {{ old('is_occupancy', $data->is_occupancy ?? '') == '2' ? 'selected' : '' }}>Rented</option>
+                                                <option value="1" {{ old('is_occupancy', $data->is_occupancy ?? '') == 1 ? 'selected' : '' }}>Vacant</option>
+                                                <option value="2" {{ old('is_occupancy', $data->is_occupancy ?? '') == 2 ? 'selected' : '' }}>Rented</option>
                                             </select>
 
                                             @error('is_occupancy')
@@ -241,13 +240,13 @@
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
                                             <label class="mb-0" for="off_plan_sale_type">Off-Plan Sale Type <span class="text-error">*</span></label>
-                                            <select name="off_plan_sale_type" id="off_plan_sale_type" class="form-control @error('off_plan_sale_type') is-invalid @enderror" data-required="yes">
+                                            <select name="off_plan_sale_type" id="off_plan_sale_type" class="form-control" data-required="yes">
                                                 <option value="">Select Sale Type</option>
                                                 <option value="1"
-                                                    {{ old('off_plan_sale_type', $data->off_plan_sale_type ?? '') == '1' ? 'selected' : '' }}>
+                                                    {{ old('off_plan_sale_type', $data->off_plan_sale_type ?? '') == 1 ? 'selected' : '' }}>
                                                     Initial Sale</option>
                                                 <option value="2"
-                                                    {{ old('off_plan_sale_type', $data->off_plan_sale_type ?? '') == '2' ? 'selected' : '' }}>
+                                                    {{ old('off_plan_sale_type', $data->off_plan_sale_type ?? '') == 2 ? 'selected' : '' }}>
                                                     ReSale</option>
                                             </select>
 
@@ -257,13 +256,23 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
-                                            <label class="mb-0" for="completed_date">Expected Completion Date <span
-                                                    class="text-error">*</span></label>
-                                            <input type="date"
-                                                class="form-control mb-2 @error('completed_date') is-invalid @enderror" id="completed_date" name="completed_date" data-required="yes" placeholder="Expected Completion Date" value="{{ old('completed_date', isset($data->completed_date) ? \Carbon\Carbon::parse($data->completed_date)->format('Y-m-d') : '') }}">
+                                            <label class="mb-0" for="completed_date">Expected Completion Date <span class="text-error">*</span></label>
+                                            <input type="date" class="form-control mb-2" id="completed_date" name="completed_date" data-required="yes" placeholder="Expected Completion Date" value="{{ old('completed_date', $data->completed_date ?? '') }}">
                                             @error('completed_date')
                                                 <div class="error text-error">{{ $message }}</div>
                                             @enderror
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
+                                            <label class="mb-0" for="payment_plan_id">Payment Plan <span class="text-error">*</span></label>
+                                            <select name="payment_plan_id" id="payment_plan_id" class="form-control"
+                                                data-required="yes">
+                                                <option value="0">Payment Plan</option>
+                                                @foreach ($paymentPlanArr as $key=>$val)
+                                                    <option value="{{ $key }}" {{ $data->payment_plan_id ?? 0 == $key ? 'selected' : '' }} class="{{ $val }}"> {{ $val }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="error text-error"></div>
                                         </div>
                                     </div>
                                 </fieldset>

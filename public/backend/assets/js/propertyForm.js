@@ -78,14 +78,14 @@ $(document).on( "ready", function() {
      *
      */
 
-    
+
 });
 
 function showOffPlanContent(){
 
-    var selectPupose = $("#purpose option:selected").val();
-    var selectOffPlan = $("#is_complete option:selected").val();
-    if( selectOffPlan == 3 && selectPupose == 0 ){
+    var selectPurpose = $("#purpose option:selected").val();
+    var completionStatus = $("#is_complete option:selected").val();
+    if( completionStatus == 3 && selectPurpose == 1 ){
         $(".is-complete-offplan").removeClass("d-none");
     } else {
         $(".is-complete-offplan").addClass("d-none");
