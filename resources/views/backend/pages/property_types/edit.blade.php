@@ -22,13 +22,13 @@
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         <li><a href="{{ route('admin.property-types.index') }}">All Property Feature</a></li>
-                        <li><span>Create Property Feature</span></li>
+                        <li><span>Edit Property Types</span></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3">
                 <p class="float-end">
-                    @if (Auth::guard('admin')->user()->can('property-types.create'))
+                    @if (Auth::guard('admin')->user()->can('property-types.edit'))
                         <button type="button" class="btn btn-success pr-4 pl-4" onclick="$('#submitForm').click();">
                             <i class="fa fa-save"></i> Save
                         </button>
@@ -49,20 +49,18 @@
         <div class="row">
             <!-- data table start -->
             <div class="col-12 mt-3">
-                <h3 class="pb-3">Create Location</h3>
+                <h3 class="pb-3">Edit Property Type</h3>
                 <div class="card">
                     <div class="card-body">
 
                         <form action="{{ route('admin.property-types.update', $data->id) }}"
                             onsubmit="return onSubmitValidateForm();" method="POST">
-                           
+                            @method('PUT')
                             @csrf
 
                             <div class="row">
                                 <div class="col-md-6 offset-3">
                                     <div class="row">
-
-
 
                                         <div class="col-md-12 mb-2">
                                             <div class="form-group">
@@ -70,7 +68,7 @@
                                                         class="text-error">*</span></label>
                                                 <select class="form-control" id="main_type" name="main_type"
                                                     data-required="yes" required>
-                                                    <option value="">Select Main Type</option>
+                                                    <option value="" selected disabled>Select Main Type</option>
                                                     <option value="0"
                                                         {{ old('main_type', $data->main_type) == '0' ? 'selected' : '' }}>
                                                         All</option>

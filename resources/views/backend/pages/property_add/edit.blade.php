@@ -66,12 +66,15 @@
                                                         class="text-error">*</span></label>
                                                 <select class="form-control" id="main_type" name="main_type"
                                                     data-required="yes" required>
-                                                    <option value="">-- Select Main Type --</option>
+                                                    <option value="">Select Main Type</option>
                                                     <option value="0"
                                                         {{ old('main_type', $data->main_type) == '0' ? 'selected' : '' }}>
+                                                        All</option>
+                                                    <option value="0"
+                                                        {{ old('main_type', $data->main_type) == '1' ? 'selected' : '' }}>
                                                         Residential</option>
                                                     <option value="1"
-                                                        {{ old('main_type', $data->main_type) == '1' ? 'selected' : '' }}>
+                                                        {{ old('main_type', $data->main_type) == '2' ? 'selected' : '' }}>
                                                         Commercial</option>
                                                 </select>
                                             </div>

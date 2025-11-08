@@ -381,7 +381,7 @@ class PropertiesController extends Controller
         if (is_null($this->user) || !$this->user->can('properties.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
-
+        $paymentPlanObj = PaymentPlan::select('id', 'name')->where( 'status', 1 )->get();
         $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where('status', 1)->get();
         $locationObj = Location::select('id', 'name')->where('status', 1)->get();
         $agentObj = User::select('id', 'first_name', 'last_name')->where([
@@ -399,7 +399,7 @@ class PropertiesController extends Controller
             }
         }
 
-        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap' ));
+        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj','paymentPlanObj', 'locationObj', 'agentObj', 'featureMap' ));
     }
 
     /**

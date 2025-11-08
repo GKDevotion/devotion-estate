@@ -63,8 +63,12 @@ class PropertyTypeController extends Controller
             ->addColumn('id', function(PropertyType $ar) {
                 return $ar->id;
             })
-            ->addColumn('main_type', function(PropertyType $ar) {
-                return $ar->main_type == 0 ? 'Residential' : 'Commercial';
+            ->addColumn('main_type', function (PropertyType $ar) {
+                return match ($ar->main_type) {
+                    0 => 'All',
+                    1 => 'Residential',
+                    2 => 'Commercial'
+                };
             })
             ->addColumn('name', function(PropertyType $ar) {
                 return $ar->name;
@@ -236,14 +240,14 @@ class PropertyTypeController extends Controller
 
         // Validation Data
         $request->validate([
-             'main_type' => 'required|in:0,1',
+            'main_type' => 'required|in:0,1',
             'name' => 'required',
             'description' => 'required',
             'sort_order' => 'required',
         ]);
 
         // Update Old Feature data
-    $location = PropertyType::find($id);
+        $location = PropertyType::findOrFail($id);
         $location->admin_id = $this->user->id;
         $location->main_type = $request->main_type;
         $location->name = $request->name;

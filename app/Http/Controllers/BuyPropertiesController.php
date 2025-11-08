@@ -20,12 +20,12 @@ class BuyPropertiesController extends Controller
         $locationObj = Location::select('id', 'name')->where('status', 1)->get();
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
 
-        // Fetch Residential (main_type = 0)
+        // Fetch Residential (main_type = 1)
         $residentialTypes = PropertyType::where('main_type', 1)
             ->where('status', 1)
             ->get();
 
-        // Fetch Commercial (main_type = 1)
+        // Fetch Commercial (main_type = 2)
         $commercialTypes = PropertyType::where('main_type', 2)
             ->where('status', 1)
             ->get();
