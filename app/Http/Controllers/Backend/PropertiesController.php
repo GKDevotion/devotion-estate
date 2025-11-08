@@ -399,7 +399,9 @@ class PropertiesController extends Controller
             }
         }
 
-        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap' ));
+        $paymentPlanArr = PaymentPlan::where( 'status', 1 )->pluck('name', 'id');//->select('id', 'name')->get();
+
+        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap', 'paymentPlanArr' ));
     }
 
     /**

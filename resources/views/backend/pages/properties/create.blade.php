@@ -251,7 +251,7 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-4 col-sm-12 mb-2">
+                                        <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
                                             <label class="mb-0" for="payment_plan_id">Payment Plan <span
                                                     class="text-error">*</span></label>
                                             <select name="payment_plan_id" id="payment_plan_id" class="form-control"
