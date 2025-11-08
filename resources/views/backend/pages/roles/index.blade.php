@@ -105,7 +105,7 @@ Role Page - Admin Panel
                                                     @endif
 
                                                     @if (Auth::guard('admin')->user()->can('admin.edit'))
-                                                        <button class="btn btn-edit text-white delete-record dropdown-item" data-id="{{$role->id}}" data-title="{{ pgTitle( $role->slug ) }}" data-segment="role">
+                                                        <button class="btn btn-edit text-white delete-record dropdown-item" data-id="{{$role->id}}" data-title="{{ pgTitle( $role->slug ) }}" data-segment="roles">
                                                             <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                                                         </button>
                                                     @endif

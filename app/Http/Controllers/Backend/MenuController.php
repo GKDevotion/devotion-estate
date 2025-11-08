@@ -110,11 +110,22 @@ class MenuController extends Controller
             ];
 
             foreach( $guardNameArr as $guard_name ){
-                $permission = Permission::create(
+                // $permission = Permission::create(
+                //     [
+                //         'name' => $request->group_name.".".$permission,
+                //         'group_name' => $request->group_name,
+                //         'guard_name' => $guard_name
+                //     ]
+                // );
+                $permission = Permission::updateOrCreate(
                     [
-                        'name' => $request->group_name.".".$permission,
+                        // These columns are used to find the existing record
+                        'name' => $request->group_name . "." . $permission,
+                    ],
+                    [
+                        // These columns are updated or set when creating
                         'group_name' => $request->group_name,
-                        'guard_name' => $guard_name
+                        'guard_name' => $guard_name,
                     ]
                 );
 

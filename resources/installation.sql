@@ -11,3 +11,7 @@ ALTER TABLE `properties` CHANGE `purpose` `purpose` TINYINT(1) NOT NULL DEFAULT 
 ALTER TABLE `properties` CHANGE `type` `type` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: All, 1: Residential, 2: Commercial';
 ALTER TABLE `properties` ADD `payment_plan_id` INT NULL DEFAULT NULL COMMENT '0: NO, >0 = Reference for the payment plan table' AFTER `completed_date`;
 ALTER TABLE `properties` ADD INDEX `payment_plan_IDX` (`payment_plan_id`);
+
+/* 08-11-2025 */
+ALTER TABLE `admins` ADD `login` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Disabled, 1: Enabled' AFTER `status`;
+ALTER TABLE `admins` ADD `company_id` INT NOT NULL AFTER `gender`;

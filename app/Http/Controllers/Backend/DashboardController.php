@@ -24,9 +24,9 @@ class DashboardController extends Controller
 
     public function index()
     {
-        if (is_null($this->user) || !$this->user->can('dashboard.view')) {
-            abort(403, 'Sorry !! You are Unauthorized to view dashboard !');
-        }
+        // if (is_null($this->user) || !$this->user->can('dashboard.view')) {
+        //     abort(403, 'Sorry !! You are Unauthorized to view dashboard !');
+        // }
 
         $aTitle = pgTitle("Devotion Real Estate - Dubai UAE ( Holding Company )");
         $hTitle = pgTitle("Devotion Group");
