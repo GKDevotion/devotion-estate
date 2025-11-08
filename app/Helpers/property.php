@@ -60,6 +60,9 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->location_id = $request->location_id;
             $propertyDataObj->agent_id  = $request->agent_id;
             $propertyDataObj->publish = 0;
+            $propertyDataObj->beds = $request->beds;
+            $propertyDataObj->baths = $request->baths;
+            $propertyDataObj->garages = $request->garages;
             $propertyDataObj->area = $request->area;
             $propertyDataObj->price = $request->price;
             $propertyDataObj->status = 0;
@@ -70,37 +73,53 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
         //2. Job Information -->
         if ($request->step == 2 || $request->_method == "PUT") {
 
-            $propertyDataObj->beds = $request->beds;
-            $propertyDataObj->baths = $request->baths;
             // --- Store property flags safely ---
             $propertyDataObj->is_new_property = $request->has('is_new_property') ? 1 : 0;
             $propertyDataObj->is_featured_property = $request->has('is_featured_property') ? 1 : 0;
             $propertyDataObj->is_luxury_property = $request->has('is_luxury_property') ? 1 : 0;
             $propertyDataObj->is_hot_offer = $request->has('is_hot_offer') ? 1 : 0;
 
-            // Save before mapping features
+            // Save property data first
             $propertyDataObj->save();
-            if (COUNT($request->feature_id) > 0) {
 
-                //reset Property Feature Map status
+            // --- Handle property features dynamically ---
+            if (!empty($request->feature_id)) {
+
+                // Reset previous property-feature mappings
                 PropertyFeatureMap::where('property_id', $property_id)->update(['status' => 0]);
 
-                // Remove null and empty values
-                $featureIds = array_filter($request->feature_id, function ($value) {
-                    return !is_null($value) && $value !== '';
-                });
+                // Convert CKEditor input text into an array of feature names
+                // This handles input separated by commas, new lines, or both
+                $features = preg_split('/[\r\n,]+/', $request->feature_id);
 
-                foreach ($featureIds as $id) {
+                // Trim and remove empty values
+                $features = array_filter(array_map('trim', $features));
 
-                    PropertyFeatureMap::updateOrCreate(
-                        [
-                            'property_id' => $property_id,
-                            'feature_id' => $id,
-                        ], // Search criteria
-                        [
-                            'status' => 1
-                        ] // Attributes to update or create
-                    );
+                // Get the current max sort_order (to continue sequence)
+                $lastSortOrder = PropertyFeature::max('sort_order') ?? 0;
+
+                foreach ($features as $featureName) {
+                    if ($featureName !== '') {
+
+                        // Create the feature if it doesn’t exist
+                        $feature = PropertyFeature::firstOrCreate(
+                            ['name' => ucfirst(strtolower($featureName))], // normalize text
+                            ['admin_id'    => 1,], // Default admin
+                            ['sort_order'  => $lastSortOrder += 2], // increment by 2
+                            ['status' => 1]
+                        );
+
+                        // Map the feature to the property
+                        PropertyFeatureMap::updateOrCreate(
+                            [
+                                'property_id' => $property_id,
+                                'feature_id'  => $feature->id,
+                            ],
+                            [
+                                'status' => 1,
+                            ]
+                        );
+                    }
                 }
             }
         }
@@ -281,6 +300,36 @@ function getSearchByProperties(array $filters, $perPage = 4)
     if (!empty($filters['location_id'])) {
         $query->where('location_id', $filters['location_id']);
     }
+
+    // ✅ Keyword search across multiple columns and related tables
+    if (!empty($filters['keyword'])) {
+        $keyword = trim($filters['keyword']);
+
+        $query->where(function ($q) use ($keyword) {
+            // Search in main property fields
+            $q->where('name', 'like', "%{$keyword}%")
+              ->orWhere('slug', 'like', "%{$keyword}%")
+              ->orWhere('price', 'like', "%{$keyword}%")
+              ->orWhere('description', 'like', "%{$keyword}%")
+              ->orWhere('area', 'like', "%{$keyword}%");
+
+            $q->orWhereHas('location', function ($locQuery) use ($keyword) {
+                $locQuery->where('name', 'like', "%{$keyword}%");
+            });
+
+            // 🔹 Match property purpose (0: All, 1: Sale, 2: Rent)
+            if ($keyword === 'all') {
+                $q->orWhere('purpose', 0);
+            } elseif ($keyword === 'sale') {
+                $q->orWhere('purpose', 1);
+            } elseif ($keyword === 'rent') {
+                $q->orWhere('purpose', 2);
+            }
+
+ 
+        });
+    }
+
 
     // ✅ Pagination
     $properties = $query->paginate($perPage)->withQueryString();

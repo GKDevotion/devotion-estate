@@ -21,7 +21,7 @@
                     <h4 class="page-title pull-left d-none">Property Type</h4>
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('admin.property-types.index') }}">All Property Feature</a></li>
+                        <li><a href="{{ route('admin.property-types.index') }}">All Property Types</a></li>
                         <li><span>Edit Property Types</span></li>
                     </ul>
                 </div>

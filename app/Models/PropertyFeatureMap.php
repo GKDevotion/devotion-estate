@@ -20,6 +20,7 @@ class PropertyFeatureMap extends Model
     protected $fillable = [
         'property_id',
         'feature_id',
+        'name',
         'status',
     ];
 

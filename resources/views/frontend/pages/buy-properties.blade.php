@@ -24,8 +24,7 @@
 
     <div class="container my-5">
 
-   @include('frontend.layouts.partials.property-search', ['type' => 'sale'])
-
+        @include('frontend.layouts.partials.property-search', ['type' => 'sale'])
 
 
         <div class="row align-items-center mb-3">

@@ -94,42 +94,58 @@
                             <p class="text-center mb-2">Provide following details of property.</p>
 
 
-                            <form id="PropertyStepForm1" onsubmit="return onSubmitValidateForm();" method="POST" autocomplete="off">
+                            <form id="PropertyStepForm1" onsubmit="return onSubmitValidateForm();" method="POST"
+                                autocomplete="off">
                                 @csrf
 
                                 <input type="hidden" value="1" name="step">
-                                <input type="hidden" value="{{$data->id}}" name="id" class="property-id">
+                                <input type="hidden" value="{{ $data->id }}" name="id" class="property-id">
 
                                 <fieldset>
                                     <legend>Property Information</legend>
                                     <div class="row">
 
                                         <div class="col-md-6 col-sm-12 mb-2">
-                                            <label class="mb-0" for="name">Name/Title <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="name" name="name" placeholder="Property Name/Title" value="{{ old('name', $data->name) }}">
+                                            <label class="mb-0" for="name">Name/Title <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="name" name="name" placeholder="Property Name/Title"
+                                                value="{{ old('name', $data->name) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-6 col-sm-12 mb-2">
-                                            <label class="mb-0" for="h1_tag">H1 Tag <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="h1_tag" name="h1_tag" placeholder="H1 tag" value="{{ old('h1_tag', $data->h1_tag) }}">
+                                            <label class="mb-0" for="h1_tag">H1 Tag <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="h1_tag" name="h1_tag" placeholder="H1 tag"
+                                                value="{{ old('h1_tag', $data->h1_tag) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-6 col-sm-12 mb-2">
-                                            <label class="mb-0" for="seo_title">SEO Title <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="seo_title" name="seo_title" placeholder="Property SEO Title" value="{{ old('seo_title', $data->seo_title) }}">
+                                            <label class="mb-0" for="seo_title">SEO Title <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="seo_title" name="seo_title" placeholder="Property SEO Title"
+                                                value="{{ old('seo_title', $data->seo_title) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-6 col-sm-12 mb-2">
-                                            <label class="mb-0" for="meta_description">Meta Desccription <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="meta_description" name="meta_description" placeholder="SEO Meta Description" value="{{ old('meta_description', $data->meta_description) }}">
+                                            <label class="mb-0" for="meta_description">Meta Desccription <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="meta_description" name="meta_description"
+                                                placeholder="SEO Meta Description"
+                                                value="{{ old('meta_description', $data->meta_description) }}">
                                             <div class="error text-error"></div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 mb-2">
-                                            <label class="mb-0" for="description">Description <span class="text-error">*</span></label>
-                                            <textarea class="ckeditor form-control @error('description') is-invalid @enderror" id="description"  name="description" rows="16" placeholder="Enter description here...">{{ old('description', $data->description ?? '') }}</textarea>
+                                            <label class="mb-0" for="description">Description <span
+                                                    class="text-error">*</span></label>
+                                            <textarea class="ckeditor form-control" id="description"
+                                                name="description" rows="16" placeholder="Enter description here...">{{ old('description', $data->description ?? '') }}</textarea>
 
                                             @error('description')
                                                 <div class="error text-error">{{ $message }}</div>
@@ -140,12 +156,20 @@
 
                                     <div class="row">
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="purpose">Purpose <span class="text-error">*</span></label>
-                                            <select name="purpose" id="purpose" class="form-control @error('purpose') is-invalid @enderror" data-required="yes">
-                                                <option value=""> Select Purpose </option>
-                                                <option value="1" {{ old('purpose', $data->purpose ?? '') == '1' ? 'selected' : '' }}>Sale</option>
-                                                <option value="2" {{ old('purpose', $data->purpose ?? '') == '2' ? 'selected' : '' }}>Rent</option>
-                                                <option value="3" {{ old('purpose', $data->purpose ?? '') == '3' ? 'selected' : '' }}>Land</option>
+                                            <label class="mb-0" for="purpose">Purpose <span
+                                                    class="text-error">*</span></label>
+                                            <select name="purpose" id="purpose" class="form-control"
+                                                data-required="yes">
+                                                <option value="" selected disabled> Select Purpose </option>
+                                                <option value="1"
+                                                    {{ old('purpose', $data->purpose ?? '') == 1 ? 'selected' : '' }}>
+                                                    Sale</option>
+                                                <option value="2"
+                                                    {{ old('purpose', $data->purpose ?? '') == 2 ? 'selected' : '' }}>
+                                                    Rent</option>
+                                                <option value="3"
+                                                    {{ old('purpose', $data->purpose ?? '') == 3 ? 'selected' : '' }}>
+                                                    Land</option>
                                             </select>
 
                                             @error('purpose')
@@ -155,12 +179,20 @@
 
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="type">Type <span class="text-error">*</span></label>
-                                            <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" data-required="yes">
-                                                <option value="">Select Type</option>
-                                                <option value="0" {{ old('type', $data->type ?? '') == '0' ? 'selected' : '' }}>All</option>
-                                                <option value="1" {{ old('type', $data->type ?? '') == '1' ? 'selected' : '' }}>Residential</option>
-                                                <option value="2" {{ old('type', $data->type ?? '') == '2' ? 'selected' : '' }}>Commercial</option>
+                                            <label class="mb-0" for="type">Type <span
+                                                    class="text-error">*</span></label>
+                                            <select name="type" id="type" class="form-control"
+                                                data-required="yes">
+                                                <option value="" selected disabled>Select Type</option>
+                                                <option value="0"
+                                                    {{ old('type', $data->type ?? '') == 0 ? 'selected' : '' }}>All
+                                                </option>
+                                                <option value="1"
+                                                    {{ old('type', $data->type ?? '') == 1 ? 'selected' : '' }}>
+                                                    Residential</option>
+                                                <option value="2"
+                                                    {{ old('type', $data->type ?? '') == 2 ? 'selected' : '' }}>
+                                                    Commercial</option>
                                             </select>
 
                                             @error('type')
@@ -170,11 +202,16 @@
 
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="sub_type_id">Sub Type <span class="text-error">*</span></label>
-                                            <select name="sub_type_id" id="sub_type_id" class="form-control @error('sub_type_id') is-invalid @enderror" data-required="yes">
+                                            <label class="mb-0" for="sub_type_id">Sub Type <span
+                                                    class="text-error">*</span></label>
+                                            <select name="sub_type_id" id="sub_type_id" class="form-control "
+                                                data-required="yes">
                                                 <option value="">Select Sub Type</option>
                                                 @foreach ($propertyTypeObj as $ar)
-                                                    <option value="{{ $ar->id }}" class="show-{{ $ar->main_type }} default-sub-type-hide d-none" {{ old('sub_type_id', $data->sub_type_id ?? '') == $ar->id ? 'selected' : '' }}>{{ $ar->name }}
+                                                    <option value="{{ $ar->id }}"
+                                                        class="show-{{ $ar->main_type }} default-sub-type-hide d-none"
+                                                        {{ old('sub_type_id', $data->sub_type_id ?? '') == $ar->id ? 'selected' : '' }}>
+                                                        {{ $ar->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -185,11 +222,17 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="is_furnish">Furnished Status <span class="text-error">*</span></label>
-                                            <select name="is_furnish" id="is_furnish" class="form-control @error('is_furnish') is-invalid @enderror" data-required="yes">
+                                            <label class="mb-0" for="is_furnish">Furnished Status <span
+                                                    class="text-error">*</span></label>
+                                            <select name="is_furnish" id="is_furnish" class="form-control"
+                                                data-required="yes">
                                                 <option value="">Select Furnished Status</option>
-                                                <option value="0" {{ old('is_furnish', $data->is_furnish ?? '') == 0 ? 'selected' : '' }}>Furnished</option>
-                                                <option value="1" {{ old('is_furnish', $data->is_furnish ?? '') == 1 ? 'selected' : '' }}>Unfurnished</option>
+                                                <option value="0"
+                                                    {{ old('is_furnish', $data->is_furnish ?? '') == 0 ? 'selected' : '' }}>
+                                                    Furnished</option>
+                                                <option value="1"
+                                                    {{ old('is_furnish', $data->is_furnish ?? '') == 1 ? 'selected' : '' }}>
+                                                    Unfurnished</option>
                                             </select>
 
                                             @error('is_furnish')
@@ -199,12 +242,20 @@
 
 
                                         <div class="col-md-4 col-sm-12 mb-2 purpose-for-sale">
-                                            <label class="mb-0" for="is_complete">Completion Status <span class="text-error">*</span></label>
-                                            <select name="is_complete" id="is_complete" class="form-control @error('is_complete') is-invalid @enderror" data-required="yes">
+                                            <label class="mb-0" for="is_complete">Completion Status <span
+                                                    class="text-error">*</span></label>
+                                            <select name="is_complete" id="is_complete" class="form-control"
+                                                data-required="yes">
                                                 <option value="">Select Completion Status</option>
-                                                <option value="1" {{ old('is_complete', $data->is_complete ?? '') == 1 ? 'selected' : '' }}>Ready</option>
-                                                <option value="2" {{ old('is_complete', $data->is_complete ?? '') == 2 ? 'selected' : '' }}>Secondary</option>
-                                                <option value="3" {{ old('is_complete', $data->is_complete ?? '') == 3 ? 'selected' : '' }}>Off Plan</option>
+                                                <option value="1"
+                                                    {{ old('is_complete', $data->is_complete ?? '') == 1 ? 'selected' : '' }}>
+                                                    Ready</option>
+                                                <option value="2"
+                                                    {{ old('is_complete', $data->is_complete ?? '') == 2 ? 'selected' : '' }}>
+                                                    Secondary</option>
+                                                <option value="3"
+                                                    {{ old('is_complete', $data->is_complete ?? '') == 3 ? 'selected' : '' }}>
+                                                    Off Plan</option>
                                             </select>
 
                                             @error('is_complete')
@@ -213,11 +264,17 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none purpose-for-rent">
-                                            <label class="mb-0" for="is_occupancy">Occupancy Status <span class="text-error">*</span></label>
-                                            <select name="is_occupancy" id="is_occupancy" class="form-control" data-required="yes">
+                                            <label class="mb-0" for="is_occupancy">Occupancy Status <span
+                                                    class="text-error">*</span></label>
+                                            <select name="is_occupancy" id="is_occupancy" class="form-control"
+                                                data-required="yes">
                                                 <option value=""> Select Occupancy Status </option>
-                                                <option value="1" {{ old('is_occupancy', $data->is_occupancy ?? '') == 1 ? 'selected' : '' }}>Vacant</option>
-                                                <option value="2" {{ old('is_occupancy', $data->is_occupancy ?? '') == 2 ? 'selected' : '' }}>Rented</option>
+                                                <option value="1"
+                                                    {{ old('is_occupancy', $data->is_occupancy ?? '') == 1 ? 'selected' : '' }}>
+                                                    Vacant</option>
+                                                <option value="2"
+                                                    {{ old('is_occupancy', $data->is_occupancy ?? '') == 2 ? 'selected' : '' }}>
+                                                    Rented</option>
                                             </select>
 
                                             @error('is_occupancy')
@@ -226,11 +283,17 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="ownership_status">Ownership Status <span class="text-error">*</span></label>
-                                            <select name="ownership_status" id="ownership_status" class="form-control @error('ownership_status') is-invalid @enderror" data-required="yes">
+                                            <label class="mb-0" for="ownership_status">Ownership Status <span
+                                                    class="text-error">*</span></label>
+                                            <select name="ownership_status" id="ownership_status" class="form-control"
+                                                data-required="yes">
                                                 <option value="">Select Ownership Status</option>
-                                                <option value="0" {{ old('ownership_status', $data->ownership_status ?? '') == '0' ? 'selected' : '' }}>Freehold</option>
-                                                <option value="1" {{ old('ownership_status', $data->ownership_status ?? '') == '1' ? 'selected' : '' }}>Leasehold</option>
+                                                <option value="0"
+                                                    {{ old('ownership_status', $data->ownership_status ?? '') == 0 ? 'selected' : '' }}>
+                                                    Freehold</option>
+                                                <option value="1"
+                                                    {{ old('ownership_status', $data->ownership_status ?? '') == 1 ? 'selected' : '' }}>
+                                                    Leasehold</option>
                                             </select>
 
                                             @error('ownership_status')
@@ -239,8 +302,10 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
-                                            <label class="mb-0" for="off_plan_sale_type">Off-Plan Sale Type <span class="text-error">*</span></label>
-                                            <select name="off_plan_sale_type" id="off_plan_sale_type" class="form-control" data-required="yes">
+                                            <label class="mb-0" for="off_plan_sale_type">Off-Plan Sale Type <span
+                                                    class="text-error">*</span></label>
+                                            <select name="off_plan_sale_type" id="off_plan_sale_type"
+                                                class="form-control" data-required="yes">
                                                 <option value="">Select Sale Type</option>
                                                 <option value="1"
                                                     {{ old('off_plan_sale_type', $data->off_plan_sale_type ?? '') == 1 ? 'selected' : '' }}>
@@ -256,20 +321,27 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
-                                            <label class="mb-0" for="completed_date">Expected Completion Date <span class="text-error">*</span></label>
-                                            <input type="date" class="form-control mb-2" id="completed_date" name="completed_date" data-required="yes" placeholder="Expected Completion Date" value="{{ old('completed_date', $data->completed_date ?? '') }}">
+                                            <label class="mb-0" for="completed_date">Expected Completion Date <span
+                                                    class="text-error">*</span></label>
+                                            <input type="date" class="form-control mb-2" id="completed_date"
+                                                name="completed_date" data-required="yes"
+                                                placeholder="Expected Completion Date"
+                                                value="{{ old('completed_date', $data->completed_date ?? '') }}">
                                             @error('completed_date')
                                                 <div class="error text-error">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
-                                            <label class="mb-0" for="payment_plan_id">Payment Plan <span class="text-error">*</span></label>
+                                            <label class="mb-0" for="payment_plan_id">Payment Plan <span
+                                                    class="text-error">*</span></label>
                                             <select name="payment_plan_id" id="payment_plan_id" class="form-control"
                                                 data-required="yes">
                                                 <option value="0">Payment Plan</option>
-                                                @foreach ($paymentPlanArr as $key=>$val)
-                                                    <option value="{{ $key }}" {{ $data->payment_plan_id ?? 0 == $key ? 'selected' : '' }} class="{{ $val }}"> {{ $val }}</option>
+                                                @foreach ($paymentPlanArr as $key => $val)
+                                                    <option value="{{ $key }}"
+                                                        {{ $data->payment_plan_id ?? 0 == $key ? 'selected' : '' }}
+                                                        class="{{ $val }}"> {{ $val }}</option>
                                                 @endforeach
                                             </select>
                                             <div class="error text-error"></div>
@@ -287,19 +359,27 @@
                                                 <span class="text-danger">(All Inclusive)</span>
                                                 <span class="text-error">*</span>
                                             </label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="price" name="price" placeholder="Enter Amount" value="{{ old('price', $data->price) }}">
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="price" name="price" placeholder="Enter Amount"
+                                                value="{{ old('price', $data->price) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-2 col-sm-12 mb-2 purpose-type-sale">
-                                            <label class="mb-0" for="is_finance_available">Financing Available <span class="text-error">*</span></label>
+                                            <label class="mb-0" for="is_finance_available">Financing Available <span
+                                                    class="text-error">*</span></label>
                                             <select name="is_finance_available" id="is_finance_available"
-                                                class="form-control @error('is_finance_available') is-invalid @enderror"
-                                                data-required="yes">
+                                                class="form-control" data-required="yes">
                                                 <option value="">Select Option</option>
-                                                <option value="1" {{ old('is_finance_available', $data->is_finance_available ?? '') == '1' ? 'selected' : '' }}>Yes</option>
-                                                <option value="2" {{ old('is_finance_available', $data->is_finance_available ?? '') == '2' ? 'selected' : '' }}>No</option>
-                                                <option value="0" {{ old('is_finance_available', $data->is_finance_available ?? '') == '0' ? 'selected' : '' }}>Not Sure</option>
+                                                <option value="1"
+                                                    {{ old('is_finance_available', $data->is_finance_available ?? '') == 1 ? 'selected' : '' }}>
+                                                    Yes</option>
+                                                <option value="2"
+                                                    {{ old('is_finance_available', $data->is_finance_available ?? '') == 2 ? 'selected' : '' }}>
+                                                    No</option>
+                                                <option value="0"
+                                                    {{ old('is_finance_available', $data->is_finance_available ?? '') == 0 ? 'selected' : '' }}>
+                                                    Not Sure</option>
                                             </select>
 
                                             @error('is_finance_available')
@@ -308,20 +388,84 @@
                                         </div>
 
 
-                                        <div class="col-md-5 col-sm-12 mb-2 purpose-type-sale">
+                                        <div class="col-md-7 col-sm-12 mb-2 purpose-type-sale">
                                             <label class="mb-0" for="finance_name">Finance Institute Name</label>
-                                            <input type="text" class="form-control mb-2" data-required="" id="finance_name" name="finance_name" placeholder="Finance Intitute Name" value="{{ old('finance_name', $data->finance_name) }}">
+                                            <input type="text" class="form-control mb-2" data-required=""
+                                                id="finance_name" name="finance_name" placeholder="Finance Intitute Name"
+                                                value="{{ old('finance_name', $data->finance_name) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
+
+                                        <div class="row mt-2">
+
+                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
+                                                <label class="mb-0" for="beds">Bedroom(s)</label>
+
+                                                <select name="beds" id="beds" class="form-control"
+                                                    data-required="yes">
+
+                                                    <option value="0"
+                                                        {{ old('beds', $data->beds ?? '') == 0 ? 'selected' : '' }}>
+                                                        studio</option>
+                                                    <option value="1"
+                                                        {{ old('beds', $data->beds ?? '') == 1 ? 'selected' : '' }}>
+                                                        1</option>
+                                                    <option value="2"
+                                                        {{ old('beds', $data->beds ?? '') == 2 ? 'selected' : '' }}>
+                                                        2</option>
+                                                    <option value="3"
+                                                        {{ old('beds', $data->beds ?? '') == 3 ? 'selected' : '' }}>
+                                                        3</option>
+                                                    <option value="4"
+                                                        {{ old('beds', $data->beds ?? '') == 4 ? 'selected' : '' }}>
+                                                        4</option>
+                                                    <option value="5"
+                                                        {{ old('beds', $data->beds ?? '') == 5 ? 'selected' : '' }}>
+                                                        5</option>
+
+
+                                                </select>
+                                                <div class="error text-error"></div>
+                                            </div>
+
+
+                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
+                                                <label class="mb-0" for="baths">Bathroom(s)</label>
+                                                <input type="number" class="form-control mb-2" data-required=""
+                                                    id="baths" name="baths" placeholder="0"
+                                                    value="{{ old('baths', $data->baths) }}">
+                                                <div class="error text-error"></div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
+                                                <label class="mb-0" for="garages">Garage(s)</label>
+                                                <input type="number" class="form-control mb-2" data-required=""
+                                                    id="garages" name="garages" placeholder="0"
+                                                    value="{{ old('garages', $data->garages) }}">
+                                                <div class="error text-error"></div>
+                                            </div>
+
+                                        </div>
+
                                         <div class="col-md-3 col-sm-12 mb-2 d-none purpose-type-rent">
-                                            <label class="mb-0" for="rent_frequency">Rent Frequency <span class="text-error">*</span></label>
-                                            <select name="rent_frequency" id="rent_frequency" class="form-control @error('rent_frequency') is-invalid @enderror" data-required="yes">
-                                                <option value="">-- Select Rent Frequency --</option>
-                                                <option value="1" {{ old('rent_frequency', $data->rent_frequency ?? '') == '1' ? 'selected' : '' }}>Daily</option>
-                                                <option value="2" {{ old('rent_frequency', $data->rent_frequency ?? '') == '2' ? 'selected' : '' }}>Weekly</option>
-                                                <option value="3" {{ old('rent_frequency', $data->rent_frequency ?? '') == '3' ? 'selected' : '' }}>Monthly</option>
-                                                <option value="4" {{ old('rent_frequency', $data->rent_frequency ?? '') == '4' ? 'selected' : '' }}>Yearly</option>
+                                            <label class="mb-0" for="rent_frequency">Rent Frequency <span
+                                                    class="text-error">*</span></label>
+                                            <select name="rent_frequency" id="rent_frequency" class="form-control"
+                                                data-required="yes">
+                                                <option value="">Select Rent Frequency</option>
+                                                <option value="1"
+                                                    {{ old('rent_frequency', $data->rent_frequency ?? '') == 1 ? 'selected' : '' }}>
+                                                    Daily</option>
+                                                <option value="2"
+                                                    {{ old('rent_frequency', $data->rent_frequency ?? '') == 2 ? 'selected' : '' }}>
+                                                    Weekly</option>
+                                                <option value="3"
+                                                    {{ old('rent_frequency', $data->rent_frequency ?? '') == 3 ? 'selected' : '' }}>
+                                                    Monthly</option>
+                                                <option value="4"
+                                                    {{ old('rent_frequency', $data->rent_frequency ?? '') == 4 ? 'selected' : '' }}>
+                                                    Yearly</option>
                                             </select>
 
                                             @error('rent_frequency')
@@ -330,31 +474,48 @@
                                         </div>
 
                                         <div class="col-md-3 col-sm-12 mb-2 d-none purpose-type-rent">
-                                            <label class="mb-0" for="rent_contract_period">Minimum Contract Period (Months) <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="rent_contract_period" name="rent_contract_period" placeholder="Minimum Contract Period (Months)" value="{{ old('rent_contract_period', $data->rent_contract_period) }}">
+                                            <label class="mb-0" for="rent_contract_period">Minimum Contract Period
+                                                (Months) <span class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="rent_contract_period" name="rent_contract_period"
+                                                placeholder="Minimum Contract Period (Months)"
+                                                value="{{ old('rent_contract_period', $data->rent_contract_period) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-3 col-sm-12 mb-2 d-none purpose-type-rent">
-                                            <label class="mb-0" for="rent_notice_period">Vacating Notice Period (Months) <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="rent_notice_period" name="rent_notice_period" placeholder="Vacating Notice Period (Months)" value="{{ old('rent_notice_period', $data->rent_notice_period) }}">
+                                            <label class="mb-0" for="rent_notice_period">Vacating Notice Period (Months)
+                                                <span class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="rent_notice_period" name="rent_notice_period"
+                                                placeholder="Vacating Notice Period (Months)"
+                                                value="{{ old('rent_notice_period', $data->rent_notice_period) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-3 col-sm-12 mb-2 d-none purpose-type-rent">
-                                            <label class="mb-0" for="maintenance_fees">Maintenance Fee (AED) <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="maintenance_fees" name="maintenance_fees" placeholder="Maintenance Fee (AED)" value="{{ old('maintenance_fees', $data->maintenance_fees) }}">
+                                            <label class="mb-0" for="maintenance_fees">Maintenance Fee (AED) <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="maintenance_fees" name="maintenance_fees"
+                                                placeholder="Maintenance Fee (AED)"
+                                                value="{{ old('maintenance_fees', $data->maintenance_fees) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-3 col-sm-12 mb-2 d-none purpose-type-rent">
-                                            <label class="mb-0" for="maintenance_paid">Maintenance Paid By <span class="text-error">*</span></label>
+                                            <label class="mb-0" for="maintenance_paid">Maintenance Paid By <span
+                                                    class="text-error">*</span></label>
                                             <select name="maintenance_paid" id="maintenance_paid"
                                                 class="form-control @error('maintenance_paid') is-invalid @enderror"
                                                 data-required="yes">
                                                 <option value="">Select Payer</option>
-                                                <option value="1" {{ old('maintenance_paid', $data->maintenance_paid ?? '') == '1' ? 'selected' : '' }}>Landlord</option>
-                                                <option value="2" {{ old('maintenance_paid', $data->maintenance_paid ?? '') == '2' ? 'selected' : '' }}>Tenant</option>
+                                                <option value="1"
+                                                    {{ old('maintenance_paid', $data->maintenance_paid ?? '') == 1 ? 'selected' : '' }}>
+                                                    Landlord</option>
+                                                <option value="2"
+                                                    {{ old('maintenance_paid', $data->maintenance_paid ?? '') == 2 ? 'selected' : '' }}>
+                                                    Tenant</option>
                                             </select>
 
                                             @error('maintenance_paid')
@@ -369,26 +530,38 @@
                                     <legend>Property Other Information</legend>
                                     <div class="row">
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="area">Area(Square Feet.) <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="area" name="area" placeholder="Area (Square Feet.)" value="{{ old('area', $data->area) }}">
+                                            <label class="mb-0" for="area">Area(Square Feet.) <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="area" name="area" placeholder="Area (Square Feet.)"
+                                                value="{{ old('area', $data->area) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="rera_number">RERA Number <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="rera_number" name="rera_number" placeholder="Rera Number" value="{{ old('rera_number', $data->rera_number) }}">
+                                            <label class="mb-0" for="rera_number">RERA Number <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="rera_number" name="rera_number" placeholder="Rera Number"
+                                                value="{{ old('rera_number', $data->rera_number) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="permit_number">Permit Number <span class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes" id="permit_number" name="permit_number" placeholder="Permit Number" value="{{ old('permit_number', $data->permit_number) }}">
+                                            <label class="mb-0" for="permit_number">Permit Number <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="permit_number" name="permit_number" placeholder="Permit Number"
+                                                value="{{ old('permit_number', $data->permit_number) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="location_id">Location <span class="text-error">*</span></label>
-                                            <select name="location_id" id="location_id" class="form-control @error('location_id') is-invalid @enderror" data-required="yes">
+                                            <label class="mb-0" for="location_id">Location <span
+                                                    class="text-error">*</span></label>
+                                            <select name="location_id" id="location_id"
+                                                class="form-control @error('location_id') is-invalid @enderror"
+                                                data-required="yes">
                                                 <option value="">Select Location</option>
                                                 @foreach ($locationObj as $ar)
                                                     <option value="{{ $ar->id }}"
@@ -461,24 +634,24 @@
                                 <input type="hidden" value="2" name="step">
                                 <input type="hidden" value="" name="id" class="property-id">
 
-                                <ul class="nested">
-                                    <div class="row">
-                                        @foreach (getPropertyFeatures() as $ar)
-                                            <div class="col-md-3 col-sm-12">
-                                                <li class="child-nested list-unstyled">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="feature_id[]" id="property_feature_{{ $ar->id }}" {{in_array( $ar->id, $featureMap ) ? 'checked' : ''}} value="{{ $ar->id }}">
-                                                        <label class="form-check-label mb-0"
-                                                            for="property_feature_{{ $ar->id }}"
-                                                            oninput="trackChanges()">
-                                                            {{ $ar->name }}
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </ul>
+                                @php
+                                    // Get all active feature names
+                                    $allFeatures = getPropertyFeatures()->pluck('name', 'id');
+
+                                    // Get the names of features mapped to this property
+                                    $selectedFeatures = \App\Models\PropertyFeature::whereIn('id', $featureMap)
+                                        ->pluck('name')
+                                        ->implode(', ');
+                                @endphp
+
+                                <div class="col-md-12 col-sm-12 mb-2">
+                                    <label class="form-check-label mb-2">Property Features</label>
+                                    <textarea class="ckeditor form-control" id="property_features" name="feature_id"
+                                        placeholder="Enter or edit property features separated by commas">{{ $selectedFeatures }}</textarea>
+                                    <div class="error text-error"></div>
+                                </div>
+
+
 
                                 <div class="row mt-4">
 

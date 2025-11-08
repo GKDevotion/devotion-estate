@@ -24,7 +24,7 @@
             pointer-events: auto;
         }
 
-        .carousel-caption{
+        .carousel-caption {
             position: absolute;
             right: 15%;
             top: 5.5rem;
@@ -80,7 +80,7 @@
 
                     <!-- Property Search -->
                     <div class="tab-pane fade show active p-3" id="content-search">
-                        <form action="{{route('properties.search')}}" autocomplete="off">
+                        <form action="{{ route('properties.search') }}" autocomplete="off">
                             <div class="row g-3 align-items-center justify-content-center">
 
                                 <!-- Location -->
@@ -91,7 +91,7 @@
                                         </span>
                                         <select name="location" class="form-select border-start-1">
                                             <option value="0">Select Location</option>
-                                            @foreach($location as $p)
+                                            @foreach ($location as $p)
                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
                                         </select>
@@ -117,9 +117,13 @@
                                     </select>
                                 </div>
 
+                                <!-- Hidden input to specify type (off-plan in this case) -->
+                                <input type="hidden" name="type" value="off">
+
                                 <!-- Keyword -->
                                 <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <input type="text" class="form-control" name="keyword" placeholder="Search Keyword here">
+                                    <input type="text" class="form-control" name="keyword"
+                                        placeholder="Search Keyword here">
                                 </div>
 
                             </div>
@@ -227,7 +231,7 @@
                 /**
                  * $type = 0: 'sell', 1: 'rent'
                  */
-                $allproperties = getPropertiesByType([ 1, 2]);
+                $allproperties = getPropertiesByType([1, 2]);
                 $chunks = $allproperties->chunk(3);
             @endphp
 

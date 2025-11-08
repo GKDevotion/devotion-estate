@@ -44,7 +44,6 @@ class Properties extends Model
         return $this->hasOne(PropertyFeature::class, 'id', 'name');
     }
 
-
     public function subType(){
         return $this->hasOne(PropertyType::class, 'id', 'sub_type_id');
     }

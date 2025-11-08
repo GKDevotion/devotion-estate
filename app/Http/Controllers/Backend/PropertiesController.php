@@ -252,13 +252,14 @@ class PropertiesController extends Controller
         }
         $paymentPlanObj = PaymentPlan::select('id', 'name')->where( 'status', 1 )->get();
         $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where( 'status', 1 )->get();
+        $propertyFeatureObj = PropertyFeature::select('id', 'name')->where( 'status', 1 )->get();
         $locationObj = Location::select('id', 'name')->where( 'status', 1 )->get();
         $agentObj = User::select('id', 'first_name', 'last_name')->where( [
             'status' => 1,
             'type' => 4
         ] )->get();
 
-        return view('backend.pages.properties.create', compact( 'propertyTypeObj', 'locationObj','paymentPlanObj', 'agentObj' ));
+        return view('backend.pages.properties.create', compact( 'propertyTypeObj','propertyFeatureObj', 'locationObj','paymentPlanObj', 'agentObj' ));
     }
 
     /**
@@ -336,7 +337,7 @@ class PropertiesController extends Controller
             'property_type' => $request->property_type,
             'location_id'   => $request->location_id,
             'type'          => $request->type ?? 'sale', // 'sale', 'rent', 'off-plan'
-
+            'keyword'       => $request->keyword, 
         ];
 
         // Fetch data
@@ -368,7 +369,7 @@ class PropertiesController extends Controller
         // ✅ Return main page with data
         return view($view, $data );
     }
-
+    
 
     /**
      * Show the form for editing the specified resource.

@@ -58,6 +58,26 @@ $(document).on( "ready", function() {
         showOffPlanContent();
     });
 
+        $(document).on('change', '#type', function(){
+
+        var selected = $("#type option:selected").val();
+        if( selected == 1 ){
+            $(".type-for-residential").removeClass("d-none");
+            $(".type-for-commercial").addClass("d-none");
+            $(".type-type-txt").text("Sale");
+            $(".type-type-residential").removeClass("d-none");
+            $(".type-type-commercial").addClass("d-none");
+        } else {
+            $(".type-for-residential").addClass("d-none");
+            $(".type-for-commercial").removeClass("d-none");
+            $(".type-type-txt").text("Rent");
+            $(".type-type-residential").addClass("d-none");
+            $(".type-type-commercial").removeClass("d-none");
+        }
+
+     
+    });
+
     /**
      *
      */

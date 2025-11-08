@@ -10,12 +10,14 @@
     </script>
     <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
     <style>
+        
         .btn-outline-custom.active {
             background-color: #aa8038;
             /* Example: gold highlight */
             color: white;
             border-color: #aa8038;
         }
+
     </style>
 </head>
 
@@ -23,7 +25,7 @@
 
     <!-- Hidden input for property type -->
     @if (isset($type))
-        <input type="hidden" name="type" id="propertyTypeInput" value="{{$type}}">
+        <input type="hidden" name="type" id="propertyTypeInput" value="{{ $type }}">
     @else
         <input type="hidden" name="type" id="propertyTypeInput" value="sale">
     @endif
@@ -137,7 +139,7 @@
 
         <!-- Beds/Baths Dropdown -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-           <input type="text" class="form-control" name="keyword" placeholder="Search Keyword here">
+            <input type="text" class="form-control" name="keyword" placeholder="Search Keyword here">
         </div>
 
         <!-- Price Dropdown -->
@@ -356,7 +358,7 @@
 
             </div>
         </div>
-
+        
 </form>
 
 <script>

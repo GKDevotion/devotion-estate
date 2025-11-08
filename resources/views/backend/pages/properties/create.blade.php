@@ -132,7 +132,7 @@
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 mb-2">
-                                            <label class="mb-0" for="description">Desccription <span
+                                            <label class="mb-0" for="description">Description <span
                                                     class="text-error">*</span></label>
                                             <textarea type="text" class="ckeditor form-control" id="description" name="description" placeholder="Description"
                                                 rows="16"></textarea>
@@ -146,8 +146,6 @@
                                                     class="text-error">*</span></label>
                                             <select name="purpose" id="purpose" class="form-control"
                                                 data-required="yes">
-                                                <option value="" selected disabled>Select Purpose</option>
-                                                <option value="0">ALL</option>
                                                 <option value="1">Sale</option>
                                                 <option value="2">Rent</option>
                                                 <option value="3">Land</option>
@@ -161,7 +159,6 @@
                                             <select name="type" id="type" class="form-control"
                                                 data-required="yes">
                                                 <option value="" selected disabled>Select Type</option>
-                                                <option value="0">All</option>
                                                 <option value="1">Residential</option>
                                                 <option value="2">Commercial</option>
                                             </select>
@@ -212,7 +209,7 @@
                                                     class="text-error">*</span></label>
                                             <select name="is_occupancy" id="is_occupancy" class="form-control"
                                                 data-required="yes">
-                                                <option value="0">Select Occupancy Status</option>
+                                                <option value="0" selected disabled>Select Occupancy Status</option>
                                                 <option value="1">Vecant</option>
                                                 <option value="2">Rented</option>
                                             </select>
@@ -293,12 +290,46 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-5 col-sm-12 mb-2 purpose-type-sale">
+                                        <div class="col-md-7 col-sm-12 mb-2 purpose-type-sale">
                                             <label class="mb-0" for="finance_name">Finance Institute Name</label>
                                             <input type="text" class="form-control mb-2" data-required=""
                                                 id="finance_name" name="finance_name" placeholder="Finance Intitute Name"
                                                 value="">
                                             <div class="error text-error"></div>
+                                        </div>
+
+                                        <div class="row mt-2">
+
+                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
+                                                <label class="mb-0" for="beds">Bedroom(s)</label>
+
+                                                <select name="beds" id="beds" class="form-control"
+                                                    data-required="yes">
+                                                    <option value="0">studio</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="error text-error"></div>
+                                            </div>
+
+
+                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
+                                                <label class="mb-0" for="baths">Bathroom(s)</label>
+                                                <input type="number" class="form-control mb-2" data-required=""
+                                                    id="baths" name="baths" placeholder="0" value="">
+                                                <div class="error text-error"></div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
+                                                <label class="mb-0" for="garages">Garage(s)</label>
+                                                <input type="number" class="form-control mb-2" data-required=""
+                                                    id="garages" name="garages" placeholder="0" value="">
+                                                <div class="error text-error"></div>
+                                            </div>
+
                                         </div>
 
                                         <div class="col-md-3 col-sm-12 mb-2 d-none purpose-type-rent">
@@ -447,39 +478,19 @@
                                 <input type="hidden" value="2" name="step">
                                 <input type="hidden" value="" name="id" class="property-id">
 
-                                <ul class="nested">
-                                    <div class="row">
-                                        @foreach (getPropertyFeatures() as $ar)
-                                            <div class="col-md-3 col-sm-12">
-                                                <li class="child-nested">
-                                                    <input type="checkbox" class="form-check-input" name="feature_id[]"
-                                                        id="property_feature_{{ $ar->id }}"
-                                                        value="{{ $ar->id }}">
-                                                    <label class="mb-0 form-check-label"
-                                                        for="property_feature_{{ $ar->id }}"
-                                                        oninput="trackChanges()">{{ $ar->name }}</label>
-                                                </li>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </ul>
 
-                                <div class="row mt-4">
-                                    <div class="col-md-6 col-sm-12 mb-2">
-                                        <label class="mb-0" for="beds">Beds<span
-                                                class="text-error">*</span></label>
-                                        <input type="text" class="form-control mb-2" data-required="yes"
-                                            id="beds" name="beds" placeholder="Beds" value="">
-                                        <div class="error text-error"></div>
-                                    </div>
+                                @php
+                                    // Optional: preload all active feature names (if you want to show existing ones as reference)
+                                    $allFeatures = getPropertyFeatures()->pluck('name')->implode(', ');
+                                @endphp
 
-                                    <div class="col-md-6 col-sm-12 mb-2">
-                                        <label class="mb-0" for="baths">Baths<span
-                                                class="text-error">*</span></label>
-                                        <input type="text" class="form-control mb-2" data-required="yes"
-                                            id="baths" name="baths" placeholder="baths" value="">
-                                        <div class="error text-error"></div>
-                                    </div>
+                                <div class="col-md-12 col-sm-12 mb-2">
+                                    <label class="form-check-label mb-2">Property Features</label>
+
+                                    <textarea class="ckeditor form-control" id="property_features" name="feature_id"
+                                        placeholder="Enter property features separated by commas or new lines"></textarea>
+
+                                    <div class="error text-error"></div>
                                 </div>
 
                                 <div class="row mt-4">

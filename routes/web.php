@@ -60,10 +60,10 @@ Route::post('property-contact/store', [PropertyContactController::class, 'store'
 
 // routes/web.php
 // Route::get('/{type}-properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
-Route::get('properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
+Route::get('property/{slug?}', [PropertiesController::class, 'show'])->name('property.detail');
 
 // properties serach section/web.php
-Route::get('/properties/search', [PropertiesController::class, 'search'])->name('properties.search');
+Route::get('properties/search', [PropertiesController::class, 'search'])->name('properties.search');
 
 Route::get('/agent/{id}', [Properties::class, 'show'])->name('agent.show');
 Route::get('/property/send-mail/{agent_id}', [PropertiesController::class, 'sendMail'])->name('property.sendMail');

@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class PropertyFeature extends Model
 {
+       protected $fillable = [
+     
+        'name',
+        'status',
+    ];
+
     use HasFactory;
     // protected $table = 'admin_menus';
     // protected $guarded = array();
