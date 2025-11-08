@@ -122,6 +122,7 @@ class AdminsController extends Controller
         $admin->company_id = $request->company_id;
         $admin->industry_id = getField( 'companies', 'id', 'industry_id', $request->company_id );
         $admin->status = $request->status;
+        $admin->login = $request->login;
         $admin->save();
 
         if ($request->roles) {

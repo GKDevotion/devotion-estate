@@ -102,7 +102,7 @@ Admin Create - Admin Panel
                             </div>
 
                             <div class="col-md-4 col-sm-12 mt-2">
-                                <label class="mb-0" for="email">email<span class="text-error">*</span></label>
+                                <label class="mb-0" for="email">Email<span class="text-error">*</span></label>
                                 <input type="text" data-required="yes" class="form-control" id="email" name="email" placeholder="Enter Email Address"  value="{{old( 'email' )}}">
                                 @error('email')
                                     <div class="error text-error">{{ $message }}</div>
@@ -189,18 +189,6 @@ Admin Create - Admin Panel
                                 @enderror
                             </div>
 
-                            <div class="col-md-4 col-sm-12 mt-2">
-                                <label class="mb-0" for="roles">Assign Roles<span class="text-error">*</span></label>
-                                <select name="roles[]" data-required="yes" id="roles" class="form-control select2">
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('roles')
-                                    <div class="error text-error">{{ $message }}</div>
-                                @enderror
-                            </div>
-
                             <div class="col-md-4 col-sm-12 mt-2 d-none">
                                 <label class="mb-0" for="is_assign_super_admin">Enable Desktop Industry Data</label>
                                 <select name="is_assign_super_admin" id="is_assign_super_admin" class="form-control">
@@ -229,12 +217,35 @@ Admin Create - Admin Panel
                             </div>
 
                             <div class="col-md-4 col-sm-12 mt-2">
+                                <label class="mb-0" for="roles">Assign Roles<span class="text-error">*</span></label>
+                                <select name="roles[]" data-required="yes" id="roles" class="form-control">
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('roles')
+                                    <div class="error text-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 mt-2">
                                 <label class="mb-0" for="status">Status</label>
                                 <select class="form-control" id="status" name="status">
                                     <option value="1">Active</option>
                                     <option value="0">De Active</option>
                                 </select>
                                 @error('status')
+                                    <div class="error text-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 mt-2">
+                                <label class="mb-0" for="login">Login Allow</label>
+                                <select class="form-control" id="login" name="login">
+                                    <option value="0">De Active</option>
+                                    <option value="1">Active</option>
+                                </select>
+                                @error('login')
                                     <div class="error text-error">{{ $message }}</div>
                                 @enderror
                             </div>

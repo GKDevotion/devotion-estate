@@ -276,7 +276,7 @@ class AgentsController extends Controller
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
             'email_id' => 'required|max:50|email', //|unique:users',
-            'password' => 'required|min:6',
+            // 'password' => 'required|min:6',
             'designation_id' => 'required',
             'mobile_no' => 'required',
         ]);

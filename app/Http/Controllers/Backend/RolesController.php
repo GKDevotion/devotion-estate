@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\RoleGuard;
+use App\Models\RoleHasPermission;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -75,7 +77,7 @@ class RolesController extends Controller
         ]);
 
         $slug = convertStringToSlug( $request->name );
-        
+
         // Process Data
         $role = Role::create( ['name' => $request->name, 'slug' => $slug, 'guard_name' => $request->guard_name] );
 
@@ -150,7 +152,7 @@ class RolesController extends Controller
 
         $role = Role::find( $id );
         $permissions = $request->input('permissions');
-        
+
         if (!empty($permissions)) {
             $role->name = $request->name;
             $role->slug = convertStringToSlug( $request->name );
@@ -188,6 +190,22 @@ class RolesController extends Controller
     {
         if (is_null($this->user) || !$this->user->can('role.delete')) {
             abort(403, 'Sorry !! You are Unauthorized to delete Role !');
+        }
+
+        $role = Role::find( $id );
+        if ( !is_null( $role ) ) {
+
+            Permission::where( [
+                'guard_name' => $role->guard_name
+            ] )
+            ->delete();
+
+            RoleHasPermission::where( [
+                'role_id' => $role->id
+            ] )
+            ->delete();
+
+            DB::table('Roles')->where( 'id', $role->id )->delete();
         }
 
         return response()->json( ['data' => ['message' => 'Record has been successfully deleted.' ] ], 200);
