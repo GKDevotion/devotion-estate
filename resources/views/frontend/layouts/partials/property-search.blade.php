@@ -122,8 +122,8 @@
             </div>
         </div>
 
-        <!-- Beds/Baths Dropdown -->
-        <div class="col-lg-2 col-md-4 col-sm-6">
+        <!-- Keyword -->
+        <div class="col-lg-2 col-md-4 col-sm-6 d-none">
             <input type="text" class="form-control" name="keyword" placeholder="Search Keyword here">
         </div>
 

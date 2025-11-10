@@ -133,7 +133,7 @@
                                             <i class="bi bi-geo-alt"></i>
                                         </span>
                                         <select name="location" class="form-select border-start-1">
-                                            <option value="0">Select Location</option>
+                                            <option value="0" select disabled>Location</option>
                                             @foreach ($location as $p)
                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
@@ -146,7 +146,7 @@
 
                                     <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
                                         required>
-                                        <option value="" selected>Select Property Type</option>
+                                        <option value="" selected disabled>Property Type</option>
                                         <option value="1">Residential</option>
                                         <option value="2">Commercial</option>
                                     </select>
@@ -155,7 +155,7 @@
                                 <div class="col-lg-2 col-md-6 col-sm-12">
                                     <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
                                         required>
-                                        <option value="">Select Sub Type</option>
+                                        <option value="" select disabled> Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
                                                 class="dynamic default-sub-type-hide d-none">
@@ -194,7 +194,7 @@
                                         <i class="bi bi-geo-alt"></i>
                                     </span>
                                     <select name="location" class="form-select border-start-1">
-                                        <option value="0">Select Location</option>
+                                        <option value="0" select disabled>Location</option>
                                         @foreach ($location as $p)
                                             <option value="{{ $p->id }}">{{ $p->name }}</option>
                                         @endforeach
@@ -206,7 +206,7 @@
 
                                     <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
                                         required>
-                                        <option value="" selected>Select Property Type</option>
+                                        <option value="" selected disabled>Property Type</option>
                                         <option value="1">Residential</option>
                                         <option value="2">Commercial</option>
                                     </select>
@@ -215,7 +215,7 @@
                                 <div class="col-lg-2 col-md-6 col-sm-12">
                                     <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
                                         required>
-                                        <option value="">Select Sub Type</option>
+                                        <option value="" select disabled>Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
                                                 class="dynamic default-sub-type-hide d-none">
