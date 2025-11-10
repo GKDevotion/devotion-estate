@@ -147,8 +147,8 @@
                                     <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
                                         required>
                                         <option value="" selected>Select Property Type</option>
-                                        <option value="0">Residential</option>
-                                        <option value="1">Commercial</option>
+                                        <option value="1">Residential</option>
+                                        <option value="2">Commercial</option>
                                     </select>
                                 </div>
 
