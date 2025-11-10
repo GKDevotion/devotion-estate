@@ -40,8 +40,8 @@ class HomeController extends Controller
         $commercialTypes = PropertyType::where('main_type', 2)
             ->where('status', 1)
             ->get();
-
-        return view('frontend.pages.home' , compact('location','residentialTypes','commercialTypes'));
+        $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
+        return view('frontend.pages.home' , compact('location','propertyTypeObj','residentialTypes','commercialTypes'));
     }
 
     /**

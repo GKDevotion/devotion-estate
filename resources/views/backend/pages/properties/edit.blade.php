@@ -227,11 +227,11 @@
                                             <select name="is_furnish" id="is_furnish" class="form-control"
                                                 data-required="yes">
                                                 <option value="">Select Furnished Status</option>
-                                                <option value="0"
-                                                    {{ old('is_furnish', $data->is_furnish ?? '') == 0 ? 'selected' : '' }}>
-                                                    Furnished</option>
                                                 <option value="1"
                                                     {{ old('is_furnish', $data->is_furnish ?? '') == 1 ? 'selected' : '' }}>
+                                                    Furnished</option>
+                                                <option value="0"
+                                                    {{ old('is_furnish', $data->is_furnish ?? '') == 0 ? 'selected' : '' }}>
                                                     Unfurnished</option>
                                             </select>
 

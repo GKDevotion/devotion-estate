@@ -95,7 +95,7 @@
         </div>
 
         <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
-        <div class="search-overlay position-absolute top-50 start-50 translate-middle w-100 d-flex justify-content-center">
+        <div class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
             <div class="carousel-content text-center p-4 rounded-3">
 
                 <!-- Buttons act as tab triggers -->
@@ -111,7 +111,7 @@
                         Rent
                     </button>
 
-                    <button class="btn btn-light" id="btn-land" data-bs-toggle="tab" data-bs-target="#content-land"
+                    <button class="btn btn-light d-none" id="btn-land" data-bs-toggle="tab" data-bs-target="#content-land"
                         type="button" role="tab" aria-controls="content-land" aria-selected="false">
                         Land
                     </button>
@@ -127,7 +127,7 @@
                             <div class="row g-3 align-items-center justify-content-center">
 
                                 <!-- Location -->
-                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="input-group">
                                         <span class="input-group-text bg-white border-end-0">
                                             <i class="bi bi-geo-alt"></i>
@@ -141,24 +141,30 @@
                                     </div>
                                 </div>
 
-                                <!-- Rent/Buy/Land -->
-                                <div class="col-lg-2 col-md-6 col-sm-12">
-                                    <select name="purpose" class="form-select">
-                                        <option value="0">All</option>
-                                        <option value="1">Rent</option>
-                                        <option value="2">Buy</option>
-                                        <option value="3">Land</option>
+                     
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+
+                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="" selected>Select Property Type</option>
+                                        <option value="0">Residential</option>
+                                        <option value="1">Commercial</option>
                                     </select>
                                 </div>
 
-                                <!-- Residential/Commercial -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
-                                    <select name="type" class="form-select">
-                                        <option value="0">All</option>
-                                        <option value="1">Residential</option>
-                                        <option value="2">Commercial</option>
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="">Select Sub Type</option>
+                                        @foreach ($propertyTypeObj as $type)
+                                            <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                class="dynamic default-sub-type-hide d-none">
+                                                {{ $type->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
+               
 
                                 <!-- Hidden input -->
                                 <input type="hidden" name="redirect_page" value="off">
@@ -182,7 +188,7 @@
                         <div class="row g-3 align-items-center justify-content-center">
 
                             <!-- Location -->
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="col-lg-3 col-md-6 col-sm-12">
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0">
                                         <i class="bi bi-geo-alt"></i>
@@ -196,24 +202,28 @@
                                 </div>
                             </div>
 
-                            <!-- Rent/Buy/Land -->
-                            <div class="col-lg-2 col-md-6 col-sm-12">
-                                <select name="purpose" class="form-select">
-                                    <option value="0">All</option>
-                                    <option value="1">Rent</option>
-                                    <option value="2">Buy</option>
-                                    <option value="3">Land</option>
-                                </select>
-                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12">
 
-                            <!-- Residential/Commercial -->
-                            <div class="col-lg-2 col-md-6 col-sm-12">
-                                <select name="type" class="form-select">
-                                    <option value="0">All</option>
-                                    <option value="1">Residential</option>
-                                    <option value="2">Commercial</option>
-                                </select>
-                            </div>
+                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="" selected>Select Property Type</option>
+                                        <option value="0">Residential</option>
+                                        <option value="1">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="">Select Sub Type</option>
+                                        @foreach ($propertyTypeObj as $type)
+                                            <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                class="dynamic default-sub-type-hide d-none">
+                                                {{ $type->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                             <!-- Hidden input -->
                             <input type="hidden" name="redirect_page" value="off">
@@ -231,7 +241,7 @@
                     </div>
 
                     <!-- LAND -->
-                    <div class="tab-pane fade p-3 text-center" id="content-land" role="tabpanel"
+                    <div class="tab-pane fade p-3 text-center " id="content-land" role="tabpanel"
                         aria-labelledby="btn-land">
                         <div class="row g-3 align-items-center justify-content-center">
 
@@ -826,5 +836,25 @@
             </div>
         </div>
     </section>
+        <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+        $(function() {
+            const $type = $('#type');
+            const $sub = $('#sub_type');
+            const $opts = $sub.find('option.dynamic, .default-sub-type-hide');
+
+            $type.on('change', function() {
+                const val = String($(this).val() ?? '').trim();
+                $opts.addClass('d-none').prop('disabled', true)
+                    .filter(`[data-main="${val}"], .show-${val}`)
+                    .removeClass('d-none').prop('disabled', false);
+                $sub.val('');
+            });
+
+            // Initial check (for edit pages)
+            $type.trigger('change');
+        });
+    </script>
 
 @endsection
