@@ -27,17 +27,12 @@ Company Location Page - Admin Panel
             <div class="breadcrumbs-area clearfix">
                 <h4 class="page-title pull-left d-none">Corporate Email</h4>
                 <ul class="breadcrumbs pull-left m-2">
-                    <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Location</span></li>
+                    <li class="d-none"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li><span>Dashboard</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-2 text-end">
-            @if (Auth::guard('admin')->user()->can('locations.create'))
-                <a class="btn btn-add text-white" href="{{ route('admin.locations.create') }}">
-                    <i class="fa fa-plus"></i> Location
-                </a>
-            @endif
         </div>
         <div class="col-md-2 clearfix">
             @include('backend.layouts.partials.logout')
