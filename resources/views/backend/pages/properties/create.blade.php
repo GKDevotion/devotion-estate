@@ -185,8 +185,8 @@
                                                     class="text-error">*</span></label>
                                             <select name="is_furnish" id="is_furnish" class="form-control"
                                                 data-required="yes">
-                                                <option value="0">Furnished</option>
-                                                <option value="1">UnFurnished</option>
+                                                <option value="1">Furnished</option>
+                                                <option value="0">UnFurnished</option>
                                             </select>
                                             <div class="error text-error"></div>
                                         </div>
