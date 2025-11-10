@@ -240,7 +240,7 @@ class PropertyTypeController extends Controller
 
         // Validation Data
         $request->validate([
-            'main_type' => 'required|in:0,1',
+            'main_type' => 'required|in:0,1,2',
             'name' => 'required',
             'description' => 'required',
             'sort_order' => 'required',

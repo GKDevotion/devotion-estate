@@ -62,12 +62,13 @@ Route::prefix('admin')->group(function () {
     Route::delete('/property-features/{id}', [PropertyFeatureController::class, 'destroy'])->name('admin.property-features.destroy');
     Route::get('/property-features-ajax-data', [PropertyFeatureController::class, 'ajaxIndex'])->name('property-features.ajaxIndex');
 
-    Route::get('/property-types', [PropertyTypeController::class, 'index'])->name('admin.property-types.index');
-    Route::get('/property-types/create', [PropertyTypeController::class, 'create'])->name('admin.property-types.create');
-    Route::post('/property-types/store', [PropertyTypeController::class, 'store'])->name('admin.property-types.store');
-    Route::get('/property-types/edit/{id}', [PropertyTypeController::class, 'edit'])->name('admin.property-types.edit');
-    Route::post('/property-types/update', [PropertyTypeController::class, 'update'])->name('admin.property-types.update');
-    Route::delete('/admin/property-types/{id}', [PropertyTypeController::class, 'destroy'])->name('admin.property-types.destroy');
+    Route::resource('property-types', 'Backend\PropertyTypeController', ['names' => 'admin.property-types']);
+    // Route::get('/property-types', [PropertyTypeController::class, 'index'])->name('admin.property-types.index');
+    // Route::get('/property-types/create', [PropertyTypeController::class, 'create'])->name('admin.property-types.create');
+    // Route::post('/property-types/store', [PropertyTypeController::class, 'store'])->name('admin.property-types.store');
+    // Route::get('/property-types/edit/{id}', [PropertyTypeController::class, 'edit'])->name('admin.property-types.edit');
+    // Route::post('/property-types/update', [PropertyTypeController::class, 'update'])->name('admin.property-types.update');
+    // Route::delete('/admin/property-types/{id}', [PropertyTypeController::class, 'destroy'])->name('admin.property-types.destroy');
     Route::get('/property-types-ajax-data', [PropertyTypeController::class, 'ajaxIndex'])->name('property-types.ajaxIndex');
 
     Route::get('/reviews', [ReviewsController::class, 'index'])->name('admin.reviews.index');
