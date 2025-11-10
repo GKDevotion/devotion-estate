@@ -873,7 +873,7 @@
         ClassicEditor
             .create(document.querySelector('#description'))
             .then(editor => {
-                editorInstance = editor;
+                editorDescriptionInstance = editor;
             })
             .catch(error => {
                 console.error(error);
@@ -882,7 +882,7 @@
         ClassicEditor
             .create(document.querySelector('#property_features'))
             .then(editor => {
-                editorInstance = editor;
+                editorAdditionFetureInstance = editor;
             })
             .catch(error => {
                 console.error(error);

@@ -281,7 +281,7 @@ class PropertiesController extends Controller
                 'seo_title' => 'required',
                 'h1_tag' => 'required',
                 'meta_description' => 'required',
-                // 'description' => 'required',
+                'description' => 'required',
             ]);
         }
 
@@ -414,7 +414,7 @@ class PropertiesController extends Controller
         // Validation Data
         $request->validate([
             'name' => 'required',
-            // 'description' => 'required',
+            'description' => 'required',
             'sort_order' => 'required',
         ]);
 

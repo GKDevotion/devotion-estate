@@ -149,7 +149,8 @@ function nextPrev( n, formID ) {
         let formData = new FormData( document.getElementById( formID ) );
 
         // 🔹 Get data from CKEditor
-        formData.set('description', editorInstance.getData() );
+        formData.set('description', editorDescriptionInstance.getData() );
+        formData.set('additional_features', editorAdditionFetureInstance.getData() );
 
         $.ajax({
             url: $(".property-submit-url").text(),
