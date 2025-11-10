@@ -479,12 +479,36 @@
       color: #000;
   }
 
-  /* Tab Content Box */
-  .carousel-tab-content {
-      background-color: rgba(255, 255, 255, 0.5);
-      padding: 1rem;
-      width: 900px;
-  }
+    /* Tab Content Box */
+    .carousel-tab-content {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 1rem;
+        width: 900px;
+        margin: 0 auto; /* centers content */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .carousel-tab-content {
+            width: 100%;
+            max-width: 700px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .carousel-tab-content {
+            width: 100%;
+            max-width: 100%;
+            padding: 0.75rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .carousel-tab-content {
+            width: 100%;
+            padding: 0.5rem;
+        }
+    }
 
   /* Property Search Inputs */
   .input-group-search .search-input {
