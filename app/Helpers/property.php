@@ -254,9 +254,9 @@ function getSearchByProperties( $request, $perPage = 4)
         $query->where( 'location_id', $request['location'] );
     }
 
-    if( $request['purpose'] ){
-        $query->where( 'purpose', $request['purpose'] );
-    }
+    // if( $request['purpose'] ){
+    //     $query->where( 'purpose', $request['purpose'] );
+    // }
 
     if( $request['type'] ){
         $query->where( 'type', $request['type'] );
