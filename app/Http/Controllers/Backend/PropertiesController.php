@@ -329,26 +329,17 @@ class PropertiesController extends Controller
 
     public function search(Request $request)
     {
+        // dd( $request->all() );
         $perPage = $request->get('perPage', 4);
 
-        $filters = [
-            'min_price'     => $request->min_price,
-            'max_price'     => $request->max_price,
-            'property_type' => $request->property_type,
-            'location_id'   => $request->location_id,
-            'type'          => $request->type ?? 'sale', // 'sale', 'rent', 'off-plan'
-            'keyword'       => $request->keyword, 
-        ];
-
         // Fetch data
-        $data = getSearchByProperties($filters, $perPage);
+        $data = getSearchByProperties($request->all(), $perPage);
 
         // Add extra values for blade
         $data['perPage'] = $perPage;
-        $data['type'] = $filters['type']; // ✅ ensure $type is available in blade
 
         // Detect which main blade to load
-        switch ($filters['type']) {
+        switch ($request->redirect_page) {
             case 'rent':
                 $view = 'frontend.pages.rent-properties';
                 break;
@@ -369,7 +360,7 @@ class PropertiesController extends Controller
         // ✅ Return main page with data
         return view($view, $data );
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -382,6 +373,7 @@ class PropertiesController extends Controller
         if (is_null($this->user) || !$this->user->can('properties.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
+
         $paymentPlanObj = PaymentPlan::select('id', 'name')->where( 'status', 1 )->get();
         $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where('status', 1)->get();
         $locationObj = Location::select('id', 'name')->where('status', 1)->get();
@@ -389,7 +381,6 @@ class PropertiesController extends Controller
             'status' => 1,
             'type' => 4
         ])->get();
-
 
         $data = Properties::findOrFail($id);
 

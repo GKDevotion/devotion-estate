@@ -118,7 +118,7 @@
                                 </div>
 
                                 <!-- Hidden input to specify type (off-plan in this case) -->
-                                <input type="hidden" name="type" value="off">
+                                <input type="hidden" name="redirect_page" value="off">
 
                                 <!-- Keyword -->
                                 <div class="col-lg-4 col-md-6 col-sm-12">

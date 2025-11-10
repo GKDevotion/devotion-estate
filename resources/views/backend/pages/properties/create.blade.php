@@ -479,16 +479,10 @@
                                 <input type="hidden" value="" name="id" class="property-id">
 
 
-                                @php
-                                    // Optional: preload all active feature names (if you want to show existing ones as reference)
-                                    $allFeatures = getPropertyFeatures()->pluck('name')->implode(', ');
-                                @endphp
-
                                 <div class="col-md-12 col-sm-12 mb-2">
                                     <label class="form-check-label mb-2">Property Features</label>
 
-                                    <textarea class="ckeditor form-control" id="property_features" name="feature_id"
-                                        placeholder="Enter property features separated by commas or new lines"></textarea>
+                                    <textarea class="ckeditor form-control" id="property_features" name="additional_features" placeholder="Enter property features"></textarea>
 
                                     <div class="error text-error"></div>
                                 </div>
@@ -681,5 +675,15 @@
             .catch(error => {
                 console.error(error);
             });
+
+        ClassicEditor
+            .create(document.querySelector('#property_features'))
+            .then(editor => {
+                editorInstance = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
     </script>
 @endsection

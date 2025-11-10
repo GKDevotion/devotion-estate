@@ -634,27 +634,13 @@
                                 <input type="hidden" value="2" name="step">
                                 <input type="hidden" value="" name="id" class="property-id">
 
-                                @php
-                                    // Get all active feature names
-                                    $allFeatures = getPropertyFeatures()->pluck('name', 'id');
-
-                                    // Get the names of features mapped to this property
-                                    $selectedFeatures = \App\Models\PropertyFeature::whereIn('id', $featureMap)
-                                        ->pluck('name')
-                                        ->implode(', ');
-                                @endphp
-
                                 <div class="col-md-12 col-sm-12 mb-2">
                                     <label class="form-check-label mb-2">Property Features</label>
-                                    <textarea class="ckeditor form-control" id="property_features" name="feature_id"
-                                        placeholder="Enter or edit property features separated by commas">{{ $selectedFeatures }}</textarea>
+                                    <textarea class="ckeditor form-control" id="property_features" name="additional_features" placeholder="Add additional property Features">{{ $data->additional_features }}</textarea>
                                     <div class="error text-error"></div>
                                 </div>
 
-
-
                                 <div class="row mt-4">
-
                                     <div class="col-md-6 col-sm-12 mb-2">
                                         <label class="mb-0" for="is_new_property">
                                             Do you want to set this property as new? <span class="text-error">*</span>
@@ -886,6 +872,15 @@
     <script>
         ClassicEditor
             .create(document.querySelector('#description'))
+            .then(editor => {
+                editorInstance = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#property_features'))
             .then(editor => {
                 editorInstance = editor;
             })

@@ -73,6 +73,8 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
         //2. Job Information -->
         if ($request->step == 2 || $request->_method == "PUT") {
 
+            $propertyDataObj->additional_features = $request->additional_features;
+
             // --- Store property flags safely ---
             $propertyDataObj->is_new_property = $request->has('is_new_property') ? 1 : 0;
             $propertyDataObj->is_featured_property = $request->has('is_featured_property') ? 1 : 0;
@@ -243,90 +245,69 @@ function getPropertiesByType($type = [1])
 }
 
 
-function getSearchByProperties(array $filters, $perPage = 4)
+function getSearchByProperties( $request, $perPage = 4)
 {
-    // Define property type mappings
-    $map = [
-        'sale'   => ['column' => 'type', 'value' => 1],
-        'rent'   => ['column' => 'purpose', 'value' => 2],
-        'luxury' => ['column' => 'is_luxury_property', 'value' => 1],
-        'new'    => ['column' => 'is_new_property', 'value' => 1],
-        'hot'    => ['column' => 'is_hot_offer', 'value' => 1],
-        'off'    => ['column' => 'is_complete', 'value' => 3], // for off-plan
-    ];
-
-    // Determine the type (default: sale)
-    $type = $filters['type'] ?? 'sale';
-    if (!array_key_exists($type, $map)) {
-        abort(404, 'Invalid property type');
-    }
-
     // Start base query
     $query = Properties::where('status', 1);
 
-    // Apply mapping filter
-    $query->where($map[$type]['column'], $map[$type]['value']);
-
-    // ✅ Handle "off-plan" explicitly if requested
-    if ($type === 'off') {
-        $query->where('is_complete', 3);
-    }
-    if ($type === 'luxury') {
-        $query->where('is_luxury_property', 1);
+    if( $request['location'] ){
+        $query->where( 'location_id', $request['location'] );
     }
 
-    if ($type === 'hot') {
-        $query->where('is_hot_offer', 1);
+    if( $request['purpose'] ){
+        $query->where( 'purpose', $request['purpose'] );
     }
 
-    // ✅ Price range filter
-    if (!empty($filters['min_price']) && !empty($filters['max_price'])) {
-        $query->whereBetween('price', [$filters['min_price'], $filters['max_price']]);
+    if( $request['type'] ){
+        $query->where( 'type', $request['type'] );
+    }
+
+    $type = $request['type'];
+
+    // // ✅ Handle "off-plan" explicitly if requested
+    // if ($type === 'off') {
+    //     $query->where('is_complete', 3);
+    // }
+    // if ($type === 'luxury') {
+    //     $query->where('is_luxury_property', 1);
+    // }
+
+    // if ($type === 'hot') {
+    //     $query->where('is_hot_offer', 1);
+    // }
+
+    // // ✅ Price range filter
+    if (!empty($request['min_price']) && !empty($request['max_price'])) {
+        $query->whereBetween('price', [$request['min_price'], $request['max_price']]);
     } else {
-        if (!empty($filters['min_price'])) {
-            $query->where('price', '>=', $filters['min_price']);
+        if (!empty($request['min_price'])) {
+            $query->where('price', '>=', $request['min_price']);
         }
-        if (!empty($filters['max_price'])) {
-            $query->where('price', '<=', $filters['max_price']);
+        if (!empty($request['max_price'])) {
+            $query->where('price', '<=', $request['max_price']);
         }
     }
 
-    // ✅ Property type filter
-    if (!empty($filters['property_type'])) {
-        $query->where('type', (int)$filters['property_type']);
-    }
-
-    // ✅ Location filter
-    if (!empty($filters['location_id'])) {
-        $query->where('location_id', $filters['location_id']);
-    }
 
     // ✅ Keyword search across multiple columns and related tables
-    if (!empty($filters['keyword'])) {
-        $keyword = trim($filters['keyword']);
+    if (!empty($request['keyword'])) {
+        $keyword = trim($request['keyword']);
 
         $query->where(function ($q) use ($keyword) {
             // Search in main property fields
             $q->where('name', 'like', "%{$keyword}%")
-              ->orWhere('slug', 'like', "%{$keyword}%")
-              ->orWhere('price', 'like', "%{$keyword}%")
+              ->orWhere('h1_tag', 'like', "%{$keyword}%")
               ->orWhere('description', 'like', "%{$keyword}%")
-              ->orWhere('area', 'like', "%{$keyword}%");
+              ->orWhere('meta_description', 'like', "%{$keyword}%")
+              ->orWhere('additional_features', 'like', "%{$keyword}%")
+              ->orWhere('finance_name', 'like', "%{$keyword}%")
+              ->orWhere('rera_number', 'like', "%{$keyword}%")
+              ->orWhere('permit_number', 'like', "%{$keyword}%")
+              ;
 
             $q->orWhereHas('location', function ($locQuery) use ($keyword) {
                 $locQuery->where('name', 'like', "%{$keyword}%");
             });
-
-            // 🔹 Match property purpose (0: All, 1: Sale, 2: Rent)
-            if ($keyword === 'all') {
-                $q->orWhere('purpose', 0);
-            } elseif ($keyword === 'sale') {
-                $q->orWhere('purpose', 1);
-            } elseif ($keyword === 'rent') {
-                $q->orWhere('purpose', 2);
-            }
-
- 
         });
     }
 
@@ -342,8 +323,8 @@ function getSearchByProperties(array $filters, $perPage = 4)
     ->get();
 
     $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
-    $residentialTypes = PropertyType::where('main_type', 1)->where('status', 1)->get();
-    $commercialTypes = PropertyType::where('main_type', 2)->where('status', 1)->get();
+    $residentialTypes = PropertyType::select('id', 'name', 'main_type')->where('main_type', 1)->where('status', 1)->get();
+    $commercialTypes = PropertyType::select('id', 'name', 'main_type')->where('main_type', 2)->where('status', 1)->get();
 
     return compact(
         'properties',
