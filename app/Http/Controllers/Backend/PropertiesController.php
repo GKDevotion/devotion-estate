@@ -282,6 +282,7 @@ class PropertiesController extends Controller
                 // 'h1_tag' => 'required',
                 // 'meta_description' => 'required',
                 'description' => 'required',
+                'parkings' => 'required',
             ]);
         }
 
@@ -416,6 +417,7 @@ class PropertiesController extends Controller
         // Validation Data
         $request->validate([
             'name' => 'required',
+            'parkings' => 'required',
             'description' => 'required',
             'sort_order' => 'required',
         ]);

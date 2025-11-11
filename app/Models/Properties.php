@@ -45,7 +45,7 @@ class Properties extends Model
     }
 
     public function subType(){
-        return $this->hasOne(PropertyType::class, 'id', 'sub_type_id');
+        return $this->hasOne(PropertyType::class, 'id', 'sub_type_id', 'name');
     }
 
     public function featureMap(){

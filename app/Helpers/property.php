@@ -31,7 +31,10 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
         }
         //1. Basic Information -->
         if ($request->step == 1 || $request->_method == "PUT") {
-            
+
+            $Price = str_replace(',', '', $request->price);
+
+
             $propertyDataObj->admin_id = $admin_id;
             $propertyDataObj->name = $request->name;
             $propertyDataObj->slug = convertStringToSlug($request->name);
@@ -65,7 +68,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->parkings = $request->parkings;
             $propertyDataObj->garages = $request->garages;
             $propertyDataObj->area = $request->area;
-            $propertyDataObj->price = $request->price;
+            $propertyDataObj->price = $Price; 
             $propertyDataObj->status = 0;
 
             $propertyDataObj->save();

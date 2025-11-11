@@ -161,6 +161,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="row g-4">
 
@@ -189,8 +190,23 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <h5 class="fw-semibold mb-3">Property Description</h5>
-                                <p>{{ strip_tags($property->description ?? 'No description available.') }}</p>
+                                <p>{!!$property->description ?? 'No description available.' !!}</p>
 
+                            </div>
+                        </div>
+
+                        
+                        <!-- Pricing Details -->
+                        <div class="card shadow-sm border-1 mb-4 rounded-4">
+                            <div class="card-body">
+                                <h5 class="fw-semibold mb-3">Additional Features</h5>
+                                <hr>
+                                <div class="row g-3 text-muted">
+                                    <div class="col-md-4">
+      
+                                        <span class="ms-2">{!! $property->additional_features ?? 'No Additional Feature available.'!!}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -230,15 +246,13 @@
                                 <div class="row g-3 text-muted">
                                     <div class="col-md-4"><strong>ID:</strong> <span
                                             class="ms-2">{{ $property->unique_id }}</span></div>
-                                    <div class="col-md-4"><strong>Status:</strong>
-                                        <span class="ms-2">{{ $property->status == 0 ? 'No' : 'Yes' }}</span>
-                                    </div>
+
                                     <div class="col-md-4"><strong>Type:</strong>
                                         <span
                                             class="ms-2">{{ $property->type == 1 ? 'Residential' : 'Commercial' }}</span>
                                     </div>
                                     <div class="col-md-4"><strong>Sub Type:</strong> <span
-                                            class="ms-2">{{ $property->additional_features ?? 'N/A' }}</span></div>
+                                            class="ms-2">{{ $property->subtype->name ?? 'N/A' }}</span></div>
 
                                     <div class="col-md-4"><strong>Completion:</strong>
                                         <span class="ms-2">{{ $property->is_complete == 1 ? 'Yes' : 'No' }}</span>
@@ -251,7 +265,7 @@
                                     <div class="col-md-4"><strong>RERA Number:</strong>
                                         <span class="ms-2">{{ $property->rera_number ?? 'N/A' }}</span>
                                     </div>
-                                    <div class="col-md-4"><strong>Permit Number:</strong>
+                                    <div class="col-md-6"><strong>Permit Number :</strong>
                                         <span class="ms-2">{{ $property->permit_number ?? 'N/A' }}</span>
                                     </div>
                                 </div>
