@@ -275,15 +275,17 @@ class PropertiesController extends Controller
         }
 
         if( $request->step == 1 ){
-
+    
             $request->validate([
                 'name' => 'required',
-                'seo_title' => 'required',
-                'h1_tag' => 'required',
-                'meta_description' => 'required',
+                // 'seo_title' => 'required',
+                // 'h1_tag' => 'required',
+                // 'meta_description' => 'required',
                 'description' => 'required',
             ]);
         }
+
+        $this->setPublicVar();
 
         $propertyId = 0;
         if( $request->step > 1 || $request->id != 0 ){
@@ -422,7 +424,7 @@ class PropertiesController extends Controller
         $location = new Properties();
         $location->admin_id = $this->user->id;
 
-         $location->image = $request->image;
+        $location->image = $request->image;
         $location->name = $request->name;
         $location->purpose = $request->purpose;
         $location->type = $request->type;
@@ -430,7 +432,6 @@ class PropertiesController extends Controller
         $location->area = $request->area;
         $location->price = $request->price;
         $location->address = $request->address;
-
 
         $location->sort_order = $request->sort_order;
         $location->slug = convertStringToSlug( $request->name );

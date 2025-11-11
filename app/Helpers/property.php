@@ -12,6 +12,7 @@ use Intervention\Image\Facades\Image;
 /**
  * Create employee records
  */
+
 function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegisterMail = 1)
 {
 
@@ -27,17 +28,16 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $msg = "updated";
         } else {
             $propertyDataObj = new Properties();
-            $propertyDataObj->admin_id = $admin_id;
         }
-
         //1. Basic Information -->
         if ($request->step == 1 || $request->_method == "PUT") {
-
+            
+            $propertyDataObj->admin_id = $admin_id;
             $propertyDataObj->name = $request->name;
             $propertyDataObj->slug = convertStringToSlug($request->name);
-            $propertyDataObj->h1_tag = $request->h1_tag;
-            $propertyDataObj->seo_title = $request->seo_title;
-            $propertyDataObj->meta_description = $request->meta_description;
+            $propertyDataObj->h1_tag = $request->name;//$request->h1_tag;
+            $propertyDataObj->seo_title = $request->name; //$request->seo_title;
+            $propertyDataObj->meta_description = $request->name; //$request->meta_description;
             $propertyDataObj->description = $request->description;
             $propertyDataObj->purpose = $request->purpose;
             $propertyDataObj->type = $request->type;
@@ -62,6 +62,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->publish = 0;
             $propertyDataObj->beds = $request->beds;
             $propertyDataObj->baths = $request->baths;
+            $propertyDataObj->parkings = $request->parkings;
             $propertyDataObj->garages = $request->garages;
             $propertyDataObj->area = $request->area;
             $propertyDataObj->price = $request->price;

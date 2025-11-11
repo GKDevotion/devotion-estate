@@ -100,7 +100,7 @@
                                     <a href="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
                                         data-sub-html="<h6>Devotion Property {{ $index + 1 }}</h6>">
                                         <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
-                                            class="d-block w-100 rounded shadow" style="height: 600px; ">
+                                            class="d-block w-100 rounded shadow" style="height: 580px; ">
                                     </a>
                                 </div>
                             @endforeach
@@ -118,6 +118,17 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
+
+
+                        <!-- Thumbnails -->
+                        <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
+                            @foreach ($property->images as $key => $image)
+                                <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}"
+                                    class="img-thumbnail"
+                                    style="width: 150px; height: 100px; object-fit: cover; cursor: pointer;"
+                                    onclick="goToSlide({{ $key }})">
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 
@@ -450,6 +461,22 @@
                     feedbackBtn.style.display = 'block';
                 });
             }
+        });
+
+        // Function to go to clicked slide
+        function goToSlide(index) {
+            var carousel = bootstrap.Carousel.getInstance(document.getElementById('propertyCarousel'));
+            carousel.to(index);
+        }
+
+        // Sync main carousel with modal carousel
+        const modalElement = document.getElementById('imageModal');
+        modalElement.addEventListener('show.bs.modal', function(event) {
+            const triggerImage = event.relatedTarget;
+            const index = triggerImage.getAttribute('data-index');
+            const modalCarousel = bootstrap.Carousel.getInstance(document.getElementById('modalCarousel')) ||
+                new bootstrap.Carousel('#modalCarousel');
+            modalCarousel.to(index);
         });
     </script>
 

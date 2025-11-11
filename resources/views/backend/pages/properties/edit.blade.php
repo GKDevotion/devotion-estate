@@ -301,6 +301,23 @@
                                             @enderror
                                         </div>
 
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="parkings">Parking(s)</label>
+                                            <input type="number" class="form-control mb-2" data-required=""
+                                                id="parkings" name="parkings" placeholder="0"
+                                                value="{{ old('parkings', $data->parkings) }}">
+                                            <div class="error text-error"></div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="baths">Bathroom(s)</label>
+                                            <input type="number" class="form-control mb-2" data-required=""
+                                                id="baths" name="baths" placeholder="0"
+                                                value="{{ old('baths', $data->baths) }}">
+                                            <div class="error text-error"></div>
+                                        </div>
+
+
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
                                             <label class="mb-0" for="off_plan_sale_type">Off-Plan Sale Type <span
                                                     class="text-error">*</span></label>
@@ -431,20 +448,13 @@
 
 
                                             <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
-                                                <label class="mb-0" for="baths">Bathroom(s)</label>
-                                                <input type="number" class="form-control mb-2" data-required=""
-                                                    id="baths" name="baths" placeholder="0"
-                                                    value="{{ old('baths', $data->baths) }}">
-                                                <div class="error text-error"></div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
                                                 <label class="mb-0" for="garages">Garage(s)</label>
                                                 <input type="number" class="form-control mb-2" data-required=""
                                                     id="garages" name="garages" placeholder="0"
                                                     value="{{ old('garages', $data->garages) }}">
                                                 <div class="error text-error"></div>
                                             </div>
+
 
                                         </div>
 

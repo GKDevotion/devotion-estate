@@ -210,7 +210,7 @@
                                             <select name="is_occupancy" id="is_occupancy" class="form-control"
                                                 data-required="yes">
                                                 <option value="0" selected disabled>Select Occupancy Status</option>
-                                                <option value="1">Vecant</option>
+                                                <option value="1">Vacant</option>
                                                 <option value="2">Rented</option>
                                             </select>
                                             <div class="error text-error"></div>
@@ -224,6 +224,20 @@
                                                 <option value="0">Freehold</option>
                                                 <option value="1">Leasehold</option>
                                             </select>
+                                            <div class="error text-error"></div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="parkings">Parking</label>
+                                            <input type="number" class="form-control mb-2" data-required=""
+                                                id="parkings" name="parkings" placeholder="0" value="">
+                                            <div class="error text-error"></div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="baths">Bathroom(s)</label>
+                                            <input type="number" class="form-control mb-2" data-required=""
+                                                id="baths" name="baths" placeholder="0" value="">
                                             <div class="error text-error"></div>
                                         </div>
 
@@ -317,18 +331,13 @@
 
 
                                             <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
-                                                <label class="mb-0" for="baths">Bathroom(s)</label>
-                                                <input type="number" class="form-control mb-2" data-required=""
-                                                    id="baths" name="baths" placeholder="0" value="">
-                                                <div class="error text-error"></div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
                                                 <label class="mb-0" for="garages">Garage(s)</label>
                                                 <input type="number" class="form-control mb-2" data-required=""
                                                     id="garages" name="garages" placeholder="0" value="">
                                                 <div class="error text-error"></div>
                                             </div>
+
+
 
                                         </div>
 
@@ -482,7 +491,8 @@
                                 <div class="col-md-12 col-sm-12 mb-2">
                                     <label class="form-check-label mb-2">Property Features</label>
 
-                                    <textarea class="ckeditor form-control" id="property_features" name="additional_features" placeholder="Enter property features"></textarea>
+                                    <textarea class="ckeditor form-control" id="property_features" name="additional_features"
+                                        placeholder="Enter property features"></textarea>
 
                                     <div class="error text-error"></div>
                                 </div>
@@ -684,6 +694,5 @@
             .catch(error => {
                 console.error(error);
             });
-
     </script>
 @endsection

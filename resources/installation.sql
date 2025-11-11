@@ -21,3 +21,7 @@ ALTER TABLE properties CHANGE beds beds INT NOT NULL DEFAULT '0' COMMENT '0:stud
 
 /* 10-11-2025 */
 ALTER TABLE `properties` ADD `additional_features` TEXT NULL DEFAULT NULL COMMENT 'additional features' AFTER `description`;
+
+/* 11-11-2025 */
+ALTER TABLE `properties` ADD `parkings` INT NOT NULL DEFAULT '0' AFTER `baths`;
+ALTER TABLE `properties` CHANGE `garages` `garages` INT NULL DEFAULT NULL;
