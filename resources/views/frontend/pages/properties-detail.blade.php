@@ -203,8 +203,7 @@
                                 <hr>
                                 <div class="row g-3 text-muted">
                                     <div class="col-md-4">
-      
-                                        <span class="ms-2">{!! $property->additional_features ?? 'No Additional Feature available.'!!}</span>
+                                        <span>{!! $property->additional_features ?? 'No Additional Feature available.'!!}</span>
                                     </div>
                                 </div>
                             </div>

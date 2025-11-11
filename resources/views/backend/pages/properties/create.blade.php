@@ -196,7 +196,7 @@
                                                     class="text-error">*</span></label>
                                             <select name="is_complete" id="is_complete" class="form-control"
                                                 data-required="yes">
-                                                <option value="0" selected disabled>Select Completion Status</option>
+                                                <option value="0" selected>Select Completion Status</option>
                                                 <option value="1">Ready</option>
                                                 <option value="2">Secondary</option>
                                                 <option value="3">Off Plan</option>
