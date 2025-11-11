@@ -105,7 +105,7 @@
                                     <legend>Property Information</legend>
                                     <div class="row">
 
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-12 col-sm-12 mb-2">
                                             <label class="mb-0" for="name">Name/Title <span
                                                     class="text-error">*</span></label>
                                             <input type="text" class="form-control mb-2" data-required="yes"
@@ -114,28 +114,28 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-6 col-sm-12 mb-2 d-none">
                                             <label class="mb-0" for="h1_tag">H1 Tag <span
                                                     class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="h1_tag" name="h1_tag" placeholder="H1 tag"
                                                 value="{{ old('h1_tag', $data->h1_tag) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-6 col-sm-12 mb-2 d-none">
                                             <label class="mb-0" for="seo_title">SEO Title <span
                                                     class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="seo_title" name="seo_title" placeholder="Property SEO Title"
                                                 value="{{ old('seo_title', $data->seo_title) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-6 col-sm-12 mb-2 d-none">
                                             <label class="mb-0" for="meta_description">Meta Desccription <span
                                                     class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="meta_description" name="meta_description"
                                                 placeholder="SEO Meta Description"
                                                 value="{{ old('meta_description', $data->meta_description) }}">
@@ -144,8 +144,8 @@
                                         <div class="col-md-12 col-sm-12 mb-2">
                                             <label class="mb-0" for="description">Description <span
                                                     class="text-error">*</span></label>
-                                            <textarea class="ckeditor form-control" id="description"
-                                                name="description" rows="16" placeholder="Enter description here...">{{ old('description', $data->description ?? '') }}</textarea>
+                                            <textarea class="ckeditor form-control" id="description" name="description" rows="16"
+                                                placeholder="Enter description here...">{{ old('description', $data->description ?? '') }}</textarea>
 
                                             @error('description')
                                                 <div class="error text-error">{{ $message }}</div>
@@ -636,7 +636,8 @@
 
                                 <div class="col-md-12 col-sm-12 mb-2">
                                     <label class="form-check-label mb-2">Property Features</label>
-                                    <textarea class="ckeditor form-control" id="property_features" name="additional_features" placeholder="Add additional property Features">{{ $data->additional_features }}</textarea>
+                                    <textarea class="ckeditor form-control" id="property_features" name="additional_features"
+                                        placeholder="Add additional property Features">{{ $data->additional_features }}</textarea>
                                     <div class="error text-error"></div>
                                 </div>
 
@@ -729,7 +730,7 @@
                                     <div class="col-md-6 offset-3">
                                         <div class="row form-footer d-flex">
                                             <div class="col-md-6 text-end">
-                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, '')">
+                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, 'PREV')">
                                                     <i class="fa fa-arrow-left"></i> Previous
                                                 </button>
                                             </div>
@@ -812,14 +813,14 @@
                                     <div class="col-md-6 offset-3">
                                         <div class="row form-footer d-flex">
                                             <div class="col-md-6 text-end">
-                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, '')">
+                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, 'PREV')">
                                                     <i class="fa fa-arrow-left"></i> Previous
                                                 </button>
                                             </div>
                                             <div class="col-md-6">
                                                 <button type="button" id="nextBtn"
                                                     onclick="nextPrev(1, 'PropertyStepForm3')">
-                                                    Next <i class="fa fa-arrow-right"></i>
+                                                    Save <i class="fa fa-save"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -832,7 +833,7 @@
 
                             <div class="thank-you-page d-none">
                                 <div class="properties-thank-you-content">
-                                    <h1>Thank you for edit!</h1>
+                                    <h1>Thank you for updation!</h1>
                                     <h4>Awesome! Your Property is onboard.</h4>
                                     <p>Property has been edited successfully and ID is: <snap style="font-weight: 800;"
                                             class="property-unique-id"></snap>
