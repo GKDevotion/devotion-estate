@@ -261,6 +261,16 @@ function getSearchByProperties($request, $perPage = 4)
         $query->where('sub_type_id', $request['sub_type']);
     }
 
+        // ✅ Bed filter
+    if (!empty($request['bed'])) {
+        $query->where('beds', '>=', $request['bed']); // can also use '=' if you want exact match
+    }
+
+    // ✅ Bath filter
+    if (!empty($request['bath'])) {
+        $query->where('baths', '>=', $request['bath']); // or '='
+    }
+
     $type = $request['type'] ?? null;
 
     // ✅ Price range

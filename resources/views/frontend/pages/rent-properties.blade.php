@@ -22,7 +22,7 @@
 
     <div class="container my-5">
 
-   @include('frontend.layouts.partials.property-search', ['type' => 'rent'])
+        @include('frontend.layouts.partials.property-search', ['type' => 'rent'])
 
         <!-- Header -->
         <div class="row align-items-center mb-3">

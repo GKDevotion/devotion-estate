@@ -64,13 +64,13 @@ $(document).on( "ready", function() {
         if( selected == 1 ){
             $(".type-for-residential").removeClass("d-none");
             $(".type-for-commercial").addClass("d-none");
-            $(".type-type-txt").text("Sale");
+            $(".type-type-txt").text("Residential");
             $(".type-type-residential").removeClass("d-none");
             $(".type-type-commercial").addClass("d-none");
         } else {
             $(".type-for-residential").addClass("d-none");
             $(".type-for-commercial").removeClass("d-none");
-            $(".type-type-txt").text("Rent");
+            $(".type-type-txt").text("Commercial");
             $(".type-type-residential").addClass("d-none");
             $(".type-type-commercial").removeClass("d-none");
         }

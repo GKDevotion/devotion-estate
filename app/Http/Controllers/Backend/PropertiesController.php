@@ -334,10 +334,10 @@ class PropertiesController extends Controller
 
         // Fetch data
         $data = getSearchByProperties($request->all(), $perPage);
-
+             
         // Add extra values for blade
         $data['perPage'] = $perPage;
-
+           
         // Detect which main blade to load
         switch ($request->redirect_page) {
             case 'rent':
@@ -356,7 +356,7 @@ class PropertiesController extends Controller
                 $view = 'frontend.pages.buy-properties';
                 break;
         }
-
+     
         // ✅ Return main page with data
         return view($view, $data );
     }

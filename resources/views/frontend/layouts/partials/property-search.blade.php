@@ -4,7 +4,6 @@
         color: white;
         border-color: #aa8038;
     }
-
 </style>
 <form action="{{ route('properties.search') }}" method="GET" id="propertySearchForm" autocomplete="off">
 
@@ -12,6 +11,9 @@
     <input type="hidden" name="purpose" id="property_purpose" value="{{ $data['purpose'] ?? 0 }}">
     <input type="hidden" name="type" id="propertyMainTypeInput" value="{{ $data['type'] ?? 0 }}">
     <input type="hidden" name="sub_type_id" id="propertySubTypeInput" value="0">
+
+    <input type="hidden" name="redirect_page" value="{{ $type ?? 'buy' }}">
+
 
     <!-- Filters and Search Section -->
     <div class="row g-2 justify-content-center mb-4" style="padding-top: 100px">
@@ -69,14 +71,13 @@
                             <div class="tab-pane fade show active" id="pills-residential" role="tabpanel"
                                 aria-labelledby="pills-residential-tab">
                                 <div class="row g-2">
-                                    @forelse($residentialTypes as $type)
+                                    @forelse($residentialTypes as $p)
                                         <div class="col-6">
                                             <button type="button"
                                                 class="btn btn-outline-custom w-100 py-2 property-type-btn"
-                                                name="sub_type" data-type="{{ $type->main_type }}"
-                                                data-id="{{$type->id}}"
-                                                data-name="{{ $type->name }}">
-                                                {{ $type->name }}
+                                                name="sub_type" data-type="{{ $p->main_type }}"
+                                                data-id="{{ $p->id }}" data-name="{{ $p->name }}">
+                                                {{ $p->name }}
                                             </button>
                                         </div>
                                     @empty
@@ -89,14 +90,13 @@
                             <div class="tab-pane fade" id="pills-commercial" role="tabpanel"
                                 aria-labelledby="pills-commercial-tab">
                                 <div class="row g-2">
-                                    @forelse($commercialTypes as $type)
+                                    @forelse($commercialTypes as $p)
                                         <div class="col-6">
                                             <button type="button"
                                                 class="btn btn-outline-custom w-100 py-2 property-type-btn"
-                                                name="sub_type" data-type="{{ $type->main_type }}"
-                                                data-id="{{$type->id}}"
-                                                data-name="{{ $type->name }}">
-                                                {{ $type->name }}
+                                                name="sub_type" data-type="{{ $p->main_type }}"
+                                                data-id="{{ $p->id }}" data-name="{{ $p->name }}">
+                                                {{ $p->name }}
                                             </button>
                                         </div>
                                     @empty
@@ -121,6 +121,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Bed -->
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <input type="number" class="form-control" name="bed" placeholder="Bed" min="1">
+        </div>
+
+        <!-- Bath -->
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <input type="number" class="form-control" name="bath" placeholder="Bath" min="1">
+        </div>
+
 
         <!-- Keyword -->
         <div class="col-lg-2 col-md-4 col-sm-6 d-none">
@@ -186,6 +197,7 @@
         let selectedPropertyType = '';
         let selectedPropertyName = '';
 
+
         // Property type button click handler
         document.querySelectorAll('.property-type-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -203,9 +215,11 @@
                 selectedPropertySubType = this.dataset.id;
                 selectedPropertyName = this.dataset.name;
 
-                console.log(selectedPropertyMainType, selectedPropertySubType, selectedPropertyName, this);
+                console.log(selectedPropertyMainType, selectedPropertySubType,
+                    selectedPropertyName, this);
                 // Update hidden input
-                document.getElementById('propertyMainTypeInput').value = selectedPropertyMainType;
+                document.getElementById('propertyMainTypeInput').value =
+                    selectedPropertyMainType;
                 document.getElementById('propertySubTypeInput').value = selectedPropertySubType;
             });
         });
@@ -266,5 +280,4 @@
             priceBtn.innerHTML = 'Price (AED) <i class="bi bi-chevron-down"></i>';
         });
     });
-
 </script>
