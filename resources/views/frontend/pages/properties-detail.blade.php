@@ -244,8 +244,6 @@
                                 <h5 class="fw-semibold mb-3">Property Details</h5>
                                 <hr>
                                 <div class="row g-3 text-muted">
-                                    <div class="col-md-4"><strong>ID:</strong> <span
-                                            class="ms-2">{{ $property->unique_id }}</span></div>
 
                                     <div class="col-md-4"><strong>Type:</strong>
                                         <span
