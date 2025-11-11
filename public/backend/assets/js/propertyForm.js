@@ -75,7 +75,7 @@ $(document).on( "ready", function() {
             $(".type-type-commercial").removeClass("d-none");
         }
 
-     
+
     });
 
     /**
@@ -144,7 +144,10 @@ function nextPrev( n, formID ) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("step");
 
-    if( formID != "" ){
+    if( formID === "PREV" ){
+        currentTab = currentTab - 1; // Increase or decrease the current tab by 1:
+        showTab(currentTab);// Otherwise, display the correct tab:
+    } else if( formID != "" ){
 
         let formData = new FormData( document.getElementById( formID ) );
 
@@ -188,7 +191,7 @@ function nextPrev( n, formID ) {
         // currentTab = currentTab + n; // Increase or decrease the current tab by 1:
         // showTab(currentTab);// Otherwise, display the correct tab:
 
-        showToast("Something wrong happen!, Contact Developer to update issues.");
+        showToast("Something wrong happen!, Contact Developer to update issues. 123");
     }
 }
 
