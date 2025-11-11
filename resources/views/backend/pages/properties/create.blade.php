@@ -96,7 +96,7 @@
                                 <fieldset>
                                     <legend>Property Information</legend>
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-12 col-sm-12 mb-2">
                                             <label class="mb-0" for="name">Name/Title <span
                                                     class="text-error">*</span></label>
                                             <input type="text" class="form-control mb-2" data-required="yes"
@@ -105,27 +105,27 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-6 col-sm-12 mb-2 d-none">
                                             <label class="mb-0" for="h1_tag">H1 Tag <span
                                                     class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="h1_tag" name="h1_tag" placeholder="H1 tag" value="">
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-6 col-sm-12 mb-2 d-none">
                                             <label class="mb-0" for="seo_title">SEO Title <span
                                                     class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="seo_title" name="seo_title" placeholder="Property SEO Title"
                                                 value="">
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-12 mb-2">
+                                        <div class="col-md-6 col-sm-12 mb-2 d-none">
                                             <label class="mb-0" for="meta_description">Meta Desccription <span
                                                     class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="meta_description" name="meta_description"
                                                 placeholder="SEO Meta Description" value="">
                                             <div class="error text-error"></div>
@@ -558,7 +558,7 @@
                                     <div class="col-md-6 offset-3">
                                         <div class="row form-footer d-flex">
                                             <div class="col-md-6 text-end">
-                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, '')">
+                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, 'PREV')">
                                                     <i class="fa fa-arrow-left"></i> Previous
                                                 </button>
                                             </div>
@@ -616,14 +616,14 @@
                                     <div class="col-md-6 offset-3">
                                         <div class="row form-footer d-flex">
                                             <div class="col-md-6 text-end">
-                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, '')">
+                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, 'PREV')">
                                                     <i class="fa fa-arrow-left"></i> Previous
                                                 </button>
                                             </div>
                                             <div class="col-md-6">
                                                 <button type="button" id="nextBtn"
                                                     onclick="nextPrev(1, 'PropertyStepForm3')">
-                                                    Next <i class="fa fa-arrow-right"></i>
+                                                    Submit <i class="fa fa-save"></i>
                                                 </button>
                                             </div>
                                         </div>
