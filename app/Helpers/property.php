@@ -245,56 +245,40 @@ function getPropertiesByType($type = [1])
 }
 
 
-function getSearchByProperties( $request, $perPage = 4)
+function getSearchByProperties($request, $perPage = 4)
 {
-    // Start base query
     $query = Properties::where('status', 1);
 
-    if( $request['location'] ){
-        $query->where( 'location_id', $request['location'] );
+    if (!empty($request['location'] ?? null)) {
+        $query->where('location_id', $request['location']);
     }
 
-    // if( $request['purpose'] ){
-    //     $query->where( 'purpose', $request['purpose'] );
-    // }
-
-    if( $request['type'] ){
-        $query->where( 'type', $request['type'] );
+    if (!empty($request['type'] ?? null)) {
+        $query->where('type', $request['type']);
     }
 
-    $type = $request['type'];
+    if (!empty($request['sub_type'] ?? null)) {
+        $query->where('sub_type_id', $request['sub_type']);
+    }
 
-    // // ✅ Handle "off-plan" explicitly if requested
-    // if ($type === 'off') {
-    //     $query->where('is_complete', 3);
-    // }
-    // if ($type === 'luxury') {
-    //     $query->where('is_luxury_property', 1);
-    // }
+    $type = $request['type'] ?? null;
 
-    // if ($type === 'hot') {
-    //     $query->where('is_hot_offer', 1);
-    // }
-
-    // // ✅ Price range filter
-    if (!empty($request['min_price']) && !empty($request['max_price'])) {
+    // ✅ Price range
+    if (!empty($request['min_price'] ?? null) && !empty($request['max_price'] ?? null)) {
         $query->whereBetween('price', [$request['min_price'], $request['max_price']]);
     } else {
-        if (!empty($request['min_price'])) {
+        if (!empty($request['min_price'] ?? null)) {
             $query->where('price', '>=', $request['min_price']);
         }
-        if (!empty($request['max_price'])) {
+        if (!empty($request['max_price'] ?? null)) {
             $query->where('price', '<=', $request['max_price']);
         }
     }
 
-
-    // ✅ Keyword search across multiple columns and related tables
-    if (!empty($request['keyword'])) {
+    // ✅ Keyword search
+    if (!empty($request['keyword'] ?? null)) {
         $keyword = trim($request['keyword']);
-
         $query->where(function ($q) use ($keyword) {
-            // Search in main property fields
             $q->where('name', 'like', "%{$keyword}%")
               ->orWhere('h1_tag', 'like', "%{$keyword}%")
               ->orWhere('description', 'like', "%{$keyword}%")
@@ -302,8 +286,7 @@ function getSearchByProperties( $request, $perPage = 4)
               ->orWhere('additional_features', 'like', "%{$keyword}%")
               ->orWhere('finance_name', 'like', "%{$keyword}%")
               ->orWhere('rera_number', 'like', "%{$keyword}%")
-              ->orWhere('permit_number', 'like', "%{$keyword}%")
-              ;
+              ->orWhere('permit_number', 'like', "%{$keyword}%");
 
             $q->orWhereHas('location', function ($locQuery) use ($keyword) {
                 $locQuery->where('name', 'like', "%{$keyword}%");
@@ -311,16 +294,11 @@ function getSearchByProperties( $request, $perPage = 4)
         });
     }
 
-
-    // ✅ Pagination
     $properties = $query->paginate($perPage)->withQueryString();
     $total = $properties->total();
 
-    // ✅ Supporting data for the view
     $locationObj = Location::select('id', 'name')->where('status', 1)->get();
-    $featureObj = PropertyFeature::select('id', 'name')
-    ->where('status', 1)
-    ->get();
+    $featureObj = PropertyFeature::select('id', 'name')->where('status', 1)->get();
 
     $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
     $residentialTypes = PropertyType::select('id', 'name', 'main_type')->where('main_type', 1)->where('status', 1)->get();
@@ -335,7 +313,6 @@ function getSearchByProperties( $request, $perPage = 4)
         'commercialTypes',
         'total',
         'perPage',
-        'type'
-
+        'type',
     );
 }

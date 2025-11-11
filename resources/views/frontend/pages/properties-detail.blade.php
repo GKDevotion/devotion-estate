@@ -224,10 +224,10 @@
                                     </div>
                                     <div class="col-md-4"><strong>Type:</strong>
                                         <span
-                                            class="ms-2">{{ $property->type == 1 ? 'Commercial' : 'Residential' }}</span>
+                                            class="ms-2">{{ $property->type == 1 ? 'Residential' : 'Commercial' }}</span>
                                     </div>
                                     <div class="col-md-4"><strong>Sub Type:</strong> <span
-                                            class="ms-2">{{ $property->feature->name ?? 'N/A' }}</span></div>
+                                            class="ms-2">{{ $property->additional_features ?? 'N/A' }}</span></div>
 
                                     <div class="col-md-4"><strong>Completion:</strong>
                                         <span class="ms-2">{{ $property->is_complete == 1 ? 'Yes' : 'No' }}</span>
