@@ -794,7 +794,6 @@
     padding: 2em 1.5em;
     border-radius: 5px;
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
-    cursor: pointer;
     transition: 0.5s;
     position: relative;
     z-index: 2;
