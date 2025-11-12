@@ -343,7 +343,7 @@
       color: #333;
   }
 
-  .contact-heading {
+  .contact-heading-footer {
       font-weight: 500;
       color: #333;
   }
@@ -364,6 +364,7 @@
 
   .contact-text {
       font-weight: 500;
+
   }
 
   .contact-link {
@@ -725,6 +726,7 @@
         color: #aa8038;
         font-weight: 700;
     }
+    
   .icon-box {
       color: #aa8038;
       /* Primary color for icons/accents */
@@ -1177,8 +1179,15 @@
       color: #888;
       direction: ltr;
       text-align: justify;
+      
   }
-
+  /* .content-container p {
+    color: #575a7b;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: justify;
+    letter-spacing: 0.03em;
+  } */
   .timeline-title {
       color: #aa8038;
       font-size: 14px;

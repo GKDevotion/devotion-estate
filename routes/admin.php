@@ -109,11 +109,12 @@ Route::prefix('admin')->group(function () {
      * User Management
      */
 
-    Route::get('/designations', [DesignationsController::class, 'index'])->name('admin.designations.index');
-    Route::get('/designations/create', [DesignationsController::class, 'create'])->name('admin.designations.create');
-    Route::post('/designations/store', [DesignationsController::class, 'store'])->name('admin.designations.store');
-    Route::get('/designations/edit/{id}', [DesignationsController::class, 'edit'])->name('admin.designations.edit');
-    Route::post('/designations/update', [DesignationsController::class, 'update'])->name('admin.designations.update');
+    Route::resource('designations', 'Backend\DesignationsController', ['names' => 'admin.designations']);
+    // Route::get('/designations', [DesignationsController::class, 'index'])->name('admin.designations.index');
+    // Route::get('/designations/create', [DesignationsController::class, 'create'])->name('admin.designations.create');
+    // Route::post('/designations/store', [DesignationsController::class, 'store'])->name('admin.designations.store');
+    // Route::get('/designations/edit/{id}', [DesignationsController::class, 'edit'])->name('admin.designations.edit');
+    // Route::post('/designations/update', [DesignationsController::class, 'update'])->name('admin.designations.update');
     Route::get('/designations-ajax-data', [DesignationsController::class, 'ajaxIndex'])->name('designations.ajaxIndex');
 
     Route::get('/users', [UsersController::class, 'index'])->name('admin.user.index');

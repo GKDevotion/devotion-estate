@@ -106,3 +106,6 @@ Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('p
 Route::get('terms-condition', [TermsConditionController::class, 'index'])->name('terms-condition');
 
 Route::get('execute-sql-statement', [HomeController::class, 'setSqlStatement']);
+
+
+Route::get('cant-properties', [PropertiesController::class, 'deleteproperties']);

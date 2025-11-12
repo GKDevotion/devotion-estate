@@ -329,15 +329,12 @@
                                                 <div class="error text-error"></div>
                                             </div>
 
-
                                             <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
                                                 <label class="mb-0" for="garages">Garage(s)</label>
                                                 <input type="number" class="form-control mb-2" data-required=""
                                                     id="garages" name="garages" placeholder="0" value="">
                                                 <div class="error text-error"></div>
                                             </div>
-
-
 
                                         </div>
 
@@ -502,7 +499,7 @@
                                         <label for="is_new_property" class="form-label mb-1">
                                             Do you want to set this property as new? <span class="text-danger">*</span>
                                         </label>
-                                        <select name="is_new_property" id="is_new_property" required>
+                                        <select name="is_new_property" id="is_new_property" class="form-control" required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -517,7 +514,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <select name="is_featured_property" id="is_featured_property"
-                                            class="@error('is_featured_property') is-invalid @enderror" required>
+                                            class="form-control" required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -534,7 +531,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <select name="is_luxury_property" id="is_luxury_property"
-                                            class=" @error('is_luxury_property') is-invalid @enderror" required>
+                                            class="form-control" required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -550,7 +547,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <select name="is_hot_offer" id="is_hot_offer"
-                                            class=" @error('is_hot_offer') is-invalid @enderror" required>
+                                            class="form-control" required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>

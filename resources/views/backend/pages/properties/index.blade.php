@@ -111,7 +111,8 @@
                         d.value = "{{$param['value']}}"; // Pass industry parameter
                     }
                 },
-                columns: [{
+                columns: [
+                    {
                         data: 'id',
                         render: function(data, type, row, meta) {
                             return meta.row + 1; // Auto-increment based on row index

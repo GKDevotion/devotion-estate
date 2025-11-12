@@ -517,7 +517,7 @@
                                             <label class="mb-0" for="maintenance_paid">Maintenance Paid By <span
                                                     class="text-error">*</span></label>
                                             <select name="maintenance_paid" id="maintenance_paid"
-                                                class="form-control @error('maintenance_paid') is-invalid @enderror"
+                                                class="form-control"
                                                 data-required="yes">
                                                 <option value="">Select Payer</option>
                                                 <option value="1"
@@ -570,7 +570,7 @@
                                             <label class="mb-0" for="location_id">Location <span
                                                     class="text-error">*</span></label>
                                             <select name="location_id" id="location_id"
-                                                class="form-control @error('location_id') is-invalid @enderror"
+                                                class="form-control"
                                                 data-required="yes">
                                                 <option value="">Select Location</option>
                                                 @foreach ($locationObj as $ar)
@@ -590,7 +590,7 @@
                                             <label class="mb-0" for="agent_id">Agent <span
                                                     class="text-error">*</span></label>
                                             <select name="agent_id" id="agent_id"
-                                                class="form-control @error('agent_id') is-invalid @enderror"
+                                                class="form-control"
                                                 data-required="yes">
                                                 <option value="">Select Agent</option>
                                                 @foreach ($agentObj as $ar)
@@ -657,7 +657,7 @@
                                             Do you want to set this property as new? <span class="text-error">*</span>
                                         </label>
                                         <select name="is_new_property" id="is_new_property"
-                                            class="form-control @error('is_new_property') is-invalid @enderror"
+                                            class="form-control"
                                             data-required="yes">
                                             <option value="1"
                                                 {{ old('is_new_property', $data->is_new_property ?? 0) == 1 ? 'selected' : '' }}>
@@ -677,7 +677,7 @@
                                             Do you want to set this property as featured? <span class="text-error">*</span>
                                         </label>
                                         <select name="is_featured_property" id="is_featured_property"
-                                            class="form-control @error('is_featured_property') is-invalid @enderror"
+                                            class="form-control"
                                             data-required="yes">
                                             <option value="1"
                                                 {{ old('is_featured_property', $data->is_featured_property ?? 0) == 1 ? 'selected' : '' }}>
@@ -698,7 +698,7 @@
                                                 class="text-error">*</span>
                                         </label>
                                         <select name="is_luxury_property" id="is_luxury_property"
-                                            class="form-control @error('is_luxury_property') is-invalid @enderror"
+                                            class="form-control"
                                             data-required="yes">
                                             <option value="1"
                                                 {{ old('is_luxury_property', $data->is_luxury_property ?? 0) == 1 ? 'selected' : '' }}>
@@ -782,7 +782,7 @@
                                         <label class="mb-0" for="publish">Publish <span
                                                 class="text-error">*</span></label>
                                         <select name="publish" id="publish"
-                                            class="form-control @error('publish') is-invalid @enderror"
+                                            class="form-control"
                                             data-required="yes">
                                             <option value="0"
                                                 {{ old('publish', $data->publish ?? '') == 0 ? 'selected' : '' }}>No
@@ -801,13 +801,13 @@
                                         <label class="mb-0" for="status">Status <span
                                                 class="text-error">*</span></label>
                                         <select name="status" id="status"
-                                            class="form-control @error('status') is-invalid @enderror"
+                                            class="form-control"
                                             data-required="yes">
                                             <option value="0"
-                                                {{ old('status', $data->status ?? '') == 0 ? 'selected' : '' }}>Disabled
+                                                {{ $data->status == 0 ? 'selected' : '' }}>Disabled
                                             </option>
                                             <option value="1"
-                                                {{ old('status', $data->status ?? '') == 1 ? 'selected' : '' }}>Enabled
+                                                {{ $data->status == 1 ? 'selected' : '' }}>Enabled
                                             </option>
                                         </select>
 

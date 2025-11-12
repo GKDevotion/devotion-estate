@@ -11,8 +11,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="icon" href="public\frontend\assets\images\Devotion Real Estate.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -30,7 +32,8 @@
             <div class="container-fluid px-3 px-m-5">
                 <!-- Left: Logo -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('public\frontend\assets\images\Devotion Real Estate.png') }}" alt="Devotion Logo">
+                    <img src="{{ asset('public\frontend\assets\images\Devotion Real Estate.png') }}"
+                        alt="Devotion Logo">
                 </a>
 
                 <!-- Toggler for mobile -->
@@ -49,15 +52,20 @@
 
                         <!-- Our Services Dropdown -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" id="propertyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#"
+                                id="propertyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Properties
                                 <span class="caret-icon transition">&#9662;</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="propertyDropdown" style="min-width: 200px;">
-                                <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('rent.properties') }}">Rent</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('off-plan') }}">Off Plan</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('luxury.properties') }}">Luxury</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('buy.properties') }}">Buy</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('rent.properties') }}">Rent</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('off-plan') }}">Off Plan</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('luxury.properties') }}">Luxury</a></li>
                             </ul>
                         </li>
 
@@ -70,10 +78,12 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="ourServicesDropdown" style="min-width: 200px;">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('investment-advisory') }}">Investment And Advisory</a>
+                                    <a class="dropdown-item" href="{{ route('investment-advisory') }}">Investment And
+                                        Advisory</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage Advisory</a>
+                                    <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage
+                                        Advisory</a>
                                 </li>
                             </ul>
                         </li>
@@ -219,7 +229,7 @@
                     </div>
 
                     <div class="col-lg-3 col-md-6 mb-4 contact-section">
-                        <h5 class="contact-heading mb-3">Contact Us</h5>
+                        <h5 class="contact-heading-footer mb-3">Contact Us</h5>
                         <ul class="list-unstyled contact-list">
 
                             @if (getConfigurationField('CONTACT_PHONE'))
@@ -227,8 +237,8 @@
                                     <i class="bi bi-telephone contact-icon me-2"></i>
                                     <div class="contact-info">
                                         <p class="mb-0">Hotline:</p>
-                                        <p class="mb-0 contact-text">{{ getConfigurationField('CONTACT_PHONE') }}
-                                        </p>
+                                        <a href="tel:{{ getConfigurationField('CONTACT_PHONE') }}"
+                                            class="contact-link text-decoration-none">{{ getConfigurationField('CONTACT_PHONE') }}</a>
                                     </div>
                                 </li>
                             @endif
@@ -239,7 +249,7 @@
                                     <div class="contact-info">
                                         <p class="mb-0">Email:</p>
                                         <a href="mailto:{{ getConfigurationField('CONTACT_EMAIL') }}"
-                                            class="contact-link">{{ getConfigurationField('CONTACT_EMAIL') }}</a>
+                                            class="contact-link text-decoration-none">{{ getConfigurationField('CONTACT_EMAIL') }}</a>
                                     </div>
                                 </li>
                             @endif

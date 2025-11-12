@@ -118,7 +118,7 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
-
+                    </div>
 
                         <!-- Thumbnails -->
                         <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
@@ -161,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="row g-4">
 
@@ -190,12 +190,12 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <h5 class="fw-semibold mb-3">Property Description</h5>
-                                <p>{!!$property->description ?? 'No description available.' !!}</p>
+                                <p>{!! $property->description ?? 'No description available.' !!}</p>
 
                             </div>
                         </div>
 
-                        
+
                         <!-- Pricing Details -->
                         <div class="card shadow-sm border-1 mb-4 rounded-4">
                             <div class="card-body">
@@ -203,7 +203,7 @@
                                 <hr>
                                 <div class="row g-3 text-muted">
                                     <div class="col-md-4">
-                                        <span>{!! $property->additional_features ?? 'No Additional Feature available.'!!}</span>
+                                        <span>{!! $property->additional_features ?? 'No Additional Feature available.' !!}</span>
                                     </div>
                                 </div>
                             </div>
@@ -414,6 +414,14 @@
                             style="background-color: #aa8038; border-radius: 30px;">
                             Send review
                         </button>
+
+                        <!-- ✅ Success / Error Messages -->
+                        @if (session('success'))
+                            <div class="alert alert-success mt-3 mb-0 rounded-3">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
 
                     </form>
 

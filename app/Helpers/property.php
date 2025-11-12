@@ -253,6 +253,30 @@ function getSearchByProperties($request, $perPage = 4)
 {
     $query = Properties::where('status', 1);
 
+
+ // 🔹 Detect page source (rent, buy, offplan, luxury, etc.)
+    $redirectPage = $request['redirect_page'] ?? null;
+
+    if ($redirectPage) {
+        switch ($redirectPage) {
+            case 'buy':
+                $query->where('purpose', 1);
+                break;
+            case 'rent':
+                $query->where('purpose', 2);
+                break;
+            case 'off':
+                $query->where('is_complete', 3);
+                break;
+            case 'hot':
+                $query->where('is_hot_offer', 1);
+                break;
+            case 'luxury':
+                $query->where('is_luxury_property', 1); // ✅ limit to luxury
+                break;
+        }
+    }
+
     if (!empty($request['location'] ?? null)) {
         $query->where('location_id', $request['location']);
     }

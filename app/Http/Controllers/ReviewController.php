@@ -16,7 +16,6 @@ class ReviewController extends Controller
             'name'        => 'required|string|max:25',
             'email'       => 'nullable|email',
             'contact_no'  => 'nullable|string|max:20',
-            'rating'      => 'required|numeric|min:1|max:5',
             'property_id' => 'required|exists:properties,unique_id',
             'review'      => 'required|string',
         ]);
@@ -27,8 +26,8 @@ class ReviewController extends Controller
             'name'        => $request->name,
             'email'       => $request->email,
             'contact_no'  => $request->contact_no,
-            'rating'      => $request->rating,
             'review'      => $request->review,
+            'status'      => 1, 
         ]);
 
 

@@ -582,13 +582,13 @@
                                 <img src="{{ url('public/frontend/assets/images/img/sell-house.png') }}"
                                     alt="Sell Residential Icon" class="property-icon">
                             </div>
-                            <h4 class="card-title fw-semibold">Sell Residential</h4>
+                            <h4 class="card-title fw-semibold text-center">Sell Residential</h4>
                             <p class="card-text property-text">
                                 We will connect you to thousands of people who need to buy a home.
                             </p>
                         </div>
                         <a href="login" class="btn property-btn">
-                            <i class="bi bi-house-door-fill me-2"></i>Sell Residential
+                            <i class="bi bi-house-door me-2"></i>Sell Residential
                         </a>
                     </div>
                 </div>
@@ -602,13 +602,13 @@
                                 <img src="{{ url('public/frontend/assets/images/img/rent-house.png') }}"
                                     alt="Rent Residential Icon" class="property-icon">
                             </div>
-                            <h4 class="card-title fw-semibold">Rent Residential</h4>
+                            <h4 class="card-title fw-semibold text-center">Rent Residential</h4>
                             <p class="card-text property-text">
                                 Tell us your needs, we will give you thousands of suggestions for the dream home.
                             </p>
                         </div>
                         <a href="login" class="btn property-btn">
-                            <i class="bi bi-house-door-fill me-2"></i>Rent Residential
+                            <i class="bi bi-house-door me-2"></i>Rent Residential
                         </a>
                     </div>
                 </div>
@@ -622,7 +622,7 @@
                                 <img src="{{ url('public/frontend/assets/images/img/office-1.png') }}"
                                     alt="Sell Commercial Icon" class="property-icon">
                             </div>
-                            <h4 class="card-title fw-semibold">Sell Commercial</h4>
+                            <h4 class="card-title fw-semibold text-center">Sell Commercial</h4>
                             <p class="card-text property-text">
                                 We will connect you to thousands of people who need to buy an office.
                             </p>
@@ -642,7 +642,7 @@
                                 <img src="{{ url('public/frontend/assets/images/img/rent-office.png') }}"
                                     alt="Rent Commercial Icon" class="property-icon">
                             </div>
-                            <h4 class="card-title fw-semibold">Rent Commercial</h4>
+                            <h4 class="card-title fw-semibold text-center">Rent Commercial</h4>
                             <p class="card-text property-text">
                                 Tell us your needs, we will give you thousands of suggestions for the dream office.
                             </p>
@@ -684,7 +684,7 @@
                             </div>
 
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-blog">
                             <h6 class="mt-2 fw-semibold">Rental Property Management in UAE</h6>
                             <a href="" class="text-decoration-none fw-semibold small" style="color: #aa8038;">
                                 Read more <i class="bi bi-arrow-right-short"></i>
@@ -707,7 +707,7 @@
                             </div>
 
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-blog">
                             <h6 class="mt-2 fw-semibold">The Indispensable Role of a Real Estate Broker</h6>
                             <a href="#" class="text-decoration-none fw-semibold small" style="color: #aa8038;">
                                 Read more <i class="bi bi-arrow-right-short"></i>
@@ -730,7 +730,7 @@
                             </div>
 
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-blog">
                             <h6 class="mt-2 fw-semibold">How to Find the Best Real Estate Agent in Dubai: A Comprehensive
                                 Guide</h6>
                             <a href="#" class="text-decoration-none fw-semibold small" style="color: #aa8038;">
@@ -836,7 +836,8 @@
             </div>
         </div>
     </section>
-        <!-- jQuery -->
+
+    <!-- jQuery -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script>
         $(function() {
