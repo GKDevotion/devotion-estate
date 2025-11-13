@@ -55,8 +55,7 @@
                                 </div>
                             </a>
                         </div>
-
-
+                        
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=the-indispensable-role-of-a-real-estate-broker"
                                 class="text-decoration-none text-dark">
@@ -79,8 +78,6 @@
                             </a>
                         </div>
 
-
-
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=marbella-property" class="text-decoration-none text-dark">
                                 <div class="card border-0">
@@ -102,8 +99,6 @@
                             </a>
                         </div>
 
-
-
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=brokers-in-dubai" class="text-decoration-none text-dark">
                                 <div class="card border-0">
@@ -124,7 +119,6 @@
                                 </div>
                             </a>
                         </div>
-
 
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=dubai-real-estate-statistical-overview"
@@ -149,8 +143,6 @@
                             </a>
                         </div>
 
-
-
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=invest-in-dubai-lucrative-opportunity"
                                 class="text-decoration-none text-dark">
@@ -174,8 +166,6 @@
                             </a>
                         </div>
 
-
-
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=real-estate-broker-company-dubai"
                                 class="text-decoration-none text-dark">
@@ -197,8 +187,6 @@
                                 </div>
                             </a>
                         </div>
-
-
 
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=top-real-estate-companies-dubai-2025"
@@ -222,9 +210,6 @@
                             </a>
                         </div>
 
-
-
-
                         <div class="col-md-6 blog-item">
                             <a href="blog-detail.html?slug=lack-of-home-listings-mortgage-demand"
                                 class="text-decoration-none text-dark">
@@ -247,8 +232,6 @@
                                 </div>
                             </a>
                         </div>
-
-
 
                     </div>
 

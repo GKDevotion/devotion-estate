@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
-
+  protected $fillable = [
+       'admin_id', 'name', 'slug', 'display_name', 'address','city_id', 'country_id','continent_id','state_id', 'status'
+    ];
     public static function boot()
     {
         parent::boot();

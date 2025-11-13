@@ -25,3 +25,16 @@ ALTER TABLE `properties` ADD `additional_features` TEXT NULL DEFAULT NULL COMMEN
 /* 11-11-2025 */
 ALTER TABLE `properties` ADD `parkings` INT NOT NULL DEFAULT '0' AFTER `baths`;
 ALTER TABLE `properties` CHANGE `garages` `garages` INT NULL DEFAULT NULL;
+
+/* 13-11-2025 */
+ALTER TABLE `properties` ADD `building_name` VARCHAR(255) NOT NULL AFTER `name`;
+ALTER TABLE `properties` ADD `staff_accomodation` VARCHAR(100) NOT NULL AFTER `maintenance_paid`;
+ALTER TABLE `properties` ADD `plan_detail` VARCHAR(255) NULL DEFAULT NULL AFTER `payment_plan_id`;
+ALTER TABLE `properties` ADD `quarter` INT NOT NULL DEFAULT '1' COMMENT '1:quarter1, 2:quarter2 , so that' AFTER `completed_date`;
+ALTER TABLE `properties` CHANGE `quarter` `quarter` INT(11) NOT NULL DEFAULT '1' COMMENT '1:quarter1, 2:quarter2 ,3:quarter ';
+
+ALTER TABLE `locations` ADD `slug` VARCHAR(255) NOT NULL AFTER `name`;
+ALTER TABLE `properties` CHANGE `baths` `baths` INT NOT NULL;
+ALTER TABLE `properties` CHANGE `quarter` `quarter` INT NOT NULL COMMENT '1:quarter1, 2:quarter2 ,3:quarter ';
+ALTER TABLE `properties` CHANGE `quarter` `quarter` INT NULL DEFAULT NULL COMMENT '1:quarter1, 2:quarter2 ,3:quarter ';
+ALTER TABLE `properties` CHANGE `baths` `baths` INT NULL DEFAULT NULL;

@@ -35,8 +35,37 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $Price = str_replace(',', '', $request->price);
 
 
+            // 🟢 Handle "Other" location
+            if ($request->location_id === 'other' && !empty($request->other_location)) {
+
+                $name = trim($request->other_location);  
+                $slug = convertStringToSlug($name);    
+
+                $location = Location::firstOrCreate(
+                    ['name' => $name], 
+                    [
+                        'continent_id'  => 3,       // change if needed
+                        'country_id'    => 231,     // UAE, etc.
+                        'state_id'      => 3391,
+                        'city_id'       => 32,
+                        'admin_id'     => 1,
+                        'address'      => $name,   
+                        'slug'         => $slug,         
+                        'display_name' => $name,
+                        'status'       => 1,
+                    ]
+                );
+
+                // ✅ Correctly assign created location id
+                $location_id = $location->id;
+            } else {
+                // ✅ Fallback to selected existing location
+                $location_id = $request->location_id ?? null;
+            }
+
             $propertyDataObj->admin_id = $admin_id;
             $propertyDataObj->name = $request->name;
+            $propertyDataObj->building_name = $request->building_name;
             $propertyDataObj->slug = convertStringToSlug($request->name);
             $propertyDataObj->h1_tag = $request->name;//$request->h1_tag;
             $propertyDataObj->seo_title = $request->name; //$request->seo_title;
@@ -50,7 +79,9 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->is_occupancy = $request->is_occupancy;
             $propertyDataObj->off_plan_sale_type = $request->off_plan_sale_type;
             $propertyDataObj->completed_date = $request->completed_date;
+            $propertyDataObj->quarter = $request->quarter;
             $propertyDataObj->payment_plan_id = $request->payment_plan_id;
+            $propertyDataObj->plan_detail = $request->plan_detail;
             $propertyDataObj->rent_frequency = $request->rent_frequency;
             $propertyDataObj->rent_contract_period = $request->rent_contract_period ?? 0;
             $propertyDataObj->rent_notice_period = $request->rent_notice_period ?? 0;
@@ -60,13 +91,11 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->finance_name = $request->finance_name;
             $propertyDataObj->rera_number = $request->rera_number;
             $propertyDataObj->permit_number = $request->permit_number;
-            $propertyDataObj->location_id = $request->location_id;
+            $propertyDataObj->location_id = $location_id;
             $propertyDataObj->agent_id  = $request->agent_id;
             $propertyDataObj->publish = 0;
             $propertyDataObj->beds = $request->beds;
             $propertyDataObj->baths = $request->baths;
-            $propertyDataObj->parkings = $request->parkings;
-            $propertyDataObj->garages = $request->garages;
             $propertyDataObj->area = $request->area;
             $propertyDataObj->price = $Price; 
             $propertyDataObj->status = 0;
@@ -133,6 +162,27 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
         //3. Reference Information -->
         if ($request->step == 3 || $request->_method == "PUT") {
 
+
+            /**
+             * ✅ 1️⃣ Handle Deletions First
+             * You’ll receive an array of image IDs or filenames via checkboxes in the form: name="delete_images[]"
+             */
+            if ($request->has('delete_images')) {
+                foreach ($request->delete_images as $imageId) {
+                    $imageMap = PropertyImageMap::find($imageId);
+                    if ($imageMap) {
+                        $filePath = str_replace('/storage/', '', $imageMap->filename);
+                        $storagePath = storage_path('app/' . $filePath);
+
+                        if (file_exists($storagePath)) {
+                            unlink($storagePath);
+                        }
+
+                        $imageMap->delete(); // remove DB record
+                    }
+                }
+            }
+            
             $uploadedImages = [];
 
             if ($request->file('propertyImage')) {

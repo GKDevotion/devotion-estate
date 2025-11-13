@@ -96,6 +96,7 @@
                                 <fieldset>
                                     <legend>Property Information</legend>
                                     <div class="row">
+
                                         <div class="col-md-12 col-sm-12 mb-2">
                                             <label class="mb-0" for="name">Name/Title <span
                                                     class="text-error">*</span></label>
@@ -104,6 +105,16 @@
                                                 value="">
                                             <div class="error text-error"></div>
                                         </div>
+
+                                        <div class="col-md-12 col-sm-12 mb-2">
+                                            <label class="mb-0" for="building_name">Tower/Building <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="building_name" name="building_name"
+                                                placeholder="Property Tower/Building" value="">
+                                            <div class="error text-error"></div>
+                                        </div>
+
 
                                         <div class="col-md-6 col-sm-12 mb-2 d-none">
                                             <label class="mb-0" for="h1_tag">H1 Tag <span
@@ -134,8 +145,8 @@
                                         <div class="col-md-12 col-sm-12 mb-2">
                                             <label class="mb-0" for="description">Description <span
                                                     class="text-error">*</span></label>
-                                            <textarea type="text" class="ckeditor form-control" id="description" name="description" placeholder="Description"
-                                                rows="16"></textarea>
+                                            <textarea type="text" class="ckeditor form-control" id="description" name="description"
+                                                placeholder="Description" rows="16"></textarea>
                                             <div class="error text-error"></div>
                                         </div>
                                     </div>
@@ -148,7 +159,6 @@
                                                 data-required="yes">
                                                 <option value="1">Sale</option>
                                                 <option value="2">Rent</option>
-                                                <option value="3">Land</option>
                                             </select>
                                             <div class="error text-error"></div>
                                         </div>
@@ -161,6 +171,7 @@
                                                 <option value="" selected disabled>Select Type</option>
                                                 <option value="1">Residential</option>
                                                 <option value="2">Commercial</option>
+                                                <option value="3">Land</option>
                                             </select>
                                             <div class="error text-error"></div>
                                         </div>
@@ -227,19 +238,6 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="parkings">Parking</label>
-                                            <input type="number" class="form-control mb-2" data-required=""
-                                                id="parkings" name="parkings" placeholder="0" value="">
-                                            <div class="error text-error"></div>
-                                        </div>
-
-                                        <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="baths">Bathroom(s)</label>
-                                            <input type="number" class="form-control mb-2" data-required=""
-                                                id="baths" name="baths" placeholder="0" value="">
-                                            <div class="error text-error"></div>
-                                        </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
                                             <label class="mb-0" for="off_plan_sale_type">Off-Plan Sale Type <span
@@ -254,25 +252,26 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
-                                            <label class="mb-0" for="completed_date">Expected Completion Date <span
+                                            <label class="mb-0" for="quarter">Expected Quarter <span
                                                     class="text-error">*</span></label>
-                                            <input type="date" class="form-control mb-2" data-required="yes"
-                                                id="completed_date" name="completed_date"
-                                                placeholder="Expected Completed Date" value="">
+                                            <select name="quarter" id="quarter" class="form-control"
+                                                data-required="yes">
+                                                <option value="">Select Quarter</option>
+                                                <option value="1">Quarter 1</option>
+                                                <option value="2">Quarter 2</option>
+                                                <option value="3">Quarter 3</option>
+                                                <option value="4">Quarter 4</option>
+                                                <option value="5">Quarter 5</option>
+                                            </select>
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
-                                            <label class="mb-0" for="payment_plan_id">Payment Plan <span
+                                        <div class="col-md-4 col-sm-12 mb-2 is-complete-offplan">
+                                            <label class="mb-0" for="plan_detail">Payment Plan<span
                                                     class="text-error">*</span></label>
-                                            <select name="payment_plan_id" id="payment_plan_id" class="form-control"
-                                                data-required="yes">
-                                                <option value="0">Payment Plan</option>
-                                                @foreach ($paymentPlanObj as $ar)
-                                                    <option value="{{ $ar->id }}" class="{{ $ar->name }}">
-                                                        {{ $ar->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" class="form-control mb-2" data-required="no"
+                                                id="plan_detail" name="plan_detail" placeholder="Plan Detail"
+                                                value="">
                                             <div class="error text-error"></div>
                                         </div>
 
@@ -330,9 +329,18 @@
                                             </div>
 
                                             <div class="col-md-4 col-sm-12 mb-2 d-none type-type-residential">
-                                                <label class="mb-0" for="garages">Garage(s)</label>
+                                                <label class="mb-0" for="baths">Bathroom(s)</label>
                                                 <input type="number" class="form-control mb-2" data-required=""
-                                                    id="garages" name="garages" placeholder="0" value="">
+                                                    id="baths" name="baths" placeholder="0" value="">
+                                                <div class="error text-error"></div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-12 mb-2 d-none type-type-commercial">
+                                                <label class="mb-0" for="staff_accomodation">Staff Accomodation <span
+                                                        class="text-error">*</span></label>
+                                                <input type="text" class="form-control mb-2" data-required="yes"
+                                                    id="staff_accomodation" name="staff_accomodation"
+                                                    placeholder="Staff Accomodation" value="">
                                                 <div class="error text-error"></div>
                                             </div>
 
@@ -389,6 +397,8 @@
                                             <div class="error text-error"></div>
                                         </div>
 
+
+
                                     </div>
                                 </fieldset>
 
@@ -431,9 +441,20 @@
                                                 @foreach ($locationObj as $ar)
                                                     <option value="{{ $ar->id }}">{{ $ar->name }}</option>
                                                 @endforeach
+                                                <option value="other">Other</option>
                                             </select>
                                             <div class="error text-error"></div>
                                         </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2" id="other_location_wrapper"
+                                            style="display: none;">
+                                            <label class="mb-0" for="other_location">Other Location <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" name="other_location" id="other_location"
+                                                class="form-control" placeholder="Enter location name">
+                                            <div class="error text-error"></div>
+                                        </div>
+
 
                                         <div class="col-md-4 col-sm-12 mb-2">
                                             <label class="mb-0" for="agent_id">Agent <span
@@ -499,7 +520,8 @@
                                         <label for="is_new_property" class="form-label mb-1">
                                             Do you want to set this property as new? <span class="text-danger">*</span>
                                         </label>
-                                        <select name="is_new_property" id="is_new_property" class="form-control" required>
+                                        <select name="is_new_property" id="is_new_property" class="form-control"
+                                            required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -530,8 +552,8 @@
                                             Do you want to set this property as a luxury property? <span
                                                 class="text-danger">*</span>
                                         </label>
-                                        <select name="is_luxury_property" id="is_luxury_property"
-                                            class="form-control" required>
+                                        <select name="is_luxury_property" id="is_luxury_property" class="form-control"
+                                            required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
@@ -546,8 +568,7 @@
                                             Do you want to set this property as a Hot Offer Property? <span
                                                 class="text-danger">*</span>
                                         </label>
-                                        <select name="is_hot_offer" id="is_hot_offer"
-                                            class="form-control" required>
+                                        <select name="is_hot_offer" id="is_hot_offer" class="form-control" required>
                                             <option value="" selected disabled>Select Option</option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>

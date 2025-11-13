@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Backend\AdminLogController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\AgentsController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
 use App\Http\Controllers\Backend\ClientsController;
@@ -93,6 +94,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/brochures/edit/{id}', [BrochuresController::class, 'edit'])->name('admin.brochures.edit');
     Route::post('/brochures/update', [BrochuresController::class, 'update'])->name('admin.brochures.update');
     Route::get('/brochures-ajax-data', [BrochuresController::class, 'ajaxIndex'])->name('brochures.ajaxIndex');
+
+    Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs.index');
+    Route::get('/blogs/create', [BlogController::class, 'create'])->name('admin.blogs.create');
+    Route::post('/blogs/store', [BlogController::class, 'store'])->name('admin.blogs.store');
+    Route::get('/blogs/edit/{id}', [BlogController::class, 'edit'])->name('admin.blogs.edit');
+    Route::post('/blogs/update', [BlogController::class, 'update'])->name('admin.blogs.update');
+    Route::get('/blogs-ajax-data', [BlogController::class, 'ajaxIndex'])->name('blogs.ajaxIndex');
 
     // Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
     Route::get('/properties', [PropertiesController::class, 'index'])->name('admin.properties.index');

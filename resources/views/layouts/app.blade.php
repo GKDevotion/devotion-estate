@@ -85,6 +85,10 @@
                                     <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage
                                         Advisory</a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="property-management">
+                                        Property Management</a>
+                                </li>
                             </ul>
                         </li>
 

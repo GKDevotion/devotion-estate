@@ -70,7 +70,9 @@ Route::get('/property/send-mail/{agent_id}', [PropertiesController::class, 'send
 
 
 Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us');
+
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
+// Route::get('blog/{slug?}', [BlogController::class, 'show'])->name('property.detail');
 
 Route::get('buy-properties', [BuyPropertiesController::class, 'index'])->name('buy.properties');
 
@@ -85,6 +87,9 @@ Route::get('mortgage-advisory', [MortgageAdvisoryController::class, 'index'])->n
 Route::get('off-plan', [OffPlanController::class, 'index'])->name('off-plan');
 Route::get('/list-your-properties', function () {
     return view('frontend.pages.list-your-properties');
+});
+Route::get('/property-management', function () {
+    return view('frontend.pages.property-management');
 });
 
 Route::get('hot-offer', [HotOfferController::class, 'index'])->name('hot-offer');
