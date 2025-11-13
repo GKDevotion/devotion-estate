@@ -337,26 +337,9 @@
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
                                             <label class="mb-0" for="quarter">Expected Quarter <span
                                                     class="text-error">*</span></label>
-                                            <select name="quarter" id="quarter" class="form-control"
-                                                data-required="yes">
-                                                 <option value=""> Select Quarter</option>
-                                                <option value="1"
-                                                    {{ old('quarter', $data->quarter ?? '') == 1 ? 'selected' : '' }}>
-                                                    Quarter 1</option>
-                                                <option value="2"
-                                                    {{ old('quarter', $data->quarter ?? '') == 2 ? 'selected' : '' }}>
-                                                    Quarter 2</option>
-                                                <option value="3"
-                                                    {{ old('quarter', $data->quarter ?? '') == 3 ? 'selected' : '' }}>
-                                                    Quarter 3</option>
-                                                <option value="4"
-                                                    {{ old('quarter', $data->quarter ?? '') == 4 ? 'selected' : '' }}>
-                                                    Quarter 4</option>
-                                                <option value="5"
-                                                    {{ old('quarter', $data->quarter ?? '') == 5 ? 'selected' : '' }}>
-                                                    Quarter 5</option>
-                                            </select>
-
+                                             <input type="text" class="form-control mb-2" data-required="no"
+                                                id="quarter" name="quarter" placeholder="Expected Quarter"
+                                                value="{{ old('quarter', $data->quarter) }}">
                                             @error('quarter')
                                                 <div class="error text-error">{{ $message }}</div>
                                             @enderror

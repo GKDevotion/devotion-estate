@@ -38,3 +38,4 @@ ALTER TABLE `properties` CHANGE `baths` `baths` INT NOT NULL;
 ALTER TABLE `properties` CHANGE `quarter` `quarter` INT NOT NULL COMMENT '1:quarter1, 2:quarter2 ,3:quarter ';
 ALTER TABLE `properties` CHANGE `quarter` `quarter` INT NULL DEFAULT NULL COMMENT '1:quarter1, 2:quarter2 ,3:quarter ';
 ALTER TABLE `properties` CHANGE `baths` `baths` INT NULL DEFAULT NULL;
+ALTER TABLE `properties` CHANGE `quarter` `quarter` VARCHAR(255) NULL DEFAULT NULL;
