@@ -97,17 +97,25 @@
                     <!-- Main Slider -->
                     <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="lightgallery">
+<style>
+    .property-carousel-img {
+ 
+        object-fit: cover; /* keeps equal height & fills the box */
+        object-position: center;
+    }
+</style>
 
-                            @foreach ($property->images as $index => $image)
-                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                    <a href="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
-                                        data-sub-html="<h6>Devotion Property {{ $index + 1 }}</h6>">
+@foreach ($property->images as $index => $image)
+    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+        <a href="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
+            data-sub-html="<h6>Devotion Property {{ $index + 1 }}</h6>">
 
-                                        <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
-                                            class="d-block w-100 rounded shadow" style="height: 580px; ">
-                                    </a>
-                                </div>
-                            @endforeach
+            <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
+                 class="d-block w-100 rounded shadow property-carousel-img">
+        </a>
+    </div>
+@endforeach
+
 
                         </div>
 
