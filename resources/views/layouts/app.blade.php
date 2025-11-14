@@ -280,7 +280,7 @@
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Terms
                                     Condition</a></li>
-                            <li><a href="login" class="text-decoration-none d-block py-1"><i
+                            <li><a href="{{ route('admin.login') }}" class="text-decoration-none d-block py-1"><i
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Login</a>
                             </li>

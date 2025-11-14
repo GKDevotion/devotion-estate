@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                            IMAGE GALLERY
-                            ======================== -->
+                                IMAGE GALLERY
+                                ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -97,24 +97,25 @@
                     <!-- Main Slider -->
                     <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="lightgallery">
-<style>
-    .property-carousel-img {
- 
-        object-fit: cover; /* keeps equal height & fills the box */
-        object-position: center;
-    }
-</style>
+                            <style>
+                                .property-carousel-img {
 
-@foreach ($property->images as $index => $image)
-    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-        <a href="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
-            data-sub-html="<h6>Devotion Property {{ $index + 1 }}</h6>">
+                                    object-fit: cover;
+                                    /* keeps equal height & fills the box */
+                                    object-position: center;
+                                }
+                            </style>
 
-            <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
-                 class="d-block w-100 rounded shadow property-carousel-img">
-        </a>
-    </div>
-@endforeach
+                            @foreach ($property->images as $index => $image)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <a href="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
+                                        data-sub-html="<h6>Devotion Property {{ $index + 1 }}</h6>">
+
+                                        <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
+                                            class="d-block w-100 rounded shadow property-carousel-img">
+                                    </a>
+                                </div>
+                            @endforeach
 
 
                         </div>
@@ -145,8 +146,8 @@
         </div>
 
         <!-- =======================
-                            CONTENT ROW (DETAILS + CONTACT)
-                            ======================== -->
+                                CONTENT ROW (DETAILS + CONTACT)
+                                ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
