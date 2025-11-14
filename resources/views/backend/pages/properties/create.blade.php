@@ -440,14 +440,7 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-4 col-sm-12 mb-2" id="other_location_wrapper"
-                                            style="display: none;">
-                                            <label class="mb-0" for="other_location">Other Location <span
-                                                    class="text-error">*</span></label>
-                                            <input type="text" name="other_location" id="other_location"
-                                                class="form-control" placeholder="Enter location name">
-                                            <div class="error text-error"></div>
-                                        </div>
+
 
                                         <div class="col-md-4 col-sm-12 mb-2">
                                             <label class="mb-0" for="develop_by">Develop By <span
@@ -468,6 +461,15 @@
                                                     <option value="{{ $ar->id }}">{{ $ar->first_name }}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="error text-error"></div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2" id="other_location_wrapper"
+                                            style="display: none;">
+                                            <label class="mb-0" for="other_location">Other Location <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" name="other_location" id="other_location"
+                                                class="form-control" placeholder="Enter location name">
                                             <div class="error text-error"></div>
                                         </div>
                                     </div>
