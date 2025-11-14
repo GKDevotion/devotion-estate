@@ -152,7 +152,7 @@
                         <h3>AED {{ number_format($property->price) }}</h3>
                         <p class="text-muted mb-1">{{ $property->finance_name }}</p>
 
-                        <div class="text-muted d-flex align-items-center">
+                        <div class="d-flex align-items-center">
                             <span class="me-3">
                                 <i class="bi bi-door-closed me-1"></i>
                                 {{ $property->beds == 0 ? 'Studio' : $property->beds }} beds
