@@ -426,7 +426,7 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-                                        <div class="col-md-4 col-sm-12 mb-2">
+                                        {{-- <div class="col-md-4 col-sm-12 mb-2">
                                             <label class="mb-0" for="location_id">Location <span
                                                     class="text-error">*</span></label>
                                             <select name="location_id" id="location_id" class="form-control"
@@ -438,7 +438,25 @@
                                                 <option value="other">Other</option>
                                             </select>
                                             <div class="error text-error"></div>
+                                        </div> --}}
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="location_id">
+                                                Location <span class="text-error">*</span>
+                                            </label>
+
+                                            <select name="location_id" id="location_id" class="form-control select2"
+                                                data-required="yes">
+                                                <option value="">Select Location</option>
+                                                @foreach ($locationObj as $ar)
+                                                    <option value="{{ $ar->id }}">{{ $ar->name }}</option>
+                                                @endforeach
+                                                <option value="other">Other</option>
+                                            </select>
+
+                                            <div class="error text-error"></div>
                                         </div>
+
 
                                         <div class="col-md-4 col-sm-12 mb-2">
                                             <label class="mb-0" for="develop_by">Develop By <span
@@ -692,7 +710,26 @@
         </div>
     </div>
 @endsection
+<style>.select2-container .select2-selection--single {
+    height: 48px !important;         /* same as form-control-lg */
+    padding: 8px 12px !important;
+    border: 1px solid lightgray !important; 
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+}
 
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 46px !important;
+    right: 10px !important;
+}
+/* Hover color */
+.select2-results__option--highlighted {
+    background-color: #ab8134 !important;   /* your custom hover color */
+    color: white !important;
+}
+
+</style>
 @section('scripts')
     <script src="{{ asset('public/backend/assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('public/backend/assets/js/propertyForm.js') }}"></script>
@@ -714,5 +751,13 @@
             .catch(error => {
                 console.error(error);
             });
+            
+        $(document).ready(function() {
+            $('#location_id').select2({
+                placeholder: "Search Location",
+                allowClear: true,
+                width: '100%' // IMPORTANT: keeps same layout
+            });
+        });
     </script>
 @endsection

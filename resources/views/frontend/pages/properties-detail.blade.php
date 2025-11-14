@@ -217,7 +217,7 @@
                     <div class="card-body">
                         <h5 class="fw-semibold mb-2">Property Features</h5>
 
-                        <p>
+                        <p class="mb-0">
                             {!! $property->additional_features ?? 'No Features available.' !!}
                         </p>
                     </div>
@@ -272,13 +272,6 @@
                                         </span>
                                     </div>
 
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="fw-semibold">Handover</span>
-                                        <span>{{ $property->quarter ?? 'N/A' }}</span>
-                                    </div>
-
-
-
                                 </div>
 
                                 <!-- Column 2 -->
@@ -292,6 +285,11 @@
                                     <div class="d-flex justify-content-between mb-3">
                                         <span class="fw-semibold">Payment Plan</span>
                                         <span>{{ $property->plan_detail ?? 'N/A' }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Handover</span>
+                                        <span>{{ $property->quarter ?? 'N/A' }}</span>
                                     </div>
 
                                     <div class="d-flex justify-content-between mb-3">
