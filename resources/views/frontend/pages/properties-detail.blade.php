@@ -216,7 +216,8 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="fw-semibold mb-2">Property Features</h5>
-                        <p class="pb-2">
+
+                        <p>
                             {!! $property->additional_features ?? 'No Features available.' !!}
                         </p>
                     </div>
