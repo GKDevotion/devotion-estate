@@ -16,7 +16,7 @@
 
                     <input type="number" id="price" value="1675000" step="1000" min="100000"
                         oninput="calculateMortgage()"
-                        class="form-control form-control-lg fw-semibold">
+                        class="form-control form-control-lg text-muted">
                 </div>
 
                 <!-- Down Payment -->

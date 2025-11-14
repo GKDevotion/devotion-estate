@@ -440,8 +440,6 @@
                                             <div class="error text-error"></div>
                                         </div>
 
-
-
                                         <div class="col-md-4 col-sm-12 mb-2">
                                             <label class="mb-0" for="develop_by">Develop By <span
                                                     class="text-error">*</span></label>

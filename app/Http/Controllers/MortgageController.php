@@ -8,6 +8,7 @@ class MortgageController extends Controller
 {
     public function index()
     {
+        
         return view('frontend.layouts.partials.mortgage');
     }
 

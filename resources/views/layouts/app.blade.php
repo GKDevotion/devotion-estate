@@ -299,7 +299,7 @@
                                 </div>
 
                                 <button type="submit" class="btn fw-semibold newsletter-button w-100"
-                                    style=" background-color: #a47a46;
+                                    style=" background-color: #aa8038;
                                         color: white;
                                         padding: 12px 15px;
                                         border: none;

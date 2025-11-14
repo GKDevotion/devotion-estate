@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-        IMAGE GALLERY
-        ======================== -->
+                            IMAGE GALLERY
+                            ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -104,7 +104,7 @@
                                         data-sub-html="<h6>Devotion Property {{ $index + 1 }}</h6>">
 
                                         <img src="{{ asset('storage/app/propertyImage/' . ($image->filename ?? 'default.jpg')) }}"
-                                            class="d-block w-100 rounded shadow" style="height: 580px; object-fit: cover;">
+                                            class="d-block w-100 rounded shadow" style="height: 580px; ">
                                     </a>
                                 </div>
                             @endforeach
@@ -137,8 +137,8 @@
         </div>
 
         <!-- =======================
-        CONTENT ROW (DETAILS + CONTACT)
-        ======================== -->
+                            CONTENT ROW (DETAILS + CONTACT)
+                            ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -148,7 +148,8 @@
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-4">
 
                     <div>
-                        <h3 class="fw-bold">AED {{ number_format($property->price) }}</h3>
+                        <h2 class="fw-bold pb-3">{{ $property->name ?? 'N/A' }}</h2>
+                        <h3>AED {{ number_format($property->price) }}</h3>
                         <p class="text-muted mb-1">{{ $property->finance_name }}</p>
 
                         <div class="text-muted d-flex align-items-center">
@@ -185,120 +186,127 @@
                     </style>
                     <!-- Favorite + Share -->
                     <div class="d-flex mt-3 mt-md-0">
-                        <button class="btn share-btn me-2">
-                            <i class="bi bi-heart"></i> Favorite
-                        </button>
                         <button class="btn share-btn" onclick="shareProperty()">
                             <i class="bi bi-share"></i> Share
                         </button>
                     </div>
-
-
                 </div>
 
                 <hr>
-                <!-- Two Column Property Info -->
-                <div class="row g-4">
-                    <h5 class="fw-semibold mb-3">Property Information</h5>
-                    <div class="row">
-
-                        <!-- Column 1 -->
-                        <div class="col-md-6 border-end pe-4">
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Type</span>
-                                <span>{{ $property->type == 1 ? 'Residential' : 'Commercial' }}</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Sub Type</span>
-                                <span>{{ $property->subtype->name ?? 'N/A' }}</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Furnishing</span>
-                                <span>{{ $property->is_furnish == 1 ? 'Furnished' : 'UnFurnished' }}</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Completion Status</span>
-
-                                <span>
-                                    @switch($property->is_complete)
-                                        @case(1)
-                                            Ready
-                                        @break
-
-                                        @case(2)
-                                            Secondary
-                                        @break
-
-                                        @case(3)
-                                            Off-Plan
-                                        @break
-
-                                        @default
-                                            N/A
-                                    @endswitch
-                                </span>
-                            </div>
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Handover</span>
-                                <span>{{ $property->quarter ?? 'N/A' }}</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Project Name</span>
-                                <span class="text-end text-wrap" style="max-width: 60%;">
-                                    {{ $property->name ?? 'N/A' }}
-                                </span>
-                            </div>
 
 
-                        </div>
-
-                        <!-- Column 2 -->
-                        <div class="col-md-6 ps-4">
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Purpose</span>
-                                <span>{{ $property->purpose == 1 ? 'For Sale' : 'For Rent' }}</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Payment Plan</span>
-                                <span>{{ $property->plan_detail ?? 'N/A' }}</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="fw-semibold">Developer</span>
-                                <span>{{ $property->develop_by ?? 'N/A' }}</span>
-                            </div>
-
-                        </div>
-
-                    </div>
+                {{-- <div class="d-flex justify-content-between mb-3">
+                    <h5 class="fw-semibold mb-3">Project Name</h5>
+                    <span class="text-end text-wrap" style="max-width: 60%;">
+                        {{ $property->name ?? 'N/A' }}
+                    </span>
+                </div> --}}
 
 
-                    <div>
-                        <h5 class="fw-semibold mb-3">Property Features</h5>
-
-                        <p class="mb-0">
-                            {!! $property->additional_features ?? 'No Features available.' !!}
-                        </p>
-                    </div>
-
-
-                    <div>
-                        <h5 class="fw-semibold mb-3">Property Description</h5>
+                <div class="card mt-4 mb-4">
+                    <div class="card-body">
+                        <h5 class="fw-semibold mb-4">Property Description</h5>
 
                         <p class="mb-0">
                             {!! $property->description ?? 'No description available.' !!}
                         </p>
                     </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="fw-semibold mb-4">Property Features</h5>
+
+                        <p class="pb-2">
+                            {!! $property->additional_features ?? 'No Features available.' !!}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Two Column Property Info -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row g-4">
+
+                            <h5 class="fw-semibold mb-4">Property Information</h5>
+
+                            <div class="row">
+
+                                <!-- Column 1 -->
+                                <div class="col-md-6 border-end pe-4">
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Type</span>
+                                        <span>{{ $property->type == 1 ? 'Residential' : 'Commercial' }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Sub Type</span>
+                                        <span>{{ $property->subtype->name ?? 'N/A' }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Furnishing</span>
+                                        <span>{{ $property->is_furnish == 1 ? 'Furnished' : 'UnFurnished' }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Completion Status</span>
+
+                                        <span>
+                                            @switch($property->is_complete)
+                                                @case(1)
+                                                    Ready
+                                                @break
+
+                                                @case(2)
+                                                    Secondary
+                                                @break
+
+                                                @case(3)
+                                                    Off-Plan
+                                                @break
+
+                                                @default
+                                                    N/A
+                                            @endswitch
+                                        </span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Handover</span>
+                                        <span>{{ $property->quarter ?? 'N/A' }}</span>
+                                    </div>
+
+
+
+                                </div>
+
+                                <!-- Column 2 -->
+                                <div class="col-md-6 ps-4">
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Purpose</span>
+                                        <span>{{ $property->purpose == 1 ? 'For Sale' : 'For Rent' }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Payment Plan</span>
+                                        <span>{{ $property->plan_detail ?? 'N/A' }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="fw-semibold">Developer</span>
+                                        <span>{{ $property->develop_by ?? 'N/A' }}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Property Details -->
-                    <div class="card shadow-sm border-1 mb-4 rounded-4">
+                    <div class="card shadow-sm border-1 mb-4 rounded-4 d-none">
                         <div class="p-3">
                             <h5 class="fw-semibold mb-3">Details</h5>
                             <hr>
@@ -318,13 +326,12 @@
                     {{-- @include('frontend.layouts.partials.mortgage') --}}
 
                 </div>
-
             </div>
 
             <!-- RIGHT SIDE: Contact Seller -->
             <div class="col-lg-4 seller-review-form">
 
-                <div class="card shadow-sm border-0 rounded-4 p-4">
+                <div class="card shadow-sm border-1 rounded-4 p-4">
                     <h5 class="mb-3">Contact seller</h5>
 
                     <!-- Seller Info -->
@@ -394,6 +401,7 @@
             </div>
 
         </div>
+
     </div>
 
 
