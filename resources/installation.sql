@@ -39,3 +39,7 @@ ALTER TABLE `properties` CHANGE `quarter` `quarter` INT NOT NULL COMMENT '1:quar
 ALTER TABLE `properties` CHANGE `quarter` `quarter` INT NULL DEFAULT NULL COMMENT '1:quarter1, 2:quarter2 ,3:quarter ';
 ALTER TABLE `properties` CHANGE `baths` `baths` INT NULL DEFAULT NULL;
 ALTER TABLE `properties` CHANGE `quarter` `quarter` VARCHAR(255) NULL DEFAULT NULL;
+
+/* 14-11-2025 */
+ALTER TABLE `properties` ADD `develop_by` VARCHAR(255) NOT NULL AFTER `location_id`;
+ALTER TABLE `properties` CHANGE `develop_by` `develop_by` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL;

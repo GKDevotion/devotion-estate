@@ -337,7 +337,7 @@
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
                                             <label class="mb-0" for="quarter">Expected Quarter <span
                                                     class="text-error">*</span></label>
-                                             <input type="text" class="form-control mb-2" data-required="no"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="quarter" name="quarter" placeholder="Expected Quarter"
                                                 value="{{ old('quarter', $data->quarter) }}">
                                             @error('quarter')
@@ -581,7 +581,7 @@
                                                         {{ $ar->name }}
                                                     </option>
                                                 @endforeach
-                                                     <option value="other">Other</option>
+                                                <option value="other">Other</option>
                                             </select>
 
                                             @error('location_id')
@@ -589,17 +589,25 @@
                                             @enderror
                                         </div>
 
-                                         <div class="col-md-4 col-sm-12 mb-2" id="other_location_wrapper"
+                                        <div class="col-md-4 col-sm-12 mb-2" id="other_location_wrapper"
                                             style="display: none;">
                                             <label class="mb-0" for="other_location">Other Location <span
                                                     class="text-error">*</span></label>
                                             <input type="text" name="other_location" id="other_location"
-                                                class="form-control" placeholder="Enter location name"  value="{{ old('other_location', $data->other_location) }}" >
+                                                class="form-control" placeholder="Enter location name"
+                                                value="{{ old('other_location', $data->other_location) }}">
                                             <div class="error text-error"></div>
                                         </div>
 
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="develop_by">Develop By <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="develop_by" name="develop_by" placeholder="Developer Name"
+                                                value="{{ old('develop_by', $data->develop_by) }}">
+                                            <div class="error text-error"></div>
+                                        </div>
 
-                                        
                                         <div class="col-md-4 col-sm-12 mb-2">
                                             <label class="mb-0" for="agent_id">Agent <span
                                                     class="text-error">*</span></label>

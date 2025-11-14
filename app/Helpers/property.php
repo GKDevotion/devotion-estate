@@ -92,6 +92,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->rera_number = $request->rera_number;
             $propertyDataObj->permit_number = $request->permit_number;
             $propertyDataObj->location_id = $location_id;
+            $propertyDataObj->develop_by =  $request->develop_by;
             $propertyDataObj->agent_id  = $request->agent_id;
             $propertyDataObj->publish = 0;
             $propertyDataObj->beds = $request->beds;

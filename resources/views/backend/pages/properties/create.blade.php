@@ -254,7 +254,7 @@
                                         <div class="col-md-4 col-sm-12 mb-2 d-none is-complete-offplan">
                                             <label class="mb-0" for="quarter">Expected Quarter <span
                                                     class="text-error">*</span></label>
-                                             <input type="text" class="form-control mb-2" data-required="no"
+                                            <input type="text" class="form-control mb-2" data-required="no"
                                                 id="quarter" name="quarter" placeholder="Expected Quarter"
                                                 value="">
                                             <div class="error text-error"></div>
@@ -449,6 +449,14 @@
                                             <div class="error text-error"></div>
                                         </div>
 
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="develop_by">Develop By <span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" class="form-control mb-2" data-required="yes"
+                                                id="develop_by" name="develop_by" placeholder="Developer Name"
+                                                value="">
+                                            <div class="error text-error"></div>
+                                        </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
                                             <label class="mb-0" for="agent_id">Agent <span

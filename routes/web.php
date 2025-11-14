@@ -13,6 +13,7 @@ use App\Http\Controllers\HotOfferController;
 use App\Http\Controllers\InvestmentAdvisoryController;
 use App\Http\Controllers\LuxuryPropertiesController;
 use App\Http\Controllers\MortgageAdvisoryController;
+use App\Http\Controllers\MortgageController;
 use App\Http\Controllers\OffPlanController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\PropertyContactController;
@@ -114,3 +115,8 @@ Route::get('execute-sql-statement', [HomeController::class, 'setSqlStatement']);
 
 
 Route::get('cant-properties', [PropertiesController::class, 'deleteproperties']);
+
+
+
+Route::get('/mortgage', [MortgageController::class, 'index'])->name('mortgage.index');
+
