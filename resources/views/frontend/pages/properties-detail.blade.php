@@ -116,8 +116,6 @@
                                     </a>
                                 </div>
                             @endforeach
-
-
                         </div>
 
                         <!-- Controls -->
