@@ -1,5 +1,5 @@
-<div class="card shadow-sm border-1 mb-4 rounded-4">
-    <div class="mx-auto p-4 p-md-5 bg-white shadow rounded-4" style="max-width: 1000px;">
+
+    <div class="mx-auto p-4 p-md-5 bg-white shadow rounded-4">
         <!-- Header -->
         <div class="text-center mb-4">
             <h2 class="fw-bold">Mortgage Calculator</h2>
@@ -108,7 +108,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 
 <script>

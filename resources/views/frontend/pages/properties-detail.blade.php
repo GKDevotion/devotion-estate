@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                    IMAGE GALLERY
-                                ======================== -->
+        IMAGE GALLERY
+        ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -136,10 +136,9 @@
             </div>
         </div>
 
-
         <!-- =======================
-                                    CONTENT ROW (DETAILS + CONTACT)
-                                ======================== -->
+        CONTENT ROW (DETAILS + CONTACT)
+        ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -153,15 +152,14 @@
                         <p class="text-muted mb-1">{{ $property->finance_name }}</p>
 
                         <div class="text-muted d-flex align-items-center">
-                            @if ($property->beds > 0)
-                                <span class="me-3">
-                                    <i class="bi bi-door-closed me-1"></i> {{ $property->beds }}
-                                </span>
-                            @endif
+                            <span class="me-3">
+                                <i class="bi bi-door-closed me-1"></i>
+                                {{ $property->beds == 0 ? 'Studio' : $property->beds }} beds
+                            </span>
 
                             @if ($property->baths > 0)
                                 <span class="me-3">
-                                    <i class="bi bi-bucket me-1"></i> {{ $property->baths }}
+                                    <i class="bi bi-bucket me-1"></i> {{ $property->baths }} baths
                                 </span>
                             @endif
                             <span class="me-3"><i class="bi bi-rulers me-1"></i> {{ $property->area }} Sq.Ft.</span>
@@ -317,10 +315,11 @@
                         </div>
                     </div>
 
+                    {{-- @include('frontend.layouts.partials.mortgage') --}}
+
                 </div>
 
             </div>
-
 
             <!-- RIGHT SIDE: Contact Seller -->
             <div class="col-lg-4 seller-review-form">
