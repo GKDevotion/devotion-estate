@@ -710,7 +710,8 @@
         </div>
     </div>
 @endsection
-<style>.select2-container .select2-selection--single {
+<style>
+.select2-container .select2-selection--single {
     height: 48px !important;         /* same as form-control-lg */
     padding: 8px 12px !important;
     border: 1px solid lightgray !important; 
@@ -728,7 +729,6 @@
     background-color: #ab8134 !important;   /* your custom hover color */
     color: white !important;
 }
-
 </style>
 @section('scripts')
     <script src="{{ asset('public/backend/assets/js/select2.min.js') }}"></script>

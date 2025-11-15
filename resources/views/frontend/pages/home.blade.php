@@ -357,7 +357,7 @@
                 /**
                  * $type = 0: 'sell', 1: 'rent'
                  */
-                $allproperties = getPropertiesByType([1, 2]);
+                $allproperties = getPropertiesByType([1, 2])->where('is_new_property', 1);;
                 $chunks = $allproperties->chunk(3);
             @endphp
 
@@ -380,12 +380,12 @@
                                                             class="card-img-top rounded-top-3"
                                                             alt="{{ $property->name }}">
 
-                                                        <span
+                                                        {{-- <span
                                                             class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
                                                         <span
                                                             class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sale' }} position-absolute top-0 end-0 m-2">
                                                             {{ $property->purpose == 1 ? 'For Rent' : 'For sale' }}
-                                                        </span>
+                                                        </span> --}}
 
                                                     </div>
 
@@ -491,12 +491,12 @@
                                                             class="card-img-top rounded-top-3"
                                                             alt="{{ $propertysale->title }}">
 
-                                                        <span
+                                                        {{-- <span
                                                             class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
                                                         <span
                                                             class="badge {{ $propertysale->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
                                                             {{ $propertysale->purpose == 1 ? 'For sale' : 'For Rent' }}
-                                                        </span>
+                                                        </span> --}}
 
                                                     </div>
 

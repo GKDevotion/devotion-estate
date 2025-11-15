@@ -680,12 +680,14 @@
                                         </label>
                                         <select name="is_new_property" id="is_new_property" class="form-control"
                                             data-required="yes">
-                                            <option value="1"
-                                                {{ old('is_new_property', $data->is_new_property ?? 0) == 1 ? 'selected' : '' }}>
-                                                Yes</option>
-                                            <option value="0"
-                                                {{ old('is_new_property', $data->is_new_property ?? 0) == 0 ? 'selected' : '' }}>
-                                                No</option>
+                                            <option value="">Select New Property</option>
+                                              <option value="1"
+                                                    {{ old('is_new_property', $data->is_new_property ?? '') == 1 ? 'selected' : '' }}>
+                                                    Yes</option>
+                                                <option value="0"
+                                                    {{ old('is_new_property', $data->is_new_property ?? '') == 0 ? 'selected' : '' }}>
+                                                    No</option>
+
                                         </select>
                                         @error('is_new_property')
                                             <div class="error text-error">{{ $message }}</div>
@@ -699,6 +701,7 @@
                                         </label>
                                         <select name="is_featured_property" id="is_featured_property"
                                             class="form-control" data-required="yes">
+                                            <option value="">Select Featured Property</option>
                                             <option value="1"
                                                 {{ old('is_featured_property', $data->is_featured_property ?? 0) == 1 ? 'selected' : '' }}>
                                                 Yes</option>
