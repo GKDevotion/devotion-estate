@@ -85,7 +85,7 @@
                                     <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage
                                         Advisory</a>
                                 </li>
-                    
+
                             </ul>
                         </li>
 
@@ -193,7 +193,7 @@
             <div class="container">
                 <div class="row p-5">
 
-                    <div class="col-lg-3 col-md-6 mb-4 office-address-section">
+                    <div class="col-lg-4 col-md-6 mb-4 office-address-section">
                         <h5 class="office-heading mb-3">Office Address</h5>
                         <p class="office-subtitle mb-1">Head office:</p>
 
@@ -229,7 +229,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 mb-4 contact-section">
+                    <div class="col-lg-4 col-md-6 mb-4 contact-section">
                         <h5 class="contact-heading-footer mb-3">Contact Us</h5>
                         <ul class="list-unstyled contact-list">
 
@@ -258,7 +258,7 @@
                     </div>
 
 
-                    <div class="col-lg-3 col-md-6 mb-4 footer-links">
+                    <div class="col-lg-4 col-md-6 mb-4 footer-links">
                         <h5 class="mb-3" style="color: #333;">Our Company</h5>
                         <ul class="list-unstyled">
                             <li><a href="about-us" class=" text-decoration-none d-block py-1"><i
