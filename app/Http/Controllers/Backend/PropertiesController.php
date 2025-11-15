@@ -140,8 +140,8 @@ class PropertiesController extends Controller
             
             ->addColumn('name', function (Properties $ar) {
                 
-                return '<a href="' . url('property/'.$ar->slug) . '" class="fw-bold text-start" target="_blank" style=" color: #aa8038; text-decoration:none; ">'
-                    . $ar->name .
+                return '<a href="' . url('property/'.$ar->slug ?? '') . '" class="fw-bold text-start" target="_blank" style=" color: #aa8038; text-decoration:none; ">'
+                    . $ar->name ?? '' .
                     '</a>';
             })
 
@@ -179,7 +179,7 @@ class PropertiesController extends Controller
                 return $ar->price;
             })
             ->addColumn('location_id', function (Properties $ar) {
-                return $ar->location->name;
+                return $ar->location->name ?? '';
             })
             ->addColumn('count', function(Properties $ar) {
                 return $ar->count;
