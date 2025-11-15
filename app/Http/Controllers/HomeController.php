@@ -30,7 +30,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        $location = Location::select('id', 'name')->where('status', 1)->get();
+        // $location = Location::select('id', 'name')->where('status', 1)->get();
+         $location = Location::select('id', 'name')
+        ->where('status', 1)
+        ->orderBy('name', 'asc')  // sorted alphabetically
+        ->get();
         // Fetch Residential (main_type = 0)
         $residentialTypes = PropertyType::where('main_type', 1)
             ->where('status', 1)
