@@ -26,7 +26,7 @@
                 </span>
                 <select id="locationInput" name="location" class="form-select border-start-1">
                     <option value="">Select Location</option>
-                    @forelse($locationObj as $p)
+                   @forelse($locationObj->sortBy('name') as $p)
                         <option value="{{ $p->id ?? 'Unknown Location id' }}"
                             {{ request('location') == $p->id ? 'selected' : '' }}>
                             {{ $p->name ?? 'Unknown Location' }}

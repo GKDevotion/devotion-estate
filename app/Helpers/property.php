@@ -389,8 +389,11 @@ function getSearchByProperties($request, $perPage = 4)
 
     $properties = $query->paginate($perPage)->withQueryString();
     $total = $properties->total();
+    $locationObj = Location::select('id', 'name')
+        ->where('status', 1)
+        ->orderBy('name', 'asc')  // sorted alphabetically
+        ->get();
 
-    $locationObj = Location::select('id', 'name')->where('status', 1)->get();
     $featureObj = PropertyFeature::select('id', 'name')->where('status', 1)->get();
 
     $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
