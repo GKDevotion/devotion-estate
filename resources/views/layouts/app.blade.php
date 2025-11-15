@@ -85,14 +85,11 @@
                                     <a class="dropdown-item" href="{{ route('mortgage-advisory') }}">Mortgage
                                         Advisory</a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="property-management">
-                                        Property Management</a>
-                                </li>
+                    
                             </ul>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="{{ route('blog') }}">Blog</a></li>
+                        <li class="nav-item d-none"><a class="nav-link" href="{{ route('blog') }}">Blog</a></li>
 
                         <!-- Explore More Dropdown -->
                         <li class="nav-item dropdown">
@@ -124,12 +121,12 @@
                 <!-- Right: Icons + Buttons -->
                 <div class="d-flex flex-column align-items-start gap-2 top-icons">
                     <!-- Top row -->
-                    <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center gap-3 d-none ">
                         <span><i class="bi bi-heart-fill"></i> Favourite</span>
 
                         <div class="dropdown currency-dropdown custom-hover-dropdown">
                             <span>INR ▾</span>
-                            <div class="dropdown-menu p-2 currency-menu">
+                            <div class="dropdown-menu p-2 currency-menu d-none">
                                 <div class="container-fluid p-0">
                                     <div class="row gx-2 mb-2">
                                         <div class="col-4"><button
@@ -152,7 +149,7 @@
                             </div>
                         </div>
 
-                        <div class="dropdown currency-dropdown-sq custom-hover-dropdown">
+                        <div class="dropdown currency-dropdown-sq custom-hover-dropdown d-none">
                             <span>Sq.Ft. ▾</span>
                             <div class="dropdown-menu p-2 currency-menu">
                                 <div class="container-fluid p-0">
@@ -179,7 +176,7 @@
                         <a href="hot-offer" class="btn btn-hot-offer">
                             Hot Offer <i class="bi bi-gift-fill"></i>
                         </a>
-                        <a href="login" class="btn btn-list-property">
+                        <a href="login" class="btn btn-list-property d-none">
                             List Your Property <i class="bi bi-house-door"></i>
                         </a>
                     </div>
@@ -280,7 +277,7 @@
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Terms
                                     Condition</a></li>
-                            <li><a href="{{ route('admin.login') }}" class="text-decoration-none d-block py-1"><i
+                            <li><a href="{{ route('admin.login') }}" class="text-decoration-none d-block py-1 d-none"><i
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Login</a>
                             </li>
@@ -288,7 +285,7 @@
                     </div>
 
 
-                    <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="col-lg-3 col-md-6 mb-4 d-none">
                         <h5 class=" mb-3" style="color: #333;">Newsletter</h5>
                         <p class="mb-3" style="color: #333;">Receive the latest articles</p>
                         <form>

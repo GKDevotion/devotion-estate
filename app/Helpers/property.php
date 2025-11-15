@@ -326,6 +326,9 @@ function getSearchByProperties($request, $perPage = 4)
             case 'hot':
                 $query->where('is_hot_offer', 1);
                 break;
+            case 'new':
+                $query->where('is_new_property', 1);
+                break;
             case 'luxury':
                 $query->where('is_luxury_property', 1); // ✅ limit to luxury
                 break;

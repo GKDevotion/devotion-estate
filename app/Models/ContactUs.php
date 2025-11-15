@@ -30,9 +30,17 @@ class ContactUs extends Model
             return "{$this->type} → {$this->sub_type}";
         }
 
+        
+
         return $this->type ?? '-';
     }
 
-    //use type_display to show both Commercial → Office
+  public function subType()
+  {
+    return $this->belongsTo(PropertyType::class, 'sub_type', 'id');
+  }
+
+
+  //use type_display to show both Commercial → Office
 
 }

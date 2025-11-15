@@ -44,15 +44,6 @@
                 talented, professional, and multilingual real estate agents.
             </p>
             <p class="col-md-12 mtc-10">
-                Our mastery is to get the best rates for every one of the administrations like Document leeway, Business
-                arrangement, Accounting and Bookkeeping, Composing and Interpretation administrations, Staff work, and
-                Private
-                migration purposes in Dubai and all through the UAE. We are generally cognizant of the nature of our
-                administration by persistently updating ourselves with the most noteworthy expert principles. That is
-                how we
-                can convey top-notch proficient support to our clients at a reasonable expense.
-            </p>
-            <p class="col-md-12 mtc-10">
                 The fundamental focal point of our organisation is our clients. We fulfil our client requirements in
                 accordance with their exact prerequisites. We would simply prefer not to find lasting success yet we
                 wish to
@@ -64,12 +55,6 @@
 
         <section class="advertisers-service-sec about-us-prl-50  mtc-10 mbc-10">
             <div class="container">
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="text-center text-color-3 fs-26" style="color: #aa8038 !important;">Why choose us?</h2>
-                    </div>
-                </div>
 
                 <div class="row mt-5 mt-md-4 justify-content-lg-center justify-content-md-center">
 

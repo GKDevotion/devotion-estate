@@ -43,3 +43,6 @@ ALTER TABLE `properties` CHANGE `quarter` `quarter` VARCHAR(255) NULL DEFAULT NU
 /* 14-11-2025 */
 ALTER TABLE `properties` ADD `develop_by` VARCHAR(255) NOT NULL AFTER `location_id`;
 ALTER TABLE `properties` CHANGE `develop_by` `develop_by` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL;
+
+/* 15-11-2025 */
+ALTER TABLE `properties` CHANGE `is_furnish` `is_furnish` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: UnFurnished, 1: Furnished,3:Semi-Furnished';

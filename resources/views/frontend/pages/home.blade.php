@@ -350,7 +350,7 @@
                     <h2 class="fw-bold text-uppercase mb-1" style="font-size: 45px;">New Properties</h2>
                     <p class="text-muted mb-0">Find newly listed properties in your local area with best pricing.</p>
                 </div>
-                <a href="" class="text-decoration-none small text-secondary">View all &rarr;</a>
+                <a href="{{ route('new.properties') }}" class="text-decoration-none small text-secondary">View all &rarr;</a>
             </div>
 
             @php
@@ -464,7 +464,7 @@
                         with
                         best pricing.</p>
                 </div>
-                <a href="" class="text-decoration-none small text-secondary">View all &rarr;</a>
+                <a href="{{ route('buy.properties') }}" class="text-decoration-none small text-secondary">View all &rarr;</a>
             </div>
 
             @php
@@ -587,7 +587,7 @@
                                 We will connect you to thousands of people who need to buy a home.
                             </p>
                         </div>
-                        <a href="login" class="btn property-btn">
+                        <a class="btn property-btn">
                             <i class="bi bi-house-door me-2"></i>Sell Residential
                         </a>
                     </div>
@@ -607,7 +607,7 @@
                                 Tell us your needs, we will give you thousands of suggestions for the dream home.
                             </p>
                         </div>
-                        <a href="login" class="btn property-btn">
+                        <a class="btn property-btn">
                             <i class="bi bi-house-door me-2"></i>Rent Residential
                         </a>
                     </div>
@@ -627,7 +627,7 @@
                                 We will connect you to thousands of people who need to buy an office.
                             </p>
                         </div>
-                        <a href="login" class="btn property-btn">
+                        <a class="btn property-btn">
                             <i class="bi bi-shop me-2"></i>Sell Commercial
                         </a>
                     </div>
@@ -647,7 +647,7 @@
                                 Tell us your needs, we will give you thousands of suggestions for the dream office.
                             </p>
                         </div>
-                        <a href="login" class="btn property-btn">
+                        <a class="btn property-btn">
                             <i class="bi bi-shop me-2"></i>Rent Commercial
                         </a>
                     </div>

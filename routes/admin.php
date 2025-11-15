@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
 use App\Http\Controllers\Backend\ClientsController;
+use App\Http\Controllers\Backend\ContactUsController;
 use App\Http\Controllers\Backend\CurrencyController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DesignationsController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Backend\OwnersController;
 use App\Http\Controllers\Backend\PaymentPlanController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PropertiesController;
+use App\Http\Controllers\Backend\PropertyContactController;
 use App\Http\Controllers\Backend\PropertyFeatureController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\ReviewsController;
@@ -50,6 +52,8 @@ Route::prefix('admin')->group(function () {
      */
     Route::resource('locations', 'Backend\LocationController', ['names' => 'admin.locations']);
     Route::get('/locations-ajax-data', [LocationController::class, 'ajaxIndex'])->name('locations.ajaxIndex');
+
+
 
     // Route::resource('payment-plan', 'Backend\PaymentPlanController', ['names' => 'admin.payment-plan']);
     // Route::get('/payment-plan-ajax-data', [PaymentPlanController::class, 'ajaxIndex'])->name('payment-plan.ajaxIndex');
@@ -153,6 +157,22 @@ Route::prefix('admin')->group(function () {
     Route::get('/clients/edit/{id}', [ClientsController::class, 'edit'])->name('admin.clients.edit');
     Route::post('/clients/update', [ClientsController::class, 'update'])->name('admin.clients.update');
     Route::get('/clients-ajax-data', [ClientsController::class, 'ajaxIndex'])->name('clients.ajaxIndex');
+ 
+    Route::get('/contact-us', [ContactUsController::class, 'index'])->name('admin.contact-us.index');
+    Route::get('/contact-us/create', [ContactUsController::class, 'create'])->name('admin.contact-us.create');
+    Route::post('/contact-us/store', [ContactUsController::class, 'store'])->name('admin.contact-us.store');
+    Route::get('/contact-us/edit/{id}', [ContactUsController::class, 'edit'])->name('admin.contact-us.edit');
+    Route::post('/contact-us/update', [ContactUsController::class, 'update'])->name('admin.contact-us.update');
+    Route::delete('/admin/contact-us/{id}', [ContactUsController::class, 'destroy'])->name('admin.contact-us.destroy');
+    Route::get('/contact-us-ajax-data', [ContactUsController::class, 'ajaxIndex'])->name('contact-us.ajaxIndex');
+    
+    Route::get('/property-contact', [PropertyContactController::class, 'index'])->name('admin.property-contact.index');
+    Route::get('/property-contact/create', [PropertyContactController::class, 'create'])->name('admin.property-contact.create');
+    Route::post('/property-contact/store', [PropertyContactController::class, 'store'])->name('admin.property-contact.store');
+    Route::get('/property-contact/edit/{id}', [PropertyContactController::class, 'edit'])->name('admin.property-contact.edit');
+    Route::post('/property-contact/update', [PropertyContactController::class, 'update'])->name('admin.property-contact.update');
+    Route::delete('/admin/property-contact/{id}', [PropertyContactController::class, 'destroy'])->name('admin.property-contact.destroy');
+    Route::get('/property-contact-ajax-data', [PropertyContactController::class, 'ajaxIndex'])->name('property-contact.ajaxIndex');
 
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admin']);
 

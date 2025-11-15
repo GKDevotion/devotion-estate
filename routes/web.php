@@ -14,6 +14,7 @@ use App\Http\Controllers\InvestmentAdvisoryController;
 use App\Http\Controllers\LuxuryPropertiesController;
 use App\Http\Controllers\MortgageAdvisoryController;
 use App\Http\Controllers\MortgageController;
+use App\Http\Controllers\NewPropertiesController;
 use App\Http\Controllers\OffPlanController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\PropertyContactController;
@@ -80,6 +81,7 @@ Route::get('buy-properties', [BuyPropertiesController::class, 'index'])->name('b
 
 Route::get('rent-properties', [RentPropertiesController::class, 'index'])->name('rent.properties');
 Route::get('luxury-properties', [LuxuryPropertiesController::class, 'index'])->name('luxury.properties');
+Route::get('new-properties', [NewPropertiesController::class, 'index'])->name('new.properties');
 Route::get('buyer-guide', [BuyerGuideController::class, 'index'])->name('buyer-guide');
 Route::get('seller-guide', [SellerGuideController::class, 'index'])->name('seller-guide');
 Route::get('tenant-guide', [TenantGuideController::class, 'index'])->name('tenant-guide');

@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                    IMAGE GALLERY
-                                    ======================== -->
+                                        IMAGE GALLERY
+                                        ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -143,8 +143,8 @@
         </div>
 
         <!-- =======================
-                                    CONTENT ROW (DETAILS + CONTACT)
-                                    ======================== -->
+            CONTENT ROW (DETAILS + CONTACT)
+            ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -253,7 +253,15 @@
 
                                     <div class="d-flex justify-content-between mb-3">
                                         <span class="fw-semibold">Furnishing</span>
-                                        <span>{{ $property->is_furnish == 1 ? 'Furnished' : 'UnFurnished' }}</span>
+                                        <span>
+                                            @if ($property->is_furnish == 1)
+                                                Furnished
+                                            @elseif ($property->is_furnish == 2)
+                                                Semi-Furnished
+                                            @else
+                                                Unfurnished
+                                            @endif
+                                        </span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-3">
                                         <span class="fw-semibold">Completion Status</span>
