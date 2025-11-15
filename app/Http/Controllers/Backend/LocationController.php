@@ -169,7 +169,7 @@ class LocationController extends Controller
         $request->validate([
             'name' => 'required',
             'display_name' => 'required',
-            'address' => 'required',
+            // 'address' => 'required',
             'continent_id' => 'required',
             'country_id' => 'required',
             'state_id' => 'required',
@@ -182,7 +182,7 @@ class LocationController extends Controller
         $location->admin_id = $this->user->id;
         $location->name = $request->name;
         $location->display_name = $request->display_name;
-        $location->address = $request->address;
+        $location->address = $request->name;
         $location->continent_id = $request->continent_id;
         $location->country_id = $request->country_id;
         $location->state_id = $request->state_id;
@@ -245,7 +245,7 @@ class LocationController extends Controller
         $request->validate([
             'name' => 'required',
             'display_name' => 'required',
-            'address' => 'required',
+            // 'address' => 'required',
             'continent_id' => 'required',
             'country_id' => 'required',
             'state_id' => 'required',
@@ -258,7 +258,7 @@ class LocationController extends Controller
         $location->admin_id = $this->user->id;
         $location->name = $request->name;
         $location->display_name = $request->display_name;
-        $location->address = $request->address;
+        $location->address = $request->name;
         $location->continent_id = $request->continent_id;
         $location->country_id = $request->country_id;
         $location->state_id = $request->state_id;

@@ -129,15 +129,15 @@
                             <span class="carousel-control-next-icon"></span>
                         </button>
                     </div>
+<div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
+    @foreach ($property->images->take(5) as $key => $image)
+        <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}" 
+             class="img-thumbnail"
+             style="width:150px; height:100px; object-fit:cover; cursor:pointer;"
+             onclick="goToSlide({{ $key }})">
+    @endforeach
+</div>
 
-                    <!-- Thumbnails -->
-                    <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
-                        @foreach ($property->images as $key => $image)
-                            <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}" class="img-thumbnail"
-                                style="width:150px; height:100px; object-fit:cover; cursor:pointer;"
-                                onclick="goToSlide({{ $key }})">
-                        @endforeach
-                    </div>
                 </div>
 
             </div>
@@ -567,6 +567,13 @@
                 alert("Share feature is not supported in this browser.");
             }
         }
+
+
+          function goToSlide(index) {
+        var myCarousel = document.getElementById('propertyCarousel'); 
+        var carousel = bootstrap.Carousel.getInstance(myCarousel); 
+        carousel.to(index);
+    }
     </script>
 
 @endsection

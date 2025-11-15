@@ -80,7 +80,7 @@ Corporate Email Create - Admin Panel
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-12 mb-2">
+                                    <div class="col-md-12 mb-2 d-none">
                                         <div class="form-group">
                                             <label class="mb-0" for="address">Address<span class="text-error">*</span></label>
                                             <input type="text" data-required="yes" class="form-control" id="address" name="address" placeholder="Address">
