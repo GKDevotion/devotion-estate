@@ -116,21 +116,35 @@ class PropertiesController extends Controller
             $query->where( $request->field, $request->value );
         }
 
-        $query->select('id', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count','status', 'updated_at' );
+        $query->select('id', 'unique_id', 'name', 'slug', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count','status', 'updated_at' );
 
         return DataTables::eloquent($query)
             ->addColumn('id', function(Properties $ar) {
                 return $ar->id;
             })
+
             ->addColumn('unique_id', function(Properties $ar) {
                 return $ar->unique_id;
             })
-            ->addColumn('image', function(Properties $ar) {
-                return $ar->single_image->image ?? '';
+
+            ->addColumn('image', function (Properties $ar) {
+                $image = optional($ar->images->first())->filename;
+
+                if ($image) {
+                    return '<img src="' . asset('storage/app/propertyImage/' . $image) . '" 
+                 width="80" height="60" style="object-fit:cover; border-radius:4px;" />';
+                }
+
+                return 'No Image';
             })
-            ->addColumn('name', function(Properties $ar) {
-                return $ar->name;
+            
+            ->addColumn('name', function (Properties $ar) {
+                
+                return '<a href="' . url('property/'.$ar->slug) . '" class="fw-bold text-start" target="_blank" style=" color: #aa8038; text-decoration:none; ">'
+                    . $ar->name .
+                    '</a>';
             })
+
             ->addColumn('purpose', function (Properties $ar) {
                 switch ($ar->purpose) {
                     case 1:
@@ -219,7 +233,7 @@ class PropertiesController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id','image', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];

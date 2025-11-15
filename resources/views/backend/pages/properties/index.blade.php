@@ -13,6 +13,7 @@
         .child {
             text-align: left;
         }
+        
     </style>
 @endsection
 

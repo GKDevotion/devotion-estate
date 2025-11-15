@@ -61,7 +61,7 @@ Route::post('property-contact/store', [PropertyContactController::class, 'store'
 
 // routes/web.php
 // Route::get('/{type}-properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
-Route::get('property/{slug?}', [PropertiesController::class, 'show'])->name('property.detail');
+Route::get('property/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
 
 // properties serach section/web.php
 Route::get('properties/search', [PropertiesController::class, 'search'])->name('properties.search');
