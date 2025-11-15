@@ -233,15 +233,15 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="is_furnish">Furnished Status <span
+                                            <label class="mb-0" for="is_furnish">Furnish Status <span
                                                     class="text-error">*</span></label>
                                             <select name="is_furnish" id="is_furnish" class="form-control"
                                                 data-required="yes">
-                                                <option value="">Select Furnished Status</option>
-                                            
+                                                <option value="">Select Furnish Status</option>
+
                                                 <option value="0"
                                                     {{ old('is_furnish', $data->is_furnish ?? '') == 0 ? 'selected' : '' }}>
-                                                    UnFurnished</option>
+                                                    Un-Furnished</option>
                                                         <option value="1"
                                                     {{ old('is_furnish', $data->is_furnish ?? '') == 1 ? 'selected' : '' }}>
                                                     Furnished</option>
@@ -621,7 +621,7 @@
                                             @enderror
                                         </div>
 
-                                        
+
                                         <div class="col-md-4 col-sm-12 mb-2" id="other_location_wrapper"
                                             style="display: none;">
                                             <label class="mb-0" for="other_location">Other Location <span
@@ -927,7 +927,7 @@
 .select2-container .select2-selection--single {
     height: 48px !important;         /* same as form-control-lg */
     padding: 8px 12px !important;
-    border: 1px solid lightgray !important; 
+    border: 1px solid lightgray !important;
     border-radius: 6px !important;
     display: flex !important;
     align-items: center !important;
@@ -965,7 +965,7 @@
                 console.error(error);
             });
 
-                  
+
         $(document).ready(function() {
             $('#location_id').select2({
                 placeholder: "Search Location",

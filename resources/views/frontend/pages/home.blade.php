@@ -133,7 +133,7 @@
                                             <i class="bi bi-geo-alt"></i>
                                         </span>
                                         <select name="location" class="form-select border-start-1">
-                                            <option value="0" select disabled>Location</option>
+                                            <option value="" select>All Location</option>
                                             @foreach ($location as $p)
                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
 
-                     
+
                                 <div class="col-lg-3 col-md-6 col-sm-12">
 
                                     <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
@@ -164,7 +164,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-               
+
 
                                 <!-- Hidden input -->
                                 <input type="hidden" name="redirect_page" value="off">

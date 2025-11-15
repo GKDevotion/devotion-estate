@@ -25,7 +25,7 @@
                     <i class="bi bi-geo-alt"></i>
                 </span>
                 <select id="locationInput" name="location" class="form-select border-start-1">
-                    <option value="">Select Location</option>
+                    <option value="">All Location</option>
                    @forelse($locationObj->sortBy('name') as $p)
                         <option value="{{ $p->id ?? 'Unknown Location id' }}"
                             {{ request('location') == $p->id ? 'selected' : '' }}>
@@ -124,18 +124,18 @@
 
         <!-- Bed -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-            <input type="number" class="form-control" name="bed" placeholder="Bed" min="1">
+            <input type="number" class="form-control" name="bed" placeholder="Bed" value="{{request('bed') ?? ''}}" min="1">
         </div>
 
         <!-- Bath -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-            <input type="number" class="form-control" name="bath" placeholder="Bath" min="1">
+            <input type="number" class="form-control" name="bath" placeholder="Bath" value="{{request('bath') ?? ''}}" min="1">
         </div>
 
 
         <!-- Keyword -->
         <div class="col-lg-2 col-md-4 col-sm-6 d-none">
-            <input type="text" class="form-control" name="keyword" placeholder="Search Keyword here">
+            <input type="text" class="form-control" name="keyword" value="{{request('keyword') ?? ''}}" placeholder="Search Keyword here">
         </div>
 
         <!-- Price Dropdown -->

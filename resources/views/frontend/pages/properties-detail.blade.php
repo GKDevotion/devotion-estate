@@ -252,14 +252,14 @@
                                     </div>
 
                                     <div class="d-flex justify-content-between mb-3">
-                                        <span class="fw-semibold">Furnishing</span>
+                                        <span class="fw-semibold">Furnish</span>
                                         <span>
                                             @if ($property->is_furnish == 1)
                                                 Furnished
                                             @elseif ($property->is_furnish == 2)
                                                 Semi-Furnished
                                             @else
-                                                Unfurnished
+                                                Un-Furnished
                                             @endif
                                         </span>
                                     </div>
