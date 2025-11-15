@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                IMAGE GALLERY
-                                ======================== -->
+                                    IMAGE GALLERY
+                                    ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -129,14 +129,13 @@
                             <span class="carousel-control-next-icon"></span>
                         </button>
                     </div>
-<div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
-    @foreach ($property->images->take(5) as $key => $image)
-        <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}" 
-             class="img-thumbnail"
-             style="width:150px; height:100px; object-fit:cover; cursor:pointer;"
-             onclick="goToSlide({{ $key }})">
-    @endforeach
-</div>
+                    <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
+                        @foreach ($property->images->take(6) as $key => $image)
+                            <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}" class="img-thumbnail"
+                                style="width:150px; height:100px; object-fit:cover; cursor:pointer;"
+                                onclick="goToSlide({{ $key }})">
+                        @endforeach
+                    </div>
 
                 </div>
 
@@ -144,8 +143,8 @@
         </div>
 
         <!-- =======================
-                                CONTENT ROW (DETAILS + CONTACT)
-                                ======================== -->
+                                    CONTENT ROW (DETAILS + CONTACT)
+                                    ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -569,11 +568,11 @@
         }
 
 
-          function goToSlide(index) {
-        var myCarousel = document.getElementById('propertyCarousel'); 
-        var carousel = bootstrap.Carousel.getInstance(myCarousel); 
-        carousel.to(index);
-    }
+        function goToSlide(index) {
+            var myCarousel = document.getElementById('propertyCarousel');
+            var carousel = bootstrap.Carousel.getInstance(myCarousel);
+            carousel.to(index);
+        }
     </script>
 
 @endsection
