@@ -354,8 +354,37 @@
                 });
             });
         });
-    </script>
 
+        $('#contactsellerForm').on('submit', function(e){
+
+            e.preventDefault();
+
+            $.ajax({
+                url: "{{ route('property-contact.store') }}",
+                type: "POST",
+                data: $(this).serialize(),
+                beforeSend: function(){
+                    $('#contactsellerForm #submit_text').html('<span style="color:white;">Sending...</span>');
+                },
+                success: function(res){
+                    if(res.status){
+                        $('##contactsellerForm #formMsg').html('<span style="color:green;">'+res.message+'</span>');
+                        $('#contactsellerForm')[0].reset(); // clear form
+                    }
+                },
+                error: function(xhr){
+                    let errors = xhr.responseJSON.errors;
+                    let msg = '';
+
+                    $.each(errors, function(key,val){
+                        msg += '<p style="color:red;">'+val[0]+'</p>';
+                    });
+
+                    $('##contactsellerForm #formMsg').html(msg);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -375,7 +375,7 @@
                     </div>
 
                     <!-- Contact Form -->
-                    <form id="contactsellerForm" action="{{ route('property-contact.store') }}" method="POST">
+                    <form id="contactsellerForm">
                         @csrf
 
                         <input type="hidden" name="property_id" value="{{ $property->unique_id }}">
@@ -399,17 +399,17 @@
 
                         <!-- Buttons -->
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn flex-fill text-white fw-semibold"
-                                style="background:#aa8038; border-radius:30px;">
-                                <i class="bi bi-envelope-fill me-2"></i> Send message
+                            <button type="submit" class="btn flex-fill text-white fw-semibold" style="background:#aa8038; border-radius:30px;">
+                                <i class="bi bi-envelope-fill me-2"></i>
+                                <span id="submit_text">Send message</span>
                             </button>
 
-                            <a href="tel:+97144488538" class="btn flex-fill fw-semibold"
-                                style="background:#fff8ee; border:1px solid #aa8038; color:#aa8038; border-radius:30px;">
+                            <a href="tel:+97144488538" class="btn flex-fill fw-semibold" style="background:#fff8ee; border:1px solid #aa8038; color:#aa8038; border-radius:30px;">
                                 <i class="bi bi-telephone-fill me-1"></i> Call
                             </a>
                         </div>
 
+                        <div id="formMsg" class="mt-3"></div>
                     </form>
 
                 </div>
@@ -497,7 +497,7 @@
     </div>
 
 
-   
+
     <script>
         function changeMainImage(element) {
             document.getElementById('mainImage').src = element.src;
@@ -587,69 +587,6 @@
             carousel.to(index);
         }
 
-
-      // Ensure jQuery is loaded first
-$(document).ready(function() {
-    
-    // Check if the form exists before attaching the handler (Good practice)
-    if ($('#contactsellerForm').length) {
-        
-        $('#contactsellerForm').on('submit', function(e) {
-            e.preventDefault(); // <-- **CRITICAL: Stops the default full page form submission**
-
-            let form = $(this);
-            let actionUrl = form.attr('action');
-
-            // Add CSRF token for Laravel security
-            let formData = form.serialize();
-            formData += '&_token=' + $('meta[name="csrf-token"]').attr('content'); 
-
-            $.ajax({
-                url: actionUrl,
-                type: "POST",
-                data: formData, // Use the prepared formData with CSRF
-                dataType: "json",
-
-                // --- Success Handler (Shows Success Alert) ---
-                success: function(response) {
-                    
-                    Swal.fire({
-                        title: "Success! 🎉",
-                        text: response.message,
-                        icon: "success",
-                        confirmButtonText: "OK",
-                        confirmButtonColor: "#aa8038"
-                    });
-
-                    form[0].reset();
-                },
-
-                // --- Error Handler (Shows Validation/Other Error Alert) ---
-                error: function(xhr) {
-                    if (xhr.status === 422) {
-                        let errors = xhr.responseJSON.errors;
-                        let firstErr = Object.values(errors)[0][0];
-
-                        Swal.fire({
-                            title: "Validation Error ⚠️",
-                            text: firstErr,
-                            icon: "error",
-                            confirmButtonColor: "#aa8038"
-                        });
-                    } else {
-                        // Handle other types of errors (e.g., 500 server error)
-                        Swal.fire({
-                            title: "Error",
-                            text: "An unexpected error occurred.",
-                            icon: "error",
-                            confirmButtonColor: "#aa8038"
-                        });
-                    }
-                },
-            });
-        });
-    }
-});
     </script>
 
 @endsection
