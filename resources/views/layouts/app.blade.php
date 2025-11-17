@@ -368,7 +368,7 @@
                 },
                 success: function(res){
                     if(res.status){
-                        $('##contactsellerForm #formMsg').html('<span style="color:green;">'+res.message+'</span>');
+                        $('#contactsellerForm #formMsg').html('<span style="color:green;">'+res.message+'</span>');
                         $('#contactsellerForm')[0].reset(); // clear form
                     }
                 },
