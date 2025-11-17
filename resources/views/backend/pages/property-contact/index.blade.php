@@ -60,6 +60,7 @@
                                 <thead id="property-contact" class="bg-light text-capitalize">
                                     <tr>
                                         <th>#</th>
+                                        <th>Property ID</th>
                                         <th>Name</th>
                                         <th>Email Address</th>
                                         <th>Contact No.</th>
@@ -110,6 +111,10 @@
                 columns: [{
                         data: 'id',
                         name: 'id'
+                    },
+                    {
+                        data: 'property_id',
+                        name: 'property_id'
                     },
                     {
                         data: 'name',

@@ -43,7 +43,7 @@ class PropertyContact extends Model
 
     public function property()
     {
-        return $this->belongsTo(Properties::class, 'property_id');
+        return $this->belongsTo(Properties::class, 'property_id','unique_id');
     }
 
     // public function parent(){

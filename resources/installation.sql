@@ -46,3 +46,6 @@ ALTER TABLE `properties` CHANGE `develop_by` `develop_by` VARCHAR(255) CHARACTER
 
 /* 15-11-2025 */
 ALTER TABLE `properties` CHANGE `is_furnish` `is_furnish` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: UnFurnished, 1: Furnished,3:Semi-Furnished';
+
+-- 17-11-2025
+ALTER TABLE `property_contact` ADD `property_id` VARCHAR(10) NULL DEFAULT NULL AFTER `message`;

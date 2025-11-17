@@ -113,7 +113,7 @@
                             <div class="alert custom-alert text-center mb-4">{{ session('success') }}</div>
                         @endif
 
-                        <form method="POST" action="{{ route('contact.store') }}">
+                        <form id="contactForm" method="POST" action="{{ route('contact.store') }}">
                             @csrf
 
                             <div class="mb-3">
@@ -168,39 +168,42 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <style>
-        .contact-card {
-            border: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            background-color: #fff;
-        }
+            .contact-card {
+                border: none;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                background-color: #fff;
+            }
 
-        .custom-alert {
-            background-color: #aa8038 !important;
-            color: #fff !important;
-            border: none !important;
-            font-weight: 300;
-        }
+            .custom-alert {
+                background-color: #aa8038 !important;
+                color: #fff !important;
+                border: none !important;
+                font-weight: 300;
+            }
 
-        .btn-custom {
-            background-color: #aa8038;
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
+            .btn-custom {
+                background-color: #aa8038;
+                color: #fff;
+                border: none;
+                padding: 0.6rem 1.5rem;
+                border-radius: 30px;
+                transition: all 0.3s ease;
+            }
 
-        .btn-custom:hover {
-            background-color: #8c692d;
-        }
-    </style>
+            .btn-custom:hover {
+                background-color: #8c692d;
+            }
+        </style>
 
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </div>
 
     <script>
@@ -219,6 +222,55 @@
 
             // Initial check (for edit pages)
             $type.trigger('change');
+        });
+
+
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+
+            let form = $(this);
+            let actionUrl = form.attr('action');
+
+            $.ajax({
+                url: actionUrl,
+                type: "POST",
+                data: form.serialize(),
+                dataType: "json",
+
+
+                success: function(response) {
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: response.message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#aa8038"
+                    });
+
+                    form[0].reset();
+                },
+
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        let firstErr = Object.values(errors)[0][0];
+
+                        Swal.fire({
+                            title: "Validation Error",
+                            text: firstErr,
+                            icon: "error",
+                            confirmButtonColor: "#aa8038"
+                        });
+                    }
+                },
+
+                complete: function() {
+                    form.find('button[type="submit"]').prop('disabled', false)
+                        .html('<i class="fas fa-paper-plane me-2"></i>Send Request');
+                }
+            });
+
         });
     </script>
 @endsection

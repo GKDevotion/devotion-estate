@@ -22,7 +22,7 @@ class PropertyContactController extends Controller
         ]);
 
         PropertyContact::create([
-            'property_id' => Properties::where('unique_id', $request->property_id)->value('id'),
+            'property_id' => Properties::where('unique_id', $request->property_id)->value('unique_id'),
             'website_id'     => $request->website_id ?? 1,
             'name'        => $request->name,
             'email'       => $request->email,
@@ -31,7 +31,11 @@ class PropertyContactController extends Controller
           
         ]);
 
-
-        return back()->with('success', 'Your Contact Data has been submitted successfully!');
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Your message has been sent successfully!'
+        ]);
+        // return back()->with('success', 'Your Contact Data has been submitted successfully!');
     }
 }

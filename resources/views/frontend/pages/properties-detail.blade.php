@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                        IMAGE GALLERY
-                                        ======================== -->
+                                                IMAGE GALLERY
+                                                ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -143,8 +143,8 @@
         </div>
 
         <!-- =======================
-            CONTENT ROW (DETAILS + CONTACT)
-            ======================== -->
+                    CONTENT ROW (DETAILS + CONTACT)
+                    ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -370,18 +370,17 @@
                     </div>
 
                     <!-- Contact Form -->
-                    <form action="{{ route('property-contact.store') }}" method="POST">
+                    <form id="contactsellerForm" action="{{ route('property-contact.store') }}" method="POST">
                         @csrf
 
                         <input type="hidden" name="property_id" value="{{ $property->unique_id }}">
 
                         <div class="mb-3">
-                            <input type="text" name="name" class="form-control" placeholder="Full name *"
-                                required>
+                            <input type="text" name="name" class="form-control" placeholder="Full name" required>
                         </div>
 
                         <div class="mb-3">
-                            <input type="text" name="mobile_number" class="form-control" placeholder="Phone number *"
+                            <input type="text" name="mobile_number" class="form-control" placeholder="Phone number"
                                 required>
                         </div>
 
@@ -390,7 +389,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <textarea name="message" rows="4" class="form-control" placeholder="Your message *" required></textarea>
+                            <textarea name="message" rows="4" class="form-control" placeholder="Your message" required></textarea>
                         </div>
 
                         <!-- Buttons -->
@@ -492,6 +491,8 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         function changeMainImage(element) {
@@ -581,6 +582,47 @@
             var carousel = bootstrap.Carousel.getInstance(myCarousel);
             carousel.to(index);
         }
+
+        $('#contactsellerForm').on('submit', function(e) {
+            e.preventDefault(); // VERY IMPORTANT (stops JSON showing)
+
+            let form = $(this);
+            let actionUrl = form.attr('action');
+
+            $.ajax({
+                url: actionUrl,
+                type: "POST",
+                data: form.serialize(),
+                dataType: "json",
+
+                success: function(response) {
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: response.message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#aa8038"
+                    });
+
+                    form[0].reset();
+                },
+
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        let firstErr = Object.values(errors)[0][0];
+
+                        Swal.fire({
+                            title: "Validation Error",
+                            text: firstErr,
+                            icon: "error",
+                            confirmButtonColor: "#aa8038"
+                        });
+                    }
+                }
+            });
+        });
     </script>
 
 @endsection

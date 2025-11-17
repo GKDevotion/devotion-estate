@@ -59,11 +59,14 @@ class PropertyContactController extends Controller
             $query->where('admin_id', $this->admin_id);
         }
 
-        $query->select('id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'status');
+        $query->select('id','property_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'status');
 
         return DataTables::eloquent($query)
             ->addColumn('id', function (PropertyContact $ar) {
                 return $ar->id;
+            })
+            ->addColumn('property_id', function (PropertyContact $ar) {
+                return $ar->property_id;
             })
             ->addColumn('name', function (PropertyContact $ar) {
                 return $ar->name;
@@ -124,7 +127,7 @@ class PropertyContactController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id','property_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -177,11 +180,13 @@ class PropertyContactController extends Controller
             'name' => 'required',
             'email' => 'required',
             'message' => 'required',
+              'property_id' => 'required'
         ]);
 
         // Create New Server Record
         $location = new PropertyContact();
         $location->website_id = $request->website_id ?? 1;
+        $location->property_id = $request->property_id;
         $location->name = $request->name;
         $location->email = $request->email;
         $location->mobile_number = $request->mobile_number;

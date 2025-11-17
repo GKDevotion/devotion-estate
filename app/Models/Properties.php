@@ -27,6 +27,7 @@ class Properties extends Model
         });
     }
 
+    
     public function single_image(){
         return $this->hasOne( PropertyImageMap::class, 'property_id', 'id', 'filename');
     }

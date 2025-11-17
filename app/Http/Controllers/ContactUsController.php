@@ -38,7 +38,12 @@ class ContactUsController extends Controller
         ]);
 
 
-        // ✅ Step 3: Return with Success Message
-        return back()->with('success', 'Your message has been sent successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Your message has been sent successfully!'
+        ]);
+
+        // // ✅ Step 3: Return with Success Message
+        // return back()->with('success', 'Your message has been sent successfully!');
     }
 }
