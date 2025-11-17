@@ -42,7 +42,7 @@
                 <button class="btn btn-outline w-100 border bg-white d-flex justify-content-between align-items-center"
                     type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
                     id="propertyTypeButton">
-                    <span id="propertyTypeLabel">Select Property Type</span>
+                    <span id="propertyTypeLabel">Property Type</span>
                     <i class="bi bi-chevron-down"></i>
                 </button>
 
