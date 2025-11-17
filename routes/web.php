@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Backend\AgentsController;
+use App\Http\Controllers\Backend\ContactUsController as BackendContactUsController;
 use App\Http\Controllers\Backend\PropertiesController;
 use App\Http\Controllers\Backend\ReviewsController;
 use App\Http\Controllers\BlogController;
@@ -104,7 +105,7 @@ Route::get('/sign-up', function () {
     return view('frontend.pages.sign-up');
 });
 
-Route::get('contact-us', [ContactUsController::class, 'index'])->name('contact-us');
+Route::get('contact-us', [BackendContactUsController::class, 'index'])->name('contact-us');
 Route::post('contact/store', [ContactUsController::class, 'store'])->name('contact.store');
 
 Route::get('sign-up', function () {

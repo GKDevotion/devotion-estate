@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
@@ -20,7 +20,9 @@
 
         <!-- LightGallery CSS -->
         <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" rel="stylesheet">
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- LightGallery JS -->
         <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
@@ -86,8 +88,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                                        IMAGE GALLERY
-                                                        ======================== -->
+        IMAGE GALLERY
+        ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -129,6 +131,7 @@
                             <span class="carousel-control-next-icon"></span>
                         </button>
                     </div>
+
                     <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
                         @foreach ($property->images->take(6) as $key => $image)
                             <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}" class="img-thumbnail"
@@ -154,7 +157,7 @@
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-4">
 
                     <div style="width: 85%;">
-                        <h2 class="fw-bold pb-3">{{ $property->name ?? 'N/A' }}</h2>
+                        <h2 class="fw-bold pb-3">{!! $property->name !!}</h2>
                         <h3>AED {{ number_format($property->price) }}</h3>
                         <p class="text-muted mb-1">{{ $property->finance_name }}</p>
 
@@ -200,14 +203,12 @@
 
                 <hr>
 
-
                 {{-- <div class="d-flex justify-content-between mb-3">
                     <h5 class="fw-semibold mb-3">Project Name</h5>
                     <span class="text-end text-wrap" style="max-width: 60%;">
                         {{ $property->name ?? 'N/A' }}
                     </span>
                 </div> --}}
-
 
                 <div class="card mt-4 mb-4">
                     <div class="card-body">
@@ -231,6 +232,7 @@
 
                 <!-- Two Column Property Info -->
                 <div class="card">
+
                     <div class="card-body">
                         <div class="row g-4">
 
@@ -263,6 +265,7 @@
                                             @endif
                                         </span>
                                     </div>
+
                                     <div class="d-flex justify-content-between mb-3">
                                         <span class="fw-semibold">Completion Status</span>
 
@@ -314,6 +317,7 @@
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
 
@@ -338,6 +342,7 @@
                     {{-- @include('frontend.layouts.partials.mortgage') --}}
 
                 </div>
+
             </div>
 
             <!-- RIGHT SIDE: Contact Seller -->
@@ -583,22 +588,33 @@
         }
 
 
+      // Ensure jQuery is loaded first
+$(document).ready(function() {
+    
+    // Check if the form exists before attaching the handler (Good practice)
+    if ($('#contactsellerForm').length) {
+        
         $('#contactsellerForm').on('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // <-- **CRITICAL: Stops the default full page form submission**
 
             let form = $(this);
             let actionUrl = form.attr('action');
 
+            // Add CSRF token for Laravel security
+            let formData = form.serialize();
+            formData += '&_token=' + $('meta[name="csrf-token"]').attr('content'); 
+
             $.ajax({
                 url: actionUrl,
                 type: "POST",
-                data: form.serialize(),
+                data: formData, // Use the prepared formData with CSRF
                 dataType: "json",
 
+                // --- Success Handler (Shows Success Alert) ---
                 success: function(response) {
-
+                    
                     Swal.fire({
-                        title: "Success!",
+                        title: "Success! 🎉",
                         text: response.message,
                         icon: "success",
                         confirmButtonText: "OK",
@@ -608,27 +624,32 @@
                     form[0].reset();
                 },
 
+                // --- Error Handler (Shows Validation/Other Error Alert) ---
                 error: function(xhr) {
                     if (xhr.status === 422) {
                         let errors = xhr.responseJSON.errors;
                         let firstErr = Object.values(errors)[0][0];
 
                         Swal.fire({
-                            title: "Validation Error",
+                            title: "Validation Error ⚠️",
                             text: firstErr,
+                            icon: "error",
+                            confirmButtonColor: "#aa8038"
+                        });
+                    } else {
+                        // Handle other types of errors (e.g., 500 server error)
+                        Swal.fire({
+                            title: "Error",
+                            text: "An unexpected error occurred.",
                             icon: "error",
                             confirmButtonColor: "#aa8038"
                         });
                     }
                 },
-
-
-
             });
-
-
         });
+    }
+});
     </script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @endsection
