@@ -378,7 +378,7 @@
                                                     <div class="position-relative">
                                                         <img src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
                                                             class="card-img-top rounded-top-3"
-                                                            alt="{{ $property->name }}">
+                                                            alt="{!! $property->name !!}">
 
                                                         {{-- <span
                                                             class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
@@ -393,7 +393,7 @@
 
                                                         <div class="d-flex align-items-start mb-2">
                                                             <h5 class="card-title mb-0 me-3">
-                                                                {{ $property->name }}
+                                                                {!! $property->name !!}
                                                             </h5>
                                                         </div>
 
@@ -504,7 +504,7 @@
 
                                                         <div class="d-flex align-items-start mb-2">
                                                             <h5 class="card-title mb-0 me-3">
-                                                                {{ $propertysale->name }}
+                                                                {!! $propertysale->name !!}
                                                             </h5>
 
                                                         </div>

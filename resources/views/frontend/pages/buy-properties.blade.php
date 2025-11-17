@@ -66,7 +66,7 @@
                                     <div class="card-body">
                                         <div class="row align-items-start">
                                             <div class="col-8">
-                                                <h5 class="fw-bold">{{ $p->name }}</h5>
+                                                <h5 class="fw-bold">{!!$p->name!!}</h5>
                                                 <p class="text-muted mb-1" style="font-size: 0.85rem;">
                                                     <i class="bi bi-map me-1"></i>
                                                     {{ $p->location->name ?? 'Unknown Location' }}
