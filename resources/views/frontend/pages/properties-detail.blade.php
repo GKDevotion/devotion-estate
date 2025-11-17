@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                                    IMAGE GALLERY
-                                                    ======================== -->
+                                                        IMAGE GALLERY
+                                                        ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -143,8 +143,8 @@
         </div>
 
         <!-- =======================
-                        CONTENT ROW (DETAILS + CONTACT)
-                        ======================== -->
+        CONTENT ROW (DETAILS + CONTACT)
+        ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -492,8 +492,7 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
     <script>
         function changeMainImage(element) {
             document.getElementById('mainImage').src = element.src;
@@ -596,7 +595,7 @@
                 data: form.serialize(),
                 dataType: "json",
 
-                 success: function(response) {
+                success: function(response) {
 
                     Swal.fire({
                         title: "Success!",
@@ -624,11 +623,12 @@
                 },
 
 
-                
+
             });
 
 
         });
     </script>
-
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
