@@ -19,6 +19,7 @@ class PropertyContact extends Model
     'mobile_number',
     'message',
     'property_id',
+    'property_unique_id',
     'status',
 ];
 
