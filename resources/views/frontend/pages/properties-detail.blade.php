@@ -378,7 +378,8 @@
                     <form id="contactsellerForm">
                         @csrf
 
-                        <input type="hidden" name="property_id" value="{{ $property->unique_id }}">
+                        <input type="hidden" name="property_id" value="{{ $property->id }}">
+                        <input type="hidden" name="property_unique_id" value="{{ $property->unique_id }}">
 
                         <div class="mb-3">
                             <input type="text" name="name" class="form-control" placeholder="Full name" required>
