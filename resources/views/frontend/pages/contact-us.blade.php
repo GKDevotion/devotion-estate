@@ -13,6 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -225,52 +226,67 @@
         });
 
 
-        $('#contactForm').on('submit', function(e) {
-            e.preventDefault();
+        $(document).ready(function() {
 
-            let form = $(this);
-            let actionUrl = form.attr('action');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-            $.ajax({
-                url: actionUrl,
-                type: "POST",
-                data: form.serialize(),
-                dataType: "json",
+    $('#contactForm').on('submit', function(e) {
+        e.preventDefault();
 
+        let form = $(this);
+        let actionUrl = form.attr('action');
 
-                success: function(response) {
+        $.ajax({
+            url: actionUrl,
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+
+            success: function(response) {
+                console.log("SUCCESS:", response);
+
+                Swal.fire({
+                    title: "Success!",
+                    text: response.message,
+                    icon: "success",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#aa8038"
+                });
+
+                form[0].reset();
+            },
+
+            error: function(xhr) {
+                console.log("ERROR:", xhr);
+
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    let firstErr = Object.values(errors)[0][0];
 
                     Swal.fire({
-                        title: "Success!",
-                        text: response.message,
-                        icon: "success",
-                        confirmButtonText: "OK",
+                        title: "Validation Error",
+                        text: firstErr,
+                        icon: "error",
                         confirmButtonColor: "#aa8038"
                     });
-
-                    form[0].reset();
-                },
-
-                error: function(xhr) {
-                    if (xhr.status === 422) {
-                        let errors = xhr.responseJSON.errors;
-                        let firstErr = Object.values(errors)[0][0];
-
-                        Swal.fire({
-                            title: "Validation Error",
-                            text: firstErr,
-                            icon: "error",
-                            confirmButtonColor: "#aa8038"
-                        });
-                    }
-                },
-
-                complete: function() {
-                    form.find('button[type="submit"]').prop('disabled', false)
-                        .html('<i class="fas fa-paper-plane me-2"></i>Send Request');
+                } else {
+                    Swal.fire("Error", "Something went wrong", "error");
                 }
-            });
+            },
 
+            complete: function() {
+                form.find('button[type="submit"]').prop('disabled', false)
+                    .html('<i class="fas fa-paper-plane me-2"></i>Send Request');
+            }
         });
+
+    });
+
+});
+
     </script>
 @endsection
