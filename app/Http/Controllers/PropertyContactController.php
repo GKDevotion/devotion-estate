@@ -31,11 +31,12 @@ class PropertyContactController extends Controller
           
         ]);
 
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Your message has been sent successfully!'
         ]);
+
         // return back()->with('success', 'Your Contact Data has been submitted successfully!');
     }
 }

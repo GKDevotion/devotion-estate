@@ -86,8 +86,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                                IMAGE GALLERY
-                                                ======================== -->
+                                                    IMAGE GALLERY
+                                                    ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -143,8 +143,8 @@
         </div>
 
         <!-- =======================
-                    CONTENT ROW (DETAILS + CONTACT)
-                    ======================== -->
+                        CONTENT ROW (DETAILS + CONTACT)
+                        ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -153,7 +153,7 @@
                 <!-- Price + Buttons -->
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-4">
 
-                    <div>
+                    <div style="width: 85%;">
                         <h2 class="fw-bold pb-3">{{ $property->name ?? 'N/A' }}</h2>
                         <h3>AED {{ number_format($property->price) }}</h3>
                         <p class="text-muted mb-1">{{ $property->finance_name }}</p>
@@ -491,9 +491,9 @@
         </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         function changeMainImage(element) {
             document.getElementById('mainImage').src = element.src;
@@ -583,8 +583,9 @@
             carousel.to(index);
         }
 
+
         $('#contactsellerForm').on('submit', function(e) {
-            e.preventDefault(); // VERY IMPORTANT (stops JSON showing)
+            e.preventDefault();
 
             let form = $(this);
             let actionUrl = form.attr('action');
@@ -595,7 +596,7 @@
                 data: form.serialize(),
                 dataType: "json",
 
-                success: function(response) {
+                 success: function(response) {
 
                     Swal.fire({
                         title: "Success!",
@@ -620,8 +621,13 @@
                             confirmButtonColor: "#aa8038"
                         });
                     }
-                }
+                },
+
+
+                
             });
+
+
         });
     </script>
 
