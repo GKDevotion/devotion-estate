@@ -27,3 +27,5 @@ doc
 step-form
 composer.lock
 /public/backend/assets/css/custom.css
+robots.txt
+sitemap.xml
