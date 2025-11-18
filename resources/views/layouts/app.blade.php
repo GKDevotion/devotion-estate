@@ -277,7 +277,8 @@
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Terms
                                     Condition</a></li>
-                            <li><a href="{{ route('admin.login') }}" class="text-decoration-none d-block py-1 d-none"><i
+                            <li><a href="{{ route('admin.login') }}"
+                                    class="text-decoration-none d-block py-1 d-none"><i
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Login</a>
                             </li>
@@ -355,33 +356,96 @@
             });
         });
 
-        $('#contactsellerForm').on('submit', function(e){
 
+        $('#contactsellerForm').on('submit', function(e) {
             e.preventDefault();
+
+            let form = $(this); // <-- define the form here
 
             $.ajax({
                 url: "{{ route('property-contact.store') }}",
                 type: "POST",
-                data: $(this).serialize(),
-                beforeSend: function(){
-                    $('#contactsellerForm #submit_text').html('<span style="color:white;">Sending...</span>');
+                data: form.serialize(), // use form instead of $(this)
+                beforeSend: function() {
+                    $('#contactsellerForm #submit_text').html(
+                        '<span style="color:white;">Sending...</span>');
                 },
-                success: function(res){
-                    if(res.status){
-                        $('#contactsellerForm #formMsg').html('<span style="color:green;">'+res.message+'</span>');
-                        $('#contactsellerForm')[0].reset(); // clear form
-                    }
-                },
-                error: function(xhr){
-                    let errors = xhr.responseJSON.errors;
-                    let msg = '';
+                success: function(response) {
+                    console.log("SUCCESS:", response);
 
-                    $.each(errors, function(key,val){
-                        msg += '<p style="color:red;">'+val[0]+'</p>';
+                    Swal.fire({
+                        title: "Success!",
+                        text: response.message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#aa8038"
                     });
 
-                    $('##contactsellerForm #formMsg').html(msg);
-                }
+                    form[0].reset(); // now it will reset
+                    $('#contactsellerForm #submit_text').html('Submit'); // reset button text
+                },
+                error: function(xhr) {
+                    console.log("ERROR:", xhr);
+
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        let firstErr = Object.values(errors)[0][0];
+
+                        Swal.fire({
+                            title: "Validation Error",
+                            text: firstErr,
+                            icon: "error",
+                            confirmButtonColor: "#aa8038"
+                        });
+                    } else {
+                        Swal.fire("Error", "Something went wrong", "error");
+                    }
+                },
+            });
+        });
+
+        $('#reviewForm').on('submit', function(e) {
+            e.preventDefault();
+
+            let form = $(this); // <-- define the form here
+
+            $.ajax({
+                url: "{{ route('review.store') }}",
+                type: "POST",
+                data: form.serialize(), // use form instead of $(this)
+                beforeSend: function() {
+                    $('#reviewForm #submit_text').html('<span style="color:white;">Sending...</span>');
+                },
+                success: function(response) {
+                    console.log("SUCCESS:", response);
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: response.message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#aa8038"
+                    });
+
+                    form[0].reset(); // now it works
+                },
+                error: function(xhr) {
+                    console.log("ERROR:", xhr);
+
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        let firstErr = Object.values(errors)[0][0];
+
+                        Swal.fire({
+                            title: "Validation Error",
+                            text: firstErr,
+                            icon: "error",
+                            confirmButtonColor: "#aa8038"
+                        });
+                    } else {
+                        Swal.fire("Error", "Something went wrong", "error");
+                    }
+                },
             });
         });
     </script>

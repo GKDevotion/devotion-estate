@@ -228,65 +228,68 @@
 
         $(document).ready(function() {
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-    $('#contactForm').on('submit', function(e) {
-        e.preventDefault();
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
 
-        let form = $(this);
-        let actionUrl = form.attr('action');
+                let form = $(this);
+                let actionUrl = form.attr('action');
 
-        $.ajax({
-            url: actionUrl,
-            type: "POST",
-            data: form.serialize(),
-            dataType: "json",
+                $.ajax({
+                    url: actionUrl,
+                    type: "POST",
+                    data: form.serialize(),
+                    dataType: "json",
 
-            success: function(response) {
-                console.log("SUCCESS:", response);
+                    beforeSend: function() {
+                        form.find('button[type="submit"]')
+                            .html('<i class="fas fa-spinner fa-spin me-2"></i>Sending...');
+                    },
+                    success: function(response) {
+                        console.log("SUCCESS:", response);
 
-                Swal.fire({
-                    title: "Success!",
-                    text: response.message,
-                    icon: "success",
-                    confirmButtonText: "OK",
-                    confirmButtonColor: "#aa8038"
+                        Swal.fire({
+                            title: "Success!",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#aa8038"
+                        });
+
+                        form[0].reset();
+                    },
+
+                    error: function(xhr) {
+                        console.log("ERROR:", xhr);
+
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            let firstErr = Object.values(errors)[0][0];
+
+                            Swal.fire({
+                                title: "Validation Error",
+                                text: firstErr,
+                                icon: "error",
+                                confirmButtonColor: "#aa8038"
+                            });
+                        } else {
+                            Swal.fire("Error", "Something went wrong", "error");
+                        }
+                    },
+
+                    complete: function() {
+                        form.find('button[type="submit"]').prop('disabled', false)
+                            .html('<i class="fas fa-paper-plane me-2"></i>Send Request');
+                    }
                 });
 
-                form[0].reset();
-            },
+            });
 
-            error: function(xhr) {
-                console.log("ERROR:", xhr);
-
-                if (xhr.status === 422) {
-                    let errors = xhr.responseJSON.errors;
-                    let firstErr = Object.values(errors)[0][0];
-
-                    Swal.fire({
-                        title: "Validation Error",
-                        text: firstErr,
-                        icon: "error",
-                        confirmButtonColor: "#aa8038"
-                    });
-                } else {
-                    Swal.fire("Error", "Something went wrong", "error");
-                }
-            },
-
-            complete: function() {
-                form.find('button[type="submit"]').prop('disabled', false)
-                    .html('<i class="fas fa-paper-plane me-2"></i>Send Request');
-            }
         });
-
-    });
-
-});
-
     </script>
 @endsection

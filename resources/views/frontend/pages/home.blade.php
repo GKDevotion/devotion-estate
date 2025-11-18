@@ -526,7 +526,7 @@
                                                         </p>
 
                                                         <button class="btn btn-type rounded-pill btn-sm featureMap">
-                                                            {{ ucfirst($propertysale->feature->name ?? 'N/A') }}
+                                                            {{ ucfirst($propertysale->subType->name ?? 'N/A') }}
                                                         </button>
                                                     </div>
 

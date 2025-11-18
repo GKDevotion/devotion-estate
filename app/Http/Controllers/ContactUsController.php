@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactUs;
 use App\Models\PropertyType;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
 {
@@ -37,6 +39,24 @@ class ContactUsController extends Controller
             'comment'        => $request->comment,
         ]);
 
+        // EMAIL DETAILS
+        $data = [
+            'website_id'     => $request->website_id ?? 1,
+            'name'    => $request->name,
+            'type'    => $request->type,
+            'sub_type'    => $request->sub_type,
+            'email'   => $request->email,
+            'comment'     => $request->comment,
+        ];
+
+        try {
+            // SEND MAIL
+            Mail::send('frontend.emails.contactMail', $data, function ($message) use ($data) {
+                $message->to('admin@devotionestate.com')
+                    ->subject('New Contact Us Message');
+            });
+        } catch (Exception $e) {
+        }
 
         return response()->json([
             'success' => true,

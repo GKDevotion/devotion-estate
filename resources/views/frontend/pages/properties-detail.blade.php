@@ -439,7 +439,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('review.store') }}" method="POST">
+                    <form id="reviewForm" action="{{ route('review.store') }}" method="POST">
                         @csrf
 
                         <!-- Hidden Property ID -->
@@ -551,10 +551,10 @@
         });
 
         // Function to go to clicked slide
-        function goToSlide(index) {
-            var carousel = bootstrap.Carousel.getInstance(document.getElementById('propertyCarousel'));
-            carousel.to(index);
-        }
+        // function goToSlide(index) {
+        //     var carousel = bootstrap.Carousel.getInstance(document.getElementById('propertyCarousel'));
+        //     carousel.to(index);
+        // }
 
         // Sync main carousel with modal carousel
         const modalElement = document.getElementById('imageModal');
@@ -580,7 +580,6 @@
                 alert("Share feature is not supported in this browser.");
             }
         }
-
 
         function goToSlide(index) {
             var myCarousel = document.getElementById('propertyCarousel');
