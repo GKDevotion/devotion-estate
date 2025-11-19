@@ -74,7 +74,7 @@ class PropertyContactController extends Controller
             $mail->Subject = "New Contact Us Message";
 
             // BODY (HTML view)
-            $html = view('frontend.emails.contactMail', $data)->render();
+            $html = view('frontend.emails.contactSellerMail', $data)->render();
             $mail->isHTML(true);
             $mail->Body = $html;
 
