@@ -65,7 +65,7 @@
                                     <div class="col-12 mb-2">
                                         <div class="form-group">
                                             <label class="mb-0" for="image">Upload New Image</label>
-                                            <input type="file" name="image" class="dropify" data-default-file="{{ asset('storage/app/public/agent/' . $dataObj->image) }}">
+                                            <input type="file" name="image" class="dropify" data-default-file="{{ asset('storage/app/agent/' . $dataObj->image) }}">
                                             @error('image')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror

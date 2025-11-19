@@ -69,7 +69,7 @@ class AgentsController extends Controller
             })
 
             ->addColumn('image', function (User $dt) {
-                $url = $dt->image ? asset('storage/app/public/agent/' . $dt->image) : url('public/img/devotion-group-favicon.png');
+                $url = $dt->image ? asset('storage/app/agent/' . $dt->image) : url('public/img/devotion-group-favicon.png');
                 return '<img src="' . $url . '" width="100" height="100" style="object-fit:cover;">';
             })
 
@@ -215,12 +215,12 @@ class AgentsController extends Controller
 
             if ($file->isValid()) {
 
-                if (!Storage::exists('public/agent')) {
-                    Storage::makeDirectory('public/agent', 0777, true);
+                if (!Storage::exists('agent/')) {
+                    Storage::makeDirectory('agent/', 0777, true);
                 }
 
                 $imageName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-                $file->storeAs('public/agent', $imageName);
+                $file->storeAs('agent/', $imageName);
             } else {
                 return back()->withErrors(['image' => 'The image failed to upload properly.']);
             }
@@ -325,18 +325,18 @@ class AgentsController extends Controller
             if ($file->isValid()) {
 
                 // Make folder if missing
-                if (!Storage::exists('public/agent')) {
-                    Storage::makeDirectory('public/agent');
+                if (!Storage::exists('agent/')) {
+                    Storage::makeDirectory('agent/');
                 }
 
                 // Delete old image
-                if ($user->image && Storage::exists('public/agent/' . $user->image)) {
-                    Storage::delete('public/agent/' . $user->image);
+                if ($user->image && Storage::exists('agent/' . $user->image)) {
+                    Storage::delete('agent/' . $user->image);
                 }
 
                 // Upload new image
                 $imageName = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public/agent', $imageName);
+                $file->storeAs('agent/', $imageName);
             }
         }
 
