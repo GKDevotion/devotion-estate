@@ -7,6 +7,7 @@ use App\Models\PropertyContact;
 use App\Models\Review;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class PropertyContactController extends Controller
@@ -48,10 +49,15 @@ class PropertyContactController extends Controller
             // SEND MAIL
             Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
                 $message->to('admin@devotionestate.com')
-                        ->subject('New Contact Seller Message');
+                    ->cc('gk@devotiontech.io') // Add CC email here
+                    ->subject('New Contact Seller Message');
             });
         } catch( Exception $e ){
-
+            Log::error('Error occurred: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
         }
 
         // $to = "admin@devotionestate.com";

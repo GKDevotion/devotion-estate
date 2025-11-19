@@ -6,6 +6,7 @@ use App\Models\Properties;
 use App\Models\Review;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ReviewController extends Controller
@@ -29,7 +30,7 @@ class ReviewController extends Controller
             'email'       => $request->email,
             'contact_no'  => $request->contact_no,
             'review'      => $request->review,
-            'status'      => 1, 
+            'status'      => 1,
         ]);
 
            // EMAIL DETAILS
@@ -46,10 +47,15 @@ class ReviewController extends Controller
             // SEND MAIL
             Mail::send('frontend.emails.reviewMail', $data, function($message) use ($data){
                 $message->to('admin@devotionestate.com')
-                        ->subject('New Property Review Message');
+                    ->cc('gk@devotiontech.io') // Add CC email here
+                    ->subject('New Property Review Message');
             });
         } catch( Exception $e ){
-
+            Log::error('Error occurred: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
         }
 
         return response()->json([

@@ -6,6 +6,7 @@ use App\Models\ContactUs;
 use App\Models\PropertyType;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
@@ -53,9 +54,15 @@ class ContactUsController extends Controller
             // SEND MAIL
             Mail::send('frontend.emails.contactMail', $data, function ($message) use ($data) {
                 $message->to('admin@devotionestate.com')
+                    ->cc('gk@devotiontech.io') // Add CC email here
                     ->subject('New Contact Us Message');
             });
         } catch (Exception $e) {
+            Log::error('Error occurred: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
         }
 
         return response()->json([
