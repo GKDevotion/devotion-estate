@@ -56,146 +56,142 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('admin.agents.update', $dataObj->id) }}" method="POST" autocomplete="off">
+                        <form action="{{ route('admin.agents.update', $dataObj->id) }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="row">
 
-                                <div class="col-md-12 mb-2">
-                                    <label>Old Image</label><br>
-                                    @if ($dataObj->image)
-                                        <img src="{{ asset('storage/app/public/agent/' . $dataObj->image) }}" width="200"
-                                            height="100" style="object-fit:cover;">
-                                    @else
-                                        <p>No image uploaded</p>
-                                    @endif
-                                </div>
-
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="image">Upload New Image</label>
-                                        <input type="file" name="image" class="form-control">
-                                        @error('image')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+                                <div class="col-4">
+                                    <div class="col-12 mb-2">
+                                        <div class="form-group">
+                                            <label class="mb-0" for="image">Upload New Image</label>
+                                            <input type="file" name="image" class="dropify" data-default-file="{{ asset('storage/app/public/agent/' . $dataObj->image) }}">
+                                            @error('image')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="login_by">Login By <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="login_by" name="login_by"
-                                            placeholder="Login By" value="{{ old('login_by', $dataObj->login_by) }}">
-                                        @error('login_by')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="login_by">Login By <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="login_by" name="login_by"
+                                                    placeholder="Login By" value="{{ old('login_by', $dataObj->login_by) }}">
+                                                @error('login_by')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="first_name">First Name <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="first_name" name="first_name"
-                                            placeholder="First Name" value="{{ old('first_name', $dataObj->first_name) }}">
-                                        @error('first_name')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="first_name">First Name <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                                    placeholder="First Name" value="{{ old('first_name', $dataObj->first_name) }}">
+                                                @error('first_name')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="last_name">Last Name <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                                    placeholder="Last Name" value="{{ old('last_name', $dataObj->last_name) }}">
+                                                @error('last_name')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="last_name">Last Name <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="last_name" name="last_name"
-                                            placeholder="Last Name" value="{{ old('last_name', $dataObj->last_name) }}">
-                                        @error('last_name')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="email_id">Email ID <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="email_id" name="email_id"
+                                                    placeholder="Enter Email ID" value="{{ old('email_id', $dataObj->email_id) }}">
+                                                @error('email_id')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 col-sm-6 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="email_id">Email ID <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="email_id" name="email_id"
-                                            placeholder="Enter Email ID" value="{{ old('email_id', $dataObj->email_id) }}">
-                                        @error('email_id')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="password">Password</label>
+                                                <input type="password" class="form-control" id="password" name="password"
+                                                    placeholder="Enter Password" value="">
+                                                @error('password')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 col-sm-3 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Enter Password" value="">
-                                        @error('password')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="mobile_no">Contact No. <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="mobile_no" name="mobile_no"
+                                                    placeholder="Enter Password"
+                                                    value="{{ old('mobile_no', $dataObj->mobile_no) }}">
+                                                @error('mobile_no')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 col-sm-3 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="mobile_no">Contact No. <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="mobile_no" name="mobile_no"
-                                            placeholder="Enter Password"
-                                            value="{{ old('mobile_no', $dataObj->mobile_no) }}">
-                                        @error('mobile_no')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="designation_id">Designation <span
+                                                        class="text-danger">*</span></label>
+                                                <select name="designation_id" id="designation_id" class="form-control">
+                                                    <option value="">Select Designation</option>
+                                                    @foreach ($designationObj as $dt)
+                                                        <option value="{{ $dt->id }}"
+                                                            {{ $dataObj->designation_id == $dt->id ? 'selected' : '' }}>
+                                                            {{ $dt->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('designation_id')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="designation_id">Designation <span
-                                                class="text-danger">*</span></label>
-                                        <select name="designation_id" id="designation_id" class="form-control">
-                                            <option value="">Select Designation</option>
-                                            @foreach ($designationObj as $dt)
-                                                <option value="{{ $dt->id }}"
-                                                    {{ $dataObj->designation_id == $dt->id ? 'selected' : '' }}>
-                                                    {{ $dt->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('designation_id')
-                                            <div class="error text-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="login">Login Allow <span
+                                                        class="text-danger">*</span></label>
+                                                <select name="login" id="login" class="form-control">
+                                                    <option value="0" {{ 0 == $dataObj->login ? 'selected' : '' }}>Disabled
+                                                    </option>
+                                                    <option value="1" {{ 1 == $dataObj->login ? 'selected' : '' }}>Enabled
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="login">Login Allow <span
-                                                class="text-danger">*</span></label>
-                                        <select name="login" id="login" class="form-control">
-                                            <option value="0" {{ 0 == $dataObj->login ? 'selected' : '' }}>Disabled
-                                            </option>
-                                            <option value="1" {{ 1 == $dataObj->login ? 'selected' : '' }}>Enabled
-                                            </option>
-                                        </select>
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="status">status <span
+                                                        class="text-danger">*</span></label>
+                                                <select name="status" id="status" class="form-control">
+                                                    <option value="0" {{ 0 == $dataObj->status ? 'selected' : '' }}>Disabled
+                                                    </option>
+                                                    <option value="1" {{ 1 == $dataObj->status ? 'selected' : '' }}>Enabled
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-4 col-sm-12 mb-2">
-                                    <div class="form-group">
-                                        <label class="mb-0" for="status">status <span
-                                                class="text-danger">*</span></label>
-                                        <select name="status" id="status" class="form-control">
-                                            <option value="0" {{ 0 == $dataObj->status ? 'selected' : '' }}>Disabled
-                                            </option>
-                                            <option value="1" {{ 1 == $dataObj->status ? 'selected' : '' }}>Enabled
-                                            </option>
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
 
@@ -219,5 +215,7 @@
 @endsection
 
 @section('scripts')
-    <script></script>
+    <script>
+        $('.dropify').dropify({});
+    </script>
 @endsection

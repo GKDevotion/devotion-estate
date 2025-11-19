@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
-use App\Models\City;
-use App\Models\Continent;
-use App\Models\Country;
 use App\Models\Designations;
-use App\Models\State;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,7 +67,7 @@ class AgentsController extends Controller
             ->addColumn('id', function (User $dt) {
                 return $dt->id;
             })
-            
+
             ->addColumn('image', function (User $dt) {
                 $url = asset('storage/app/public/agent/' . $dt->image);
 
