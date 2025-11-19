@@ -28,7 +28,8 @@
 
 <!-- others plugins -->
 <script src="{{ asset('public/backend/assets/js/plugins.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script> --}}
+<script src={{ url( "public/frontend/js/bootbox.js") }}></script>
 <script src="{{ asset('public/backend/assets/js/scripts.js') }}"></script>
 
 <!-- Dropify Image upload -->

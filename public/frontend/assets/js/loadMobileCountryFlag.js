@@ -5,7 +5,8 @@ $(".mobile-number-with-country-flag").each(function () {
     // Initialize intlTelInput
     const iti = intlTelInput(input, {
         initialCountry: "auto",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        // utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        utilsScript:"public/frontend/js/utils.js" ,
         geoIpLookup: function (callback) {
             $.get("https://ipinfo.io", function () {}, "jsonp").always(function (resp) {
                 const countryCode = resp && resp.country ? resp.country : "us";
@@ -49,7 +50,8 @@ function addNewMobileCountryFlag( id ){
     var phoneInput = document.querySelector("#"+id);
     var iti = intlTelInput(phoneInput, {
         initialCountry: "us",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js", // For validation and formatting
+        // utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js", // For validation and formatting
+       utilsScript:"public/frontend/js/utils.js" ,
     });
 
     // Listen for the `countrychange` event

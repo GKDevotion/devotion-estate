@@ -1,9 +1,9 @@
 @extends('backend.layouts.master')
 <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
-<!-- Font Awesome 6 CDN -->
+{{-- <!-- Font Awesome 6 CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    integrity="sha512-yen7uU8k8k..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    integrity="sha512-yen7uU8k8k..." crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+<link rel="stylesheet" href="{{ url('public/frontend/js/all.min.css') }}">
 @section('title')
     Property add - Admin Panel
 @endsection
