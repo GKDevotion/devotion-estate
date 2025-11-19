@@ -69,9 +69,8 @@ class AgentsController extends Controller
             })
 
             ->addColumn('image', function (User $dt) {
-                $url = asset('storage/app/public/agent/' . $dt->image);
-
-                return '<img src="' . $url . '" width="100" height="100" style="object-fit:cover; border-radius:5px;">';
+                $url = $dt->image ? asset('storage/app/public/agent/' . $dt->image) : url('public/img/devotion-group-favicon.png');
+                return '<img src="' . $url . '" width="100" height="100" style="object-fit:cover;">';
             })
 
             ->addColumn('name', function (User $dt) {
