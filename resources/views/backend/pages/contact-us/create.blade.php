@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Property Contact Create - Admin Panel
+     Contact Us Create - Admin Panel
 @endsection
 
 @section('styles')
@@ -18,22 +18,22 @@
         <div class="row align-items-center">
             <div class="col-md-7">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left d-none">Property Contact Create</h4>
+                    <h4 class="page-title pull-left d-none"> Contact Us Create</h4>
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('admin.property-contact.index') }}">All Property Contact</a></li>
+                        <li><a href="{{ route('admin.contact-us.index') }}">All Contact Us</a></li>
                         <li><span>Create Review</span></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3">
                 <p class="float-end">
-                    @if (Auth::guard('admin')->user()->can('property-contact.create'))
+                    @if (Auth::guard('admin')->user()->can('contact-us.create'))
                         <button type="button" class="btn btn-success pr-4 pl-4" onclick="$('#submitForm').click();">
                             <i class="fa fa-save"></i> Save
                         </button>
                     @endif
-                    <a href="{{ route('admin.property-contact.index') }}" class="btn btn-danger">
+                    <a href="{{ route('admin.contact-us.index') }}" class="btn btn-danger">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
                 </p>
@@ -49,7 +49,7 @@
         <div class="row">
             <!-- data table start -->
             <div class="col-12 mt-3">
-                <h3 class="pb-3">Property Contact Review</h3>
+                <h3 class="pb-3"> Contact Us</h3>
                 <div class="card">
                     <div class="card-body">
                         {{-- @if ($errors->any())
@@ -62,7 +62,7 @@
                             </div>
                         @endif --}}
 
-                        <form action="{{ route('admin.property-contact.store') }}" onsubmit="return onSubmitValidateForm();"
+                        <form action="{{ route('admin.contact-us.store') }}" onsubmit="return onSubmitValidateForm();"
                             method="POST" autocomplete="off">
                             @csrf
                             <div class="row">
@@ -92,22 +92,12 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-md-12 mb-2">
-                                            <div class="form-group">
-                                                <label class="mb-0" for="mobile_number">Contact No.<span
-                                                        class="text-error">*</span></label>
-                                                <input type="number" data-required="yes" class="form-control"
-                                                    id="mobile_number" name="mobile_number" placeholder="Mobile Number">
-                                            </div>
-                                            @error('mobile_number')
-                                                <div class="error text-error">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                                        
 
                                         <div class="col-md-12 col-sm-12 mb-3">
-                                            <label class="mb-0" for="message">Message <span
+                                            <label class="mb-0" for="comment">Message <span
                                                     class="text-error">*</span></label>
-                                            <textarea name="message" id="message" class="form-control required-field" rows="4"
+                                            <textarea name="comment" id="comment" class="form-control required-field" rows="4"
                                                 placeholder="Write your message..." data-required="yes"></textarea>
                                             <div class="error text-error"></div>
                                         </div>
@@ -133,7 +123,7 @@
                                     <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
                                         <i class="fa fa-save"></i> Save
                                     </button>
-                                    <a href="{{ route('admin.property-contact.index') }}" class="btn btn-danger pr-4 pl-4">
+                                    <a href="{{ route('admin.contact-us.index') }}" class="btn btn-danger pr-4 pl-4">
                                         <i class="fa fa-arrow-left"></i> Back
                                     </a>
                                 </div>

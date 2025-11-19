@@ -77,9 +77,9 @@ class LocationController extends Controller
             ->addColumn('status', function(Location $ar) {
                 $status = "";
                 if( true ){
-                    $status = '<i class="fa fa-'.( $ar->status == 0 ? 'times' : 'check').' update-status" data-status="'.$ar->status.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="corporate_emails"></i>';
+                    $status = '<i class="fa fa-'.( $ar->status == 0 ? 'times' : 'check').' update-status" data-status="'.$ar->status.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="locations"></i>';
                 } else {
-                 $status = '<select class="form-control update-status badge '.( $ar->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$ar->id.'" data-table="corporate_emails">
+                 $status = '<select class="form-control update-status badge '.( $ar->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$ar->id.'" data-table="locations">
                             <option value="1" '.($ar->status == 1 ? 'selected' : '').'>Active</option>
                             <option value="0" '.($ar->status == 0 ? 'selected' : '').'>De-Active</option>
                         </select>';
