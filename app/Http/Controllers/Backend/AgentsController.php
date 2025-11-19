@@ -204,9 +204,10 @@ class AgentsController extends Controller
             'password' => 'required|min:6',
             'mobile_no' => 'required',
             'designation_id' => 'required',
-
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', 
 
         ]);
+
         $imageName = null;
 
         if ($request->hasFile('image')) {
@@ -313,19 +314,20 @@ class AgentsController extends Controller
             // 'password' => 'required|min:6',
             'designation_id' => 'required',
             'mobile_no' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', 
         ]);
 
 
-        $imageName = $user->image; // keep old image by default
+        $imageName = $user->image; // keep old image
 
-        // Handle new image upload
         if ($request->hasFile('image')) {
             $file = $request->file('image');
 
             if ($file->isValid()) {
 
+                // Make folder if missing
                 if (!Storage::exists('public/agent')) {
-                    Storage::makeDirectory('public/agent', 0777, true);
+                    Storage::makeDirectory('public/agent');
                 }
 
                 // Delete old image
@@ -334,7 +336,7 @@ class AgentsController extends Controller
                 }
 
                 // Upload new image
-                $imageName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $imageName = time() . '_' . $file->getClientOriginalName();
                 $file->storeAs('public/agent', $imageName);
             }
         }
