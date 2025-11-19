@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class PropertyContactController extends Controller
 {
@@ -47,11 +48,39 @@ class PropertyContactController extends Controller
 
         try{
             // SEND MAIL
-            Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
-                $message->to('admin@devotionestate.com')
-                    ->cc('gk@devotiontech.io') // Add CC email here
-                    ->subject('New Contact Seller Message');
-            });
+            // Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
+            //     $message->to('admin@devotionestate.com')
+            //         ->cc('gk@devotiontech.io') // Add CC email here
+            //         ->subject('New Contact Seller Message');
+            // });
+
+            $mail = new PHPMailer(true);
+
+            // SERVER SETTINGS (GoDaddy shared hosting)
+            $mail->isSMTP();
+            $mail->Host = "relay-hosting.secureserver.net";
+            $mail->Port = 25;
+            $mail->SMTPAuth = false;
+            $mail->SMTPSecure = false;
+
+            // SENDER DETAILS
+            $mail->setFrom('admin@devotionestate.com', 'Devotion Estate');
+
+            // RECEIVER + CC
+            $mail->addAddress('admin@devotionestate.com');
+            $mail->addCC('gk@devotiontech.io');
+
+            // SUBJECT
+            $mail->Subject = "New Contact Us Message";
+
+            // BODY (HTML view)
+            $html = view('frontend.emails.contactMail', $data)->render();
+            $mail->isHTML(true);
+            $mail->Body = $html;
+
+            // SEND
+            $mail->send();
+
         } catch( Exception $e ){
             Log::error('Error occurred: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
@@ -59,33 +88,6 @@ class PropertyContactController extends Controller
                 'trace' => $e->getTraceAsString(),
             ]);
         }
-
-        // $to = "admin@devotionestate.com";
-        // $subject = "New Contact Seller Message";
-
-        // $message = "
-        // <html>
-        // <body>
-        // <h3>New Contact Message</h3>
-        // <p><strong>Property:</strong> ".$data['propertyname']." (".$data['propertyid'].")</p>
-        // <p><strong>Name:</strong> ".$data['name']."</p>
-        // <p><strong>Mobile:</strong> ".$data['mobile']."</p>
-        // <p><strong>Email:</strong> ".$data['email']."</p>
-        // <p><strong>Message:</strong> ". $data['msg']."</p>
-        // </body>
-        // </html>
-        // ";
-
-        // $headers  = "MIME-Version: 1.0" . "\r\n";
-        // $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        // $headers .= "From: Devotion Estate <admin@devotionestate.com>" . "\r\n";
-
-        // $emailmsg = "";
-        // if(mail($to, $subject, $message, $headers)){
-        //     $emailmsg = "Email sent successfully";
-        // }else{
-        //     $emailmsg = "Email sending failed";
-        // }
 
         return response()->json([
             'success' => true,
