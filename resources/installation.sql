@@ -49,3 +49,6 @@ ALTER TABLE `properties` CHANGE `is_furnish` `is_furnish` TINYINT(1) NOT NULL DE
 
 -- 17-11-2025
 ALTER TABLE `property_contact` ADD `property_id` VARCHAR(10) NULL DEFAULT NULL AFTER `message`;
+
+/* 19-11-2025 */
+ALTER TABLE `users` ADD `image` VARCHAR(200) NOT NULL AFTER `designation_id`;

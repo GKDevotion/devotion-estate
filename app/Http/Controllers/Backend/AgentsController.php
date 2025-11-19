@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class AgentsController extends Controller
@@ -70,6 +71,13 @@ class AgentsController extends Controller
             ->addColumn('id', function (User $dt) {
                 return $dt->id;
             })
+            
+            ->addColumn('image', function (User $dt) {
+                $url = asset('storage/app/public/agent/' . $dt->image);
+
+                return '<img src="' . $url . '" width="100" height="100" style="object-fit:cover; border-radius:5px;">';
+            })
+
             ->addColumn('name', function (User $dt) {
                 return $dt->first_name . " " . $dt->last_name;
             })
@@ -117,19 +125,27 @@ class AgentsController extends Controller
                         </a>';
                 }
 
-                if ($this->user->can('agents.delete')) {
-                    $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="' . $dt->id . '" data-title="' . $dt->name . '" data-segment="users">
-                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                                    </button>';
-                }
-
+            // if ($this->user->can('agents.delete')) {
+            //     $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="' . $dt->id . '" data-title="' . $dt->name . '" data-segment="users">
+            //                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+            //                     </button>';
+            // }
+            if ($this->user->can('agents.delete')) {
+                $action .= '<form method="POST" action="' .  route('admin.agents.destroy', $dt->id) . '" style="display:inline;">
+                    ' . csrf_field() . '
+                    ' . method_field('DELETE') . '
+                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $dt->name . '?\');">
+                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                    </button>
+                </form>';
+            }
                 $action .= '
                     </div>
                 ';
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'email', 'login_by', 'designtation', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id','image', 'name', 'email', 'login_by', 'designtation', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -192,7 +208,27 @@ class AgentsController extends Controller
             'password' => 'required|min:6',
             'mobile_no' => 'required',
             'designation_id' => 'required',
+
+
         ]);
+        $imageName = null;
+
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+
+                if (!Storage::exists('public/agent')) {
+                    Storage::makeDirectory('public/agent', 0777, true);
+                }
+
+                $imageName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->storeAs('public/agent', $imageName);
+            } else {
+                return back()->withErrors(['image' => 'The image failed to upload properly.']);
+            }
+        }
 
         // Create New User
         $user = new User();
@@ -207,6 +243,8 @@ class AgentsController extends Controller
         $user->login = $request->login;
         $user->status = $request->status;
         $user->type = $this->user_type;
+
+        $user->image = $imageName;
         $user->save();
 
         // $userAddress = new Address();
@@ -281,6 +319,30 @@ class AgentsController extends Controller
             'mobile_no' => 'required',
         ]);
 
+
+        $imageName = $user->image; // keep old image by default
+
+        // Handle new image upload
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+
+                if (!Storage::exists('public/agent')) {
+                    Storage::makeDirectory('public/agent', 0777, true);
+                }
+
+                // Delete old image
+                if ($user->image && Storage::exists('public/agent/' . $user->image)) {
+                    Storage::delete('public/agent/' . $user->image);
+                }
+
+                // Upload new image
+                $imageName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->storeAs('public/agent', $imageName);
+            }
+        }
+
         $user->login_by = $request->login_by;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -295,6 +357,7 @@ class AgentsController extends Controller
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
+        $user->image = $imageName;
         $user->save();
 
         // $userAddress = Address::find($request->address_id);

@@ -61,6 +61,7 @@ Owners - Admin Panel
                             <thead id="user" class="bg-light text-capitalize">
                                 <tr>
                                     <th>#</th>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Login By</th>
@@ -110,6 +111,7 @@ Owners - Admin Panel
                 // },
                 columns: [
                     { data: 'id', name: 'id' },
+                    { data: 'image', name: 'image' },
                     { data: 'name', name: 'name' },
                     { data: 'email_id', name: 'email_id' },
                     { data: 'login_by', name: 'login_by' },

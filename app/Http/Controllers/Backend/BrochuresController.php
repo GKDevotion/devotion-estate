@@ -234,6 +234,7 @@ class BrochuresController extends Controller
 
         ]);
 
+        
         // Create New Server Record
         $dataObj = Brochures::find($id);
         $dataObj->location = $request->location;

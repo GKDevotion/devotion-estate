@@ -56,14 +56,27 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('admin.agents.store') }}" method="POST" autocomplete="off">
+                        <form action="{{ route('admin.agents.store') }}" enctype="multipart/form-data" method="POST"
+                            autocomplete="off">
                             @csrf
                             <div class="row">
 
+                                <div class="col-md-4 mb-2">
+                                    <div class="form-group">
+                                        <label class="mb-0" for="image">Image</label>
+                                        <input type="file" class="form-control" id="image" name="image">
+                                    </div>
+                                    @error('image')
+                                        <div class="error text-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="login_by">Login By <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="login_by" name="login_by" placeholder="Login By">
+                                        <label class="mb-0" for="login_by">Login By <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="login_by" name="login_by"
+                                            placeholder="Login By">
                                         @error('login_by')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
@@ -72,8 +85,10 @@
 
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="first_name">First Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name">
+                                        <label class="mb-0" for="first_name">First Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name"
+                                            placeholder="Enter First Name">
                                         @error('first_name')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
@@ -82,7 +97,8 @@
 
                                 <div class="col-md-4 col-sm-6 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="last_name">Last Name <span class="text-danger">*</span></label>
+                                        <label class="mb-0" for="last_name">Last Name <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="last_name" name="last_name"
                                             placeholder="Enter Last Name">
                                         @error('last_name')
@@ -93,7 +109,8 @@
 
                                 <div class="col-md-4 col-sm-6 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="email_id">Email ID <span class="text-danger">*</span></label>
+                                        <label class="mb-0" for="email_id">Email ID <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="email_id" name="email_id"
                                             placeholder="Enter Email ID">
                                         @error('email_id')
@@ -104,7 +121,8 @@
 
                                 <div class="col-md-4 col-sm-3 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="password">Password <span class="text-danger">*</span></label>
+                                        <label class="mb-0" for="password">Password <span
+                                                class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="password" name="password"
                                             placeholder="Enter Password">
                                         @error('password')
@@ -115,9 +133,10 @@
 
                                 <div class="col-md-4 col-sm-3 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="mobile_no">Contact No. <span class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" id="mobile_no"
-                                            name="mobile_no" placeholder="Enter Password">
+                                        <label class="mb-0" for="mobile_no">Contact No. <span
+                                                class="text-danger">*</span></label>
+                                        <input type="password" class="form-control" id="mobile_no" name="mobile_no"
+                                            placeholder="Enter Password">
                                         @error('mobile_no')
                                             <div class="error text-error">{{ $message }}</div>
                                         @enderror
@@ -126,11 +145,12 @@
 
                                 <div class="col-md-4 col-sm-6 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="designation_id">Designation <span class="text-danger">*</span></label>
+                                        <label class="mb-0" for="designation_id">Designation <span
+                                                class="text-danger">*</span></label>
                                         <select name="designation_id" id="designation_id" class="form-control">
                                             <option value="">Select Designation</option>
-                                            @foreach ( $designationObj as $dt )
-                                                <option value="{{$dt->id}}">{{$dt->name}}</option>
+                                            @foreach ($designationObj as $dt)
+                                                <option value="{{ $dt->id }}">{{ $dt->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('designation_id')
@@ -141,7 +161,8 @@
 
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <div class="form-group">
-                                        <label class="mb-0" for="login">Login Allow <span class="text-danger">*</span></label>
+                                        <label class="mb-0" for="login">Login Allow <span
+                                                class="text-danger">*</span></label>
                                         <select name="login" id="login" class="form-control">
                                             <option value="0">Disabled</option>
                                             <option value="1">Enabled</option>
@@ -150,7 +171,8 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 mb-2">
-                                    <label class="mb-0" for="status">status <span class="text-danger">*</span></label>
+                                    <label class="mb-0" for="status">status <span
+                                            class="text-danger">*</span></label>
                                     <select name="status" id="status" class="form-control">
                                         <option value="0">Disabled</option>
                                         <option value="1">Enabled</option>
@@ -179,5 +201,4 @@
 @endsection
 
 @section('scripts')
-
 @endsection
