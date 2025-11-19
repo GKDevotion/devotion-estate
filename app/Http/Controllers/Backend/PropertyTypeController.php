@@ -64,7 +64,7 @@ class PropertyTypeController extends Controller
                 return $ar->id;
             })
             ->addColumn('main_type', function (PropertyType $ar) {
-                return match ($ar->main_type) {
+                return match ((int)$ar->main_type) {
                     0 => 'All',
                     1 => 'Residential',
                     2 => 'Commercial'
@@ -194,7 +194,7 @@ class PropertyTypeController extends Controller
 
         session()->flash('success', $request->name.' record has been created !!');
         return redirect()->route('admin.property-types.index');
-   
+
     }
 
     /**
