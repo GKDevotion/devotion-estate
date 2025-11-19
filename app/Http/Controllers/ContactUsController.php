@@ -16,7 +16,7 @@ class ContactUsController extends Controller
     public function index()
     {
         // Fetch property types from DB
-        $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
+        $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->where('status', 1)->orderBy('name')->get();
         return view('frontend.pages.contact-us', compact('propertyTypeObj')); // assuming your blade file is buy-properties.blade.php
     }
 
