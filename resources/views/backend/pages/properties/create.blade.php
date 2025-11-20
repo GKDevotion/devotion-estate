@@ -636,8 +636,12 @@
                                 <div class="row box-shadow-10">
                                     <div class="col-md-4 col-sm-12 mb-2">
                                         <label class="mb-0" for="property_image">Property Images</label>
-                                        <input type="file" class="property_image" id="property_image"
+                                        <input type="file" class="property_image dropify" id="property_image"
                                             name="propertyImage[]" accept="image/jpg, image/jpeg, image/png" multiple>
+
+                                        <!-- Inline error message -->
+                                        <span id="image-error" class="text-danger" style="font-size: 14px;">You can
+                                            select only five images.</span>
                                         @if ($errors->has('avtar'))
                                             <div class="error">{{ $errors->first('avtar') }}</div>
                                         @endif
@@ -712,28 +716,33 @@
     </div>
 @endsection
 <style>
-.select2-container .select2-selection--single {
-    height: 48px !important;         /* same as form-control-lg */
-    padding: 8px 12px !important;
-    border: 1px solid lightgray !important;
-    border-radius: 6px !important;
-    display: flex !important;
-    align-items: center !important;
-}
+    .select2-container .select2-selection--single {
+        height: 48px !important;
+        /* same as form-control-lg */
+        padding: 8px 12px !important;
+        border: 1px solid lightgray !important;
+        border-radius: 6px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 46px !important;
-    right: 10px !important;
-}
-/* Hover color */
-.select2-results__option--highlighted {
-    background-color: #ab8134 !important;   /* your custom hover color */
-    color: white !important;
-}
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 46px !important;
+        right: 10px !important;
+    }
+
+    /* Hover color */
+    .select2-results__option--highlighted {
+        background-color: #ab8134 !important;
+        /* your custom hover color */
+        color: white !important;
+    }
 </style>
 @section('scripts')
     <script src="{{ asset('public/backend/assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('public/backend/assets/js/propertyForm.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         ClassicEditor
             .create(document.querySelector('#description'))
@@ -760,5 +769,32 @@
                 width: '100%' // IMPORTANT: keeps same layout
             });
         });
+
+        // Initialize Dropify
+        var drEvent = $('.dropify').dropify();
+
+        // Limit to max 5 images
+        $('#property_image').on('change', function() {
+
+            if (this.files.length > 5) {
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'You can select only five images.',
+                    text: 'Only the first five images will be accepted.',
+                    confirmButtonColor: '#ab8134'
+                }).then(() => {
+
+                    // Clear selected files
+                    this.value = "";
+
+                    // Reset Dropify preview
+                    var dropifyInstance = drEvent.data('dropify');
+                    dropifyInstance.clearElement();
+
+                });
+            }
+        });
+        
     </script>
 @endsection

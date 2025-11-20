@@ -88,8 +88,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-        IMAGE GALLERY
-        ======================== -->
+                IMAGE GALLERY
+                ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -146,8 +146,8 @@
         </div>
 
         <!-- =======================
-        CONTENT ROW (DETAILS + CONTACT)
-        ======================== -->
+                CONTENT ROW (DETAILS + CONTACT)
+                ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -353,8 +353,11 @@
 
                     <!-- Seller Info -->
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <img src="{{ asset('public/img/devotion-trusted-real-estate.png') }}"
-                            style="width:100px; object-fit:contain;">
+
+                        <img src="{{ $property->agent->image
+                            ? asset('storage/app/agent/' . $property->agent->image)
+                            : url('public/img/devotion-group-favicon.png') }}"
+                            class="rounded-circle" style="width:100px; height:100px; object-fit:cover;">
 
                         <div>
                             <p class="fw-semibold mb-1">{{ $property->agent->first_name }}</p>
@@ -400,12 +403,14 @@
 
                         <!-- Buttons -->
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn flex-fill text-white fw-semibold" style="background:#aa8038; border-radius:30px;">
+                            <button type="submit" class="btn flex-fill text-white fw-semibold"
+                                style="background:#aa8038; border-radius:30px;">
                                 <i class="bi bi-envelope-fill me-2"></i>
                                 <span id="submit_text">Send message</span>
                             </button>
 
-                            <a href="tel:+97144488538" class="btn flex-fill fw-semibold" style="background:#fff8ee; border:1px solid #aa8038; color:#aa8038; border-radius:30px;">
+                            <a href="tel:+97144488538" class="btn flex-fill fw-semibold"
+                                style="background:#fff8ee; border:1px solid #aa8038; color:#aa8038; border-radius:30px;">
                                 <i class="bi bi-telephone-fill me-1"></i> Call
                             </a>
                         </div>
@@ -586,7 +591,6 @@
             var carousel = bootstrap.Carousel.getInstance(myCarousel);
             carousel.to(index);
         }
-
     </script>
 
 @endsection

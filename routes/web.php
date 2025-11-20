@@ -61,8 +61,9 @@ Route::post('review/store', [ReviewController::class, 'store'])->name('review.st
 
 Route::post('property-contact/store', [PropertyContactController::class, 'store'])->name('property-contact.store');
 
-// routes/web.php
+
 // Route::get('/{type}-properties/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
+Route::get('property/hot-offer', [HotOfferController::class, 'index'])->name('hot-offer');
 Route::get('property/{slug}', [PropertiesController::class, 'show'])->name('property.detail');
 
 // properties serach section/web.php
@@ -97,6 +98,7 @@ Route::get('/property-management', function () {
 });
 
 Route::get('hot-offer', [HotOfferController::class, 'index'])->name('hot-offer');
+
 
 Route::get('/login', function () {
     return view('frontend.pages.login');

@@ -188,6 +188,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
                 }
             }
             
+            
             $uploadedImages = [];
 
             if ($request->file('propertyImage')) {
