@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Award;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class BannerController extends Controller
+class AwardController extends Controller
 {
     public $user;
 
@@ -28,41 +28,40 @@ class BannerController extends Controller
      */
     public function index()
     {
-        if (is_null($this->user) || !$this->user->can('banner.view')) {
-            abort(403, 'Sorry !! You are Unauthorized to view City !');
+        if (is_null($this->user) || !$this->user->can('award.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view Award !');
         }
 
         // $dataArr = City::limit(1000)->get();
-        return view('backend.pages.banner.index');
+        return view('backend.pages.award.index');
     }
 
 
     public function ajaxIndex()
     {
 
-        $query = Banner::query();
+        $query = Award::query();
         $query->select('id', 'image', 'name', 'sub_title', 'status', 'created_at', 'updated_at');
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function (Banner $city) {
+            ->addColumn('id', function (Award $city) {
                 return $city->id;
             })
-            ->addColumn('image', function (Banner $city) {
+            ->addColumn('image', function (Award $city) {
                 return $city->image;
             })
-           ->addColumn('name', function (Banner $city) {
+           ->addColumn('name', function (Award $city) {
                 return $city->name; // Display the country name
             })
-            ->addColumn('sub_title', function (Banner $city) {
+            ->addColumn('sub_title', function (Award $city) {
                 return $city->sub_title; // Display the country name
             })
-
-            ->addColumn('status', function (Banner $city) {
+            ->addColumn('status', function (Award $city) {
                 $status = "";
                 if (true) {
-                    $status = '<i class="fa fa-' . ($city->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $city->status . '" data-id="' . $city->id . '" aria-hidden="true" data-table="banners"></i>';
+                    $status = '<i class="fa fa-' . ($city->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $city->status . '" data-id="' . $city->id . '" aria-hidden="true" data-table="awards"></i>';
                 } else {
-                    $status = '<select class="form-control update-status badge ' . ($city->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $city->id . '" data-table="banners">
+                    $status = '<select class="form-control update-status badge ' . ($city->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $city->id . '" data-table="awards">
                             <option value="1" ' . ($city->status == 1 ? 'selected' : '') . '>Active</option>
                             <option value="0" ' . ($city->status == 0 ? 'selected' : '') . '>De-Active</option>
                         </select>';
@@ -70,10 +69,10 @@ class BannerController extends Controller
 
                 return $status;
             })
-            ->addColumn('updated_at', function (Banner $city) {
+            ->addColumn('updated_at', function (Award $city) {
                 return formatDate("Y-m-d H:i", $city->updated_at);
             })
-            ->addColumn('action', function (Banner $city) {
+            ->addColumn('action', function (Award $city) {
 
                 $action = '
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_' . $city->id . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,26 +81,18 @@ class BannerController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_' . $city->id . '">
                     ';
 
-                if ($this->user->can('banner.edit')) {
-                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.banner.edit', $city->id) . '">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>';
-                }
+                    if ($this->user->can('award.edit')) {
+                        $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.award.edit', $city->id) . '">
+                                <i class="fa fa-pencil"></i> Edit
+                            </a>';
+                    }
 
-                // if ($this->user->can('banner.delete')) {
-                //     $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $city->id . '" data-title="' . $city->name . '" data-segment="banner">
-                //                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                //                     </button>';
-                // }
-                  if ($this->user->can('banner.delete')) {
-                    $action .= '<form method="POST" action="' .  route('admin.banner.destroy', $city->id) . '" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $city->name . '?\');">
-                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                    </button>
-                </form>';
-                }
+                    if ($this->user->can('award.delete')) {
+                        $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $city->id . '" data-title="' . $city->name . '" data-segment="award">
+                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                                    </button>';
+                    }
+
                 $action .= '
                     </div>
                 ';
@@ -134,12 +125,12 @@ class BannerController extends Controller
      */
     public function create()
     {
-        if (is_null($this->user) || !$this->user->can('banner.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create City !');
+        if (is_null($this->user) || !$this->user->can('award.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create Award !');
         }
 
 
-        return view('backend.pages.banner.create');
+        return view('backend.pages.award.create');
     }
 
     /**
@@ -150,8 +141,8 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        if (is_null($this->user) || !$this->user->can('banner.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create Brochure !');
+        if (is_null($this->user) || !$this->user->can('award.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create Award !');
         }
 
         // ✅ Validate input
@@ -162,7 +153,7 @@ class BannerController extends Controller
 
 
         // ✅ Save to database
-        $dataObj = new Banner();
+        $dataObj = new Award();
         $dataObj->name = $request->name;
         $dataObj->sub_title = $request->sub_title;
         $dataObj->status = $request->status;
@@ -171,15 +162,15 @@ class BannerController extends Controller
         if ($request->hasFile('image')) {
 
             // Create folder if not exists
-            if (!file_exists(storage_path('app/banner'))) {
-                mkdir(storage_path('app/banner'), 0777, true);
+            if (!file_exists(storage_path('app/award'))) {
+                mkdir(storage_path('app/award'), 0777, true);
             }
 
             $file = $request->file('image');
             $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-            // Save in storage/app/banner
-            $file->storeAs('banner', $fileName);
+            // Save in storage/app/award
+            $file->storeAs('award', $fileName);
 
             // Save filename in DB
             $dataObj->image = $fileName;
@@ -189,7 +180,7 @@ class BannerController extends Controller
         $dataObj->save();
 
         session()->flash('success', $dataObj->name.' record has been created successfully!');
-        return redirect()->route('admin.banner.index');
+        return redirect()->route('admin.award.index');
     }
 
 
@@ -212,13 +203,13 @@ class BannerController extends Controller
      */
     public function edit(int $id)
     {
-        if (is_null($this->user) || !$this->user->can('banner.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit City !');
+        if (is_null($this->user) || !$this->user->can('award.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit Award !');
         }
 
-        $data = Banner::find($id);
+        $data = Award::find($id);
 
-        return view('backend.pages.banner.edit', compact('data'));
+        return view('backend.pages.award.edit', compact('data'));
     }
 
     /**
@@ -230,8 +221,8 @@ class BannerController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        if (is_null($this->user) || !$this->user->can('banner.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit Banner !');
+        if (is_null($this->user) || !$this->user->can('award.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit Award !');
         }
 
         // Validate input
@@ -241,7 +232,7 @@ class BannerController extends Controller
         ]);
 
         // Fetch existing record
-        $dataObj = Banner::findOrFail($id);
+        $dataObj = Award::findOrFail($id);
 
         $dataObj->name = $request->name;
         $dataObj->sub_title = $request->sub_title;
@@ -251,20 +242,20 @@ class BannerController extends Controller
         if ($request->hasFile('image')) {
 
             // Ensure folder exists
-            if (!file_exists(storage_path('app/banner'))) {
-                mkdir(storage_path('app/banner'), 0777, true);
+            if (!file_exists(storage_path('app/award'))) {
+                mkdir(storage_path('app/award'), 0777, true);
             }
 
             // Delete old image if exists
-            if (!empty($dataObj->image) && file_exists(storage_path('app/banner/' . $dataObj->image))) {
-                unlink(storage_path('app/banner/' . $dataObj->image));
+            if (!empty($dataObj->image) && file_exists(storage_path('app/award/' . $dataObj->image))) {
+                unlink(storage_path('app/award/' . $dataObj->image));
             }
 
             $file = $request->file('image');
             $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
             // Save new file
-            $file->storeAs('banner', $fileName);
+            $file->storeAs('award', $fileName);
 
             // Update DB with new file
             $dataObj->image = $fileName;
@@ -273,7 +264,7 @@ class BannerController extends Controller
         $dataObj->save();
 
         session()->flash('success', $dataObj->name.' record has been updated successfully!');
-        return redirect()->route('admin.banner.index');
+        return redirect()->route('admin.award.index');
     }
 
 
@@ -285,8 +276,8 @@ class BannerController extends Controller
      */
     public function destroy(int $id)
     {
-        if (is_null($this->user) || !$this->user->can('banner.delete')) {
-            abort(403, 'Sorry !! You are Unauthorized to delete City !');
+        if (is_null($this->user) || !$this->user->can('award.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete Award !');
         }
 
         $dataObj = Banner::find($id);

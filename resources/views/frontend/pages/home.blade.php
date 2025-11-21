@@ -74,44 +74,24 @@
                     </p>
                 </div>
             </div>
-
-            <!-- Slide 2 -->
-            <div class="carousel-item">
-                <img src="{{ url('public/frontend/assets/images/img/slide1.jpg') }}" class="d-block w-100" alt="">
-                <div class="carousel-caption">
-                    <h1 class="carousel-title mb-2">Find your perfect</h1>
-                    <h1 class="carousel-title mb-4">home</h1>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="carousel-item">
-                <img src="{{ url('public/frontend/assets/images/img/slide2.jpg') }}" class="d-block w-100" alt="">
-                <div class="carousel-caption">
-                    <h1 class="carousel-title mb-4">Start your journey</h1>
-                </div>
-            </div>
-
         </div> --}}
         <div class="carousel-inner">
 
-            @if(count($banners) > 0)
-                @foreach ($banners as $key => $banner)
-                    @if(!empty($banner->image))
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="Banner">
-                            <div class="carousel-caption">
-                                <h1 class="carousel-title mb-2">{{ $banner->name }}</h1>
-                                <p class="carousel-subtitle mb-4">{{ $banner->sub_title }}</p>
-                            </div>
+            @if( count( $bannerObjs ) >0 )
+                @foreach ($bannerObjs as $key => $banner)
+                    <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
+                        <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="Banner">
+                        <div class="carousel-caption">
+                            <h1 class="carousel-title mb-2">{{ $banner->name }}</h1>
+                            <p class="carousel-subtitle mb-4">{{ $banner->sub_title }}</p>
                         </div>
-                    @endif
+                    </div>
                 @endforeach
             @else
                 <!-- Default message if no banners exist -->
                 <div class="carousel-item active">
-                    <div class="d-flex justify-content-center align-items-center" style="height: 400px; background:#f5f5f5;">
-                        <h3 class="text-muted">No banners available</h3>
+                    <div class="d-flex justify-content-center align-items-center" style="height: 400px; background:#dcd6d6;">
+                        <h3 class="text-muted"></h3>
                     </div>
                 </div>
             @endif
@@ -120,8 +100,7 @@
 
 
         <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
-        <div
-            class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
+        <div class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
             <div class="carousel-content text-center p-4 rounded-3">
 
                 <!-- Buttons act as tab triggers -->
@@ -425,20 +404,20 @@
                                                             <i class="bi bi-map me-2"></i>
                                                             {{ ucfirst($property->location->name ?? 'N/A') }}
                                                         </p>
-                                                        <p class="card-text small mb-4">
-                                                            <i class="bi bi-door-closed me-2"></i>Beds:
-                                                            {{ $property->beds }}
-                                                            |
-                                                            <i class="bi bi-bucket me-2"></i>Baths: {{ $property->baths }}
-                                                        </p>
-                                                        <p class="card-text small">
-                                                            <i class="bi bi-rulers me-2"></i>Area:
-                                                            {{ $property->area }} Sq.Ft.
-                                                        </p>
+                                                        <p class="card-text small mt-0">
+                                                            <i class="bi bi-door-closed me-1"></i>
+                                                            Beds: {{ $property->beds }}
+                                                            <i class="bi bi-bucket me-1"></i>
+                                                            Baths: {{ $property->baths }}
+                                                        {{-- </p>
+                                                        <p class="card-text small"> --}}
+                                                            <i class="bi bi-rulers me-1"></i>
+                                                            Area: {{ $property->area }} Sq.Ft.
+                                                        {{-- </p> --}}
 
-                                                        <button class="btn btn-type rounded-pill btn-sm featureMap">
+                                                        {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
                                                             {{ $property->subType->name ?? '' }}
-                                                        </button>
+                                                        </button> --}}
 
                                                     </div>
 
@@ -529,30 +508,29 @@
 
                                                         <div class="d-flex align-items-start mb-2">
                                                             <h5 class="card-title mb-0 me-3">
-                                                                {!! $propertysale->name !!}
+                                                                {!! $property->name !!}
                                                             </h5>
-
                                                         </div>
 
                                                         <p class="card-text small text-muted mb-1">
                                                             <i class="bi bi-map me-2"></i>
-                                                            {{ ucfirst($propertysale->location->name ?? 'N/A') }}
+                                                            {{ ucfirst($property->location->name ?? 'N/A') }}
                                                         </p>
-                                                        <p class="card-text small mb-4">
-                                                            <i class="bi bi-door-closed me-2"></i>Beds:
-                                                            {{ $propertysale->beds }}
-                                                            |
-                                                            <i class="bi bi-bucket me-2"></i>Baths:
-                                                            {{ $propertysale->baths }}
-                                                        </p>
-                                                        <p class="card-text small">
-                                                            <i class="bi bi-rulers me-2"></i>Area:
-                                                            {{ $propertysale->area }} Sq.Ft.
-                                                        </p>
+                                                        <p class="card-text small mt-0">
+                                                            <i class="bi bi-door-closed me-1"></i>
+                                                            Beds: {{ $property->beds }}
+                                                            <i class="bi bi-bucket me-1"></i>
+                                                            Baths: {{ $property->baths }}
+                                                        {{-- </p>
+                                                        <p class="card-text small"> --}}
+                                                            <i class="bi bi-rulers me-1"></i>
+                                                            Area: {{ $property->area }} Sq.Ft.
+                                                        {{-- </p> --}}
 
-                                                        <button class="btn btn-type rounded-pill btn-sm featureMap">
-                                                            {{ ucfirst($propertysale->subType->name ?? 'N/A') }}
-                                                        </button>
+                                                        {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
+                                                            {{ $property->subType->name ?? '' }}
+                                                        </button> --}}
+
                                                     </div>
 
                                                     <hr class="property-divider">
@@ -862,6 +840,53 @@
         </div>
     </section>
 
+    @if( count( $awardObjs ) > 0 )
+    <!-- Our Achivements -->
+        <style>
+            .award-box {
+                transition: 0.3s ease-in-out;
+            }
+            .award-box:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+
+            .award-img {
+                max-width: 120px;
+                transition: 0.3s;
+            }
+
+            .award-box:hover .award-img {
+                transform: scale(1.1);
+            }
+        </style>
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold">Our Achievements</h2>
+                    <p class="text-muted">Recognizing excellence and commitment</p>
+                </div>
+
+                <div class="row g-4">
+
+                    @foreach ($awardObjs as $key => $award)
+                        <!-- Award -->
+                        <div class="col-md-4">
+                            <div class="award-box text-center p-4 shadow-sm rounded">
+                                <img src="{{ asset('storage/app/award/' . $award->image) }}" class="img-fluid mb-3 award-img" alt="{{$award->name}}">
+                                <h5 class="fw-bold">{{$award->name}}</h5>
+                                <p class="text-muted small">
+                                    {{$award->sub_title}}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+        </section>
+    @endif
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -882,7 +907,7 @@
             $type.trigger('change');
         });
 
-        
+
     </script>
 
 @endsection

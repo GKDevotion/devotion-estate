@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Backend\AdminLogController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\AgentsController;
+use App\Http\Controllers\Backend\AwardController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrochuresController;
@@ -54,12 +55,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('locations', 'Backend\LocationController', ['names' => 'admin.locations']);
     Route::get('/locations-ajax-data', [LocationController::class, 'ajaxIndex'])->name('locations.ajaxIndex');
 
-
-
-    // Route::resource('payment-plan', 'Backend\PaymentPlanController', ['names' => 'admin.payment-plan']);
-    // Route::get('/payment-plan-ajax-data', [PaymentPlanController::class, 'ajaxIndex'])->name('payment-plan.ajaxIndex');
-
-    // Route::resource('property-features', 'Backend\PropertyFeatureController', ['names' => 'admin.property_features']);
     Route::get('/property-features', [PropertyFeatureController::class, 'index'])->name('admin.property-features.index');
     Route::get('/property-features/create', [PropertyFeatureController::class, 'create'])->name('admin.property-features.create');
     Route::post('/property-features/store', [PropertyFeatureController::class, 'store'])->name('admin.property-features.store');
@@ -69,12 +64,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/property-features-ajax-data', [PropertyFeatureController::class, 'ajaxIndex'])->name('property-features.ajaxIndex');
 
     Route::resource('property-types', 'Backend\PropertyTypeController', ['names' => 'admin.property-types']);
-    // Route::get('/property-types', [PropertyTypeController::class, 'index'])->name('admin.property-types.index');
-    // Route::get('/property-types/create', [PropertyTypeController::class, 'create'])->name('admin.property-types.create');
-    // Route::post('/property-types/store', [PropertyTypeController::class, 'store'])->name('admin.property-types.store');
-    // Route::get('/property-types/edit/{id}', [PropertyTypeController::class, 'edit'])->name('admin.property-types.edit');
-    // Route::post('/property-types/update', [PropertyTypeController::class, 'update'])->name('admin.property-types.update');
-    // Route::delete('/admin/property-types/{id}', [PropertyTypeController::class, 'destroy'])->name('admin.property-types.destroy');
     Route::get('/property-types-ajax-data', [PropertyTypeController::class, 'ajaxIndex'])->name('property-types.ajaxIndex');
 
     Route::get('/reviews', [ReviewsController::class, 'index'])->name('admin.reviews.index');
@@ -100,13 +89,11 @@ Route::prefix('admin')->group(function () {
     Route::post('/brochures/update', [BrochuresController::class, 'update'])->name('admin.brochures.update');
     Route::get('/brochures-ajax-data', [BrochuresController::class, 'ajaxIndex'])->name('brochures.ajaxIndex');
 
-    Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner.index');
-    Route::get('/banner/create', [BannerController::class, 'create'])->name('admin.banner.create');
-    Route::post('/banner/store', [BannerController::class, 'store'])->name('admin.banner.store');
-    Route::get('/banner/edit/{id}', [BannerController::class, 'edit'])->name('admin.banner.edit');
-    Route::post('/banner/update', [BannerController::class, 'update'])->name('admin.banner.update');
-    Route::delete('/admin/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
+    Route::resource('banner', 'Backend\BannerController', ['names' => 'admin.banner']);
     Route::get('/banner-ajax-data', [BannerController::class, 'ajaxIndex'])->name('banner.ajaxIndex');
+
+    Route::resource('award', 'Backend\awardController', ['names' => 'admin.award']);
+    Route::get('/award-ajax-data', [AwardController::class, 'ajaxIndex'])->name('award.ajaxIndex');
 
     Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs.index');
     Route::get('/blogs/create', [BlogController::class, 'create'])->name('admin.blogs.create');
@@ -131,11 +118,6 @@ Route::prefix('admin')->group(function () {
      */
 
     Route::resource('designations', 'Backend\DesignationsController', ['names' => 'admin.designations']);
-    // Route::get('/designations', [DesignationsController::class, 'index'])->name('admin.designations.index');
-    // Route::get('/designations/create', [DesignationsController::class, 'create'])->name('admin.designations.create');
-    // Route::post('/designations/store', [DesignationsController::class, 'store'])->name('admin.designations.store');
-    // Route::get('/designations/edit/{id}', [DesignationsController::class, 'edit'])->name('admin.designations.edit');
-    // Route::post('/designations/update', [DesignationsController::class, 'update'])->name('admin.designations.update');
     Route::get('/designations-ajax-data', [DesignationsController::class, 'ajaxIndex'])->name('designations.ajaxIndex');
 
     Route::get('/users', [UsersController::class, 'index'])->name('admin.user.index');
@@ -153,11 +135,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/owners-ajax-data', [OwnersController::class, 'ajaxIndex'])->name('owners.ajaxIndex');
 
     Route::resource('agents', 'Backend\AgentsController', ['names' => 'admin.agents']);
-    // Route::get('/agents', [AgentsController::class, 'index'])->name('admin.agents.index');
-    // Route::get('/agents/create', [AgentsController::class, 'create'])->name('admin.agents.create');
-    // Route::post('/agents/store', [AgentsController::class, 'store'])->name('admin.agents.store');
-    // Route::get('/agents/edit/{id}', [AgentsController::class, 'edit'])->name('admin.agents.edit');
-    // Route::post('/agents/update', [AgentsController::class, 'update'])->name('admin.agents.update');
     Route::get('/agents-ajax-data', [AgentsController::class, 'ajaxIndex'])->name('agents.ajaxIndex');
 
     Route::get('/clients', [ClientsController::class, 'index'])->name('admin.clients.index');
@@ -166,7 +143,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/clients/edit/{id}', [ClientsController::class, 'edit'])->name('admin.clients.edit');
     Route::post('/clients/update', [ClientsController::class, 'update'])->name('admin.clients.update');
     Route::get('/clients-ajax-data', [ClientsController::class, 'ajaxIndex'])->name('clients.ajaxIndex');
- 
+
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('admin.contact-us.index');
     Route::get('/contact-us/create', [ContactUsController::class, 'create'])->name('admin.contact-us.create');
     Route::post('/contact-us/store', [ContactUsController::class, 'store'])->name('admin.contact-us.store');
@@ -174,7 +151,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/contact-us/update', [ContactUsController::class, 'update'])->name('admin.contact-us.update');
     Route::delete('/admin/contact-us/{id}', [ContactUsController::class, 'destroy'])->name('admin.contact-us.destroy');
     Route::get('/contact-us-ajax-data', [ContactUsController::class, 'ajaxIndex'])->name('contact-us.ajaxIndex');
-    
+
     Route::get('/property-contact', [PropertyContactController::class, 'index'])->name('admin.property-contact.index');
     Route::get('/property-contact/create', [PropertyContactController::class, 'create'])->name('admin.property-contact.create');
     Route::post('/property-contact/store', [PropertyContactController::class, 'store'])->name('admin.property-contact.store');

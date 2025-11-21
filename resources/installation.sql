@@ -55,7 +55,33 @@ ALTER TABLE `users` ADD `image` VARCHAR(200) NOT NULL AFTER `designation_id`;
 
 -- 21-11-2025
 ALTER TABLE `brochures` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0';
-ALTER TABLE `banner` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:Disabled , 1:Enabled';
-RENAME TABLE `laravel_devotion_estate`.`banner` TO `laravel_devotion_estate`.`banners`;
-ALTER TABLE `banners` CHANGE `name` `name` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL;
-ALTER TABLE `banners` CHANGE `sub_title` `sub_title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;
+DROP TABLE IF EXISTS `banners`;
+CREATE TABLE IF NOT EXISTS `banners` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `sub_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `image` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:Disabled , 1:Enabled',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+TRUNCATE TABLE `banners`;
+
+INSERT INTO `banners` (`id`, `name`, `sub_title`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(6, 'Find your dream home with Us', 'Affordable options, easy financing, expert advice every step of the way', '1763707083_692008cb41054.jpg', 1, '2025-11-21 05:08:03', '2025-11-21 05:08:03'),
+(7, 'Find your perfect home', 'Discover homes built for modern living', '1763707194_6920093a4b2b4.jpg', 1, '2025-11-21 05:09:54', '2025-11-21 05:09:54'),
+(8, 'Start your journey', 'Start your journey to finding the perfect property', '1763707239_692009675a2c7.jpg', 1, '2025-11-21 05:10:39', '2025-11-21 05:10:39');
+
+DROP TABLE IF EXISTS `awards`;
+CREATE TABLE IF NOT EXISTS `awards` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `sub_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `image` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:Disabled , 1:Enabled',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Award;
 use App\Models\Banner;
 use App\Models\Location;
 use App\Models\Properties;
@@ -46,9 +47,10 @@ class HomeController extends Controller
             ->where('status', 1)
             ->get();
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
-        $banners = Banner::where('status', 1)->orderBy('id', 'DESC')->get();
- 
-        return view('frontend.pages.home' , compact('location','banners','propertyTypeObj','residentialTypes','commercialTypes'));
+        $bannerObjs = Banner::where('status', 1)->orderBy('id', 'DESC')->get();
+        $awardObjs = Award::where('status', 1)->orderBy('id', 'DESC')->get();
+
+        return view('frontend.pages.home' , compact('location','bannerObjs','propertyTypeObj','residentialTypes','commercialTypes', 'awardObjs'));
     }
 
     /**
