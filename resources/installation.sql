@@ -52,3 +52,10 @@ ALTER TABLE `property_contact` ADD `property_id` VARCHAR(10) NULL DEFAULT NULL A
 
 /* 19-11-2025 */
 ALTER TABLE `users` ADD `image` VARCHAR(200) NOT NULL AFTER `designation_id`;
+
+-- 21-11-2025
+ALTER TABLE `brochures` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0';
+ALTER TABLE `banner` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:Disabled , 1:Enabled';
+RENAME TABLE `laravel_devotion_estate`.`banner` TO `laravel_devotion_estate`.`banners`;
+ALTER TABLE `banners` CHANGE `name` `name` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL;
+ALTER TABLE `banners` CHANGE `sub_title` `sub_title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;

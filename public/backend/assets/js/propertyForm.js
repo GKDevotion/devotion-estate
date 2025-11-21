@@ -173,6 +173,7 @@ function nextPrev( n, formID ) {
 
         // 🔹 Get data from CKEditor
         formData.set('description', editorDescriptionInstance.getData() );
+        formData.set('name', editorDescriptionInstance.getData() );
         formData.set('additional_features', editorAdditionFetureInstance.getData() );
 
         $.ajax({

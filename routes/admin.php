@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Backend\AdminLogController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\AgentsController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
@@ -87,7 +88,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/payment-plan', [PaymentPlanController::class, 'index'])->name('admin.payment-plan.index');
     Route::get('/payment-plan/create', [PaymentPlanController::class, 'create'])->name('admin.payment-plan.create');
     Route::post('/payment-plan/store', [PaymentPlanController::class, 'store'])->name('admin.payment-plan.store');
-    Route::get('/reviews/edit/{id}', [PaymentPlanController::class, 'edit'])->name('admin.payment-plan.edit');
+    Route::get('/payment-plan/edit/{id}', [PaymentPlanController::class, 'edit'])->name('admin.payment-plan.edit');
     Route::post('/payment-plan/update', [PaymentPlanController::class, 'update'])->name('admin.payment-plan.update');
     Route::delete('/admin/payment-plan/{id}', [PaymentPlanController::class, 'destroy'])->name('admin.payment-plan.destroy');
     Route::get('/payment-plan-ajax-data', [PaymentPlanController::class, 'ajaxIndex'])->name('payment-plan.ajaxIndex');
@@ -98,6 +99,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/brochures/edit/{id}', [BrochuresController::class, 'edit'])->name('admin.brochures.edit');
     Route::post('/brochures/update', [BrochuresController::class, 'update'])->name('admin.brochures.update');
     Route::get('/brochures-ajax-data', [BrochuresController::class, 'ajaxIndex'])->name('brochures.ajaxIndex');
+
+    Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner.index');
+    Route::get('/banner/create', [BannerController::class, 'create'])->name('admin.banner.create');
+    Route::post('/banner/store', [BannerController::class, 'store'])->name('admin.banner.store');
+    Route::get('/banner/edit/{id}', [BannerController::class, 'edit'])->name('admin.banner.edit');
+    Route::post('/banner/update', [BannerController::class, 'update'])->name('admin.banner.update');
+    Route::delete('/admin/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
+    Route::get('/banner-ajax-data', [BannerController::class, 'ajaxIndex'])->name('banner.ajaxIndex');
 
     Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs.index');
     Route::get('/blogs/create', [BlogController::class, 'create'])->name('admin.blogs.create');

@@ -61,7 +61,7 @@
     <!-- Hero Carousel -->
     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
 
-        <div class="carousel-inner">
+        {{-- <div class="carousel-inner">
 
             <!-- Slide 1 -->
             <div class="carousel-item active">
@@ -92,10 +92,36 @@
                 </div>
             </div>
 
+        </div> --}}
+        <div class="carousel-inner">
+
+            @if(count($banners) > 0)
+                @foreach ($banners as $key => $banner)
+                    @if(!empty($banner->image))
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="Banner">
+                            <div class="carousel-caption">
+                                <h1 class="carousel-title mb-2">{{ $banner->name }}</h1>
+                                <p class="carousel-subtitle mb-4">{{ $banner->sub_title }}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            @else
+                <!-- Default message if no banners exist -->
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 400px; background:#f5f5f5;">
+                        <h3 class="text-muted">No banners available</h3>
+                    </div>
+                </div>
+            @endif
+
         </div>
 
+
         <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
-        <div class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
+        <div
+            class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
             <div class="carousel-content text-center p-4 rounded-3">
 
                 <!-- Buttons act as tab triggers -->
@@ -144,8 +170,7 @@
 
                                 <div class="col-lg-3 col-md-6 col-sm-12">
 
-                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
-                                        >
+                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;">
                                         <option value="" selected disabled>Property Type</option>
                                         <option value="1">Residential</option>
                                         <option value="2">Commercial</option>
@@ -153,8 +178,7 @@
                                 </div>
 
                                 <div class="col-lg-2 col-md-6 col-sm-12">
-                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
-                                        >
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;">
                                         <option value="" select disabled> Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
@@ -183,8 +207,7 @@
                     </div>
 
                     <!-- RENT -->
-                    <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel"
-                        aria-labelledby="btn-rent">
+                    <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel" aria-labelledby="btn-rent">
                         <div class="row g-3 align-items-center justify-content-center">
 
                             <!-- Location -->
@@ -204,26 +227,26 @@
 
                             <div class="col-lg-3 col-md-6 col-sm-12">
 
-                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
-                                        required>
-                                        <option value="" selected disabled>Property Type</option>
-                                        <option value="1">Residential</option>
-                                        <option value="2">Commercial</option>
-                                    </select>
-                                </div>
+                                <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
+                                    required>
+                                    <option value="" selected disabled>Property Type</option>
+                                    <option value="1">Residential</option>
+                                    <option value="2">Commercial</option>
+                                </select>
+                            </div>
 
-                                <div class="col-lg-2 col-md-6 col-sm-12">
-                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
-                                        required>
-                                        <option value="" select disabled>Sub Type</option>
-                                        @foreach ($propertyTypeObj as $type)
-                                            <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
-                                                class="dynamic default-sub-type-hide d-none">
-                                                {{ $type->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="col-lg-2 col-md-6 col-sm-12">
+                                <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
+                                    required>
+                                    <option value="" select disabled>Sub Type</option>
+                                    @foreach ($propertyTypeObj as $type)
+                                        <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                            class="dynamic default-sub-type-hide d-none">
+                                            {{ $type->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <!-- Hidden input -->
                             <input type="hidden" name="redirect_page" value="off">
@@ -241,7 +264,7 @@
                     </div>
 
                     <!-- LAND -->
-                    <div class="tab-pane fade p-3 text-center " id="content-land" role="tabpanel"
+                    <div class="tab-pane fade p-3 text-center d-none " id="content-land" role="tabpanel"
                         aria-labelledby="btn-land">
                         <div class="row g-3 align-items-center justify-content-center">
 
@@ -350,14 +373,15 @@
                     <h2 class="fw-bold text-uppercase mb-1" style="font-size: 45px;">New Properties</h2>
                     <p class="text-muted mb-0">Find newly listed properties in your local area with best pricing.</p>
                 </div>
-                <a href="{{ route('new.properties') }}" class="text-decoration-none small text-secondary">View all &rarr;</a>
+                <a href="{{ route('new.properties') }}" class="text-decoration-none small text-secondary">View all
+                    &rarr;</a>
             </div>
 
             @php
                 /**
                  * $type = 0: 'sell', 1: 'rent'
                  */
-                $allproperties = getPropertiesByType([1, 2])->where('is_new_property', 1);;
+                $allproperties = getPropertiesByType([1, 2])->where('is_new_property', 1);
                 $chunks = $allproperties->chunk(3);
             @endphp
 
@@ -464,7 +488,8 @@
                         with
                         best pricing.</p>
                 </div>
-                <a href="{{ route('buy.properties') }}" class="text-decoration-none small text-secondary">View all &rarr;</a>
+                <a href="{{ route('buy.properties') }}" class="text-decoration-none small text-secondary">View all
+                    &rarr;</a>
             </div>
 
             @php
@@ -838,8 +863,8 @@
     </section>
 
     <!-- jQuery -->
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
         $(function() {
             const $type = $('#type');
             const $sub = $('#sub_type');
@@ -856,6 +881,8 @@
             // Initial check (for edit pages)
             $type.trigger('change');
         });
+
+        
     </script>
 
 @endsection
