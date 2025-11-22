@@ -59,6 +59,8 @@ class PropertyContactController extends Controller
             $query->where('admin_id', $this->admin_id);
         }
 
+        $query->orderBy('id', 'DESC');
+
         $query->select('id','property_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'status');
 
         return DataTables::eloquent($query)
@@ -80,7 +82,7 @@ class PropertyContactController extends Controller
             ->addColumn('review', function (PropertyContact $ar) {
                 return $ar->review;
             })
-  
+
             ->addColumn('status', function (PropertyContact $ar) {
                 $status = "";
                 if (true) {
