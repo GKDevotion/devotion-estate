@@ -380,7 +380,7 @@
                     <!-- Contact Form -->
                     <form id="contactsellerForm">
                         @csrf
-
+                        <input type="hidden" name="property_name" value="{{ $property->name }}">
                         <input type="hidden" name="property_id" value="{{ $property->id }}">
                         <input type="hidden" name="property_unique_id" value="{{ $property->unique_id }}">
 

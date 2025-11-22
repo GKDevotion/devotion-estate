@@ -85,3 +85,9 @@ CREATE TABLE IF NOT EXISTS `awards` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 22-11-2025
+ALTER TABLE `property_contact` ADD `property_name` VARCHAR(255) NOT NULL COMMENT 'Reference from the properties table' AFTER `property_id`;
+ALTER TABLE `property_contact` ADD `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:is_read , 1:is_unread' AFTER `message`;
+ALTER TABLE `property_contact` CHANGE `is_read` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:Read , 1:UnRead';
+ALTER TABLE `property_contact` CHANGE `is_read` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:UnRead , 1:Read';

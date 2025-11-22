@@ -19,7 +19,9 @@ class PropertyContact extends Model
     'mobile_number',
     'message',
     'property_id',
+    'property_name',
     'property_unique_id',
+    'is_read',
     'status',
 ];
 
@@ -44,7 +46,7 @@ class PropertyContact extends Model
 
     public function property()
     {
-        return $this->belongsTo(Properties::class, 'property_id','unique_id');
+        return $this->belongsTo(Properties::class, 'property_id','name','unique_id');
     }
 
     // public function parent(){

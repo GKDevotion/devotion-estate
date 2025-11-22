@@ -60,16 +60,20 @@ class PropertyContactController extends Controller
         }
 
         $query->orderBy('id', 'DESC');
+        $query = PropertyContact::query()
+            ->orderBy('is_read', 'asc')
+            ->orderBy('id', 'desc');
 
-        $query->select('id','property_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'status');
+        $query->select('id', 'property_name', 'property_unique_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'is_read');
 
         return DataTables::eloquent($query)
             ->addColumn('id', function (PropertyContact $ar) {
                 return $ar->id;
             })
-            ->addColumn('property_id', function (PropertyContact $ar) {
-                return $ar->property_id;
+            ->addColumn('property_name', function (PropertyContact $ar) {
+                return $ar->property_name . ' (' . $ar->property_unique_id . ')';
             })
+
             ->addColumn('name', function (PropertyContact $ar) {
                 return $ar->name;
             })
@@ -83,19 +87,22 @@ class PropertyContactController extends Controller
                 return $ar->review;
             })
 
-            ->addColumn('status', function (PropertyContact $ar) {
-                $status = "";
+            ->addColumn('is_read', function (PropertyContact $ar) {
+                $is_read = "";
+
                 if (true) {
-                    $status = '<i class="fa fa-' . ($ar->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $ar->status . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="property-contact"></i>';
+                    $is_read = '<i class="fa fa-' . ($ar->is_read == 0 ? 'times text-danger' : 'check text-success') . ' update-field-status" data-status="' . $ar->is_read . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="property_contact" data-field="is_read"></i>';
                 } else {
-                    $status = '<select class="form-control update-status badge ' . ($ar->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $ar->id . '" data-table="property-contact">
-                            <option value="1" ' . ($ar->status == 1 ? 'selected' : '') . '>Active</option>
-                            <option value="0" ' . ($ar->status == 0 ? 'selected' : '') . '>De-Active</option>
+                    $is_read = '<select class="form-control update-field-status badge ' . ($ar->is_read == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="is_read" data-id="' . $ar->id . '" data-table="property-contact">
+                            <option value="1" ' . ($ar->is_read == 1 ? 'selected' : '') . '>Read</option>
+                            <option value="0" ' . ($ar->is_read == 0 ? 'selected' : '') . '>Unread</option>
                         </select>';
                 }
 
-                return $status;
+                return $is_read;
             })
+
+
             ->addColumn('updated_at', function (PropertyContact $ar) {
                 return formatDate("Y-m-d H:i", $ar->updated_at);
             })
@@ -129,7 +136,7 @@ class PropertyContactController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id','property_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'property_name', 'property_unique_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'is_read', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -182,17 +189,19 @@ class PropertyContactController extends Controller
             'name' => 'required',
             'email' => 'required',
             'message' => 'required',
-              'property_id' => 'required'
+            'property_name' => 'required'
         ]);
 
         // Create New Server Record
         $location = new PropertyContact();
         $location->website_id = $request->website_id ?? 1;
         $location->property_id = $request->property_id;
+        $location->property_name = $request->property_name;
         $location->name = $request->name;
         $location->email = $request->email;
         $location->mobile_number = $request->mobile_number;
         $location->message = $request->message;
+        $location->is_read = $request->is_read;
         $location->status = $request->status;
         $location->save();
 
@@ -255,6 +264,7 @@ class PropertyContactController extends Controller
         $location->email = $request->email;
         $location->mobile_number = $request->mobile_number;
         $location->message = $request->message;
+        $location->is_read = $request->is_read;
         $location->status = $request->status;
         $location->save();
 

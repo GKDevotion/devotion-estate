@@ -26,17 +26,17 @@
                     <h4 class="page-title pull-left d-none">Property Contact</h4>
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><span>All Reviews</span></li>
+                        <li><span>All Property Contact</span></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2 text-end">
+            {{-- <div class="col-md-2 text-end">
                 @if (Auth::guard('admin')->user()->can('property-contact.create'))
                     <a class="btn btn-add text-white" href="{{ route('admin.property-contact.create') }}">
                         <i class="fa fa-plus"></i> Property Contact
                     </a>
                 @endif
-            </div>
+            </div> --}}
             <div class="col-md-2 clearfix">
                 @include('backend.layouts.partials.logout')
             </div>
@@ -60,12 +60,12 @@
                                 <thead id="property-contact" class="bg-light text-capitalize">
                                     <tr>
                                         <th>#</th>
-                                        <th>Property ID</th>
+                                        <th>Property Name</th>
                                         <th>Name</th>
                                         <th>Email Address</th>
                                         <th>Contact No.</th>
                                         <th>Message</th>
-                                        <th>Status</th>
+                                        <th>Read</th>
                                         <th>Updated At</th>
                                         <th>Action</th>
                                     </tr>
@@ -113,8 +113,8 @@
                         name: 'id'
                     },
                     {
-                        data: 'property_id',
-                        name: 'property_id'
+                        data: 'property_name',
+                        name: 'property_name'
                     },
                     {
                         data: 'name',
@@ -133,9 +133,10 @@
                         name: 'message'
                     },
                     {
-                        data: 'status',
-                        name: 'status'
+                        data: 'is_read',
+                        name: 'is_read'
                     },
+ 
                     {
                         data: 'updated_at',
                         name: 'updated_at'

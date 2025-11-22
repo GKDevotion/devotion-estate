@@ -22,7 +22,7 @@
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         <li><a href="{{ route('admin.property-contact.index') }}">All Property Contact</a></li>
-                        <li><span>Create Review</span></li>
+                        <li><span>Create Property Contact</span></li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +49,7 @@
         <div class="row">
             <!-- data table start -->
             <div class="col-12 mt-3">
-                <h3 class="pb-3">Property Contact Review</h3>
+                <h3 class="pb-3">Property Contact </h3>
                 <div class="card">
                     <div class="card-body">
                         {{-- @if ($errors->any())
