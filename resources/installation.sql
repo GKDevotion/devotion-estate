@@ -91,3 +91,5 @@ ALTER TABLE `property_contact` ADD `property_name` VARCHAR(255) NOT NULL COMMENT
 ALTER TABLE `property_contact` ADD `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:is_read , 1:is_unread' AFTER `message`;
 ALTER TABLE `property_contact` CHANGE `is_read` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:Read , 1:UnRead';
 ALTER TABLE `property_contact` CHANGE `is_read` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:UnRead , 1:Read';
+ALTER TABLE `notifications` CHANGE `description` `message` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'notification message';
+ALTER TABLE `notifications` CHANGE `status` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Un-Read, 1: Read';
