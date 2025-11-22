@@ -80,7 +80,7 @@
             @if( count( $bannerObjs ) >0 )
                 @foreach ($bannerObjs as $key => $banner)
                     <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
-                        <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="Banner">
+                        <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="{{$name->name}}">
                         <div class="carousel-caption">
                             <h1 class="carousel-title mb-2">{{ $banner->name }}</h1>
                             <p class="carousel-subtitle mb-4">{{ $banner->sub_title }}</p>
