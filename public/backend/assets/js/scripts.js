@@ -468,11 +468,11 @@ $.ajaxSetup({
 
     if( $(".notification-area").length > 0 ){
         refreshNotificationList();
+        setInterval(function() {
+            refreshNotificationList();
+        }, 10000);
     }
 
-    // setInterval(function() {
-    //     refreshNotificationList();
-    // }, 25 * 1000);
 
     $(document).on('change', '.get-employee-list', function(){
         var employee_id = $(this).val();

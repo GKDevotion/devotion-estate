@@ -13,7 +13,7 @@
 <div class="pull-right">
     <nav>
         <li class="hov">
-            <i class="fa fa-cog"></i> 
+            <i class="fa fa-cog"></i>
             <span class="cursor-pointer">Setting</span>
             <i class="fa fa-caret-down"></i>
             <ul class="setting-menu">
