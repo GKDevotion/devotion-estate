@@ -62,14 +62,23 @@
                                 </ul>
                             </div>
                         @endif  --}}
-                        <form action="{{ route('admin.brochures.store') }}" onsubmit="return onSubmitValidateForm();"  enctype="multipart/form-data" 
-                            method="POST" autocomplete="off">
+                        <form action="{{ route('admin.brochures.store') }}" onsubmit="return onSubmitValidateForm();"
+                            enctype="multipart/form-data" method="POST" autocomplete="off">
                             @csrf
                             <div class="row">
                                 <div class="col-md-10 offset-1">
                                     <div class="row">
 
                                         <div class="row">
+                                            <div class="col-md-4 mb-2">
+                                                <div class="form-group">
+                                                    <label class="mb-0" for="file">File</label>
+                                                    <input type="file" class="dropify" id="file" name="file">
+                                                </div>
+                                                @error('file')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-group">
@@ -82,17 +91,7 @@
                                                     <div class="error text-error">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-4 mb-2">
-                                                <div class="form-group">
-                                                    <label class="mb-0" for="file">File</label>
-                                                    <input type="file" class="form-control" id="file"
-                                                        name="file">
-                                                </div>
-                                                @error('file')
-                                                    <div class="error text-error">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
+                                            
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="agent">Agent</label>
@@ -140,18 +139,28 @@
     </div>
 @endsection
 
-{{-- @section('scripts')
+@section('scripts')
 <script>
-    $(window).ready(function() {
-        $('#continent_id').on("change", function(){
-            $(".continent-id").addClass('d-none')
-            $(".continent_id_"+$(this).val()).removeClass('d-none')
-        });
+    // $(window).ready(function() {
+    //     $('#continent_id').on("change", function(){
+    //         $(".continent-id").addClass('d-none')
+    //         $(".continent_id_"+$(this).val()).removeClass('d-none')
+    //     });
 
-        $('#country_id').on("change", function(){
-            $(".country-id").addClass('d-none')
-            $(".country_id_"+$(this).val()).removeClass('d-none')
+    //     $('#country_id').on("change", function(){
+    //         $(".country-id").addClass('d-none')
+    //         $(".country_id_"+$(this).val()).removeClass('d-none')
+    //     });
+    // })
+     $(document).ready(function () {
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove':  'Remove',
+                'error':   'Ooops, something wrong happened.'
+            }
         });
-    })
+    });
 </script>
-@endsection --}}
+@endsection

@@ -104,28 +104,18 @@ class PaymentPlanController extends Controller
                         </a>';
                 }
 
-                // if ($this->user->can('payment-plan.delete')) {
-                //     $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" href="' . route('admin.payment-plan.destroy', $ar->id) . '" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="payment-plan">
-                //                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                //                     </button>';
-                // }
-            if ($this->user->can('payment-plan.delete')) {
-                $action .= '<form method="POST" action="' .  route('admin.payment-plan.destroy', $ar->id) . '" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
-                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                    </button>
-                </form>';
-            }
+                if ($this->user->can('payment-plan.delete')) {
+                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="payment-plan">
+                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                    </button>';
+                }
 
-
-            $action .= '
+                $action .= '
                     </div>
                 ';
 
                 return $action;
-            })
+               })
             ->rawColumns(['id', 'name', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {

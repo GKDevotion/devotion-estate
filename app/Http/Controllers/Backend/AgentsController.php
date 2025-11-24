@@ -68,11 +68,16 @@ class AgentsController extends Controller
                 return $dt->id;
             })
 
-            ->addColumn('image', function (User $dt) {
-                $url = $dt->image ? asset('storage/app/agent/' . $dt->image) : url('public/img/devotion-group-favicon.png');
-                return '<img src="' . $url . '" width="100" height="100" style="object-fit:cover;">';
-            })
+            ->addColumn('image', function ($dt) {
+                $defaultImagePath = url('public/img/devotion-group-favicon.png');
+                $userImageUrl = $dt->image
+                    ? asset('storage/app/agent/' . $dt->image)
+                    : $defaultImagePath;
+                $imageStyle = 'width: 100px; height: 100px; object-fit: cover; border-radius: 8px;';
 
+                return '<img src="' . $userImageUrl . '" alt="User Profile Image" style="' . $imageStyle . '">';
+            })
+            
             ->addColumn('name', function (User $dt) {
                 return $dt->first_name . " " . $dt->last_name;
             })
@@ -120,27 +125,27 @@ class AgentsController extends Controller
                         </a>';
                 }
 
-            // if ($this->user->can('agents.delete')) {
-            //     $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="' . $dt->id . '" data-title="' . $dt->name . '" data-segment="users">
-            //                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-            //                     </button>';
-            // }
-            if ($this->user->can('agents.delete')) {
-                $action .= '<form method="POST" action="' .  route('admin.agents.destroy', $dt->id) . '" style="display:inline;">
+                // if ($this->user->can('agents.delete')) {
+                //     $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="' . $dt->id . '" data-title="' . $dt->name . '" data-segment="users">
+                //                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                //                     </button>';
+                // }
+                if ($this->user->can('agents.delete')) {
+                    $action .= '<form method="POST" action="' .  route('admin.agents.destroy', $dt->id) . '" style="display:inline;">
                     ' . csrf_field() . '
                     ' . method_field('DELETE') . '
                     <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $dt->name . '?\');">
                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                     </button>
                 </form>';
-            }
+                }
                 $action .= '
                     </div>
                 ';
 
                 return $action;
             })
-            ->rawColumns(['id','image', 'name', 'email', 'login_by', 'designtation', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'image', 'name', 'email', 'login_by', 'designtation', 'created_at', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -203,7 +208,7 @@ class AgentsController extends Controller
             'password' => 'required|min:6',
             'mobile_no' => 'required',
             'designation_id' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', 
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
         ]);
 
@@ -256,7 +261,7 @@ class AgentsController extends Controller
         // $userAddress->person_type = $this->user_type;
         // $userAddress->save();
 
-        session()->flash('success', $user->login_by.' has been created !!');
+        session()->flash('success', $user->login_by . ' has been created !!');
         return redirect()->route('admin.agents.index');
     }
 
@@ -313,7 +318,7 @@ class AgentsController extends Controller
             // 'password' => 'required|min:6',
             'designation_id' => 'required',
             'mobile_no' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', 
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
 
@@ -388,7 +393,7 @@ class AgentsController extends Controller
         }
 
         $user = User::find($id);
-        if ( $user ) {
+        if ($user) {
 
             Address::where([
                 'person_id' => $id,

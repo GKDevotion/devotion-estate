@@ -59,7 +59,7 @@ class ReviewsController extends Controller
             $query->where('admin_id', $this->admin_id);
         }
 
-        $query->select('id', 'name', 'email', 'contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status');
+        $query->select('id', 'name', 'email', 'contact_no', 'review', 'property_id', 'updated_at', 'status');
 
         return DataTables::eloquent($query)
             ->addColumn('id', function (Review $ar) {
@@ -77,9 +77,11 @@ class ReviewsController extends Controller
             ->addColumn('review', function (Review $ar) {
                 return $ar->review;
             })
+            
             ->addColumn('rating', function (Review $ar) {
                 return $ar->rating;
             })
+
             ->addColumn('property_id', function (Review $ar) {
                 return $ar->property_id;
             })
@@ -108,28 +110,24 @@ class ReviewsController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                // if ($this->user->can('reviews.edit')) {
-                //     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.reviews.edit', $ar->id) . '">
-                //             <i class="fa fa-pencil"></i> Edit
-                //         </a>';
-                // }
-                if ($this->user->can('reviews.delete')) {
-                    $action .= '<form method="POST" action="' .  route('admin.reviews.destroy', $ar->id) . '" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
-                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                    </button>
-                </form>';
+                if ($this->user->can('reviews.edit')) {
+                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.reviews.edit', $ar->id) . '">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>';
                 }
 
+                if ($this->user->can('reviews.delete')) {
+                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="reviews">
+                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                    </button>';
+                }
                 $action .= '
                     </div>
                 ';
 
                 return $action;
             })
-            ->rawColumns(['id', 'name', 'email', 'contact_no', 'review', 'rating', 'property_id', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'name', 'email', 'contact_no', 'review','rating',  'property_id', 'updated_at', 'status', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];

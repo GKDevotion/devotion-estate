@@ -64,7 +64,6 @@
                                         <th>Email Address</th>
                                         <th>Contact No.</th>
                                         <th>Review</th>
-                                        <th>Rating</th>
                                         <th>Property Id</th>
                                         <th>Status</th>
                                         <th>Updated At</th>
@@ -128,10 +127,6 @@
                     {
                         data: 'review',
                         name: 'review'
-                    },
-                    {
-                        data: 'rating',
-                        name: 'rating'
                     },
                     {
                         data: 'property_id',

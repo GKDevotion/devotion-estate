@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brochures;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class BrochuresController extends Controller
@@ -95,9 +96,9 @@ class BrochuresController extends Controller
                 }
 
                 if ($this->user->can('brochures.delete')) {
-                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $city->id . '" data-title="' . $city->name . '" data-segment="brochures">
-                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                                    </button>';
+                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $city->id . '" data-title="' . $city->location . '" data-segment="brochures">
+                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                    </button>';
                 }
                 $action .= '
                     </div>
@@ -154,7 +155,7 @@ class BrochuresController extends Controller
         // ✅ Validate input
         $request->validate([
             'location' => 'required|string|max:255',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:5120', // up to 5MB
+            'file' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:51200', // up to 5MB
             'agent' => 'nullable|string|max:255',
             'status' => 'required|in:0,1',
         ]);
@@ -224,27 +225,49 @@ class BrochuresController extends Controller
     public function update(Request $request, int $id)
     {
         if (is_null($this->user) || !$this->user->can('brochures.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit City !');
+            abort(403, 'Sorry !! You are Unauthorized to edit Brochure !');
         }
 
-        // Validation Data
+        // Validation
         $request->validate([
-
-            'location' => 'required',
-
+            'location' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:51200', // 5MB
+            'agent' => 'nullable|string|max:255',
+            'status' => 'required|in:0,1',
         ]);
 
-        
-        // Create New Server Record
-        $dataObj = Brochures::find($id);
-        $dataObj->location = $request->location;
-        $dataObj->file = $request->file;
-        $dataObj->agent  = $request->agent;
+        // Find Record
+        $dataObj = Brochures::findOrFail($id);
 
+        $fileName = $dataObj->file; // keep old file
+
+        // Handle file upload if exists
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            if ($file->isValid()) {
+
+                if ($dataObj->file && Storage::disk('public')->exists('brochures/' . $dataObj->file)) {
+                    Storage::disk('public')->delete('brochures/' . $dataObj->file);
+                }
+
+
+                // Upload new
+                $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->storeAs('public/brochures', $fileName);
+            } else {
+                return back()->withErrors(['file' => 'The file failed to upload properly.']);
+            }
+        }
+
+        // Update database
+        $dataObj->location = $request->location;
+        $dataObj->file = $fileName;
+        $dataObj->agent = $request->agent;
         $dataObj->status = $request->status;
         $dataObj->save();
 
-        session()->flash('success', $dataObj->name . ' records has been updated !!');
+        session()->flash('success', 'Brochure updated successfully!');
         return redirect()->route('admin.brochures.index');
     }
 
@@ -263,7 +286,7 @@ class BrochuresController extends Controller
         $dataObj = Brochures::find($id);
         if ($dataObj) {
             $dataObj->delete();
-            return response()->json(['data' => ['message' => $dataObj->name . ' record has been successfully deleted.']], 200);
+            return response()->json(['data' => ['message' => $dataObj->location . ' record has been successfully deleted.']], 200);
         } else {
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }

@@ -54,7 +54,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('admin.brochures.update', $data->id) }}" enctype="multipart/form-data" 
+                        <form action="{{ route('admin.brochures.update', $data->id) }}" enctype="multipart/form-data"
                             onsubmit="return onSubmitValidateForm();" method="POST">
                             @method('PUT')
                             @csrf
@@ -65,6 +65,18 @@
 
 
                                         <div class="row">
+
+                                            <div class="col-md-4 mb-2">
+                                                <div class="form-group">
+                                                    <label class="mb-0" for="file">File</label>
+                                                    <input type="file" class="dropify" id="file" name="file"
+                                                        data-default-file="{{ asset('storage/app/public/brochures/' . $data->file) }}">
+                                                </div>
+                                                @error('file')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="location">Location<span
@@ -78,16 +90,8 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
-                                                <div class="form-group">
-                                                    <label class="mb-0" for="file">File</label>
-                                                    <input type="text" class="form-control" id="file" name="file"
-                                                        placeholder="file" value="{{ $data->file }}">
-                                                </div>
-                                                @error('file')
-                                                    <div class="error text-error">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+
+
 
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-group">
@@ -138,17 +142,20 @@
 @endsection
 
 @section('scripts')
-    {{-- <script>
-        $(window).ready(function() {
-            $('#continent_id').on("change", function() {
-                $(".continent-id").addClass('d-none')
-                $(".continent_id_" + $(this).val()).removeClass('d-none')
-            });
+    <script>
+        // $(window).ready(function() {
+        //     $('#continent_id').on("change", function() {
+        //         $(".continent-id").addClass('d-none')
+        //         $(".continent_id_" + $(this).val()).removeClass('d-none')
+        //     });
 
-            $('#country_id').on("change", function() {
-                $(".country-id").addClass('d-none')
-                $(".country_id_" + $(this).val()).removeClass('d-none')
-            });
-        })
-    </script> --}}
+        //     $('#country_id').on("change", function() {
+        //         $(".country-id").addClass('d-none')
+        //         $(".country_id_" + $(this).val()).removeClass('d-none')
+        //     });
+        // })
+        $(document).ready(function() {
+            $('.dropify').dropify();
+        });
+    </script>
 @endsection

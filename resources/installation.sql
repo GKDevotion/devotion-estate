@@ -93,3 +93,6 @@ ALTER TABLE `property_contact` CHANGE `is_read` `is_read` TINYINT(1) NOT NULL DE
 ALTER TABLE `property_contact` CHANGE `is_read` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:UnRead , 1:Read';
 ALTER TABLE `notifications` CHANGE `description` `message` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'notification message';
 ALTER TABLE `notifications` CHANGE `status` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Un-Read, 1: Read';
+
+-- 24-11-2025
+ALTER TABLE `notifications` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:Disabled, 1:Enabled' AFTER `type`;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactUs;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -89,6 +90,7 @@ class ContactUsController extends Controller
                 return $ar->comment;
             })
   
+            
             // ->addColumn('status', function (ContactUs $ar) {
             //     $status = "";
             //     if (true) {
@@ -102,6 +104,7 @@ class ContactUsController extends Controller
 
             //     return $status;
             // })
+
             ->addColumn('updated_at', function (ContactUs $ar) {
                 return formatDate("Y-m-d H:i", $ar->updated_at);
             })
@@ -119,14 +122,11 @@ class ContactUsController extends Controller
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
                 }
+                
                 if ($this->user->can('contact-us.delete')) {
-                    $action .= '<form method="POST" action="' .  route('admin.contact-us.destroy', $ar->id) . '" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
-                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                    </button>
-                </form>';
+                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="contact-us">
+                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                    </button>';
                 }
 
                 $action .= '
@@ -228,9 +228,10 @@ class ContactUsController extends Controller
         }
 
         $data = ContactUs::find($id);
+        $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->where('status', 1)->orderBy('name')->get();
 
 
-        return view('backend.pages.contact-us.edit', compact('data'));
+        return view('backend.pages.contact-us.edit', compact('data','propertyTypeObj'));
     }
 
     /**

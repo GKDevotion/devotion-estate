@@ -73,6 +73,52 @@
                                             @enderror
                                         </div>
 
+                                          
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="type">Type <span
+                                                    class="text-error">*</span></label>
+                                            <select name="type" id="type" class="form-control"
+                                                data-required="yes">
+                                                <option value="" selected disabled>Select Type</option>
+                                                <option value="0"
+                                                    {{ old('type', $data->type ?? '') == 0 ? 'selected' : '' }}>All
+                                                </option>
+                                                <option value="1"
+                                                    {{ old('type', $data->type ?? '') == 1 ? 'selected' : '' }}>
+                                                    Residential</option>
+                                                <option value="2"
+                                                    {{ old('type', $data->type ?? '') == 2 ? 'selected' : '' }}>
+                                                    Commercial</option>
+                                                <option value="3"
+                                                    {{ old('type', $data->type ?? '') == 3 ? 'selected' : '' }}>
+                                                    Land</option>
+                                            </select>
+
+                                            @error('type')
+                                                <div class="error text-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <label class="mb-0" for="sub_type">Sub Type <span
+                                                    class="text-error">*</span></label>
+                                            <select name="sub_type" id="sub_type" class="form-control "
+                                                data-required="yes">
+                                                <option value="">Select Sub Type</option>
+                                                @foreach ($propertyTypeObj as $ar)
+                                                    <option value="{{ $ar->id }}"
+                                                        class="{{ $ar->main_type }}"
+                                                        {{ old('sub_type', $data->sub_type ?? '') == $ar->id ? 'selected' : '' }}>
+                                                        {{ $ar->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                            @error('sub_type')
+                                                <div class="error text-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
                                         <div class="col-md-6 mb-2">
                                             <div class="form-group">
                                                 <label class="mb-0" for="email">Email Id<span

@@ -48,9 +48,11 @@ class BannerController extends Controller
                 return $city->id;
             })
             ->addColumn('image', function (Banner $city) {
-                return $city->image;
+                $url = $city->image ? asset('storage/app/banner/' . $city->image) : url('public/img/devotion-group-favicon.png');
+                return '<img src="' . $url . '" width="100" height="100" style="object-fit:cover;">';
             })
-           ->addColumn('name', function (Banner $city) {
+
+            ->addColumn('name', function (Banner $city) {
                 return $city->name; // Display the country name
             })
             ->addColumn('sub_title', function (Banner $city) {
@@ -88,20 +90,12 @@ class BannerController extends Controller
                         </a>';
                 }
 
-                // if ($this->user->can('banner.delete')) {
-                //     $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $city->id . '" data-title="' . $city->name . '" data-segment="banner">
-                //                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                //                     </button>';
-                // }
-                  if ($this->user->can('banner.delete')) {
-                    $action .= '<form method="POST" action="' .  route('admin.banner.destroy', $city->id) . '" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $city->name . '?\');">
-                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                    </button>
-                </form>';
+                if ($this->user->can('banner.delete')) {
+                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $city->id . '" data-title="' . $city->name . '" data-segment="banner">
+                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                    </button>';
                 }
+
                 $action .= '
                     </div>
                 ';
@@ -188,7 +182,7 @@ class BannerController extends Controller
 
         $dataObj->save();
 
-        session()->flash('success', $dataObj->name.' record has been created successfully!');
+        session()->flash('success', $dataObj->name . ' record has been created successfully!');
         return redirect()->route('admin.banner.index');
     }
 
@@ -272,7 +266,7 @@ class BannerController extends Controller
 
         $dataObj->save();
 
-        session()->flash('success', $dataObj->name.' record has been updated successfully!');
+        session()->flash('success', $dataObj->name . ' record has been updated successfully!');
         return redirect()->route('admin.banner.index');
     }
 
