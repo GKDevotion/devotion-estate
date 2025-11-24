@@ -13,7 +13,7 @@ class AdminLogController extends Controller
     public $user;
     public $is_assign_super_admin = 0;
     public $admin_id = 0;
-   
+
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -23,7 +23,7 @@ class AdminLogController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function setPublicVar(){
         $this->is_assign_super_admin = $this->user->is_assign_super_admin;
@@ -38,7 +38,7 @@ class AdminLogController extends Controller
     public function index()
     {
         if (is_null($this->user) || !$this->user->can('admin-log.view')) {
-            abort(403, 'Sorry !! You are Unauthorized to view any payroll !');
+            abort(403, 'Sorry !! You are Unauthorized to view any log !');
         }
 
         $this->setPublicVar();
@@ -46,12 +46,12 @@ class AdminLogController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function ajaxIndex(){
 
         $this->setPublicVar();
-        
+
         $where = [];
         if( !$this->is_assign_super_admin ){
             $where['admin_id'] = $this->admin_id;
@@ -132,7 +132,7 @@ class AdminLogController extends Controller
     public function store(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('admin-log.create')) {
-            abort(403, 'Sorry !! You are Unauthorized to create any payroll !');
+            abort(403, 'Sorry !! You are Unauthorized to create any log !');
         }
 
         return response()->json(['message' => 'has been created!']);
@@ -158,7 +158,7 @@ class AdminLogController extends Controller
     public function edit(int $id)
     {
         if (is_null($this->user) || !$this->user->can('admin-log.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit any payroll !');
+            abort(403, 'Sorry !! You are Unauthorized to edit any log !');
         }
 
         // return view('backend.pages.admin-log.edit');
@@ -174,7 +174,7 @@ class AdminLogController extends Controller
     public function update(Request $request, int $id)
     {
         if (is_null($this->user) || !$this->user->can('admin-log.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit any payroll !');
+            abort(403, 'Sorry !! You are Unauthorized to edit any log !');
         }
 
         session()->flash('success', 'has been updated !!');
@@ -190,7 +190,7 @@ class AdminLogController extends Controller
     public function destroy(int $id)
     {
         if (is_null($this->user) || !$this->user->can('admin-log.delete')) {
-            abort(403, 'Sorry !! You are Unauthorized to delete any payroll !');
+            abort(403, 'Sorry !! You are Unauthorized to delete any log !');
         }
 
         return response()->json( ['data' => ['message' => 'Record already deleted.' ] ], 200);
