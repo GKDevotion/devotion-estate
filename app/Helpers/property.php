@@ -64,7 +64,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             }
 
             $propertyDataObj->admin_id = $admin_id;
-            $propertyDataObj->name = $request->name;
+            $propertyDataObj->name = strip_tags($request->name);
             $propertyDataObj->building_name = $request->building_name;
             $propertyDataObj->slug = convertStringToSlug($request->name);
             $propertyDataObj->h1_tag = $request->name;//$request->h1_tag;

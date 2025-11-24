@@ -102,7 +102,7 @@ class PropertiesController extends Controller
 
         $this->setPublicVar();
 
-        $query = Properties::query();
+        $query = Properties::query()->orderBy('id', 'DESC');
 
         if( !$this->is_assign_super_admin ){
             $query->where( 'admin_id', $this->admin_id );
@@ -140,9 +140,10 @@ class PropertiesController extends Controller
             
             ->addColumn('name', function (Properties $ar) {
                 
-                return '<a href="' . url('property/'.$ar->slug ?? '') . '" class="fw-bold text-start" target="_blank" style=" color: #aa8038; text-decoration:none; ">'
-                    . $ar->name ?? '' .
-                    '</a>';
+            return '<a href="' . url('property/' . ($ar->slug ?? '')) . '" class="fw-bold text-center" target="_blank" style=" text-decoration:none; color: #ab8134; ">'
+                . ($ar->name ?? '') .
+                '</a>';
+
             })
 
             ->addColumn('purpose', function (Properties $ar) {
@@ -435,18 +436,17 @@ class PropertiesController extends Controller
         ]);
 
         // Update Old Feature data
-        $location = new Properties();
+        $location = Properties::findOrFail($id);
         $location->admin_id = $this->user->id;
 
         $location->image = $request->image;
-        $location->name = $request->name;
+        $location->name = strip_tags($request->name);
         $location->purpose = $request->purpose;
         $location->type = $request->type;
         $location->publish = $request->publish;
         $location->area = $request->area;
         $location->price = $request->price;
         $location->address = $request->address;
-
         $location->sort_order = $request->sort_order;
         $location->slug = convertStringToSlug( $request->name );
         $location->status = $request->status;
