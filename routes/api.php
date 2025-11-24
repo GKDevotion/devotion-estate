@@ -126,7 +126,5 @@ Route::get('get-activity-log/{id?}', [CronController::class, 'getActivityLogs'])
 /**
  * admin Dashboard Chart Load
  */
-Route::get('industry-base-chart-data', [ChartController::class, 'generateIndustryBaseChartData']);
-Route::get('continent-base-chart-data', [ChartController::class, 'generateContinentBaseChartData']);
 Route::get('company-base-admin-chart-data', [ChartController::class, 'companyBaseAdminChartData']);
 Route::get('get-dashboard-notifications', [ChartController::class, 'getDashboardNotifications']);
