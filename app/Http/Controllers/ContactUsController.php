@@ -40,29 +40,31 @@ class ContactUsController extends Controller
             'comment'        => $request->comment,
         ]);
 
-        // EMAIL DETAILS
-        $data = [
-            'website_id'     => $request->website_id ?? 1,
-            'name'    => $request->name,
-            'type'    => $request->type,
-            'sub_type'    => $request->sub_type,
-            'email'   => $request->email,
-            'comment'     => $request->comment,
-        ];
+        if( getConfigurationField( "IS_SEND_MAIL" ) ){
+            // EMAIL DETAILS
+            $data = [
+                'website_id'     => $request->website_id ?? 1,
+                'name'    => $request->name,
+                'type'    => $request->type,
+                'sub_type'    => $request->sub_type,
+                'email'   => $request->email,
+                'comment'     => $request->comment,
+            ];
 
-        try {
-            // SEND MAIL
-            Mail::send('frontend.emails.contactMail', $data, function ($message) use ($data) {
-                $message->to('admin@devotionestate.com')
-                    ->cc('gk@devotiontech.io') // Add CC email here
-                    ->subject('New Contact Us Message');
-            });
-        } catch (Exception $e) {
-            Log::error('Error occurred: ' . $e->getMessage(), [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString(),
-            ]);
+            try {
+                // SEND MAIL
+                Mail::send('frontend.emails.contactMail', $data, function ($message) use ($data) {
+                    $message->to('admin@devotionestate.com')
+                        ->cc('gk@devotiontech.io') // Add CC email here
+                        ->subject('New Contact Us Message');
+                });
+            } catch (Exception $e) {
+                Log::error('Error occurred: ' . $e->getMessage(), [
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+            }
         }
 
         return response()->json([

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Properties;
 use App\Models\PropertyContact;
-use App\Models\Review;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -36,58 +35,59 @@ class PropertyContactController extends Controller
 
         ]);
 
-        // EMAIL DETAILS
-        $data = [
-            'propertyid' => $request->property_unique_id,
-            'propertyname' => Properties::where('id', $request->property_id)->value('name'),
-            'name'    => $request->name,
-            'mobile'    => $request->mobile_number,
-            'email'   => $request->email,
-            'msg'     => $request->message,
-        ];
+        if( getConfigurationField( "IS_SEND_MAIL" ) ){
+            // EMAIL DETAILS
+            $data = [
+                'propertyid' => $request->property_unique_id,
+                'propertyname' => Properties::where('id', $request->property_id)->value('name'),
+                'name'    => $request->name,
+                'mobile'    => $request->mobile_number,
+                'email'   => $request->email,
+                'msg'     => $request->message,
+            ];
 
+            try{
+                // SEND MAIL
+                // Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
+                //     $message->to('admin@devotionestate.com')
+                //         ->cc('gk@devotiontech.io') // Add CC email here
+                //         ->subject('New Contact Seller Message');
+                // });
 
-        try{
-            // SEND MAIL
-            // Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
-            //     $message->to('admin@devotionestate.com')
-            //         ->cc('gk@devotiontech.io') // Add CC email here
-            //         ->subject('New Contact Seller Message');
-            // });
+                $mail = new PHPMailer(true);
 
-            $mail = new PHPMailer(true);
+                // SERVER SETTINGS (GoDaddy shared hosting)
+                $mail->isSMTP();
+                $mail->Host = "relay-hosting.secureserver.net";
+                $mail->Port = 25;
+                $mail->SMTPAuth = false;
+                $mail->SMTPSecure = false;
 
-            // SERVER SETTINGS (GoDaddy shared hosting)
-            $mail->isSMTP();
-            $mail->Host = "relay-hosting.secureserver.net";
-            $mail->Port = 25;
-            $mail->SMTPAuth = false;
-            $mail->SMTPSecure = false;
+                // SENDER DETAILS
+                $mail->setFrom('admin@devotionestate.com', 'Devotion Estate');
 
-            // SENDER DETAILS
-            $mail->setFrom('admin@devotionestate.com', 'Devotion Estate');
+                // RECEIVER + CC
+                $mail->addAddress('admin@devotionestate.com');
+                $mail->addCC('gk@devotiontech.io');
 
-            // RECEIVER + CC
-            $mail->addAddress('admin@devotionestate.com');
-            $mail->addCC('gk@devotiontech.io');
+                // SUBJECT
+                $mail->Subject = "New Contact Us Message";
 
-            // SUBJECT
-            $mail->Subject = "New Contact Us Message";
+                // BODY (HTML view)
+                $html = view('frontend.emails.contactSellerMail', $data)->render();
+                $mail->isHTML(true);
+                $mail->Body = $html;
 
-            // BODY (HTML view)
-            $html = view('frontend.emails.contactSellerMail', $data)->render();
-            $mail->isHTML(true);
-            $mail->Body = $html;
+                // SEND
+                $mail->send();
 
-            // SEND
-            $mail->send();
-
-        } catch( Exception $e ){
-            Log::error('Error occurred: ' . $e->getMessage(), [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString(),
-            ]);
+            } catch( Exception $e ){
+                Log::error('Error occurred: ' . $e->getMessage(), [
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+            }
         }
 
         return response()->json([

@@ -33,29 +33,32 @@ class ReviewController extends Controller
             'status'      => 1,
         ]);
 
-           // EMAIL DETAILS
-        $data = [
-            'propertyname' => Properties::where('id', $request->property_id)->value('name'),
-            'name'    => $request->name,
-            'contact_no'    => $request->contact_no,
-            'email'   => $request->email,
-            'review'     => $request->review,
-        ];
+        if( getConfigurationField( "IS_SEND_MAIL" ) ){
+
+            // EMAIL DETAILS
+            $data = [
+                'propertyname' => Properties::where('id', $request->property_id)->value('name'),
+                'name'    => $request->name,
+                'contact_no'    => $request->contact_no,
+                'email'   => $request->email,
+                'review'     => $request->review,
+            ];
 
 
-        try{
-            // SEND MAIL
-            Mail::send('frontend.emails.reviewMail', $data, function($message) use ($data){
-                $message->to('admin@devotionestate.com')
-                    ->cc('gk@devotiontech.io') // Add CC email here
-                    ->subject('New Property Review Message');
-            });
-        } catch( Exception $e ){
-            Log::error('Error occurred: ' . $e->getMessage(), [
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString(),
-            ]);
+            try{
+                // SEND MAIL
+                Mail::send('frontend.emails.reviewMail', $data, function($message) use ($data){
+                    $message->to('admin@devotionestate.com')
+                        ->cc('gk@devotiontech.io') // Add CC email here
+                        ->subject('New Property Review Message');
+                });
+            } catch( Exception $e ){
+                Log::error('Error occurred: ' . $e->getMessage(), [
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+            }
         }
 
         return response()->json([
