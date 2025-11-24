@@ -7,6 +7,7 @@ use App\Models\Continent;
 use App\Models\Country;
 use App\Models\Industry;
 use App\Models\Notification;
+use App\Models\PropertyContact;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -87,7 +88,7 @@ class ChartController extends Controller
             $monthArr[] = date( "Y-m", strtotime( "-".( $i - 12 )." months" ) );
         }
 
-        
+
         $contientObjs = Continent::select('id', 'name')->where( ['status' => 1])->orderBy('name', 'ASC')->get()->toArray();
         foreach( $contientObjs as $k=>$ind ){
             $response['datasets'][$k]['label'] = $ind['name'];
@@ -127,17 +128,17 @@ class ChartController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function getDashboardNotifications(){
 
-        $notificationObj = Notification::where( 'status', 0 )->get();
+        $notificationObj = PropertyContact::where( 'is_read', 0 )->orderBy('id', 'DESC')->get();
         $response = [];
 
         foreach( $notificationObj as $k=>$ar ){
-            $response[$k]['id'] = $ar->id;
-            $response[$k]['title'] = $ar->title;
-            $response[$k]['url'] = url('/');
+            $response[$k]['id'] = $ar->property_unique_id;
+            $response[$k]['title'] = $ar->name." (".$ar->property_name.")";
+            $response[$k]['url'] = url('admin/property-contact');
             $response[$k]['time'] = getTimeDifference($ar->created_at);
         }
 
