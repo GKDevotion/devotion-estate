@@ -15,7 +15,7 @@ use Intervention\Image\Facades\Image;
 
 function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegisterMail = 1)
 {
-dd($request);
+
     $msg = "created";
 
     $isRedirectThankYou = false;

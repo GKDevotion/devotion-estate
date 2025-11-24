@@ -110,7 +110,7 @@
                                                     class="text-error">*</span></label>
                                             <input type="text" class="form-control mb-2" data-required="yes"
                                                 id="name" name="name" placeholder="Property Name/Title"
-                                                value="{{ $data->name }}">
+                                                value="{{ old('name', $data->name) }}">
                                             <div class="error text-error"></div>
                                         </div>
 

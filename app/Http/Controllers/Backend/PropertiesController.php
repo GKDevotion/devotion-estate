@@ -440,7 +440,7 @@ class PropertiesController extends Controller
         $location->admin_id = $this->user->id;
 
         $location->image = $request->image;
-        $location->name = strip_tags($request->name);
+        $location->name = $request->name;
         $location->purpose = $request->purpose;
         $location->type = $request->type;
         $location->publish = $request->publish;
