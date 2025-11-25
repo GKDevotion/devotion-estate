@@ -733,53 +733,55 @@
         }
     </style>
 
-    <div class="container py-5">
-        <h2 class="section-title">LIST YOUR PROPERTY</h2>
+    <section class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title">LIST YOUR PROPERTY</h2>
 
-        <div class="row g-4">
+            <div class="row g-4">
 
-            <!-- Sell Residential -->
-            <div class="col-md-6 col-lg-3">
-                <div class="property-card">
-                    <i class="bi bi-house-door-fill property-icon"></i>
-                    <h5>Sell Residential</h5>
-                    <p>We will connect you to thousands of people who need to buy a home.</p>
-                    <button class="property-btn">Sell Residential</button>
+                <!-- Sell Residential -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="property-card">
+                        <i class="bi bi-house-door-fill property-icon"></i>
+                        <h5>Sell Residential</h5>
+                        <p>We will connect you to thousands of people who need to buy a home.</p>
+                        <button class="property-btn">Sell Residential</button>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Rent Residential -->
-            <div class="col-md-6 col-lg-3">
-                <div class="property-card">
-                    <i class="fa-solid fa-house-circle-check property-icon"></i>
-                    <h5>Rent Residential</h5>
-                    <p>Tell us your needs; we’ll give you thousands of suggestions for your dream home.</p>
-                    <button class="property-btn">Rent Residential</button>
+                <!-- Rent Residential -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="property-card">
+                        <i class="fa-solid fa-house-circle-check property-icon"></i>
+                        <h5>Rent Residential</h5>
+                        <p>Tell us your needs; we’ll give you thousands of suggestions for your dream home.</p>
+                        <button class="property-btn">Rent Residential</button>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Sell Commercial -->
-            <div class="col-md-6 col-lg-3">
-                <div class="property-card">
-                    <i class="fa-solid fa-store property-icon"></i>
-                    <h5>Sell Commercial</h5>
-                    <p>We help you find thousands of buyers looking for office or commercial spaces.</p>
-                    <button class="property-btn">Sell Commercial</button>
+                <!-- Sell Commercial -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="property-card">
+                        <i class="fa-solid fa-store property-icon"></i>
+                        <h5>Sell Commercial</h5>
+                        <p>We help you find thousands of buyers looking for office or commercial spaces.</p>
+                        <button class="property-btn">Sell Commercial</button>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Rent Commercial -->
-            <div class="col-md-6 col-lg-3">
-                <div class="property-card">
-                    <i class="bi bi-building-fill property-icon"></i>
-                    <h5>Rent Commercial</h5>
-                    <p>Share your needs and we’ll offer suitable options for your commercial property.</p>
-                    <button class="property-btn">Rent Commercial</button>
+                <!-- Rent Commercial -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="property-card">
+                        <i class="bi bi-building-fill property-icon"></i>
+                        <h5>Rent Commercial</h5>
+                        <p>Share your needs and we’ll offer suitable options for your commercial property.</p>
+                        <button class="property-btn">Rent Commercial</button>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Our Blog -->
     <section class="py-5 text-center" style="background: #fffaf5;">
