@@ -8,11 +8,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        <!-- Bootstrap 5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Bootstrap Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- FontAwesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> --}}
+        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> --}}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
 
         <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
@@ -570,7 +577,7 @@
     </section>
 
     <!-- List Your Property -->
-    <section class="py-5 list-property-section">
+    <section class="d-none py-5 list-property-section">
         <div class="container py-5">
             <h1 class="text-center mb-5 fw-bold section-title" style="color: #000; font-size: 45px;">LIST YOUR
                 PROPERTY</h1>
@@ -659,6 +666,120 @@
             </div>
         </div>
     </section>
+
+    <style>
+        body {
+            background: #faf3e9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 34px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #5a4632;
+        }
+
+        .property-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eedfcb;
+            height: 100%;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        .property-card:hover {
+            box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+            transform: translateY(-6px);
+        }
+
+        .property-icon {
+            font-size: 56px;
+            color: #c28b4e;
+            margin-bottom: 20px;
+        }
+
+        .property-card h5 {
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #5a4632;
+        }
+
+        .property-card p {
+            font-size: 14px;
+            color: #7a6a58;
+            min-height: 55px;
+        }
+
+        .property-btn {
+            width: 100%;
+            padding: 11px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            background: #c28b4e;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .property-btn:hover {
+            background: #a9743f;
+            color: #fff;
+        }
+    </style>
+
+    <div class="container py-5">
+        <h2 class="section-title">LIST YOUR PROPERTY</h2>
+
+        <div class="row g-4">
+
+            <!-- Sell Residential -->
+            <div class="col-md-6 col-lg-3">
+                <div class="property-card">
+                    <i class="bi bi-house-door-fill property-icon"></i>
+                    <h5>Sell Residential</h5>
+                    <p>We will connect you to thousands of people who need to buy a home.</p>
+                    <button class="property-btn">Sell Residential</button>
+                </div>
+            </div>
+
+            <!-- Rent Residential -->
+            <div class="col-md-6 col-lg-3">
+                <div class="property-card">
+                    <i class="fa-solid fa-house-circle-check property-icon"></i>
+                    <h5>Rent Residential</h5>
+                    <p>Tell us your needs; we’ll give you thousands of suggestions for your dream home.</p>
+                    <button class="property-btn">Rent Residential</button>
+                </div>
+            </div>
+
+            <!-- Sell Commercial -->
+            <div class="col-md-6 col-lg-3">
+                <div class="property-card">
+                    <i class="fa-solid fa-store property-icon"></i>
+                    <h5>Sell Commercial</h5>
+                    <p>We help you find thousands of buyers looking for office or commercial spaces.</p>
+                    <button class="property-btn">Sell Commercial</button>
+                </div>
+            </div>
+
+            <!-- Rent Commercial -->
+            <div class="col-md-6 col-lg-3">
+                <div class="property-card">
+                    <i class="bi bi-building-fill property-icon"></i>
+                    <h5>Rent Commercial</h5>
+                    <p>Share your needs and we’ll offer suitable options for your commercial property.</p>
+                    <button class="property-btn">Rent Commercial</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- Our Blog -->
     <section class="py-5 text-center" style="background: #fffaf5;">
