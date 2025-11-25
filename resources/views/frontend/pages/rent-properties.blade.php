@@ -57,10 +57,19 @@
 
                         <div class="card p-3 shadow-sm border-0 h-100">
                             <div class="row g-0">
-                                <div class="col-lg-4">
+                                 <div class="col-lg-4 d-flex">
                                     <img src="{{ asset('storage/app/propertyImage/' . ($p->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
-                                        class="img-fluid rounded-start h-100" alt="Property Image">
+                                        class="img-fluid rounded-start property-img flex-grow-1" alt="Property Image">
                                 </div>
+                                <style>
+                                    .property-img {
+                                        width: 100%;
+                                        height: 270px;
+                                        object-fit: fill;
+                                        object-position: center;
+                                        border-radius: 8px;
+                                    }
+                                </style>
                                 <div class="col-lg-8">
                                     <div class="card-body">
                                         <div class="row align-items-start">
@@ -107,7 +116,7 @@
                                             </div>
 
                                             <div class="col-4 text-end">
-                                                <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                <img src="{{ url('public\img\devotion-group-favicon-64X64.png') }}"
                                                     alt="Estate Agent Logo" class="img-fluid" style="max-width: 160px;">
                                                 <p class="small text-muted text-end mt-2 mb-0">Devotion Estate Agent</p>
                                             </div>

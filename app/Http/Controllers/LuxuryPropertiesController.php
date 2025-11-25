@@ -32,7 +32,7 @@ public function index(Request $request)
             ->where('status', 1)
             ->get();
 
-        return view('frontend.pages.new-properties', compact(
+        return view('frontend.pages.luxury-properties', compact(
             'properties',
             'locationObj',
             'propertyTypeObj',
