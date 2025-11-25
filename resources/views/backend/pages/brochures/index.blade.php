@@ -97,14 +97,23 @@ Brochure Page - Admin Panel
                 pageLength: 10,
                 ajax: "{{ route('brochures.ajaxIndex') }}",
                 columns: [
-                    { data: 'id', name: 'id' },
+                    {
+                        data: 'id',
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Auto-increment based on row index
+                        }
+                    }, // Auto index { data: 'id', name: 'id' },
                     { data: 'location', name: 'location' },
                     { data: 'file', name: 'file' },
                     { data: 'agent', name: 'agent' },
                     { data: 'status', name: 'status', orderable: false, searchable: false },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
-                ]
+                ],
+                 createdRow: function (row, data, dataIndex) {
+                    $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row
+                    $(row).attr('class', 'brochures_row');// Assign a custom Class to the row
+                }
             });
         });
      </script>

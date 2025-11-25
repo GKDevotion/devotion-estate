@@ -120,16 +120,24 @@ class PropertyContactController extends Controller
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
                 }
-                if ($this->user->can('property-contact.delete')) {
-                    $action .= '<form method="POST" action="' .  route('admin.property-contact.destroy', $ar->id) . '" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
-                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                    </button>
-                </form>';
-                }
 
+
+                // if ($this->user->can('property-contact.delete')) {
+                //     $action .= '<form method="POST" action="' .  route('admin.property-contact.destroy', $ar->id) . '" style="display:inline;">
+                //     ' . csrf_field() . '
+                //     ' . method_field('DELETE') . '
+                //     <button type="submit" class="btn btn-edit text-white dropdown-item" onclick="return confirm(\'Are you sure you want to delete ' . $ar->name . '?\');">
+                //         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                //     </button>
+                // </form>';
+                // }
+
+                
+                if ($this->user->can('property-contact.delete')) {
+                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="property-contact">
+                    <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
+                    </button>';
+                }
                 $action .= '
                     </div>
                 ';

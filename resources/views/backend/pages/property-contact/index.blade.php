@@ -48,7 +48,7 @@
         <div class="row">
             <!-- data table start -->
             <div class="col-12 mt-3">
-                <h3 class="pb-3">Review Hisotry</h3>
+                <h3 class="pb-3">Property Enquiry Hisotry</h3>
                 <div class="card">
                     <div class="card-body">
 

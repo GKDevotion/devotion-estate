@@ -153,7 +153,11 @@
                         orderable: false,
                         searchable: false
                     },
-                ]
+                ],
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row
+                    $(row).attr('class', 'properties_row');// Assign a custom Class to the row
+                }
             });
 
             // Adjust the table width after the data is loaded

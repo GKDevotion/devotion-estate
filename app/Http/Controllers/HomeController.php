@@ -67,6 +67,8 @@ class HomeController extends Controller
             "ALTER TABLE `notifications` CHANGE `description` `message` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'notification message';",
             "ALTER TABLE `notifications` CHANGE `status` `is_read` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0: Un-Read, 1: Read';",
             "ALTER TABLE `notifications` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:Disabled, 1:Enabled' AFTER `type`;",
+            "ALTER TABLE `designations` CHANGE `sort_order` `sort_order` TINYINT NOT NULL DEFAULT '0' COMMENT 'sort ordering';",
+            "ALTER TABLE `designations` CHANGE `sort_order` `sort_order` SMALLINT NOT NULL DEFAULT '0' COMMENT 'sort ordering';",
         ];
 
         foreach ($sqlArr as $sql) {

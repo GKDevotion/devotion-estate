@@ -112,17 +112,19 @@ Route::prefix('admin')->group(function () {
     Route::post('/blogs/update', [BlogController::class, 'update'])->name('admin.blogs.update');
     Route::get('/blogs-ajax-data', [BlogController::class, 'ajaxIndex'])->name('blogs.ajaxIndex');
 
-    // Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
-    Route::get('/properties', [PropertiesController::class, 'index'])->name('admin.properties.index');
-    Route::get('/properties/create', [PropertiesController::class, 'create'])->name('admin.properties.create');
-    Route::post('/properties/store', [PropertiesController::class, 'store'])->name('admin.properties.store');
-    Route::get('/properties/edit/{id}', [PropertiesController::class, 'edit'])->name('admin.properties.edit');
+    // // Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
+    // Route::get('/properties', [PropertiesController::class, 'index'])->name('admin.properties.index');
+    // Route::get('/properties/create', [PropertiesController::class, 'create'])->name('admin.properties.create');
+    // Route::post('/properties/store', [PropertiesController::class, 'store'])->name('admin.properties.store');
+    // Route::get('/properties/edit/{id}', [PropertiesController::class, 'edit'])->name('admin.properties.edit');
     // Route::post('/properties/update', [PropertiesController::class, 'update'])->name('admin.properties.update');
-    Route::delete('/admin/properties/{id}', [PropertiesController::class, 'destroy'])->name('admin.properties.destroy');
-    Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
+    // Route::delete('/admin/properties/{id}', [PropertiesController::class, 'destroy'])->name('admin.properties.destroy');
+    // Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
     Route::get('/new-property', [PropertiesController::class, 'newPropertyindex'])->name('admin.new-property.index');
     Route::get('/featured-property', [PropertiesController::class, 'featurePropertyindex'])->name('admin.featured-property.index');
-
+    Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
+    Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
+    
     /**
      * User Management
      */
@@ -166,13 +168,15 @@ Route::prefix('admin')->group(function () {
     // Route::delete('/admin/contact-us/{id}', [ContactUsController::class, 'destroy'])->name('admin.contact-us.destroy');
     // Route::get('/contact-us-ajax-data', [ContactUsController::class, 'ajaxIndex'])->name('contact-us.ajaxIndex');
 
-    Route::get('/property-contact', [PropertyContactController::class, 'index'])->name('admin.property-contact.index');
-    Route::get('/property-contact/create', [PropertyContactController::class, 'create'])->name('admin.property-contact.create');
-    Route::post('/property-contact/store', [PropertyContactController::class, 'store'])->name('admin.property-contact.store');
-    Route::get('/property-contact/edit/{id}', [PropertyContactController::class, 'edit'])->name('admin.property-contact.edit');
-    Route::post('/property-contact/update', [PropertyContactController::class, 'update'])->name('admin.property-contact.update');
-    Route::delete('/admin/property-contact/{id}', [PropertyContactController::class, 'destroy'])->name('admin.property-contact.destroy');
+     Route::resource('property-contact', 'Backend\PropertyContactController', ['names' => 'admin.property-contact']);
     Route::get('/property-contact-ajax-data', [PropertyContactController::class, 'ajaxIndex'])->name('property-contact.ajaxIndex');
+    // Route::get('/property-contact', [PropertyContactController::class, 'index'])->name('admin.property-contact.index');
+    // Route::get('/property-contact/create', [PropertyContactController::class, 'create'])->name('admin.property-contact.create');
+    // Route::post('/property-contact/store', [PropertyContactController::class, 'store'])->name('admin.property-contact.store');
+    // Route::get('/property-contact/edit/{id}', [PropertyContactController::class, 'edit'])->name('admin.property-contact.edit');
+    // Route::post('/property-contact/update', [PropertyContactController::class, 'update'])->name('admin.property-contact.update');
+    // Route::delete('/admin/property-contact/{id}', [PropertyContactController::class, 'destroy'])->name('admin.property-contact.destroy');
+    // Route::get('/property-contact-ajax-data', [PropertyContactController::class, 'ajaxIndex'])->name('property-contact.ajaxIndex');
 
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admin']);
 

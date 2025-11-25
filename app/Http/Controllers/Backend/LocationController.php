@@ -150,6 +150,7 @@ class LocationController extends Controller
         }
 
         $continentObj = Continent::where('status', 1)->get();
+
         return view('backend.pages.location.create', compact('continentObj'));
     }
 

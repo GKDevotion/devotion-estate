@@ -25,7 +25,7 @@ Company Location Page - Admin Panel
     <div class="row align-items-center">
         <div class="col-md-8">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left d-none">Corporate Email</h4>
+                <h4 class="page-title pull-left d-none">Locations</h4>
                 <ul class="breadcrumbs pull-left m-2">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li><span>All Location</span></li>
@@ -59,7 +59,7 @@ Company Location Page - Admin Panel
                         @include('backend.layouts.partials.messages')
 
                         <table id="locations_index" class="">
-                            <thead id="corporate-emails" class="bg-light text-capitalize">
+                            <thead id="locations" class="bg-light text-capitalize">
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>

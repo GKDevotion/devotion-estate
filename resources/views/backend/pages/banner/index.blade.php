@@ -25,10 +25,10 @@ Banner Page - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-7">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left d-none">Brochure</h4>
+                <h4 class="page-title pull-left d-none">Banner</h4>
                 <ul class="breadcrumbs pull-left m-2">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Brochure</span></li>
+                    <li><span>All Banner</span></li>
                 </ul>
             </div>
         </div>
@@ -96,15 +96,23 @@ Banner Page - Admin Panel
                 lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 pageLength: 10,
                 ajax: "{{ route('banner.ajaxIndex') }}",
-                columns: [
-                    { data: 'id', name: 'id' },
+                columns: [{
+                        data: 'id',
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Auto-increment based on row index
+                        }
+                    }, // Auto index { data: 'id', name: 'id' },
                     { data: 'image', name: 'image' },
                     { data: 'name', name: 'name' },
                     { data: 'sub_title', name: 'sub_title' },
                     { data: 'status', name: 'status', orderable: false, searchable: false },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
-                ]
+                ],
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row
+                    $(row).attr('class', 'banner_row');// Assign a custom Class to the row
+                }
             });
         });
      </script>

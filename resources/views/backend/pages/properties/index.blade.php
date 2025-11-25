@@ -132,7 +132,11 @@
                     { data: 'status', name: 'status' },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
-                ]
+                ],
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row
+                    $(row).attr('class', 'properties_row');// Assign a custom Class to the row
+                }
             });
 
             // Adjust the table width after the data is loaded
@@ -140,9 +144,9 @@
                 var data = table.ajax.json().data;
 
                 if (data.length === 0) {
-                    $('#Properties_index').css('width', '100%');
+                    $('#properties_index').css('width', '100%');
                 } else {
-                    $('#Properties_index').css('width', 'auto');
+                    $('#properties_index').css('width', 'auto');
                 }
             });
         });
