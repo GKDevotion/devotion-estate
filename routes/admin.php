@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ContactUsController;
 use App\Http\Controllers\Backend\CurrencyController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DesignationsController;
+use App\Http\Controllers\Backend\LeadUserController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\OwnersController;
 use App\Http\Controllers\Backend\PaymentPlanController;
@@ -124,7 +125,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/featured-property', [PropertiesController::class, 'featurePropertyindex'])->name('admin.featured-property.index');
     Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
     Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
-    
+
     /**
      * User Management
      */
@@ -156,7 +157,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/clients/update', [ClientsController::class, 'update'])->name('admin.clients.update');
     Route::get('/clients-ajax-data', [ClientsController::class, 'ajaxIndex'])->name('clients.ajaxIndex');
 
-    
+
     Route::resource('contact-us', 'Backend\ContactUsController', ['names' => 'admin.contact-us']);
     Route::get('/contact-us-ajax-data', [ContactUsController::class, 'ajaxIndex'])->name('contact-us.ajaxIndex');
 
@@ -168,7 +169,7 @@ Route::prefix('admin')->group(function () {
     // Route::delete('/admin/contact-us/{id}', [ContactUsController::class, 'destroy'])->name('admin.contact-us.destroy');
     // Route::get('/contact-us-ajax-data', [ContactUsController::class, 'ajaxIndex'])->name('contact-us.ajaxIndex');
 
-     Route::resource('property-contact', 'Backend\PropertyContactController', ['names' => 'admin.property-contact']);
+    Route::resource('property-contact', 'Backend\PropertyContactController', ['names' => 'admin.property-contact']);
     Route::get('/property-contact-ajax-data', [PropertyContactController::class, 'ajaxIndex'])->name('property-contact.ajaxIndex');
     // Route::get('/property-contact', [PropertyContactController::class, 'index'])->name('admin.property-contact.index');
     // Route::get('/property-contact/create', [PropertyContactController::class, 'create'])->name('admin.property-contact.create');
@@ -192,6 +193,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/designations/edit/{id}', [DesignationsController::class, 'edit'])->name('admin.designations.edit');
     Route::post('/designations/update', [DesignationsController::class, 'update'])->name('admin.designations.update');
     Route::get('/designations-ajax-data', [DesignationsController::class, 'ajaxIndex'])->name('designations.ajaxIndex');
+
+    Route::resource('lead-user', 'Backend\LeadUserController', ['names' => 'admin.lead-user']);
+    Route::get('/lead-user-ajax-data', [LeadUserController::class, 'ajaxIndex'])->name('lead-user.ajaxIndex');
 
     /**
      * Continent Management

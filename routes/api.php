@@ -1,38 +1,12 @@
 <?php
 
-use App\Http\Controllers\API\AttendanceController;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\AwardController;
-use App\Http\Controllers\API\BoardMeetingController;
-use App\Http\Controllers\API\ClientController;
-use App\Http\Controllers\API\ClientMeetingController;
-use App\Http\Controllers\API\CompanyController;
-use App\Http\Controllers\API\CompanyMeetingController;
 use App\Http\Controllers\API\ContinentController;
-use App\Http\Controllers\API\CorporateDomainController;
-use App\Http\Controllers\API\CorporateEmailController;
-use App\Http\Controllers\API\DepartmentController;
-use App\Http\Controllers\API\DeviceRecordController;
-use App\Http\Controllers\API\EmployeeController;
-use App\Http\Controllers\API\EmployeeMeetingController;
-use App\Http\Controllers\API\EmployeePerformanceController;
-use App\Http\Controllers\API\EmployeeTaskController;
-use App\Http\Controllers\API\HealthConditionController;
-use App\Http\Controllers\API\HolidayController;
 use App\Http\Controllers\API\HomeController;
-use App\Http\Controllers\API\IndustryController;
-use App\Http\Controllers\API\LaptopRecordController;
-use App\Http\Controllers\API\LeaveController;
-use App\Http\Controllers\API\ServerRecordController;
-use App\Http\Controllers\API\MobileRecordController;
-use App\Http\Controllers\API\NoticeBoardController;
-use App\Http\Controllers\API\PayrollController;
-use App\Http\Controllers\API\PositionController;
-use App\Http\Controllers\API\SimRecordController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Backend\LeadUserController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CronController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -128,3 +102,4 @@ Route::get('get-activity-log/{id?}', [CronController::class, 'getActivityLogs'])
  */
 Route::get('company-base-admin-chart-data', [ChartController::class, 'companyBaseAdminChartData']);
 Route::get('get-dashboard-notifications', [ChartController::class, 'getDashboardNotifications']);
+Route::get('search-users', [LeadUserController::class, 'searchUsers'])->name('search.users');

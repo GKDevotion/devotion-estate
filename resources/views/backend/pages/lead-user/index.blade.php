@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Property Contact Page - Admin Panel
+    Lead User Page - Admin Panel
 @endsection
 
 @section('styles')
@@ -23,20 +23,20 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left d-none">Property Contact</h4>
+                    <h4 class="page-title pull-left d-none">Lead User</h4>
                     <ul class="breadcrumbs pull-left m-2">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><span>All Property Contact</span></li>
+                        <li><span>All Lead User Contact</span></li>
                     </ul>
                 </div>
             </div>
-            {{-- <div class="col-md-2 text-end">
-                @if (Auth::guard('admin')->user()->can('property-contact.create'))
-                    <a class="btn btn-add text-white" href="{{ route('admin.property-contact.create') }}">
-                        <i class="fa fa-plus"></i> Property Contact
+            <div class="col-md-2 text-end">
+                @if (Auth::guard('admin')->user()->can('lead-user.create'))
+                    <a class="btn btn-add text-white" href="{{ route('admin.lead-user.create') }}">
+                        <i class="fa fa-plus"></i> Lead User
                     </a>
                 @endif
-            </div> --}}
+            </div>
             <div class="col-md-2 clearfix">
                 @include('backend.layouts.partials.logout')
             </div>
@@ -56,16 +56,17 @@
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="property-contact_index" class="">
-                                <thead id="property-contact" class="bg-light text-capitalize">
+                            <table id="lead-user_index" class="">
+                                <thead id="lead-user" class="bg-light text-capitalize">
                                     <tr>
                                         <th>#</th>
-                                        <th>Property Name</th>
+                                        <th>Unique Code</th>
+                                        <th>Refferal Code</th>
                                         <th>Name</th>
-                                        <th>Email Address</th>
+                                        <th>Email</th>
                                         <th>Contact No.</th>
-                                        <th>Message</th>
-                                        <th>Read</th>
+                                        <th>Gender</th>
+                                        <th>Status</th>
                                         <th>Updated At</th>
                                         <th>Action</th>
                                     </tr>
@@ -87,7 +88,7 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#property-contact_index').DataTable({
+            var table = $('#lead-user_index').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -101,56 +102,28 @@
                 ],
                 pageLength: 10,
                 ajax: {
-                    url: "{{ route('property-contact.ajaxIndex') }}",
+                    url: "{{ route('lead-user.ajaxIndex') }}",
                     type: 'GET',
                     data: function(d) {
                         // d.cid = ""; // Pass company parameter
                         // d.iid = ""; // Pass industry parameter
                     }
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'property_name',
-                        name: 'property_name'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'mobile_number',
-                        name: 'mobile_number'
-                    },
-                    {
-                        data: 'message',
-                        name: 'message'
-                    },
-                    {
-                        data: 'is_read',
-                        name: 'is_read'
-                    },
-
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'unique_id', name: 'unique_id' },
+                    { data: 'reference_id', name: 'reference_id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email' },
+                    { data: 'mobile_number', name: 'mobile_number' },
+                    { data: 'gender', name: 'gender' },
+                    { data: 'status', name: 'status' },
+                    { data: 'updated_at', name: 'updated_at' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
-                    $(row).attr('class', 'property-contact_row'); // Assign a custom Class to the row
+                    $(row).attr('class', 'lead-user_row'); // Assign a custom Class to the row
                 },
                 language: {
                     emptyTable: "No data available in table" // Custom message for empty table
@@ -161,7 +134,7 @@
             table.on('xhr', function() {
                 var data = table.ajax.json().data;
 
-                $('#property-contact_index').css('width', '100%');
+                $('#lead-user_index').css('width', '100%');
             });
         });
     </script>
