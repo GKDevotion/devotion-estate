@@ -380,7 +380,7 @@
                             <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $property)
-                                        <div class="col">
+                                        <div class="col pt-2">
                                             <a href="{{ route('property.detail', $property->slug) }}"
                                                 class="text-decoration-none text-dark">
 
@@ -402,7 +402,7 @@
                                                     <div class="card-body">
 
                                                         <div class="d-flex align-items-start mb-2">
-                                                            <h5 class="card-title mb-0 me-3">
+                                                            <h5 class="card-title mb-0 me-3" style="height: 49px">
                                                                 {!! $property->name !!}
                                                             </h5>
                                                         </div>
@@ -430,12 +430,13 @@
 
                                                     <hr class="property-divider">
 
+                                                  
                                                     <div
                                                         class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
                                                         <p class="fs-5  property-price mb-0">
                                                             AED {{ number_format($property->price, 2) }}</p>
                                                         <div class="text-end">
-                                                            <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                            <img src="{{ url('public/frontend/assets/images/Devotion Real Estate.png') }}"
                                                                 alt="Logo" class="property-logo img-fluid">
                                                         </div>
                                                     </div>
@@ -492,7 +493,7 @@
                             <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
                                 <div class="row row-cols-1 row-cols-md-3 g-4">
                                     @foreach ($chunk as $propertysale)
-                                        <div class="col">
+                                        <div class="col pt-2">
 
                                             <a href="{{ route('property.detail', $propertysale->slug) }}"
                                                 class="text-decoration-none text-dark">
@@ -514,7 +515,7 @@
                                                     <div class="card-body">
 
                                                         <div class="d-flex align-items-start mb-2">
-                                                            <h5 class="card-title mb-0 me-3">
+                                                            <h5 class="card-title mb-0 me-3" style="height: 49px">
                                                                 {!! $property->name !!}
                                                             </h5>
                                                         </div>
@@ -547,7 +548,7 @@
                                                         <p class="fs-5  property-price mb-0">
                                                             AED {{ number_format($propertysale->price, 2) }}</p>
                                                         <div class="text-end">
-                                                            <img src="{{ asset('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                            <img src="{{ url('public/frontend/assets/images/Devotion Real Estate.png') }}"
                                                                 alt="Logo" class="property-logo img-fluid">
                                                         </div>
                                                     </div>
@@ -684,7 +685,7 @@
         .property-card {
             background: #fff;
             border-radius: 16px;
-            padding: 32px 25px;
+            padding: 25px;
             text-align: center;
             transition: all 0.3s ease;
             border: 1px solid #eedfcb;
@@ -713,7 +714,7 @@
         .property-card p {
             font-size: 14px;
             color: #7a6a58;
-            min-height: 55px;
+
         }
 
         .property-btn {
