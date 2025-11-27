@@ -61,8 +61,8 @@
                                     <div class="row">
                                         <div class="col-md-4 col-12 mb-2">
                                             <div class="form-group">
-                                                <label class="mb-0" for="reference_id">Reference ID<span class="text-error">*</span></label>
-                                                <input type="text" data-required="yes" class="form-control" id="user_search" name="reference_id" placeholder="Search User ID" autofocus>
+                                                <label class="mb-0" for="reference_id">Reference ID<span class="text-error"></span></label>
+                                                <input type="text" data-required="no" class="form-control" id="user_search" name="reference_id" placeholder="Search User ID" autofocus>
                                                 <input type="hidden" name="reference_id" id="reference_id">
                                                 <div id="user_list" class="list-group mt-2"></div>
                                             </div>
@@ -121,6 +121,77 @@
                                             @enderror
                                         </div>
 
+                                        <div class="col-md-12 col-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="address">Address<span class="text-error">*</span></label>
+                                                <input type="text" data-required="yes" class="form-control" id="address" name="address" placeholder="Address ">
+                                            </div>
+                                            @error('address')
+                                                <div class="error text-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="continent_id">Continent<span class="text-error">*</span></label>
+                                                <select name="continent_id" data-required="yes" id="continent_id" class="form-control get-country-list continent-id" data-id="country_id">
+                                                    <option value="" >Select Continent</option>
+                                                    @foreach ($continentArr as $ar)
+                                                        <option value="{{ $ar->id }}">{{ $ar->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('continent_id')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="country_id">Country<span class="text-error">*</span></label>
+                                                <select name="country_id" data-required="yes" id="country_id" class="form-control get-state-list country-id" data-id="state_id">
+                                                    <option value="" >Select Country</option>
+                                                </select>
+                                                @error('country_id')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="state_id">State<span class="text-error">*</span></label>
+                                                <select name="state_id" data-required="yes" id="state_id" class="form-control get-city-list state-id" data-id="city_id">
+                                                    <option value="" >Select State</option>
+                                                </select>
+                                                @error('state_id')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="city_id">City<span class="text-error">*</span></label>
+                                                <select name="city_id" data-required="yes" id="city_id" class="form-control city-id">
+                                                    <option value="" >Select City</option>
+                                                </select>
+                                                @error('city_id')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="mb-0" for="zipcode">Zipcode<span class="text-error">*</span></label>
+                                                <input type="text" data-required="yes" class="form-control" id="zipcode" name="zipcode" placeholder="Zipcode">
+                                            </div>
+                                            @error('zipcode')
+                                                <div class="error text-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
                                         <div class="col-md-4 col-12 mb-2">
                                             <div class="form-group">
                                                 <label class="mb-0" for="gender">Gender</label>
@@ -133,57 +204,14 @@
 
                                         <div class="col-md-4 col-12 mb-2">
                                             <div class="form-group">
-                                                <label class="mb-0" for="address">Address<span class="text-error">*</span></label>
-                                                <input type="address" data-required="yes" class="form-control" id="address" name="address" placeholder="Address ">
-                                            </div>
-                                            @error('address')
-                                                <div class="error text-error">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-md-4 col-sm-12 mb-2">
-                                            <div class="form-group">
-                                                <label class="mb-0" for="continent_id">Continent<span class="text-error">*</span></label>
-                                                <select name="continent_id" id="continent_id" class="form-control get-country-list continent-id" data-id="country_id">
-                                                    <option value="" >Select Continent</option>
-                                                    @foreach ($continentArr as $ar)
+                                                <label class="mb-0" for="religion_id">Religion</label>
+                                                <select name="religion_id" data-required="yes" id="religion_id" class="form-control get-country-list continent-id" data-id="country_id">
+                                                    <option value="" >Select Religion</option>
+                                                    @foreach ($religionArr as $ar)
                                                         <option value="{{ $ar->id }}">{{ $ar->name }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('continent_id')
-                                                    <div class="error text-error">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12 mb-2">
-                                            <div class="form-group">
-                                                <label class="mb-0" for="country_id">Country<span class="text-error">*</span></label>
-                                                <select name="country_id" id="country_id" class="form-control get-state-list country-id" data-id="state_id">
-                                                    <option value="" >Select Country</option>
-                                                </select>
-                                                @error('country_id')
-                                                    <div class="error text-error">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12 mb-2">
-                                            <div class="form-group">
-                                                <label class="mb-0" for="state_id">State<span class="text-error">*</span></label>
-                                                <select name="state_id" id="state_id" class="form-control get-city-list state-id" data-id="city_id">
-                                                    <option value="" >Select State</option>
-                                                </select>
-                                                @error('state_id')
-                                                    <div class="error text-error">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12 mb-2">
-                                            <div class="form-group">
-                                                <label class="mb-0" for="city_id">City<span class="text-error">*</span></label>
-                                                <select name="city_id" id="city_id" class="form-control city-id">
-                                                    <option value="" >Select City</option>
-                                                </select>
-                                                @error('city_id')
+                                                @error('religion_id')
                                                     <div class="error text-error">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -191,10 +219,20 @@
 
                                         <div class="col-md-4 col-12 mb-2">
                                             <div class="form-group">
+                                                <label class="mb-0" for="is_commission_apply">Use Commission (MLM)</label>
+                                                <select class="form-control" id="is_commission_apply" name="is_commission_apply">
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12 mb-2">
+                                            <div class="form-group">
                                                 <label class="mb-0" for="status">Status</label>
                                                 <select class="form-control" id="status" name="status">
-                                                    <option value="1">Active</option>
                                                     <option value="0">De Active</option>
+                                                    <option value="1">Active</option>
                                                 </select>
                                             </div>
                                         </div>

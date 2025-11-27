@@ -2,29 +2,10 @@
 
 use App\Models\AdminMenu;
 use App\Models\City;
-use App\Models\Configuration;
 use App\Models\Continent;
 use App\Models\Country;
 use App\Models\State;
-use App\Services\ActivityLogService;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
-
-/**
- * Undocumented function
- *
- * @param [type] $key
- * @return void
- */
-// function getConfigurationfield($key) {
-//      $client = Configuration::where('key', $key)->first();
-//      if( $client ) {
-//          return $client->value;
-//      } else {
-//          return false;
-//      }
-// }
 
 /**
  * @Function:        <getAdminSideMenu>
@@ -59,18 +40,6 @@ function getAdminSideMenu(){
     return $parentArr;
 }
 
-/**
- *
- */
-function createTinyUrl(){
-	// if( isset( $_GET['create'] ) && $_GET['create'] == 1 ){
-	// 	$blogArr = Blogs::select('id')->get();
-	// 	foreach( $blogArr as $ar ){
-	// 		$short_url = _en( $ar->id );
-	// 		Blogs::where( [ "id" => $ar->id ] )->update( [ "short_url" => $short_url ] );
-	// 	}
-	// }
-}
 
 /**
  *

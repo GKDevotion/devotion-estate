@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Continent;
 use App\Models\LeadUser;
+use App\Models\Religion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -171,7 +173,11 @@ class LeadUserController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to create review !');
         }
 
-        return view('backend.pages.lead-user.create');
+        $continentArr  = Continent::select( 'id', 'name' )->orderBy('name', 'ASC')->get();
+        // $countryArr  = Country::select( 'id', 'name', 'continent_id' )->orderBy('name', 'ASC')->get();
+        // $stateArr  = State::select( 'id', 'name', 'continent_id', 'country_id' )->orderBy('name', 'ASC')->get();
+        $religionArr  = Religion::select( 'id', 'name' )->orderBy('name', 'ASC')->get();
+        return view('backend.pages.lead-user.create', compact( 'continentArr', 'religionArr' ) );
     }
 
     /**
@@ -188,26 +194,45 @@ class LeadUserController extends Controller
 
         // Validation Data
         $request->validate([
-            'name' => 'required',
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required',
-            'message' => 'required',
-            'property_name' => 'required'
+            'mobile_number' => 'required',
+            'religion_id' => 'required',
+            'continent_id' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
+            'zipcode' => 'required',
         ]);
 
         // Create New Server Record
-        $location = new LeadUser();
-        $location->website_id = $request->website_id ?? 1;
-        $location->property_id = $request->property_id;
-        $location->property_name = $request->property_name;
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->mobile_number = $request->mobile_number;
-        $location->message = $request->message;
-        $location->is_read = $request->is_read;
-        $location->status = $request->status;
-        $location->save();
+        $dataObj = new LeadUser();
+        $dataObj->admin_id = $this->user->id;
+        $dataObj->unique_id = time();
+        $dataObj->reference_id = $request->reference_id;
+        $dataObj->username = generateRandomString(5);
+        $dataObj->first_name = $request->first_name;
+        $dataObj->middle_name = $request->middle_name;
+        $dataObj->last_name = $request->last_name;
+        $dataObj->email = $request->email;
+        $dataObj->mobile_number = $request->mobile_number;
+        $dataObj->gender = $request->gender;
+        $dataObj->religion_id = $request->religion_id;
+        $dataObj->continent_id = $request->continent_id;
+        $dataObj->country_id = $request->country_id;
+        $dataObj->state_id = $request->state_id;
+        $dataObj->city_id = $request->city_id;
+        $dataObj->address = $request->address;
+        $dataObj->zipcode = $request->zipcode;
+        $dataObj->status = $request->status;
+        $dataObj->is_commission_apply = $request->is_commission_apply;
+        $dataObj->commission = getConfigurationField( "DEFAULT_PAYMENT_COMMISSION" );
+        $dataObj->save();
 
-        session()->flash('success', $request->name . ' record has been created !!');
+        session()->flash('success', $request->first_name . ' record has been created !!');
         return redirect()->route('admin.lead-user.index');
     }
 

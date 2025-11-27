@@ -1,25 +1,18 @@
 <?php
 
-use App\Http\Resources\PositionResource;
-use App\Mail\ClientOnBoardMail;
-use App\Models\Address;
-use App\Models\AdminLog;
 use App\Models\City;
 use App\Models\Configuration;
 use App\Models\Continent;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Religion;
-use App\Models\ScheduleList;
 use App\Models\SocialMediaPlatform;
 use App\Models\State;
-use App\Services\ActivityLogService;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 /*
 ++++++++++++++++++++++++++++++++++++++++++++++
@@ -329,7 +322,7 @@ function convertToReadableSize($size){
  */
 function sendAndroidNotification( $title="Notification", $message=""){
 
-    $deviceIds = Customer::whereNotNull('notification_token')->get()->pluck('notification_token')->toArray();
+    $deviceIds = User::whereNotNull('notification_token')->get()->pluck('notification_token')->toArray();
 
     $url = 'https://fcm.googleapis.com/fcm/send';
 
@@ -385,7 +378,7 @@ function sendIOSNotification( $title="Notification", $body="" )
     $headers[] = 'Authorization: key='. $serverKey;
     $notification = array('title' =>$title , 'text' => $body, 'sound' => 'default', 'badge' => '1');
 
-    $deviceIds = Customer::whereNotNull('notification_token')->get()->pluck('notification_token')->toArray();
+    $deviceIds = User::whereNotNull('notification_token')->get()->pluck('notification_token')->toArray();
     if( COUNT( $deviceIds ) > 0 )
     {
         foreach( $deviceIds as $token )
