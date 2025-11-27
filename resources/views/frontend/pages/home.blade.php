@@ -402,7 +402,7 @@
                                                     <div class="card-body">
 
                                                         <div class="d-flex align-items-start mb-2">
-                                                            <h5 class="card-title mb-0 me-3" style="height: 49px">
+                                                            <h5 class="card-title mb-0 me-3" style="min-height: 50px">
                                                                 {!! $property->name !!}
                                                             </h5>
                                                         </div>
@@ -515,7 +515,7 @@
                                                     <div class="card-body">
 
                                                         <div class="d-flex align-items-start mb-2">
-                                                            <h5 class="card-title mb-0 me-3" style="height: 49px">
+                                                            <h5 class="card-title mb-0 me-3" style="min-height: 50px">
                                                                 {!! $property->name !!}
                                                             </h5>
                                                         </div>
