@@ -516,23 +516,23 @@
 
                                                         <div class="d-flex align-items-start mb-2">
                                                             <h5 class="card-title mb-0 me-3" style="min-height: 50px">
-                                                                {!! $property->name !!}
+                                                                {!! $propertysale->name !!}
                                                             </h5>
                                                         </div>
 
                                                         <p class="card-text small text-muted mb-1">
                                                             <i class="bi bi-map me-2"></i>
-                                                            {{ ucfirst($property->location->name ?? 'N/A') }}
+                                                            {{ ucfirst($propertysale->location->name ?? 'N/A') }}
                                                         </p>
                                                         <p class="card-text small mt-0">
                                                             <i class="bi bi-door-closed me-1"></i>
-                                                            Beds: {{ $property->beds }}
+                                                            Beds: {{ $propertysale->beds }}
                                                             <i class="bi bi-bucket me-1"></i>
-                                                            Baths: {{ $property->baths }}
+                                                            Baths: {{ $propertysale->baths }}
                                                         {{-- </p>
                                                         <p class="card-text small"> --}}
                                                             <i class="bi bi-rulers me-1"></i>
-                                                            Area: {{ $property->area }} Sq.Ft.
+                                                            Area: {{ $propertysale->area }} Sq.Ft.
                                                         {{-- </p> --}}
 
                                                         {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
