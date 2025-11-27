@@ -88,8 +88,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                IMAGE GALLERY
-                ======================== -->
+                                IMAGE GALLERY
+                                ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -101,7 +101,7 @@
                         <div class="carousel-inner" id="lightgallery">
                             <style>
                                 .property-carousel-img {
-
+                                    height: 600px;
                                     object-fit: cover;
                                     /* keeps equal height & fills the box */
                                     object-position: center;
@@ -146,8 +146,8 @@
         </div>
 
         <!-- =======================
-                CONTENT ROW (DETAILS + CONTACT)
-                ======================== -->
+                                CONTENT ROW (DETAILS + CONTACT)
+                                ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -353,13 +353,25 @@
 
                     <!-- Seller Info -->
                     <div class="d-flex align-items-center justify-content-between mb-3">
-
                         <img src="{{ $property->agent->image
                             ? asset('storage/app/agent/' . $property->agent->image)
-                            : url('public/img/devotion-group-favicon.png') }}"
-                            class="rounded-circle" style="width:100px; height:100px; object-fit:cover;">
-
+                            : url('public\img\devotion-group-favicon.png') }}"
+                            class="rounded-circle agent-img">
                         <div>
+                            <style>
+                          .agent-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: #ffffff; /* White circle background */
+    padding: 6px; /* Space so logo is fully visible */
+    border: 2px solid #ddd;
+    overflow: hidden; /* Keeps circle clean */
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+}
+
+                            </style>
                             <p class="fw-semibold mb-1">{{ $property->agent->first_name }}</p>
 
                             <p class="text-muted small mb-1">
