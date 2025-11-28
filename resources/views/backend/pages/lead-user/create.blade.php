@@ -62,8 +62,12 @@
                                         <div class="col-md-4 col-12 mb-2">
                                             <div class="form-group">
                                                 <label class="mb-0" for="reference_id">Reference ID<span class="text-error"></span></label>
-                                                <input type="text" data-required="no" class="form-control" id="user_search" name="reference_id" placeholder="Search User ID" autofocus>
+                                                <!-- Text input shows saved user name -->
+                                                <input type="text" data-required="no" class="form-control" id="user_search" name="" placeholder="Search User ID" autofocus>
+
+                                                <!-- Hidden field stores saved user_id -->
                                                 <input type="hidden" name="reference_id" id="reference_id">
+
                                                 <div id="user_list" class="list-group mt-2"></div>
                                             </div>
                                             @error('reference_id')
@@ -273,7 +277,7 @@
             $('#user_search').keyup(function() {
                 let query = $(this).val();
 
-                if (query.length < 2) {
+                if (query.length < 5) {
                     $('#user_list').hide();
                     return;
                 }
@@ -287,7 +291,7 @@
                         if(data.length > 0){
                             data.forEach(item => {
                                 html += `<a href="#" class="list-group-item list-group-item-action user-item"
-                                            data-id="${item.id}" data-name="${item.unique_id}">
+                                            data-id="${item.id}" data-name="${item.first_name+" "+item.middle_name+" "+item.last_name}( ${item.unique_id} )">
                                             ${item.unique_id}
                                         </a>`;
                             });
@@ -305,10 +309,10 @@
                 e.preventDefault();
 
                 let id = $(this).data('id');
-                let unique_id = $(this).data('unique_id');
+                let unique_id = $(this).data('name');
 
                 $('#user_search').val(unique_id);
-                $('#user_id').val(id);
+                $('#reference_id').val(id);
 
                 $('#user_list').hide(); // close dropdown
             });

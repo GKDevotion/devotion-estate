@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Continent;
+use App\Models\Country;
 use App\Models\LeadUser;
 use App\Models\Religion;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -77,7 +80,7 @@ class LeadUserController extends Controller
             ->addColumn('reference', function (LeadUser $ar) {
 
                 if( $ar->reference_id > 0 ){
-                    return $ar->parent->first_name." ".$ar->parent->last_name." (".$ar->reference_id.")";
+                    return $ar->parent->unique_id;
                 } else {
                     return "-";
                 }
@@ -129,7 +132,7 @@ class LeadUserController extends Controller
                 }
 
                 if ($this->user->can('lead-user.delete')) {
-                    $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="lead-users">
+                    $action .= '<button class="d-none btn btn-edit text-white delete-record dropdown-item" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="lead-users">
                     <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                     </button>';
                 }
@@ -211,9 +214,9 @@ class LeadUserController extends Controller
         // Create New Server Record
         $dataObj = new LeadUser();
         $dataObj->admin_id = $this->user->id;
-        $dataObj->unique_id = time();
+        $dataObj->unique_id = "DE".date('my').appendDynamicUniqueID( 'lead_users', 4 );
         $dataObj->reference_id = $request->reference_id;
-        $dataObj->username = generateRandomString(5);
+        $dataObj->username = "DE".generateRandomString(6);
         $dataObj->first_name = $request->first_name;
         $dataObj->middle_name = $request->middle_name;
         $dataObj->last_name = $request->last_name;
@@ -260,9 +263,13 @@ class LeadUserController extends Controller
         }
 
         $data = LeadUser::find($id);
+        $continentArr = Continent::select( 'id', 'name' )->orderBy('name', 'ASC')->get();
+        $countryArr = Country::select( 'id', 'name', 'continent_id' )->where('continent_id', $data->continent_id)->orderBy('name', 'ASC')->get();
+        $stateArr = State::select( 'id', 'name', 'continent_id', 'country_id' )->where('country_id', $data->country_id)->orderBy('name', 'ASC')->get();
+        $cityArr = City::select( 'id', 'name', 'continent_id', 'country_id', 'state_id' )->where('state_id', $data->state_id)->orderBy('name', 'ASC')->get();
+        $religionArr  = Religion::select( 'id', 'name' )->orderBy('name', 'ASC')->get();
+        return view('backend.pages.lead-user.edit', compact( 'data', 'continentArr', 'religionArr', 'countryArr', 'stateArr', 'cityArr' ) );
 
-
-        return view('backend.pages.lead-user.edit', compact('data'));
     }
 
     /**
@@ -280,22 +287,42 @@ class LeadUserController extends Controller
 
         // Validation Data
         $request->validate([
-            'name' => 'required',
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required',
-            'message' => 'required',
+            'mobile_number' => 'required',
+            'religion_id' => 'required',
+            'continent_id' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
+            'zipcode' => 'required',
         ]);
 
         // Create New Server Record
-        $location = LeadUser::find($id);
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->mobile_number = $request->mobile_number;
-        $location->message = $request->message;
-        $location->is_read = $request->is_read;
-        $location->status = $request->status;
-        $location->save();
+        $dataObj = LeadUser::find($id);
+        $dataObj->admin_id = $this->user->id;
+        $dataObj->reference_id = $request->reference_id;
+        $dataObj->first_name = $request->first_name;
+        $dataObj->middle_name = $request->middle_name;
+        $dataObj->last_name = $request->last_name;
+        $dataObj->email = $request->email;
+        $dataObj->mobile_number = $request->mobile_number;
+        $dataObj->gender = $request->gender;
+        $dataObj->religion_id = $request->religion_id;
+        $dataObj->continent_id = $request->continent_id;
+        $dataObj->country_id = $request->country_id;
+        $dataObj->state_id = $request->state_id;
+        $dataObj->city_id = $request->city_id;
+        $dataObj->address = $request->address;
+        $dataObj->zipcode = $request->zipcode;
+        $dataObj->status = $request->status;
+        $dataObj->is_commission_apply = $request->is_commission_apply;
+        $dataObj->save();
 
-        session()->flash('success', $request->name . ' record has been updated !!');
+        session()->flash('success', $request->first_name . ' record has been updated !!');
         return redirect()->route('admin.lead-user.index');
     }
 
@@ -331,7 +358,7 @@ class LeadUserController extends Controller
     {
         $search = $request->get('q'); // query string from AJAX
 
-        $users = LeadUser::select('id', 'unique_id')
+        $users = LeadUser::select('id', 'unique_id', 'first_name', 'middle_name', 'last_name')
             ->where('unique_id', 'LIKE', "%{$search}%")
             ->limit(5)
             ->get();

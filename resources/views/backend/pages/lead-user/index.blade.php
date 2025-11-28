@@ -112,7 +112,7 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'unique_id', name: 'unique_id' },
-                    { data: 'reference_id', name: 'reference_id' },
+                    { data: 'reference', name: 'reference' },
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
                     { data: 'mobile_number', name: 'mobile_number' },

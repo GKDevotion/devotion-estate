@@ -608,3 +608,8 @@ if (!function_exists('getConfigurationField')) {
         return $config ? $config->value : $default;
     }
 }
+
+function appendDynamicUniqueID( $table, $no=3 ){
+    $value = DB::table($table)->select( 'id' )->count() + 1;
+    return str_pad($value, $no, '0', STR_PAD_LEFT);
+}
