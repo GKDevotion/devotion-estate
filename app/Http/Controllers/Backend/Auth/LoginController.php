@@ -79,7 +79,12 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        Auth::guard('admin')->logout();
+        if( Auth::guard('admin')->user() ){
+            Auth::guard('admin')->logout();
+        } else {
+            session()->flash('error', 'The session is no longer active. Please log in to continue.');
+        }
+
         return redirect()->route('admin.login');
     }
 }
