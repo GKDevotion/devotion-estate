@@ -261,19 +261,19 @@
                     <div class="col-lg-4 col-md-6 mb-4 footer-links">
                         <h5 class="mb-3" style="color: #333;">Our Company</h5>
                         <ul class="list-unstyled">
-                            <li><a href="about-us" class=" text-decoration-none d-block py-1"><i
+                            <li><a href="{{ route('about-us') }}" class=" text-decoration-none d-block py-1"><i
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem; color:#aa8038"></i>About Us</a>
                             </li>
-                            <li><a href="contact-us" class="text-decoration-none d-block py-1"><i
+                            <li><a href="{{ route('contact-us') }}" class="text-decoration-none d-block py-1"><i
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Contact
                                     Us</a></li>
-                            <li><a href="privacy-policy" class="text-decoration-none d-block py-1"><i
+                            <li><a href="{{ route('privacy-policy') }}" class="text-decoration-none d-block py-1"><i
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Privacy
                                     Policy</a></li>
-                            <li><a href="terms-condition" class="text-decoration-none d-block py-1"><i
+                            <li><a href="{{ route('terms-condition') }}" class="text-decoration-none d-block py-1"><i
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Terms
                                     Condition</a></li>

@@ -230,6 +230,7 @@ Permission Create - Admin Panel
                                         } ?>
                                     </ul>
                                 </div>
+                                
                                 <div class="col-md-<?php echo ( $id ) ? '12' : '9';?> ">
                                     <div class="tab-content p-0">
                                         <?php displayMenu($dataArr, $id); ?>
