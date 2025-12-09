@@ -13,7 +13,7 @@
         .child {
             text-align: left;
         }
-        
+
     </style>
 @endsection
 
@@ -64,11 +64,11 @@
                                         <th>Name</th>
                                         <th>Purpose</th>
                                         <th>Type</th>
-                                        <th>Publish</th>
                                         <th>Area</th>
                                         <th>Price</th>
                                         <th>Address</th>
                                         <th>View</th>
+                                        <th>Publish</th>
                                         <th>Status</th>
                                         <th>Update At</th>
                                         <th>Action</th>
@@ -124,11 +124,11 @@
                     { data: 'name', name: 'name' },
                     { data: 'purpose', name: 'purpose' },
                     { data: 'type', name: 'type' },
-                    { data: 'publish', name: 'publish' },
                     { data: 'area', name: 'area' },
                     { data: 'price', name: 'price' },
                     { data: 'location_id', name: 'location_id' },
                     { data: 'count', name: 'count' },
+                    { data: 'publish', name: 'publish' },
                     { data: 'status', name: 'status' },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },

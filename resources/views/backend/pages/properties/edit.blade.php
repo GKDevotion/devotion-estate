@@ -594,11 +594,17 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="develop_by">Develop By <span
-                                                    class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
-                                                id="develop_by" name="develop_by" placeholder="Developer Name"
-                                                value="{{ old('develop_by', $data->develop_by) }}">
+                                            <label class="mb-0" for="developer_id">Develop By <span class="text-error">*</span></label>
+                                            <select name="developer_id" id="developer_id" class="form-control select2"
+                                                data-required="yes">
+                                                <option value="">Select Location</option>
+                                                @foreach ($developerObj as $ar)
+                                                    <option value="{{ $ar->id }}"
+                                                        {{ old('developer_id', $data->developer_id ?? '') == $ar->id ? 'selected' : '' }}>
+                                                        {{ $ar->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                             <div class="error text-error"></div>
                                         </div>
 

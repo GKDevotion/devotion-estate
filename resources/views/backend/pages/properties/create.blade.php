@@ -460,11 +460,14 @@
 
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="develop_by">Develop By <span
-                                                    class="text-error">*</span></label>
-                                            <input type="text" class="form-control mb-2" data-required="yes"
-                                                id="develop_by" name="develop_by" placeholder="Developer Name"
-                                                value="">
+                                            <label class="mb-0" for="developer_id">Develop By <span class="text-error">*</span></label>
+                                                <select name="developer_id" id="developer_id" class="form-control select2" data-required="yes">
+                                                    <option value="">Select Location</option>
+                                                    @foreach ($developerObj as $ar)
+                                                        <option value="{{ $ar->id }}">{{ $ar->name }}</option>
+                                                    @endforeach
+                                                </select>
+
                                             <div class="error text-error"></div>
                                         </div>
 
@@ -768,6 +771,12 @@
                 allowClear: true,
                 width: '100%' // IMPORTANT: keeps same layout
             });
+
+            $('#developer_id').select2({
+                placeholder: "Search Developer",
+                allowClear: true,
+                width: '100%' // IMPORTANT: keeps same layout
+            });
         });
 
         // Initialize Dropify
@@ -795,6 +804,6 @@
                 });
             }
         });
-        
+
     </script>
 @endsection

@@ -13,7 +13,11 @@ class HotOfferController extends Controller
     {
         $perPage = $request->get('perPage', 4);
 
-        $query = Properties::where('is_hot_offer', 1)->where('status', 1);
+        $query = Properties::where([
+            'is_hot_offer' => 1,
+            'status' => 1,
+            'publish' => 1
+        ]);
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 
@@ -42,5 +46,5 @@ class HotOfferController extends Controller
         ));
     }
 
- 
+
 }

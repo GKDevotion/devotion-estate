@@ -27,7 +27,7 @@ class Properties extends Model
         });
     }
 
-    
+
     public function single_image(){
         return $this->hasOne( PropertyImageMap::class, 'property_id', 'id', 'filename');
     }
@@ -39,7 +39,7 @@ class Properties extends Model
     public function location(){
         return $this->hasOne( Location::class, 'id', 'location_id');
     }
-    
+
     public function feature()
     {
         return $this->hasOne(PropertyFeature::class, 'id', 'name');
@@ -58,9 +58,11 @@ class Properties extends Model
         return $this->hasOne(PaymentPlan::class, 'id','name');
     }
 
-     public function agent(){
-        return $this->hasOne(User::class, 'id', 'agent_id', 'image');
-     }
+    public function agent(){
+    return $this->hasOne(User::class, 'id', 'agent_id', 'image');
+    }
 
-  
+    public function developer(){
+    return $this->hasOne(Developer::class, 'id', 'developer_id');
+    }
 }

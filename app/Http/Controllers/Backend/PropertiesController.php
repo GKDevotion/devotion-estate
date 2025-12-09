@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Developer;
 use App\Models\Location;
 use App\Models\PaymentPlan;
 use App\Models\Properties;
@@ -116,7 +117,7 @@ class PropertiesController extends Controller
             $query->where( $request->field, $request->value );
         }
 
-        $query->select('id', 'unique_id', 'name', 'slug', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count','status', 'updated_at' );
+        $query->select('id', 'unique_id', 'developer_id', 'name', 'slug', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count','status', 'updated_at' );
 
         return DataTables::eloquent($query)
             ->addColumn('id', function(Properties $ar) {
@@ -131,19 +132,24 @@ class PropertiesController extends Controller
                 $image = optional($ar->images->first())->filename;
 
                 if ($image) {
-                    return '<img src="' . asset('storage/app/propertyImage/' . $image) . '" 
+                    return '<img src="' . asset('storage/app/propertyImage/' . $image) . '"
                  width="80" height="60" style="object-fit:cover; border-radius:4px;" />';
                 }
 
                 return 'No Image';
             })
-            
-            ->addColumn('name', function (Properties $ar) {
-                
-            return '<a href="' . url('property/' . ($ar->slug ?? '')) . '" class="fw-bold text-center" target="_blank" style=" text-decoration:none; color: #ab8134; ">'
-                . ($ar->name ?? '') .
-                '</a>';
 
+            ->addColumn('name', function (Properties $ar) {
+
+                $name = '<a href="' . url('property/' . ($ar->slug ?? '')) . '" class="fw-bold text-center" target="_blank" style=" text-decoration:none; color: #ab8134; ">'
+                    . ($ar->name ?? '') .
+                    '</a>';
+
+                    if( $ar->developer ){
+                        $name.= " (".$ar->developer->name.")";
+                    }
+
+                return $name;
             })
 
             ->addColumn('purpose', function (Properties $ar) {
@@ -171,7 +177,8 @@ class PropertiesController extends Controller
             })
 
             ->addColumn('publish', function (Properties $ar) {
-                return $ar->publish ? 'Published' : 'Un Publish';
+                // return $ar->publish ? 'Published' : 'Un Publish';
+                return '<i class="fa fa-'.( $ar->publish == 0 ? 'times' : 'check').' update-field-status" data-field="publish" data-status="'.$ar->publish.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="properties"></i>';
             })
             ->addColumn('area', function (Properties $ar) {
                 return $ar->area;
@@ -230,7 +237,7 @@ class PropertiesController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id','image', 'unique_id', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id','image', 'unique_id', 'developer', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -269,8 +276,9 @@ class PropertiesController extends Controller
             'status' => 1,
             'type' => 4
         ] )->get();
+        $developerObj = Developer::select('id', 'name')->where( 'status', 1 )->get();
 
-        return view('backend.pages.properties.create', compact( 'propertyTypeObj','propertyFeatureObj', 'locationObj','paymentPlanObj', 'agentObj' ));
+        return view('backend.pages.properties.create', compact( 'propertyTypeObj','propertyFeatureObj', 'locationObj','paymentPlanObj', 'agentObj', 'developerObj' ));
     }
 
     /**
@@ -286,7 +294,7 @@ class PropertiesController extends Controller
         }
 
         if( $request->step == 1 ){
-    
+
             $request->validate([
                 'name' => 'required',
                 // 'seo_title' => 'required',
@@ -347,10 +355,10 @@ class PropertiesController extends Controller
 
         // Fetch data
         $data = getSearchByProperties($request->all(), $perPage);
-             
+
         // Add extra values for blade
         $data['perPage'] = $perPage;
-           
+
         // Detect which main blade to load
         switch ($request->redirect_page) {
             case 'rent':
@@ -369,7 +377,7 @@ class PropertiesController extends Controller
                 $view = 'frontend.pages.buy-properties';
                 break;
         }
-     
+
         // ✅ Return main page with data
         return view($view, $data );
     }
@@ -405,8 +413,9 @@ class PropertiesController extends Controller
         }
 
         $paymentPlanArr = PaymentPlan::where( 'status', 1 )->pluck('name', 'id');//->select('id', 'name')->get();
+        $developerObj = Developer::select('id', 'name')->where( 'status', 1 )->get();
 
-        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap', 'paymentPlanArr' ));
+        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap', 'paymentPlanArr', 'developerObj' ));
     }
 
     /**

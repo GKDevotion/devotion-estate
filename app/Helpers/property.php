@@ -32,25 +32,25 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
         //1. Basic Information -->
         if ($request->step == 1 || $request->_method == "PUT") {
 
-            $Price = str_replace(',', '', $request->price);
+            $price = str_replace(',', '', $request->price);
 
 
             // 🟢 Handle "Other" location
             if ($request->location_id === 'other' && !empty($request->other_location)) {
 
-                $name = trim($request->other_location);  
-                $slug = convertStringToSlug($name);    
+                $name = trim($request->other_location);
+                $slug = convertStringToSlug($name);
 
                 $location = Location::firstOrCreate(
-                    ['name' => $name], 
+                    ['name' => $name],
                     [
                         'continent_id'  => 3,       // change if needed
                         'country_id'    => 231,     // UAE, etc.
                         'state_id'      => 3391,
                         'city_id'       => 32,
                         'admin_id'     => 1,
-                        'address'      => $name,   
-                        'slug'         => $slug,         
+                        'address'      => $name,
+                        'slug'         => $slug,
                         'display_name' => $name,
                         'status'       => 1,
                     ]
@@ -92,14 +92,14 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->rera_number = $request->rera_number;
             $propertyDataObj->permit_number = $request->permit_number;
             $propertyDataObj->location_id = $location_id;
-            $propertyDataObj->develop_by =  $request->develop_by;
+            $propertyDataObj->developer_id =  $request->developer_id;
             $propertyDataObj->agent_id  = $request->agent_id;
-            $propertyDataObj->publish = 0;
+            // $propertyDataObj->publish = 0;
             $propertyDataObj->beds = $request->beds;
             $propertyDataObj->baths = $request->baths;
             $propertyDataObj->area = $request->area;
-            $propertyDataObj->price = $Price; 
-            $propertyDataObj->status = 0;
+            $propertyDataObj->price = $price;
+            // $propertyDataObj->status = $status;
 
             $propertyDataObj->save();
         }
@@ -187,8 +187,8 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
                     }
                 }
             }
-            
-            
+
+
             $uploadedImages = [];
 
             if ($request->file('propertyImage')) {
@@ -298,7 +298,10 @@ function getPropertiesByType($type = [1])
     $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
     return Properties::with('subType', 'location', 'single_image')
         ->whereIn('purpose', $type)
-        ->where('status', 1)
+        ->where([
+            'status' => 1,
+            'publish' => 1
+        ])
         ->latest()
         ->take($sliderPage)
         ->get();
@@ -307,7 +310,10 @@ function getPropertiesByType($type = [1])
 
 function getSearchByProperties($request, $perPage = 4)
 {
-    $query = Properties::where('status', 1);
+    $query = Properties::where([
+            'status' => 1,
+            'publish' => 1
+        ]);
 
 
  // 🔹 Detect page source (rent, buy, offplan, luxury, etc.)
