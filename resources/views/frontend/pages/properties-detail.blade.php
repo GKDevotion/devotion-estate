@@ -311,7 +311,7 @@
 
                                     <div class="d-flex justify-content-between mb-3">
                                         <span class="fw-semibold">Developer</span>
-                                        <span>{{ $property->develop_by ?? 'N/A' }}</span>
+                                        <span>{{ $property->developer ? $property->developer->name : 'N/A' }}</span>
                                     </div>
 
                                 </div>
