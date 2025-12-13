@@ -76,6 +76,7 @@ class ContactUsController extends Controller
                 return match ($ar->type) {
                     1 => 'Residential',
                     2 => 'Commercial',
+                    3 => 'Land',
                     default => 'All',
                 };
             })
