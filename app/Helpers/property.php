@@ -24,10 +24,10 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
         //creat new client or person
         if ($property_id) {
             $propertyDataObj = Properties::find($property_id);
-            $propertyDataObj->unique_id = "PID" . setPropertyUniqueNumber(4);
             $msg = "updated";
         } else {
             $propertyDataObj = new Properties();
+            $propertyDataObj->unique_id = "PID" . setPropertyUniqueNumber(4);
         }
         //1. Basic Information -->
         if ($request->step == 1 || $request->_method == "PUT") {
