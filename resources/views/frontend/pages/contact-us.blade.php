@@ -160,6 +160,26 @@
                                 <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Your Comment" required></textarea>
                             </div>
 
+
+                            <div class="mb-2" style="display:flex;align-items:center;gap:10px;">
+                                <div
+                                    style="
+                                    background:#f2f2f2;
+                                    padding:5px;
+                                    font-size:15px;
+                                    font-weight:bold;
+                                    letter-spacing:4px;
+                                  ">
+                                    {{ $code }}
+                                </div>
+
+                                <input type="text" name="verification_code" class="form-control" placeholder="Enter code" required>
+                            </div>
+
+                            @error('verification_code')
+                                <small style="color:red">{{ $message }}</small>
+                            @enderror
+
                             <div class="text-center">
                                 <button type="submit" class="btn btn-custom">
                                     <i class="fas fa-paper-plane me-2"></i>Send Request
@@ -191,7 +211,7 @@
                 background-color: #aa8038;
                 color: #fff;
                 border: none;
-                padding: 0.6rem 1.5rem;
+                padding: 0.5rem 0.9rem;
                 border-radius: 30px;
                 transition: all 0.3s ease;
             }

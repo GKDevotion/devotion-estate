@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class ContactUsController extends Controller
 {
@@ -17,7 +19,11 @@ class ContactUsController extends Controller
     {
         // Fetch property types from DB
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->where('status', 1)->orderBy('name')->get();
-        return view('frontend.pages.contact-us', compact('propertyTypeObj')); // assuming your blade file is buy-properties.blade.php
+          // Generate 6 digit code
+        $code = strtoupper(Str::random(6));
+        Session::put('contact_verification_code', $code);
+
+        return view('frontend.pages.contact-us', compact('propertyTypeObj', 'code')); // assuming your blade file is buy-properties.blade.php
     }
 
     public function store(Request $request)
@@ -27,7 +33,18 @@ class ContactUsController extends Controller
             'name' => 'required|string|max:25',
             'email' => 'required|email',
             'comment' => 'required|string',
+             'verification_code' => 'required'
         ]);
+
+        
+        if ($request->verification_code !== Session::get('contact_verification_code')) {
+            return back()->withErrors([
+                'verification_code' => 'Invalid verification code'
+            ])->withInput();
+        }
+
+        // Clear code after success
+        Session::forget('contact_verification_code');
 
         // ✅ Step 2: Store Data
         ContactUs::create([
