@@ -32,7 +32,11 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet">
+        <!-- Swiper CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
         <style>
             .badge-rent,
@@ -88,8 +92,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                                IMAGE GALLERY
-                                ======================== -->
+                IMAGE GALLERY
+                 ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -146,8 +150,8 @@
         </div>
 
         <!-- =======================
-                                CONTENT ROW (DETAILS + CONTACT)
-                                ======================== -->
+                 CONTENT ROW (DETAILS + CONTACT)
+                 ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -359,18 +363,20 @@
                             class="rounded-circle agent-img">
                         <div>
                             <style>
-                          .agent-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: contain;
-    background-color: #ffffff; /* White circle background */
-    padding: 6px; /* Space so logo is fully visible */
-    border: 2px solid #ddd;
-    overflow: hidden; /* Keeps circle clean */
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
-}
-
+                                .agent-img {
+                                    width: 80px;
+                                    height: 80px;
+                                    border-radius: 50%;
+                                    object-fit: contain;
+                                    background-color: #ffffff;
+                                    /* White circle background */
+                                    padding: 6px;
+                                    /* Space so logo is fully visible */
+                                    border: 2px solid #ddd;
+                                    overflow: hidden;
+                                    /* Keeps circle clean */
+                                    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+                                }
                             </style>
                             <p class="fw-semibold mb-1">{{ $property->agent->first_name }}</p>
 
@@ -436,9 +442,146 @@
 
         </div>
 
+        @if ($relatedProperties->count())
+            <div class="container my-5">
+                <div class="d-flex align-items-center mb-4">
+                    <h4 class="fw-bold mb-0">Related Properties</h4>
+
+                    <div class="ms-auto d-flex gap-2 swiper-nav">
+                        <div class="swiper-button-prev related-prev position-static" style="color: #aa8038;"></div>
+                        <div class="swiper-button-next related-next position-static" style="color: #aa8038"></div>
+                    </div>
+                </div>
+
+
+                <style>
+                    <style>.related-prev,
+                    .related-next {
+                        color: #aa8038;
+                    }
+
+                    .related-prev::after,
+                    .related-next::after {
+                        font-size: 18px;
+                    }
+
+                    .swiper-slide {
+                        height: auto;
+                    }
+
+                    .relatedSwiper .swiper-slide {
+                        height: auto;
+                        display: flex;
+                    }
+
+                    .relatedSwiper .card {
+                        width: 100%;
+                    }
+
+                    .swiper-nav .swiper-button-prev,
+                    .swiper-nav .swiper-button-next {
+                        width: 32px;
+                        height: 32px;
+                        background: #fff;
+                        border-radius: 50%;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                    }
+
+                    .related-prev::after,
+                    .related-next::after {
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+
+                </style>
+
+                </style>
+                <div class="swiper relatedSwiper">
+                    <div class="swiper-wrapper">
+
+                        @foreach ($relatedProperties as $item)
+                            <div class="swiper-slide">
+                                <a href="{{ route('property.detail', $item->slug) }}" class="btn btn-sm text-white">
+                                    <div class="card h-100 shadow-sm border-0 rounded-4">
+
+                                        <!-- Image -->
+                                        <div class="position-relative">
+                                            <img src="{{ $item->images->first()
+                                                ? asset('storage/app/propertyImage/' . $item->images->first()->filename)
+                                                : asset('public/img/no-image.jpg') }}"
+                                                class="card-img-top rounded-top-4"
+                                                style="height:220px; object-fit:cover;">
+                                        </div>
+
+                                        <!-- Body -->
+                                        <div class="card-body">
+                                            <h6 class="fw-semibold text-truncate mb-1">
+                                                {{ $item->name }}
+                                            </h6>
+
+                                            <p class="text-muted small mb-2">
+                                                <i class="bi bi-geo-alt"></i>
+                                                {{ $item->location->name ?? 'N/A' }}
+                                            </p>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                
+                                                 <h5 class="fw-bold mt-1 fs-20" style=" color:#aa8038;">
+                                                    AED {{ number_format($item->price, 2) }}
+                                                </h5>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        @endif
+
+
     </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        new Swiper('.relatedSwiper', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            loop: true,
+
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                992: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+    </script>
 
 
 

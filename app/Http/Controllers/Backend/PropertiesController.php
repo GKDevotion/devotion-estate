@@ -34,7 +34,8 @@ class PropertiesController extends Controller
     /**
      *
      */
-    public function setPublicVar(){
+    public function setPublicVar()
+    {
         $this->is_assign_super_admin = $this->user->is_assign_super_admin;
         $this->admin_id = $this->user->id;
     }
@@ -44,7 +45,7 @@ class PropertiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request )
+    public function index(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('properties.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
@@ -63,7 +64,7 @@ class PropertiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function newPropertyindex( Request $request )
+    public function newPropertyindex(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('properties.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
@@ -74,7 +75,7 @@ class PropertiesController extends Controller
             'value' => 1
         ];
 
-        return view( 'backend.pages.properties.index', compact('param') );
+        return view('backend.pages.properties.index', compact('param'));
     }
 
     /**
@@ -82,7 +83,7 @@ class PropertiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function featurePropertyindex( Request $request )
+    public function featurePropertyindex(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('properties.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
@@ -93,38 +94,39 @@ class PropertiesController extends Controller
             'value' => 1
         ];
 
-        return view( 'backend.pages.properties.index', compact('param') );
+        return view('backend.pages.properties.index', compact('param'));
     }
 
     /**
      *
      */
-    public function ajaxIndex( Request $request ){
+    public function ajaxIndex(Request $request)
+    {
 
         $this->setPublicVar();
 
         $query = Properties::query()->orderBy('id', 'DESC');
 
-        if( !$this->is_assign_super_admin ){
-            $query->where( 'admin_id', $this->admin_id );
+        if (!$this->is_assign_super_admin) {
+            $query->where('admin_id', $this->admin_id);
         }
 
         /**
          * set dynamic other property features
          * like: new, feature, luxury, etc...,
          */
-        if( $request->field && $request->value ){
-            $query->where( $request->field, $request->value );
+        if ($request->field && $request->value) {
+            $query->where($request->field, $request->value);
         }
 
-        $query->select('id', 'unique_id', 'developer_id', 'name', 'slug', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count','status', 'updated_at' );
+        $query->select('id', 'unique_id', 'developer_id', 'name', 'slug', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at');
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function(Properties $ar) {
+            ->addColumn('id', function (Properties $ar) {
                 return $ar->id;
             })
 
-            ->addColumn('unique_id', function(Properties $ar) {
+            ->addColumn('unique_id', function (Properties $ar) {
                 return $ar->unique_id;
             })
 
@@ -145,9 +147,9 @@ class PropertiesController extends Controller
                     . ($ar->name ?? '') .
                     '</a>';
 
-                    if( $ar->developer ){
-                        $name.= " (".$ar->developer->name.")";
-                    }
+                if ($ar->developer) {
+                    $name .= " (" . $ar->developer->name . ")";
+                }
 
                 return $name;
             })
@@ -178,7 +180,7 @@ class PropertiesController extends Controller
 
             ->addColumn('publish', function (Properties $ar) {
                 // return $ar->publish ? 'Published' : 'Un Publish';
-                return '<i class="fa fa-'.( $ar->publish == 0 ? 'times' : 'check').' update-field-status" data-field="publish" data-status="'.$ar->publish.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="properties"></i>';
+                return '<i class="fa fa-' . ($ar->publish == 0 ? 'times' : 'check') . ' update-field-status" data-field="publish" data-status="' . $ar->publish . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="properties"></i>';
             })
             ->addColumn('area', function (Properties $ar) {
                 return $ar->area;
@@ -189,40 +191,40 @@ class PropertiesController extends Controller
             ->addColumn('location_id', function (Properties $ar) {
                 return $ar->location->name ?? '';
             })
-            ->addColumn('count', function(Properties $ar) {
+            ->addColumn('count', function (Properties $ar) {
                 return $ar->count;
             })
 
-           ->addColumn('status', function(Properties $ar) {
+            ->addColumn('status', function (Properties $ar) {
                 $status = "";
-                if( true ){
-                    $status = '<i class="fa fa-'.( $ar->status == 0 ? 'times' : 'check').' update-status" data-status="'.$ar->status.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="properties"></i>';
+                if (true) {
+                    $status = '<i class="fa fa-' . ($ar->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $ar->status . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="properties"></i>';
                 } else {
-                 $status = '<select class="form-control update-status badge '.( $ar->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$ar->id.'" data-table="properties">
-                            <option value="1" '.($ar->status == 1 ? 'selected' : '').'>Active</option>
-                            <option value="0" '.($ar->status == 0 ? 'selected' : '').'>De-Active</option>
+                    $status = '<select class="form-control update-status badge ' . ($ar->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $ar->id . '" data-table="properties">
+                            <option value="1" ' . ($ar->status == 1 ? 'selected' : '') . '>Active</option>
+                            <option value="0" ' . ($ar->status == 0 ? 'selected' : '') . '>De-Active</option>
                         </select>';
                 }
 
                 return $status;
             })
-            ->addColumn('updated_at', function(Properties $ar) {
-                return formatDate( "Y-m-d H:i", $ar->updated_at );
+            ->addColumn('updated_at', function (Properties $ar) {
+                return formatDate("Y-m-d H:i", $ar->updated_at);
             })
-            ->addColumn('action', function(Properties $ar ) {
+            ->addColumn('action', function (Properties $ar) {
 
                 $action = '
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_'.$ar->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_' . $ar->id . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         &#x22EE;
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="action_menu_'.$ar->id.'">
+                    <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                    if ($this->user->can('properties.edit')) {
-                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.properties.edit', $ar->id).'">
+                if ($this->user->can('properties.edit')) {
+                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.properties.edit', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
-                    }
+                }
 
 
                 if ($this->user->can('properties.delete')) {
@@ -231,20 +233,20 @@ class PropertiesController extends Controller
                     </button>';
                 }
 
-                    $action.= '
+                $action .= '
                     </div>
                 ';
 
                 return $action;
             })
-            ->rawColumns(['id','image', 'unique_id', 'developer', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'image', 'unique_id', 'developer', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
-                    if( $searchValue != "" ){
+                    if ($searchValue != "") {
                         $query->where('name', 'like', "%{$searchValue}%")
                             ->orWhere('description', 'like', "%{$searchValue}%");
-                        }
+                    }
                 }
             })
             ->order(function ($query) {
@@ -268,17 +270,17 @@ class PropertiesController extends Controller
         if (is_null($this->user) || !$this->user->can('properties.create')) {
             abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
-        $paymentPlanObj = PaymentPlan::select('id', 'name')->where( 'status', 1 )->get();
-        $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where( 'status', 1 )->get();
-        $propertyFeatureObj = PropertyFeature::select('id', 'name')->where( 'status', 1 )->get();
-        $locationObj = Location::select('id', 'name')->where( 'status', 1 )->get();
-        $agentObj = User::select('id', 'first_name', 'last_name')->where( [
+        $paymentPlanObj = PaymentPlan::select('id', 'name')->where('status', 1)->get();
+        $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where('status', 1)->get();
+        $propertyFeatureObj = PropertyFeature::select('id', 'name')->where('status', 1)->get();
+        $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+        $agentObj = User::select('id', 'first_name', 'last_name')->where([
             'status' => 1,
             'type' => 4
-        ] )->get();
-        $developerObj = Developer::select('id', 'name')->where( 'status', 1 )->get();
+        ])->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
 
-        return view('backend.pages.properties.create', compact( 'propertyTypeObj','propertyFeatureObj', 'locationObj','paymentPlanObj', 'agentObj', 'developerObj' ));
+        return view('backend.pages.properties.create', compact('propertyTypeObj', 'propertyFeatureObj', 'locationObj', 'paymentPlanObj', 'agentObj', 'developerObj'));
     }
 
     /**
@@ -293,7 +295,7 @@ class PropertiesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to create Location !');
         }
 
-        if( $request->step == 1 ){
+        if ($request->step == 1) {
 
             $request->validate([
                 'name' => 'required',
@@ -307,13 +309,13 @@ class PropertiesController extends Controller
         $this->setPublicVar();
 
         $propertyId = 0;
-        if( $request->step > 1 || $request->id != 0 ){
+        if ($request->step > 1 || $request->id != 0) {
             $propertyId = $request->id;
         }
 
-        $personDataObj = storePropertyRecord( $request, $this->admin_id, $propertyId, 0 );
+        $personDataObj = storePropertyRecord($request, $this->admin_id, $propertyId, 0);
 
-        return response()->json( $personDataObj );
+        return response()->json($personDataObj);
     }
 
     /**
@@ -325,6 +327,19 @@ class PropertiesController extends Controller
     public function show($slug)
     {
         $property = Properties::with('agent')->where('slug', $slug)->firstOrFail();
+
+        // In your PropertyController (show method)
+
+        $relatedProperties = \App\Models\Properties::with(['images', 'location'])
+            ->where('status', 1)
+            ->where('id', '!=', $property->id)
+            ->where(function ($q) use ($property) {
+                $q->where('location_id', $property->location_id)
+                    ->orWhere('developer_id', $property->developer_id);
+            })
+            ->latest()
+            ->take(10)
+            ->get();
 
         // Determine the property type label based on DB value
         $typeMap = [
@@ -344,7 +359,7 @@ class PropertiesController extends Controller
             ->where('type', 4)
             ->get();
 
-        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent'));
+        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'relatedProperties'));
     }
 
 
@@ -379,7 +394,7 @@ class PropertiesController extends Controller
         }
 
         // ✅ Return main page with data
-        return view($view, $data );
+        return view($view, $data);
     }
 
 
@@ -395,7 +410,7 @@ class PropertiesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
 
-        $paymentPlanObj = PaymentPlan::select('id', 'name')->where( 'status', 1 )->get();
+        $paymentPlanObj = PaymentPlan::select('id', 'name')->where('status', 1)->get();
         $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where('status', 1)->get();
         $locationObj = Location::select('id', 'name')->where('status', 1)->get();
         $agentObj = User::select('id', 'first_name', 'last_name')->where([
@@ -406,16 +421,16 @@ class PropertiesController extends Controller
         $data = Properties::findOrFail($id);
 
         $featureMap = [];
-        if( $data->featureMap ){
-            foreach( $data->featureMap as $dt ){
+        if ($data->featureMap) {
+            foreach ($data->featureMap as $dt) {
                 $featureMap[] = $dt->feature_id;
             }
         }
 
-        $paymentPlanArr = PaymentPlan::where( 'status', 1 )->pluck('name', 'id');//->select('id', 'name')->get();
-        $developerObj = Developer::select('id', 'name')->where( 'status', 1 )->get();
+        $paymentPlanArr = PaymentPlan::where('status', 1)->pluck('name', 'id'); //->select('id', 'name')->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
 
-        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap', 'paymentPlanArr', 'developerObj' ));
+        return view('backend.pages.properties.edit', compact('data', 'propertyTypeObj', 'locationObj', 'agentObj', 'featureMap', 'paymentPlanArr', 'developerObj'));
     }
 
     /**
@@ -453,11 +468,11 @@ class PropertiesController extends Controller
         $location->price = $request->price;
         $location->address = $request->address;
         $location->sort_order = $request->sort_order;
-        $location->slug = convertStringToSlug( $request->name );
+        $location->slug = convertStringToSlug($request->name);
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->name.' record has been updated !!');
+        session()->flash('success', $request->name . ' record has been updated !!');
         return redirect()->route('admin.properties.index');
     }
 
@@ -478,39 +493,39 @@ class PropertiesController extends Controller
         if (!is_null($record)) {
 
             //delete Featured property map if applicable
-            PropertyFeatureMap::where( 'property_id', $id )->delete();
+            PropertyFeatureMap::where('property_id', $id)->delete();
 
             //delete property image map if applicable
-            PropertyImageMap::where( 'property_id', $id )->delete();
+            PropertyImageMap::where('property_id', $id)->delete();
 
             //delete proerty
             $record->delete();
         }
 
-        return response()->json( ['data' => ['message' => "'".$record->name.'" has been successfully deleted.' ] ], 200);
+        return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
     }
 
 
     public function sendMail($agent_id)
-{
-    $agent = User::where('id', $agent_id)
-        ->where('status', 1)
-        ->where('type', 4)
-        ->firstOrFail();
+    {
+        $agent = User::where('id', $agent_id)
+            ->where('status', 1)
+            ->where('type', 4)
+            ->firstOrFail();
 
-    $subject = 'Property Inquiry';
-    $messageBody = "Hello {$agent->first_name},\n\nI am interested in one of your properties. Please share more details.";
+        $subject = 'Property Inquiry';
+        $messageBody = "Hello {$agent->first_name},\n\nI am interested in one of your properties. Please share more details.";
 
-    try {
-        Mail::raw($messageBody, function ($message) use ($agent, $subject) {
-            $message->to($agent->email_id)
+        try {
+            Mail::raw($messageBody, function ($message) use ($agent, $subject) {
+                $message->to($agent->email_id)
                     ->subject($subject)
                     ->from('support@devotionestate.com', 'Devotion Estate');
-        });
+            });
 
-        return back()->with('success', 'Inquiry email sent successfully to the agent!');
-    } catch (\Exception $e) {
-        return back()->with('error', 'Failed to send email. Please try again later.');
+            return back()->with('success', 'Inquiry email sent successfully to the agent!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to send email. Please try again later.');
+        }
     }
-}
 }
