@@ -302,6 +302,7 @@ function getPropertiesByType($type = [1])
             'status' => 1,
             'publish' => 1
         ])
+        ->groupBy( 'developer_id' )
         ->latest()
         ->take($sliderPage)
         ->get();
