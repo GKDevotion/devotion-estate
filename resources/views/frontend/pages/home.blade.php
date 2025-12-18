@@ -55,11 +55,11 @@
             }
 
             .vh-100 {
-                height: 70vh !important;
+                height: 75vh !important;
             }
         </style>
         <div id="heroCarousel" class="carousel slide vh-100" data-bs-ride="carousel">
-            <div class="carousel-inner" style="height: 95% !important;">
+            <div class="carousel-inner" style="height: 100% !important;">
 
                 <div class="carousel-item active h-100 position-relative">
                     {{-- <iframe
@@ -72,7 +72,7 @@
 
                     <video autoplay muted loop playsinline class="w-100 h-100 object-fit-cover">
                         <source
-                            src="{{ url('public/frontend/assets/video/Victor-Dubai-Real-Estate -Luxury-Properties-Smart-Investment-Opportunities.mp4') }}"
+                            src="{{ url('public/frontend/assets/video/Emaar.mp4') }}"
                             type="video/mp4">
                     </video>
                 </div>
@@ -176,7 +176,7 @@
                         <!-- RENT -->
                         <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel"
                             aria-labelledby="btn-rent">
-                          
+
                                 <div class="row g-3 align-items-end justify-content-center" style="width: 1077px;">
 
                                     <!-- Location -->
@@ -234,7 +234,7 @@
                         <!-- LAND -->
                         <div class="tab-pane fade p-3 text-center d-none " id="content-land" role="tabpanel"
                             aria-labelledby="btn-land">
-                        
+
                                 <div class="row g-3 align-items-end justify-content-center" style="width: 1077px;">
 
                                     <!-- Location -->
@@ -580,7 +580,7 @@
     <!-- Properties For New -->
     <section class="py-5" style="background-color: #f8f5ee;">
         <div class="container">
-            <div class="text-end mb-5">
+            <div class="text-end mb-0">
                 <div class="text-center flex-grow-1">
                     <h2 class="fw-bold text-uppercase mb-1" style="font-size: 45px;">New Properties</h2>
                     <p class="text-muted mb-0">Find newly listed properties in your local area with best pricing.</p>
