@@ -62,11 +62,6 @@
                                 <div class="col-md-10 offset-1">
                                     <div class="row">
 
-
-
-                                        <div class="row">
-
-
                                             <div class="col-md-4 mb-2">
                                                 <label class="mb-0" for="image">Image</label>
 
@@ -80,6 +75,7 @@
                                             </div>
 
 
+                                            <div class="row">
 
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-group">
@@ -95,13 +91,27 @@
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="sub_title">Sub Title</label>
-                                                    <input type="text" class="form-control" id="sub_title" name="sub_title"
-                                                        placeholder="sub_title" value="{{ $data->sub_title }}">
+                                                    <input type="text" class="form-control" id="sub_title"
+                                                        name="sub_title" placeholder="sub_title"
+                                                        value="{{ $data->sub_title }}">
                                                 </div>
                                                 @error('sub_title')
                                                     <div class="error text-error">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <div class="form-group">
+                                                    <label class="mb-0" for="link">Link</label>
+                                                    <input type="text" class="form-control" id="link" name="link"
+                                                        placeholder="Link" value="{{ $data->link }}">
+                                                </div>
+                                                @error('link')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
                                         </div>
 
                                         <div class="row">

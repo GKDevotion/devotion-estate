@@ -159,6 +159,7 @@ class BannerController extends Controller
         $dataObj = new Banner();
         $dataObj->name = $request->name;
         $dataObj->sub_title = $request->sub_title;
+        $dataObj->link = $request->link;
         $dataObj->status = $request->status;
 
         // Handle Image Upload
@@ -239,6 +240,7 @@ class BannerController extends Controller
 
         $dataObj->name = $request->name;
         $dataObj->sub_title = $request->sub_title;
+        $dataObj->link = $request->link;
         $dataObj->status = $request->status;
 
         // Handle image update
