@@ -19,7 +19,8 @@
 
         {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> --}}
         {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> --}}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
 
         <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
@@ -83,21 +84,45 @@
             </div>
         </div> --}}
         <div class="carousel-inner">
+            <style>
+`                .view-more-btn {
+                    background-color: #aa8038;
+                    border: 1px solid #aa8038;
+                    color: #fff;
+                    transition: all 0.3s ease;
+                }
 
-            @if( count( $bannerObjs ) >0 )
+                .view-more-btn:hover {
+                    background-color: #aa8038;
+                    border: 1px solid #aa8038;
+
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(170, 128, 56, 0.3);
+                }
+            </style>
+            @if (count($bannerObjs) > 0)
                 @foreach ($bannerObjs as $key => $banner)
-                    <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
-                        <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="{{$banner->name}}">
+                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                        <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100"
+                            alt="{{ $banner->name }}">
                         <div class="carousel-caption">
                             <h1 class="carousel-title mb-2">{{ $banner->name }}</h1>
                             <p class="carousel-subtitle mb-4">{{ $banner->sub_title }}</p>
+
+                            {{-- View More Button --}}
+                            @if (!empty($banner->link))
+                                <a href="{{ $banner->link }}" class="btn view-more-btn px-4 py-2" target="_blank">
+                                    View More
+                                </a>
+                            @endif
                         </div>
                     </div>
                 @endforeach
             @else
                 <!-- Default message if no banners exist -->
                 <div class="carousel-item active">
-                    <div class="d-flex justify-content-center align-items-center" style="height: 400px; background:#dcd6d6;">
+                    <div class="d-flex justify-content-center align-items-center"
+                        style="height: 400px; background:#dcd6d6;">
                         <h3 class="text-muted"></h3>
                     </div>
                 </div>
@@ -107,7 +132,8 @@
 
 
         <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
-        <div class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
+        <div
+            class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
             <div class="carousel-content text-center p-4 rounded-3">
 
                 <!-- Buttons act as tab triggers -->
@@ -193,7 +219,8 @@
                     </div>
 
                     <!-- RENT -->
-                    <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel" aria-labelledby="btn-rent">
+                    <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel"
+                        aria-labelledby="btn-rent">
                         <div class="row g-3 align-items-center justify-content-center">
 
                             <!-- Location -->
@@ -416,13 +443,13 @@
                                                             Beds: {{ $property->beds }}
                                                             <i class="bi bi-bucket me-1"></i>
                                                             Baths: {{ $property->baths }}
-                                                        {{-- </p>
+                                                            {{-- </p>
                                                         <p class="card-text small"> --}}
                                                             <i class="bi bi-rulers me-1"></i>
                                                             Area: {{ $property->area }} Sq.Ft.
-                                                        {{-- </p> --}}
+                                                            {{-- </p> --}}
 
-                                                        {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
+                                                            {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
                                                             {{ $property->subType->name ?? '' }}
                                                         </button> --}}
 
@@ -430,7 +457,7 @@
 
                                                     <hr class="property-divider">
 
-                                                  
+
                                                     <div
                                                         class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
                                                         <p class="fs-5  property-price mb-0">
@@ -529,13 +556,13 @@
                                                             Beds: {{ $propertysale->beds }}
                                                             <i class="bi bi-bucket me-1"></i>
                                                             Baths: {{ $propertysale->baths }}
-                                                        {{-- </p>
+                                                            {{-- </p>
                                                         <p class="card-text small"> --}}
                                                             <i class="bi bi-rulers me-1"></i>
                                                             Area: {{ $propertysale->area }} Sq.Ft.
-                                                        {{-- </p> --}}
+                                                            {{-- </p> --}}
 
-                                                        {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
+                                                            {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
                                                             {{ $property->subType->name ?? '' }}
                                                         </button> --}}
 
@@ -690,11 +717,11 @@
             transition: all 0.3s ease;
             border: 1px solid #eedfcb;
             height: 100%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
         }
 
         .property-card:hover {
-            box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
             transform: translateY(-6px);
         }
 
@@ -964,15 +991,16 @@
         </div>
     </section>
 
-    @if( count( $awardObjs ) > 0 )
-    <!-- Our Achivements -->
+    @if (count($awardObjs) > 0)
+        <!-- Our Achivements -->
         <style>
             .award-box {
                 transition: 0.3s ease-in-out;
             }
+
             .award-box:hover {
                 transform: translateY(-8px);
-                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             }
 
             .award-img {
@@ -997,10 +1025,11 @@
                         <!-- Award -->
                         <div class="col-md-4">
                             <div class="award-box text-center p-4 shadow-sm rounded">
-                                <img src="{{ asset('storage/app/award/' . $award->image) }}" class="img-fluid mb-3 award-img" alt="{{$award->name}}">
-                                <h5 class="fw-bold">{{$award->name}}</h5>
+                                <img src="{{ asset('storage/app/award/' . $award->image) }}"
+                                    class="img-fluid mb-3 award-img" alt="{{ $award->name }}">
+                                <h5 class="fw-bold">{{ $award->name }}</h5>
                                 <p class="text-muted small">
-                                    {{$award->sub_title}}
+                                    {{ $award->sub_title }}
                                 </p>
                             </div>
                         </div>
@@ -1030,8 +1059,6 @@
             // Initial check (for edit pages)
             $type.trigger('change');
         });
-
-
     </script>
 
 @endsection
