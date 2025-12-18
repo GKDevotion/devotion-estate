@@ -69,6 +69,7 @@ class HomeController extends Controller
             "ALTER TABLE `notifications` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:Disabled, 1:Enabled' AFTER `type`;",
             "ALTER TABLE `designations` CHANGE `sort_order` `sort_order` TINYINT NOT NULL DEFAULT '0' COMMENT 'sort ordering';",
             "ALTER TABLE `designations` CHANGE `sort_order` `sort_order` SMALLINT NOT NULL DEFAULT '0' COMMENT 'sort ordering';",
+            "ALTER TABLE `banners` ADD `link` VARCHAR(255) NOT NULL AFTER `image`;",
         ];
 
         foreach ($sqlArr as $sql) {

@@ -85,7 +85,7 @@
         </div> --}}
         <div class="carousel-inner">
             <style>
-`                .view-more-btn {
+             .view-more-btn {
                     background-color: #aa8038;
                     border: 1px solid #aa8038;
                     color: #fff;
@@ -95,7 +95,6 @@
                 .view-more-btn:hover {
                     background-color: #aa8038;
                     border: 1px solid #aa8038;
-
                     transform: translateY(-2px);
                     box-shadow: 0 8px 20px rgba(170, 128, 56, 0.3);
                 }
