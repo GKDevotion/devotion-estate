@@ -4,27 +4,6 @@
 
 @section('content')
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Bootstrap 5 -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Bootstrap Icons -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-        <!-- FontAwesome -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> --}}
-        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> --}}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
-
-        <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
-    </head>
-
     <style>
         .search-overlay {
             z-index: 50;
@@ -66,76 +45,124 @@
     </style>
 
     <!-- Hero Carousel -->
-    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+    @if( getConfigurationField( 'SHOW_VIDEO' ) )
+        <style>
+            .video-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(0,0,0,0.45);
+                z-index: 1;
+            }
+        </style>
+        <div id="heroCarousel" class="carousel slide vh-100" data-bs-ride="carousel">
+            <div class="carousel-inner h-100">
 
-        {{-- <div class="carousel-inner">
+                <div class="carousel-item active h-100 position-relative">
+                    {{-- <iframe
+                        class="w-100 h-100 position-absolute top-0 start-0"
+                        src="https://www.youtube.com/embed/yQj5YxLEMuw?autoplay=1&mute=1&loop=1&playlist=yQj5YxLEMuw&controls=0&rel=0"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen>
+                    </iframe> --}}
 
-            <!-- Slide 1 -->
-            <div class="carousel-item active">
-                <img src="{{ url('public/frontend/assets/images/img/slide3.jpg') }}" class="d-block w-100" alt="">
-                <div class="carousel-caption">
-                    <h1 class="carousel-title mb-2">Find your dream home</h1>
-                    <h1 class="carousel-title mb-4">with Us</h1>
-                    <p class="carousel-subtitle mb-4">
-                        Affordable options, easy financing, expert advice every step of the way
-                    </p>
+                    <video autoplay muted loop playsinline class="w-100 h-100 object-fit-cover">
+                        <source src="{{url('public/frontend/assets/video/Victor-Dubai-Real-Estate -Luxury-Properties-Smart-Investment-Opportunities.mp4')}}" type="video/mp4">
+                    </video>
                 </div>
+
             </div>
-        </div> --}}
-        <div class="carousel-inner">
 
-            @if( count( $bannerObjs ) >0 )
-                @foreach ($bannerObjs as $key => $banner)
-                    <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
-                        <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="{{$banner->name}}">
-                        <div class="carousel-caption">
-                            <h1 class="carousel-title mb-2">{{ $banner->name }}</h1>
-                            <p class="carousel-subtitle mb-4">{{ $banner->sub_title }}</p>
+            <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
+            <div class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
+
+                <div class="carousel-content text-center">
+                    <h1 class="carousel-title mb-2 fs-1">Find your dream home</h1>
+
+                    <!-- Buttons act as tab triggers -->
+                    <div class="mb-3" role="tablist">
+
+                        <button class="btn btn-light active" id="btn-buy" data-bs-toggle="tab" data-bs-target="#content-buy"
+                            type="button" role="tab" aria-controls="content-buy" aria-selected="true">
+                            Buy
+                        </button>
+
+                        <button class="btn btn-light" id="btn-rent" data-bs-toggle="tab" data-bs-target="#content-rent"
+                            type="button" role="tab" aria-controls="content-rent" aria-selected="false">
+                            Rent
+                        </button>
+
+                        <button class="btn btn-light d-none" id="btn-land" data-bs-toggle="tab" data-bs-target="#content-land"
+                            type="button" role="tab" aria-controls="content-land" aria-selected="false">
+                            Land
+                        </button>
+
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content carousel-tab-content shadow-sm rounded-3">
+
+                        <!-- BUY -->
+                        <div class="tab-pane fade show active p-3" id="content-buy" role="tabpanel" aria-labelledby="btn-buy">
+                            <form action="{{ route('properties.search') }}" autocomplete="off">
+                                <div class="row g-3 align-items-center justify-content-center">
+
+                                    <!-- Location -->
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select name="location" class="form-select border-start-1">
+                                                <option value="" select>All Location</option>
+                                                @foreach ($location as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+
+                                        <select class="form-select" id="type" name="type" style="font-size: 0.9rem;">
+                                            <option value="" selected disabled>Property Type</option>
+                                            <option value="1">Residential</option>
+                                            <option value="2">Commercial</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-6 col-sm-12">
+                                        <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;">
+                                            <option value="" select disabled> Sub Type</option>
+                                            @foreach ($propertyTypeObj as $type)
+                                                <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                    class="dynamic default-sub-type-hide d-none">
+                                                    {{ $type->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
+                                    <!-- Hidden input -->
+                                    <input type="hidden" name="redirect_page" value="off">
+
+                                    <!-- Keyword -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <input type="text" class="form-control" name="keyword"
+                                            placeholder="Search Keyword here">
+                                    </div>
+                                </div>
+
+                                <button class="btn search-btn mt-4" type="submit">
+                                    Search Now <i class="bi bi-search"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>
-                @endforeach
-            @else
-                <!-- Default message if no banners exist -->
-                <div class="carousel-item active">
-                    <div class="d-flex justify-content-center align-items-center" style="height: 400px; background:#dcd6d6;">
-                        <h3 class="text-muted"></h3>
-                    </div>
-                </div>
-            @endif
 
-        </div>
-
-
-        <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
-        <div class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
-            <div class="carousel-content text-center p-4 rounded-3">
-
-                <!-- Buttons act as tab triggers -->
-                <div class="mb-3" role="tablist">
-
-                    <button class="btn btn-light active" id="btn-buy" data-bs-toggle="tab" data-bs-target="#content-buy"
-                        type="button" role="tab" aria-controls="content-buy" aria-selected="true">
-                        Buy
-                    </button>
-
-                    <button class="btn btn-light" id="btn-rent" data-bs-toggle="tab" data-bs-target="#content-rent"
-                        type="button" role="tab" aria-controls="content-rent" aria-selected="false">
-                        Rent
-                    </button>
-
-                    <button class="btn btn-light d-none" id="btn-land" data-bs-toggle="tab" data-bs-target="#content-land"
-                        type="button" role="tab" aria-controls="content-land" aria-selected="false">
-                        Land
-                    </button>
-
-                </div>
-
-                <!-- Tab Content -->
-                <div class="tab-content carousel-tab-content shadow-sm rounded-3">
-
-                    <!-- BUY -->
-                    <div class="tab-pane fade show active p-3" id="content-buy" role="tabpanel" aria-labelledby="btn-buy">
-                        <form action="{{ route('properties.search') }}" autocomplete="off">
+                        <!-- RENT -->
+                        <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel" aria-labelledby="btn-rent">
                             <div class="row g-3 align-items-center justify-content-center">
 
                                 <!-- Location -->
@@ -145,7 +172,7 @@
                                             <i class="bi bi-geo-alt"></i>
                                         </span>
                                         <select name="location" class="form-select border-start-1">
-                                            <option value="" select>All Location</option>
+                                            <option value="0" select disabled>Location</option>
                                             @foreach ($location as $p)
                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
@@ -153,10 +180,10 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-lg-3 col-md-6 col-sm-12">
 
-                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;">
+                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
+                                        required>
                                         <option value="" selected disabled>Property Type</option>
                                         <option value="1">Residential</option>
                                         <option value="2">Commercial</option>
@@ -164,8 +191,9 @@
                                 </div>
 
                                 <div class="col-lg-2 col-md-6 col-sm-12">
-                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;">
-                                        <option value="" select disabled> Sub Type</option>
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="" select disabled>Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
                                                 class="dynamic default-sub-type-hide d-none">
@@ -174,7 +202,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
 
                                 <!-- Hidden input -->
                                 <input type="hidden" name="redirect_page" value="off">
@@ -189,126 +216,298 @@
                             <button class="btn search-btn mt-4" type="submit">
                                 Search Now <i class="bi bi-search"></i>
                             </button>
-                        </form>
-                    </div>
+                        </div>
 
-                    <!-- RENT -->
-                    <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel" aria-labelledby="btn-rent">
-                        <div class="row g-3 align-items-center justify-content-center">
+                        <!-- LAND -->
+                        <div class="tab-pane fade p-3 text-center d-none " id="content-land" role="tabpanel"
+                            aria-labelledby="btn-land">
+                            <div class="row g-3 align-items-center justify-content-center">
 
-                            <!-- Location -->
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="bi bi-geo-alt"></i>
-                                    </span>
-                                    <select name="location" class="form-select border-start-1">
-                                        <option value="0" select disabled>Location</option>
-                                        @foreach ($location as $p)
-                                            <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                        @endforeach
+                                <!-- Location -->
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+                                        <select name="location" class="form-select border-start-1">
+                                            <option value="0">Select Location</option>
+                                            @foreach ($location as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Rent/Buy/Land -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select name="purpose" class="form-select">
+                                        <option value="0">All</option>
+                                        <option value="1">Rent</option>
+                                        <option value="2">Buy</option>
+                                        <option value="3">Land</option>
                                     </select>
+                                </div>
+
+                                <!-- Residential/Commercial -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select name="type" class="form-select">
+                                        <option value="0">All</option>
+                                        <option value="1">Residential</option>
+                                        <option value="2">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Hidden input -->
+                                <input type="hidden" name="redirect_page" value="off">
+
+                                <!-- Keyword -->
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <input type="text" class="form-control" name="keyword"
+                                        placeholder="Search Keyword here">
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-
-                                <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
-                                    required>
-                                    <option value="" selected disabled>Property Type</option>
-                                    <option value="1">Residential</option>
-                                    <option value="2">Commercial</option>
-                                </select>
-                            </div>
-
-                            <div class="col-lg-2 col-md-6 col-sm-12">
-                                <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
-                                    required>
-                                    <option value="" select disabled>Sub Type</option>
-                                    @foreach ($propertyTypeObj as $type)
-                                        <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
-                                            class="dynamic default-sub-type-hide d-none">
-                                            {{ $type->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <!-- Hidden input -->
-                            <input type="hidden" name="redirect_page" value="off">
-
-                            <!-- Keyword -->
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <input type="text" class="form-control" name="keyword"
-                                    placeholder="Search Keyword here">
-                            </div>
+                            <button class="btn search-btn mt-4" type="submit">
+                                Search Now <i class="bi bi-search"></i>
+                            </button>
                         </div>
 
-                        <button class="btn search-btn mt-4" type="submit">
-                            Search Now <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-
-                    <!-- LAND -->
-                    <div class="tab-pane fade p-3 text-center d-none " id="content-land" role="tabpanel"
-                        aria-labelledby="btn-land">
-                        <div class="row g-3 align-items-center justify-content-center">
-
-                            <!-- Location -->
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="bi bi-geo-alt"></i>
-                                    </span>
-                                    <select name="location" class="form-select border-start-1">
-                                        <option value="0">Select Location</option>
-                                        @foreach ($location as $p)
-                                            <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Rent/Buy/Land -->
-                            <div class="col-lg-2 col-md-6 col-sm-12">
-                                <select name="purpose" class="form-select">
-                                    <option value="0">All</option>
-                                    <option value="1">Rent</option>
-                                    <option value="2">Buy</option>
-                                    <option value="3">Land</option>
-                                </select>
-                            </div>
-
-                            <!-- Residential/Commercial -->
-                            <div class="col-lg-2 col-md-6 col-sm-12">
-                                <select name="type" class="form-select">
-                                    <option value="0">All</option>
-                                    <option value="1">Residential</option>
-                                    <option value="2">Commercial</option>
-                                </select>
-                            </div>
-
-                            <!-- Hidden input -->
-                            <input type="hidden" name="redirect_page" value="off">
-
-                            <!-- Keyword -->
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <input type="text" class="form-control" name="keyword"
-                                    placeholder="Search Keyword here">
-                            </div>
-                        </div>
-
-                        <button class="btn search-btn mt-4" type="submit">
-                            Search Now <i class="bi bi-search"></i>
-                        </button>
                     </div>
 
                 </div>
+            </div>
+
+        </div>
+    @else
+        <div id="heroCarousel" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="4000">
+            <div class="carousel-inner">
+
+                @if( count( $bannerObjs ) >0 )
+                    @foreach ($bannerObjs as $key => $banner)
+                        <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
+                            <img src="{{ asset('storage/app/banner/' . $banner->image) }}" class="d-block w-100" alt="{{$banner->name}}">
+                            <div class="carousel-caption">
+                                <h1 class="carousel-title mb-2">{{ $banner->name }}</h1>
+                                <p class="carousel-subtitle mb-4">{{ $banner->sub_title }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <!-- Default message if no banners exist -->
+                    <div class="carousel-item active">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 400px; background:#dcd6d6;">
+                            <h3 class="text-muted"></h3>
+                        </div>
+                    </div>
+                @endif
 
             </div>
-        </div>
 
-    </div>
+            <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
+            <div class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
+                <div class="carousel-content text-center p-4 rounded-3">
+
+                    <!-- Buttons act as tab triggers -->
+                    <div class="mb-3" role="tablist">
+
+                        <button class="btn btn-light active" id="btn-buy" data-bs-toggle="tab" data-bs-target="#content-buy"
+                            type="button" role="tab" aria-controls="content-buy" aria-selected="true">
+                            Buy
+                        </button>
+
+                        <button class="btn btn-light" id="btn-rent" data-bs-toggle="tab" data-bs-target="#content-rent"
+                            type="button" role="tab" aria-controls="content-rent" aria-selected="false">
+                            Rent
+                        </button>
+
+                        <button class="btn btn-light d-none" id="btn-land" data-bs-toggle="tab" data-bs-target="#content-land"
+                            type="button" role="tab" aria-controls="content-land" aria-selected="false">
+                            Land
+                        </button>
+
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content carousel-tab-content shadow-sm rounded-3">
+
+                        <!-- BUY -->
+                        <div class="tab-pane fade show active p-3" id="content-buy" role="tabpanel" aria-labelledby="btn-buy">
+                            <form action="{{ route('properties.search') }}" autocomplete="off">
+                                <div class="row g-3 align-items-center justify-content-center">
+
+                                    <!-- Location -->
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </span>
+                                            <select name="location" class="form-select border-start-1">
+                                                <option value="" select>All Location</option>
+                                                @foreach ($location as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+
+                                        <select class="form-select" id="type" name="type" style="font-size: 0.9rem;">
+                                            <option value="" selected disabled>Property Type</option>
+                                            <option value="1">Residential</option>
+                                            <option value="2">Commercial</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-6 col-sm-12">
+                                        <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;">
+                                            <option value="" select disabled> Sub Type</option>
+                                            @foreach ($propertyTypeObj as $type)
+                                                <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                    class="dynamic default-sub-type-hide d-none">
+                                                    {{ $type->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
+                                    <!-- Hidden input -->
+                                    <input type="hidden" name="redirect_page" value="off">
+
+                                    <!-- Keyword -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <input type="text" class="form-control" name="keyword"
+                                            placeholder="Search Keyword here">
+                                    </div>
+                                </div>
+
+                                <button class="btn search-btn mt-4" type="submit">
+                                    Search Now <i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- RENT -->
+                        <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel" aria-labelledby="btn-rent">
+                            <div class="row g-3 align-items-center justify-content-center">
+
+                                <!-- Location -->
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+                                        <select name="location" class="form-select border-start-1">
+                                            <option value="0" select disabled>Location</option>
+                                            @foreach ($location as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+
+                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="" selected disabled>Property Type</option>
+                                        <option value="1">Residential</option>
+                                        <option value="2">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 0.9rem;"
+                                        required>
+                                        <option value="" select disabled>Sub Type</option>
+                                        @foreach ($propertyTypeObj as $type)
+                                            <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                class="dynamic default-sub-type-hide d-none">
+                                                {{ $type->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Hidden input -->
+                                <input type="hidden" name="redirect_page" value="off">
+
+                                <!-- Keyword -->
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <input type="text" class="form-control" name="keyword"
+                                        placeholder="Search Keyword here">
+                                </div>
+                            </div>
+
+                            <button class="btn search-btn mt-4" type="submit">
+                                Search Now <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+
+                        <!-- LAND -->
+                        <div class="tab-pane fade p-3 text-center d-none " id="content-land" role="tabpanel"
+                            aria-labelledby="btn-land">
+                            <div class="row g-3 align-items-center justify-content-center">
+
+                                <!-- Location -->
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+                                        <select name="location" class="form-select border-start-1">
+                                            <option value="0">Select Location</option>
+                                            @foreach ($location as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Rent/Buy/Land -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select name="purpose" class="form-select">
+                                        <option value="0">All</option>
+                                        <option value="1">Rent</option>
+                                        <option value="2">Buy</option>
+                                        <option value="3">Land</option>
+                                    </select>
+                                </div>
+
+                                <!-- Residential/Commercial -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select name="type" class="form-select">
+                                        <option value="0">All</option>
+                                        <option value="1">Residential</option>
+                                        <option value="2">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Hidden input -->
+                                <input type="hidden" name="redirect_page" value="off">
+
+                                <!-- Keyword -->
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <input type="text" class="form-control" name="keyword"
+                                        placeholder="Search Keyword here">
+                                </div>
+                            </div>
+
+                            <button class="btn search-btn mt-4" type="submit">
+                                Search Now <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    @endif
+
 
     <style>
         .btn-type {
@@ -430,7 +629,7 @@
 
                                                     <hr class="property-divider">
 
-                                                  
+
                                                     <div
                                                         class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
                                                         <p class="fs-5  property-price mb-0">

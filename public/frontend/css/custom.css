@@ -40,7 +40,7 @@
 
   /* navbar */
   .navbar-brand img {
-      height: 80px;
+      height: 60px;
   }
 
   .nav-link {
@@ -482,8 +482,8 @@
 
     /* Tab Content Box */
     .carousel-tab-content {
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 1rem;
+        /* background-color: rgba(255, 255, 255, 0.2); */
+        /* padding: 1rem; */
         width: 1000px;
         margin: 0 auto; /* centers content */
     }
@@ -726,7 +726,7 @@
         color: #aa8038;
         font-weight: 700;
     }
-    
+
   .icon-box {
       color: #aa8038;
       /* Primary color for icons/accents */
@@ -1178,7 +1178,7 @@
       color: #888;
       direction: ltr;
       text-align: justify;
-      
+
   }
   /* .content-container p {
     color: #575a7b;
