@@ -55,7 +55,7 @@
             }
 
             .vh-100 {
-                height: 75vh !important;
+                height: 100vh !important;
             }
         </style>
         <div id="heroCarousel" class="carousel slide vh-100" data-bs-ride="carousel">

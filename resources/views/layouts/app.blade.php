@@ -29,7 +29,7 @@
             <style>
 
                 .navbar-transparent {
-                    background-color: rgba(255, 255, 255, 0.3);
+                    background-color: rgba(255, 255, 255, 0.7);
                     /* background-color: transparent; */
                     transition: background-color 0.3s ease, box-shadow 0.3s ease;
                 }
