@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ config('app.name', 'Devotion') }} / @yield('title', 'Page')</title>
 
+        <!-- Add favicon link -->
+        <link rel="icon" href="{{url('public/frontend/assets/images/favicon.png')}}" type="image/x-icon">
+
         <!-- Bootstrap 5 -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
