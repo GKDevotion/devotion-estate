@@ -124,12 +124,12 @@
 
         <!-- Bed -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-            <input type="number" class="form-control" name="bed" placeholder="Bed" value="{{request('bed') ?? ''}}" min="1">
+            <input type="number" class="form-control rounded-2" name="bed" placeholder="Bed" value="{{request('bed') ?? ''}}" min="1">
         </div>
 
         <!-- Bath -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-            <input type="number" class="form-control" name="bath" placeholder="Bath" value="{{request('bath') ?? ''}}" min="1">
+            <input type="number" class="form-control rounded-2" name="bath" placeholder="Bath" value="{{request('bath') ?? ''}}" min="1">
         </div>
 
 
