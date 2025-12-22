@@ -1588,14 +1588,85 @@ a:hover .bi-house-door::before {
     max-height: 250px;
 }
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
     --bs-gutter-x: 1.5rem;
-    --bs-gutter-y
-
-: 0;
+    --bs-gutter-y: 0;
     width: 100%;
-    padding-right: calc(var(--bs-gutter-x) * .5);
-    padding-left: calc(var(--bs-gutter-x) * .5);
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-right: auto;
     margin-left: auto;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+}
+
+.vh-100 {
+    height: 70vh !important;
+}
+
+.search-overlay {
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.carousel-caption {
+    position: absolute;
+    right: 15%;
+    top: 5.5rem;
+    left: 15%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    color: var(--bs-carousel-caption-color);
+    text-align: center;
+}
+
+/* Hover effect */
+.btn-light:hover {
+    background-color: #aa8038;
+    /* Bootstrap primary color */
+    color: #fff;
+    border-color: #a78234;
+    transition: all 0.3s ease;
+}
+
+/* Active (selected tab) effect */
+.btn-light.active {
+    background-color: #aa8038;
+    color: #fff;
+    border-color: #a78234;
+    box-shadow: 0 0 8px #c29444;
+}
+
+/* Optional: add small animation */
+.btn-light {
+    transition: all 0.3s ease;
+}
+
+.award-box {
+    transition: 0.3s ease-in-out;
+}
+
+.award-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.award-img {
+    max-width: 120px;
+    transition: 0.3s;
+}
+
+.award-box:hover .award-img {
+    transform: scale(1.1);
 }

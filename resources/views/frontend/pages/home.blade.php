@@ -4,60 +4,9 @@
 
 @section('content')
 
-    <style>
-        .search-overlay {
-            z-index: 50;
-            pointer-events: auto;
-        }
-
-        .carousel-caption {
-            position: absolute;
-            right: 15%;
-            top: 5.5rem;
-            left: 15%;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
-            color: var(--bs-carousel-caption-color);
-            text-align: center;
-        }
-
-        /* Hover effect */
-        .btn-light:hover {
-            background-color: #aa8038;
-            /* Bootstrap primary color */
-            color: #fff;
-            border-color: #a78234;
-            transition: all 0.3s ease;
-        }
-
-        /* Active (selected tab) effect */
-        .btn-light.active {
-            background-color: #aa8038;
-            color: #fff;
-            border-color: #a78234;
-            box-shadow: 0 0 8px #c29444;
-        }
-
-        /* Optional: add small animation */
-        .btn-light {
-            transition: all 0.3s ease;
-        }
-    </style>
-
     <!-- Hero Carousel -->
     @if (getConfigurationField('SHOW_VIDEO'))
-        <style>
-            .video-overlay {
-                position: absolute;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.45);
-                z-index: 1;
-            }
 
-            .vh-100 {
-                height: 100vh !important;
-            }
-        </style>
         <div id="heroCarousel" class="carousel slide vh-100" data-bs-ride="carousel">
             <div class="carousel-inner" style="height: 100% !important;">
 
@@ -71,9 +20,7 @@
                     </iframe> --}}
 
                     <video autoplay muted loop playsinline class="w-100 h-100 object-fit-cover">
-                        <source
-                            src="{{ url('public/frontend/assets/video/Emaar.mp4') }}"
-                            type="video/mp4">
+                        <source src="{{ url('public/frontend/assets/video/Emaar.mp4') }}" type="video/mp4">
                     </video>
                 </div>
 
@@ -136,19 +83,23 @@
 
                                     <!-- Property Type -->
                                     <div class="col-lg-2 col-md-6 col-sm-12">
-                                        <select class="form-select" name="type">
+
+                                        <select class="form-select" id="type" name="type"
+                                            style="font-size: 0.9rem;">
                                             <option value="" selected disabled>Property Type</option>
                                             <option value="1">Residential</option>
                                             <option value="2">Commercial</option>
                                         </select>
                                     </div>
 
-                                    <!-- Sub Type -->
+                                    <!-- Property Sub Type -->
                                     <div class="col-lg-2 col-md-6 col-sm-12">
-                                        <select class="form-select" name="sub_type">
-                                            <option value="" disabled selected>Sub Type</option>
+                                        <select class="form-select" id="sub_type" name="sub_type"
+                                            style="font-size: 0.9rem;">
+                                            <option value="" select disabled> Sub Type</option>
                                             @foreach ($propertyTypeObj as $type)
-                                                <option value="{{ $type->id }}" class="d-none">
+                                                <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                    class="dynamic default-sub-type-hide d-none">
                                                     {{ $type->name }}
                                                 </option>
                                             @endforeach
@@ -177,116 +128,126 @@
                         <div class="tab-pane fade p-3 text-center" id="content-rent" role="tabpanel"
                             aria-labelledby="btn-rent">
 
-                                <div class="row g-3 align-items-end justify-content-center" style="width: 1077px;">
+                            <div class="row g-3 align-items-end justify-content-center" style="width: 1077px;">
 
-                                    <!-- Location -->
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white border-end-0">
-                                                <i class="bi bi-geo-alt"></i>
-                                            </span>
-                                            <select name="location" class="form-select border-start-0">
-                                                <option value="">All Location</option>
-                                                @foreach ($location as $p)
-                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Property Type -->
-                                    <div class="col-lg-2 col-md-6 col-sm-12">
-                                        <select class="form-select" name="type">
-                                            <option value="" selected disabled>Property Type</option>
-                                            <option value="1">Residential</option>
-                                            <option value="2">Commercial</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Sub Type -->
-                                    <div class="col-lg-2 col-md-6 col-sm-12">
-                                        <select class="form-select" name="sub_type">
-                                            <option value="" disabled selected>Sub Type</option>
-                                            @foreach ($propertyTypeObj as $type)
-                                                <option value="{{ $type->id }}" class="d-none">
-                                                    {{ $type->name }}
-                                                </option>
+                                <!-- Location -->
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+                                        <select name="location" class="form-select border-start-0">
+                                            <option value="">All Location</option>
+                                            @foreach ($location as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-
-                                    <!-- Keyword -->
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <input type="text" class="form-control" name="keyword"
-                                            placeholder="Search Keyword here">
-                                    </div>
-
-                                    <!-- Search Button -->
-                                    <div class="col-lg-1 col-md-6 col-sm-12 d-grid" style="width: 148px;">
-                                        <button class="btn search-btn" type="submit">
-                                            Search Now <i class="bi bi-search"></i>
-                                        </button>
-                                    </div>
-
                                 </div>
+
+                                <!-- Property Type -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+
+                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;">
+                                        <option value="" selected disabled>Property Type</option>
+                                        <option value="1">Residential</option>
+                                        <option value="2">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Property Sub Type -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select class="form-select" id="sub_type" name="sub_type"
+                                        style="font-size: 0.9rem;">
+                                        <option value="" select disabled> Sub Type</option>
+                                        @foreach ($propertyTypeObj as $type)
+                                            <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                class="dynamic default-sub-type-hide d-none">
+                                                {{ $type->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+                                <!-- Keyword -->
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <input type="text" class="form-control" name="keyword"
+                                        placeholder="Search Keyword here">
+                                </div>
+
+                                <!-- Search Button -->
+                                <div class="col-lg-1 col-md-6 col-sm-12 d-grid" style="width: 148px;">
+                                    <button class="btn search-btn" type="submit">
+                                        Search Now <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+
+                            </div>
                         </div>
 
                         <!-- LAND -->
                         <div class="tab-pane fade p-3 text-center d-none " id="content-land" role="tabpanel"
                             aria-labelledby="btn-land">
 
-                                <div class="row g-3 align-items-end justify-content-center" style="width: 1077px;">
+                            <div class="row g-3 align-items-end justify-content-center" style="width: 1077px;">
 
-                                    <!-- Location -->
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white border-end-0">
-                                                <i class="bi bi-geo-alt"></i>
-                                            </span>
-                                            <select name="location" class="form-select border-start-0">
-                                                <option value="">All Location</option>
-                                                @foreach ($location as $p)
-                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Property Type -->
-                                    <div class="col-lg-2 col-md-6 col-sm-12">
-                                        <select class="form-select" name="type">
-                                            <option value="" selected disabled>Property Type</option>
-                                            <option value="1">Residential</option>
-                                            <option value="2">Commercial</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Sub Type -->
-                                    <div class="col-lg-2 col-md-6 col-sm-12">
-                                        <select class="form-select" name="sub_type">
-                                            <option value="" disabled selected>Sub Type</option>
-                                            @foreach ($propertyTypeObj as $type)
-                                                <option value="{{ $type->id }}" class="d-none">
-                                                    {{ $type->name }}
-                                                </option>
+                                <!-- Location -->
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+                                        <select name="location" class="form-select border-start-0">
+                                            <option value="">All Location</option>
+                                            @foreach ($location as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-
-                                    <!-- Keyword -->
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <input type="text" class="form-control" name="keyword"
-                                            placeholder="Search Keyword here">
-                                    </div>
-
-                                    <!-- Search Button -->
-                                    <div class="col-lg-1 col-md-6 col-sm-12 d-grid" style="width: 148px;">
-                                        <button class="btn search-btn" type="submit">
-                                            Search Now <i class="bi bi-search"></i>
-                                        </button>
-                                    </div>
-
                                 </div>
+
+
+                                <!-- Property Type -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+
+                                    <select class="form-select" id="type" name="type"
+                                        style="font-size: 0.9rem;">
+                                        <option value="" selected disabled>Property Type</option>
+                                        <option value="1">Residential</option>
+                                        <option value="2">Commercial</option>
+                                    </select>
+                                </div>
+
+                                <!-- Property Sub Type -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <select class="form-select" id="sub_type" name="sub_type"
+                                        style="font-size: 0.9rem;">
+                                        <option value="" select disabled> Sub Type</option>
+                                        @foreach ($propertyTypeObj as $type)
+                                            <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
+                                                class="dynamic default-sub-type-hide d-none">
+                                                {{ $type->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+                                <!-- Keyword -->
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <input type="text" class="form-control" name="keyword"
+                                        placeholder="Search Keyword here">
+                                </div>
+
+                                <!-- Search Button -->
+                                <div class="col-lg-1 col-md-6 col-sm-12 d-grid" style="width: 148px;">
+                                    <button class="btn search-btn" type="submit">
+                                        Search Now <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
@@ -1192,25 +1153,7 @@
 
     @if (count($awardObjs) > 0)
         <!-- Our Achivements -->
-        <style>
-            .award-box {
-                transition: 0.3s ease-in-out;
-            }
 
-            .award-box:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            }
-
-            .award-img {
-                max-width: 120px;
-                transition: 0.3s;
-            }
-
-            .award-box:hover .award-img {
-                transform: scale(1.1);
-            }
-        </style>
         <section class="py-5 bg-light">
             <div class="container">
                 <div class="text-center mb-5">
@@ -1237,6 +1180,7 @@
                 </div>
             </div>
         </section>
+
     @endif
 
     <!-- jQuery -->
