@@ -502,7 +502,8 @@
                         @foreach ($relatedProperties as $item)
                             <div class="swiper-slide">
                                 <a href="{{ route('property.detail', $item->slug) }}" class="btn btn-sm text-white">
-                                    <div class="card h-100 shadow-sm border-0 rounded-4">
+
+                                    <div class="card h-100  shadow-sm border-0 rounded-4 w-100">
 
                                         <!-- Image -->
                                         <div class="position-relative">
@@ -515,10 +516,12 @@
 
                                         <!-- Body -->
                                         <div class="card-body">
+                                            {{-- <div style=" max-width: 361px;">
                                             <h6 class="fw-semibold text-truncate mb-1">
                                                 {{ $item->name }}
                                             </h6>
-
+                                            </div> --}}
+                                            <h5 class="fw-bold pb-3">{!! $item->name !!}</h5>
                                             <p class="text-muted small mb-2">
                                                 <i class="bi bi-geo-alt"></i>
                                                 {{ $item->location->name ?? 'N/A' }}
@@ -534,6 +537,7 @@
                                         </div>
 
                                     </div>
+                                    
                                 </a>
                             </div>
                         @endforeach
