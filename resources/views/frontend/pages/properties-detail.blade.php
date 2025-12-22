@@ -511,7 +511,7 @@
                                                 ? asset('storage/app/propertyImage/' . $item->images->first()->filename)
                                                 : asset('public/img/no-image.jpg') }}"
                                                 class="card-img-top rounded-top-4"
-                                                style="height:220px; object-fit:cover;">
+                                                style="height:220px; object-fit:fill;">
                                         </div>
 
                                         <!-- Body -->
