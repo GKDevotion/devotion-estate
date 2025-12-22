@@ -349,7 +349,7 @@
                                     <div class="col-lg-2 col-md-6 col-sm-12">
                                         <select class="form-select" id="sub_type" name="sub_type"
                                             style="font-size: 0.9rem;">
-                                            <option value="" select disabled> Sub Type</option>
+                                            <option value="" selected  disabled> Sub Type</option>
                                             @foreach ($propertyTypeObj as $type)
                                                 <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
                                                     class="dynamic default-sub-type-hide d-none">
@@ -1153,7 +1153,6 @@
 
     @if (count($awardObjs) > 0)
         <!-- Our Achivements -->
-
         <section class="py-5 bg-light">
             <div class="container">
                 <div class="text-center mb-5">
@@ -1202,6 +1201,7 @@
             // Initial check (for edit pages)
             $type.trigger('change');
         });
+        
     </script>
 
 @endsection
