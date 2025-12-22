@@ -85,7 +85,7 @@
                                     <div class="col-lg-2 col-md-6 col-sm-12">
 
                                         <select class="form-select" id="type" name="type"
-                                            style="font-size: 0.9rem;">
+                                            style="font-size: 1rem;">
                                             <option value="" selected disabled>Property Type</option>
                                             <option value="1">Residential</option>
                                             <option value="2">Commercial</option>
@@ -95,7 +95,7 @@
                                     <!-- Property Sub Type -->
                                     <div class="col-lg-2 col-md-6 col-sm-12">
                                         <select class="form-select" id="sub_type" name="sub_type"
-                                            style="font-size: 0.9rem;">
+                                            style="font-size: 1rem;">
                                             <option value="" select disabled> Sub Type</option>
                                             @foreach ($propertyTypeObj as $type)
                                                 <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
@@ -108,7 +108,7 @@
 
                                     <!-- Keyword -->
                                     <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <input type="text" class="form-control" name="keyword"
+                                        <input type="text" class="form-control rounded-2" name="keyword"
                                             placeholder="Search Keyword here">
                                     </div>
 
@@ -148,7 +148,7 @@
                                 <!-- Property Type -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
 
-                                    <select class="form-select" id="type" name="type" style="font-size: 0.9rem;">
+                                    <select class="form-select" id="type" name="type" style="font-size: 1rem;">
                                         <option value="" selected disabled>Property Type</option>
                                         <option value="1">Residential</option>
                                         <option value="2">Commercial</option>
@@ -158,7 +158,7 @@
                                 <!-- Property Sub Type -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
                                     <select class="form-select" id="sub_type" name="sub_type"
-                                        style="font-size: 0.9rem;">
+                                        style="font-size: 1rem;">
                                         <option value="" select disabled> Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
@@ -172,7 +172,7 @@
 
                                 <!-- Keyword -->
                                 <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <input type="text" class="form-control" name="keyword"
+                                    <input type="text" class="form-control rounded-2" name="keyword"
                                         placeholder="Search Keyword here">
                                 </div>
 
@@ -212,7 +212,7 @@
                                 <div class="col-lg-2 col-md-6 col-sm-12">
 
                                     <select class="form-select" id="type" name="type"
-                                        style="font-size: 0.9rem;">
+                                        style="font-size: 1rem;">
                                         <option value="" selected disabled>Property Type</option>
                                         <option value="1">Residential</option>
                                         <option value="2">Commercial</option>
@@ -222,7 +222,7 @@
                                 <!-- Property Sub Type -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
                                     <select class="form-select" id="sub_type" name="sub_type"
-                                        style="font-size: 0.9rem;">
+                                        style="font-size: 1rem;">
                                         <option value="" select disabled> Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
@@ -236,7 +236,7 @@
 
                                 <!-- Keyword -->
                                 <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <input type="text" class="form-control" name="keyword"
+                                    <input type="text" class="form-control rounded-2" name="keyword"
                                         placeholder="Search Keyword here">
                                 </div>
 
