@@ -349,7 +349,7 @@
                                     <div class="col-lg-2 col-md-6 col-sm-12">
                                         <select class="form-select" id="sub_type" name="sub_type"
                                             style="font-size: 0.9rem;">
-                                            <option value="" selected  disabled> Sub Type</option>
+                                            <option value="" selected disabled> Sub Type</option>
                                             @foreach ($propertyTypeObj as $type)
                                                 <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
                                                     class="dynamic default-sub-type-hide d-none">
@@ -543,13 +543,21 @@
         <div class="container">
             <div class="text-end mb-0">
                 <div class="text-center flex-grow-1">
-                    <h2 class="fw-bold text-uppercase mb-1" style="font-size: 45px;">New Properties</h2>
+                    <h2 class="fw-bold text-uppercase mb-1">New Properties</h2>
                     <p class="text-muted mb-0">Find newly listed properties in your local area with best pricing.</p>
                 </div>
-                <a href="{{ route('new.properties') }}" class="text-decoration-none small text-secondary">View all
-                    &rarr;</a>
-            </div>
 
+                <div >
+                    <a href="{{ route('new.properties') }}" class="text-decoration-none small text-secondary">View all
+                        &rarr;</a>
+                </div>
+
+            </div>
+            <style>
+                h2 {
+                    font-size: 40px;
+                }
+            </style>
             @php
                 /**
                  * $type = 0: 'sell', 1: 'rent'
@@ -860,65 +868,6 @@
             background: #faf3e9;
             font-family: 'Segoe UI', sans-serif;
         }
-
-        .section-title {
-            font-weight: 700;
-            font-size: 34px;
-            text-align: center;
-            margin-bottom: 40px;
-            color: #5a4632;
-        }
-
-        .property-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid #eedfcb;
-            height: 100%;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-        }
-
-        .property-card:hover {
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-            transform: translateY(-6px);
-        }
-
-        .property-icon {
-            font-size: 56px;
-            color: #c28b4e;
-            margin-bottom: 20px;
-        }
-
-        .property-card h5 {
-            font-size: 21px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #5a4632;
-        }
-
-        .property-card p {
-            font-size: 14px;
-            color: #7a6a58;
-
-        }
-
-        .property-btn {
-            width: 100%;
-            padding: 11px;
-            border-radius: 30px;
-            border: none;
-            font-weight: 600;
-            background: #c28b4e;
-            color: #fff;
-            transition: 0.3s;
-        }
-
-        .property-btn:hover {
-            background: #a9743f;
-            color: #fff;
-        }
     </style>
 
     <section class="py-5">
@@ -1201,7 +1150,6 @@
             // Initial check (for edit pages)
             $type.trigger('change');
         });
-        
     </script>
 
 @endsection
