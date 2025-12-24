@@ -221,6 +221,11 @@ class PropertiesController extends Controller
                     ';
 
                 if ($this->user->can('properties.edit')) {
+
+                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.properties.imageOrder', $ar->id) . '">
+                            <i class="fa fa-pencil"></i> Image
+                        </a>';
+
                     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.properties.edit', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
@@ -527,5 +532,37 @@ class PropertiesController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to send email. Please try again later.');
         }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function imageOrder(int $id)
+    {
+        if (is_null($this->user) || !$this->user->can('properties.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
+        }
+
+        $imageArr = PropertyImageMap::select('id', 'filename', 'sort_order')->where( 'property_id', $id )->get();
+
+        return view('backend.pages.properties.image-order', compact('imageArr', 'id'));
+    }
+
+    /**
+     *
+     */
+    public function imageOrderUpdate(Request $request)
+    {
+        foreach ($request->image_id as $key => $imageId) {
+            PropertyImageMap::where('id', $imageId)->update([
+                'sort_order' => $request->sort_order[$key]
+            ]);
+        }
+
+        session()->flash('success', 'Record has been created !!');
+        return redirect()->route('admin.properties.index');
     }
 }

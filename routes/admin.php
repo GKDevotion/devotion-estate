@@ -93,6 +93,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/featured-property', [PropertiesController::class, 'featurePropertyindex'])->name('admin.featured-property.index');
     Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
     Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
+    Route::get('/properties-image-order/{id}', [PropertiesController::class, 'imageOrder'])->name('admin.properties.imageOrder');
+    Route::post('/properties-image-order/{id}', [PropertiesController::class, 'imageOrderUpdate'])->name('admin.properties.imageOrder.update');
 
     Route::resource('developer', 'Backend\DeveloperController', ['names' => 'admin.developer']);
     Route::get('/developer-ajax-data', [DeveloperController::class, 'ajaxIndex'])->name('developer.ajaxIndex');

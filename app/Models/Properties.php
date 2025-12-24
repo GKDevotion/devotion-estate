@@ -33,7 +33,7 @@ class Properties extends Model
     }
 
        public function images(){
-        return $this->hasMany( PropertyImageMap::class, 'property_id', 'id');
+        return $this->hasMany( PropertyImageMap::class, 'property_id', 'id')->orderBy('sort_order', 'ASC');
     }
 
     public function location(){
