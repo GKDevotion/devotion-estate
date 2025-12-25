@@ -45,74 +45,37 @@ Religion Page - Admin Panel
     </div>
 </div>
 <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- data table start -->
+            <div class="col-12 mt-3">
+                <h3 class="pb-3">Religion Hisotry</h3>
+                <div class="card">
+                    <div class="card-body">
 
-<div class="main-content-inner">
-    <div class="row">
-        <!-- data table start -->
-        <div class="col-12 mt-3">
-            <h3 class="pb-3">Religions History</h3>
-            <div class="card">
-                <div class="card-body">
-                    <div class="data-tables">
-                        @include('backend.layouts.partials.messages')
-                        <table id="religions_index" class="text-center">
-                            <thead id="religions" class="bg-light text-capitalize">
-                                <tr>
-                                    <th width="7%">Sr</th>
-                                    <th width="35%">Name</th>
-                                    <th width="15%">Status</th>
-                                    <th width="17%">Update Date</th>
-                                    <th width="5%">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               @foreach ($dataArr as $data)
-                                    <tr id="row_{{$data->id}}" class="religions_row">
-                                        <td>{{ $loop->index+1 }}</td>
-                                        <td class="text-left">{{$data->name}}</td>
-                                        <td>
-                                            @if( true )
-                                                <i class="fa fa-{{ ( $data->status == 0 ) ? 'times' : 'check' }} update-status" data-status="{{$data->status}}" data-id="{{$data->id}}" aria-hidden="true" data-table="religions"></i>
-                                            @else
-                                                <select class="form-control update-status badge {{ ( $data->status == 0 ) ? 'bg-warning' : 'bg-success' }} text-white" name="status" data-id="{{$data->id}}" data-table="religions">
-                                                    <option value="1" {{($data->status == 1) ? 'selected' : ''}}>Active</option>
-                                                    <option value="0" {{($data->status == 0) ? 'selected' : ''}}>De-Active</option>
-                                                </select>
-                                            @endif
-                                        </td>
-                                        <td>{{formatDate( "Y-m-d H:i", $data->updated_at )}}</td>
-                                        <td>
+                        <div class="data-tables">
 
-                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_{{$data->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                &#x22EE;
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="action_menu_{{$data->id}}">
+                            @include('backend.layouts.partials.messages')
 
-                                                @if (Auth::guard('admin')->user()->can('religion.edit'))
-                                                    <a class="btn btn-edit text-white dropdown-item" href="{{ route('admin.religion.edit', $data->id) }}">
-                                                        <i class="fa fa-pencil"></i> Edit
-                                                    </a>
-                                                @endif
-
-                                                @if (Auth::guard('admin')->user()->can('religion.delete'))
-                                                    <button class="btn btn-edit text-white delete-record dropdown-item" data-id="{{$data->id}}" data-title="{{ $data->name }}" data-segment="religions">
-                                                        <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
-                                                    </button>
-                                                @endif
-                                            </div>
-                                        </td>
+                            <table id="religions_index" class="">
+                                <thead id="religions" class="bg-light text-capitalize">
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Name</th>
+                                        <th>status</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
                                     </tr>
-                               @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- data table end -->
+            <!-- data table end -->
 
+        </div>
     </div>
-</div>
 @endsection
 
 
@@ -121,20 +84,66 @@ Religion Page - Admin Panel
     @include('backend.layouts.partials.data-table')
 
      <script>
-         /*================================
-        datatable active
-        ==================================*/
-        if ($('#religions_index').length) {
-            $('#religions_index').DataTable({
+        $(document).ready(function() {
+            var table = $('#religions_index').DataTable({
+                processing: true,
+                serverSide: true,
                 responsive: true,
                 dom: '<"row"<"col-md-4"B><"col-md-4 text-left"l><"col-md-4 text-right"f>>' +
                     'rt' +
                     '<"row"<"col-md-6"i><"col-md-6"p>>', // Custom structure with multiple parameters
                 buttons: ['excel', 'pdf'],
-                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "All"]
+                ],
                 pageLength: 10,
+                ajax: {
+                    url: "{{ route('religions.ajaxIndex') }}",
+                    type: 'GET',
+                    data: function(d) {
+                        // d.cid = ""; // Pass company parameter
+                        // d.iid = ""; // Pass industry parameter
+                    }
+                },
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
+                    $(row).attr('class', 'religions_row'); // Assign a custom Class to the row
+                },
+                language: {
+                    emptyTable: "No data available in table" // Custom message for empty table
+                },
             });
-        }
 
-     </script>
+            // Adjust the table width after the data is loaded
+            table.on('xhr', function() {
+                var data = table.ajax.json().data;
+
+                $('#religions_index').css('width', '100%');
+            });
+        });
+    </script>
 @endsection

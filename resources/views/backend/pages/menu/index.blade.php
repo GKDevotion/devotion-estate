@@ -49,7 +49,7 @@ Menu Page - Admin Panel
 <div class="main-content-inner">
     <div class="row">
         <!-- data table start -->
-        <div class="col-12 mt-3">
+        {{-- <div class="col-12 mt-3">
             <h3 class="pb-3">Menu History</h3>
             <div class="card">
                 <div class="card-body">
@@ -123,7 +123,42 @@ Menu Page - Admin Panel
                     </div>
                 </div>
             </div>
+        </div> --}}
+         <div class="main-content-inner">
+        <div class="row">
+            <!-- data table start -->
+            <div class="col-12 mt-3">
+                <h3 class="pb-3">Menus Hisotry</h3>
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="data-tables">
+
+                            @include('backend.layouts.partials.messages')
+
+                            <table id="menu_index" class="">
+                                <thead id="admin_menus" class="bg-light text-capitalize">
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Name</th>
+                                        <th>Slug</th>
+                                        <th>Group Name</th>
+                                        <th>Route Name</th>
+                                        <th>Sort Order</th>
+                                        <th>Status</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- data table end -->
+
         </div>
+    </div>
         <!-- data table end -->
 
     </div>
@@ -135,21 +170,83 @@ Menu Page - Admin Panel
 
     @include('backend.layouts.partials.data-table')
 
-     <script>
-         /*================================
-        datatable active
-        ==================================*/
-        if ($('#dataTable').length) {
-            $('#dataTable').DataTable({
+       <script>
+        $(document).ready(function() {
+            var table = $('#menu_index').DataTable({
+                processing: true,
+                serverSide: true,
                 responsive: true,
                 dom: '<"row"<"col-md-4"B><"col-md-4 text-left"l><"col-md-4 text-right"f>>' +
                     'rt' +
                     '<"row"<"col-md-6"i><"col-md-6"p>>', // Custom structure with multiple parameters
                 buttons: ['excel', 'pdf'],
-                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "All"]
+                ],
                 pageLength: 10,
+                ajax: {
+                    url: "{{ route('menu.ajaxIndex') }}",
+                    type: 'GET',
+                    data: function(d) {
+                        // d.cid = ""; // Pass company parameter
+                        // d.iid = ""; // Pass industry parameter
+                    }
+                },
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'slug',
+                        name: 'slg'
+                    },
+                    {
+                        data: 'group_name',
+                        name: 'group_name'
+                    },
+                     {
+                        data: 'class_name',
+                        name: 'class_name'
+                    },
+                     {
+                        data: 'sort_order',
+                        name: 'sort_order'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
+                    $(row).attr('class', 'menu_row'); // Assign a custom Class to the row
+                },
+                language: {
+                    emptyTable: "No data available in table" // Custom message for empty table
+                },
             });
-        }
 
-     </script>
+            // Adjust the table width after the data is loaded
+            table.on('xhr', function() {
+                var data = table.ajax.json().data;
+
+                $('#menu_index').css('width', '100%');
+            });
+        });
+    </script>
 @endsection

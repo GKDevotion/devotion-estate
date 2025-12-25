@@ -11,12 +11,16 @@ use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
 use App\Http\Controllers\Backend\ClientsController;
+use App\Http\Controllers\Backend\ConfigurationController;
 use App\Http\Controllers\Backend\ContactUsController;
+use App\Http\Controllers\Backend\ContinentsController;
+use App\Http\Controllers\Backend\CountriesController;
 use App\Http\Controllers\Backend\CurrencyController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DesignationsController;
 use App\Http\Controllers\Backend\DeveloperController;
 use App\Http\Controllers\Backend\LocationController;
+use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\OwnersController;
 use App\Http\Controllers\Backend\PaymentPlanController;
 use App\Http\Controllers\Backend\PermissionController;
@@ -24,7 +28,9 @@ use App\Http\Controllers\Backend\PropertiesController;
 use App\Http\Controllers\Backend\PropertyContactController;
 use App\Http\Controllers\Backend\PropertyFeatureController;
 use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Backend\ReligionsController;
 use App\Http\Controllers\Backend\ReviewsController;
+use App\Http\Controllers\Backend\RolesController;
 use App\Http\Controllers\Backend\StatesController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Backend\VisitingCardController;
@@ -156,8 +162,14 @@ Route::prefix('admin')->group(function () {
      * Continent Management
      */
     Route::resource('religions', 'Backend\ReligionsController', ['names' => 'admin.religion']);
+    Route::get('/religions-ajax-data', [ReligionsController::class, 'ajaxIndex'])->name('religions.ajaxIndex');
+
     Route::resource('continents', 'Backend\ContinentsController', ['names' => 'admin.continent']);
+    Route::get('/continents-ajax-data', [ContinentsController::class, 'ajaxIndex'])->name('continents.ajaxIndex');
+
     Route::resource('countries', 'Backend\CountriesController', ['names' => 'admin.country']);
+    Route::get('/countries-ajax-data', [CountriesController::class, 'ajaxIndex'])->name('countries.ajaxIndex');
+
     Route::resource('states', 'Backend\StatesController', ['names' => 'admin.state']);
     Route::get('/state-ajax-data', [StatesController::class, 'ajaxIndex'])->name('state.ajaxIndex');
     Route::resource('cities', 'Backend\CitiesController', ['names' => 'admin.city']);
@@ -170,14 +182,20 @@ Route::prefix('admin')->group(function () {
      * Setting
      */
     Route::resource('menu', 'Backend\MenuController', ['names' => 'admin.menu']);
+     Route::get('/menu-ajax-data', [MenuController::class, 'ajaxIndex'])->name('menu.ajaxIndex');
+
     Route::resource('logs', 'Backend\AdminLogController', ['names' => 'admin.admin-log']);
     Route::get('/admin-log-ajax-data', [AdminLogController::class, 'ajaxIndex'])->name('admin-log.ajaxIndex');
+
     Route::resource('roles', 'Backend\RolesController', ['names' => 'admin.role']);
+    Route::get('/roles-ajax-data', [RolesController::class, 'ajaxIndex'])->name('roles.ajaxIndex');
+
     Route::resource('permission', 'Backend\PermissionController', ['names' => 'admin.permission']);
     Route::post('changePermission', [PermissionController::class, 'changePermission']);
     Route::get('change-password', [AdminsController::class, 'changePassword'])->name('admin.change-password');
-    Route::resource('configurations', 'Backend\ConfigurationController', ['names' => 'admin.configurations']);
 
+    Route::resource('configurations', 'Backend\ConfigurationController', ['names' => 'admin.configurations']);
+    Route::get('/configurations-ajax-data', [ConfigurationController::class, 'ajaxIndex'])->name('configurations.ajaxIndex');
     /**
      * Common Function Routes
      */
