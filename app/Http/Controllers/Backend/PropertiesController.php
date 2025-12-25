@@ -83,6 +83,46 @@ class PropertiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function luxuryPropertyindex(Request $request)
+    {
+        if (is_null($this->user) || !$this->user->can('properties.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view Location !');
+        }
+
+        $param = [
+            'field' => 'is_luxury_property',
+            'value' => 1
+        ];
+
+        return view('backend.pages.properties.index', compact('param'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function hotPropertyindex(Request $request)
+    {
+        if (is_null($this->user) || !$this->user->can('properties.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view Location !');
+        }
+
+        $param = [
+            'field' => 'is_hot_offer',
+            'value' => 1
+        ];
+
+        return view('backend.pages.properties.index', compact('param'));
+    }
+    
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function featurePropertyindex(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('properties.view')) {

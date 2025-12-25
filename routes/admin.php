@@ -96,6 +96,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/blogs-ajax-data', [BlogController::class, 'ajaxIndex'])->name('blogs.ajaxIndex');
 
     Route::get('/new-property', [PropertiesController::class, 'newPropertyindex'])->name('admin.new-property.index');
+    Route::get('/luxury-property', [PropertiesController::class, 'luxuryPropertyindex'])->name('admin.luxury-property.index');
+    Route::get('/hot-property', [PropertiesController::class, 'hotPropertyindex'])->name('admin.hot-property.index');
     Route::get('/featured-property', [PropertiesController::class, 'featurePropertyindex'])->name('admin.featured-property.index');
     Route::resource('properties', 'Backend\PropertiesController', ['names' => 'admin.properties']);
     Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
