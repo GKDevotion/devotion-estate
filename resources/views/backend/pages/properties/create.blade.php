@@ -95,7 +95,7 @@
 
                                 <fieldset>
                                     <legend>Property Information</legend>
-                                    
+
                                     <div class="row">
 
                                         <div class="col-md-12 col-sm-12 mb-2">
@@ -461,13 +461,15 @@
 
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="developer_id">Develop By <span class="text-error">*</span></label>
-                                                <select name="developer_id" id="developer_id" class="form-control select2" data-required="yes">
-                                                    <option value="">Select Location</option>
-                                                    @foreach ($developerObj as $ar)
-                                                        <option value="{{ $ar->id }}">{{ $ar->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                            <label class="mb-0" for="developer_id">Develop By <span
+                                                    class="text-error">*</span></label>
+                                            <select name="developer_id" id="developer_id" class="form-control select2"
+                                                data-required="yes">
+                                                <option value="">Select Location</option>
+                                                @foreach ($developerObj as $ar)
+                                                    <option value="{{ $ar->id }}">{{ $ar->name }}</option>
+                                                @endforeach
+                                            </select>
 
                                             <div class="error text-error"></div>
                                         </div>
@@ -677,12 +679,17 @@
                                                     <i class="fa fa-arrow-left"></i> Previous
                                                 </button>
                                             </div>
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <button type="button" id="nextBtn"
                                                     onclick="nextPrev(1, 'PropertyStepForm3')">
                                                     Submit <i class="fa fa-save"></i>
                                                 </button>
-                                            </div>
+                                            </div> --}}
+                                            <button type="button" class="btn-submit-final"
+                                                onclick="handleFinalSubmit(this)">
+                                                Submit <i class="fa fa-save"></i>
+                                            </button>
+
                                         </div>
                                     </div>
                                 </div>
@@ -805,6 +812,26 @@
                 });
             }
         });
+    </script>
 
+    <script>
+        let isSubmitting = false;
+
+        function handleFinalSubmit(btn) {
+
+            // Prevent multiple clicks
+            if (isSubmitting) {
+                return false;
+            }
+
+            isSubmitting = true;
+
+            // Disable button
+            btn.disabled = true;
+            btn.innerHTML = 'Submitting... <i class="fa fa-spinner fa-spin"></i>';
+
+            // Call your existing function
+            nextPrev(1, 'PropertyStepForm3');
+        }
     </script>
 @endsection

@@ -5,6 +5,7 @@
 @endsection
 
 @section('styles')
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
     <!-- Start datatable css -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
@@ -13,7 +14,6 @@
         .child {
             text-align: left;
         }
-
     </style>
 @endsection
 
@@ -76,6 +76,35 @@
                                 </thead>
                             </table>
                         </div>
+
+                        <div class="modal fade" id="descriptionModal" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Update Property Description</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <input type="hidden" id="property_id">
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea class="form-control ckeditor" id="description" name="description" id="property_description" rows="6"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="saveDescription">Save</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -87,6 +116,7 @@
 
 @section('scripts')
     @include('backend.layouts.partials.data-table')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -105,37 +135,77 @@
                 pageLength: 10,
                 // ajax: "{{ route('properties.ajaxIndex') }}",
                 ajax: {
-                    url: "{{ route('properties.ajaxIndex' ) }}",
+                    url: "{{ route('properties.ajaxIndex') }}",
                     type: 'GET',
-                    data: function (d) {
-                        d.field = "{{$param['field']}}"; // Pass company parameter
-                        d.value = "{{$param['value']}}"; // Pass industry parameter
+                    data: function(d) {
+                        d.field = "{{ $param['field'] }}"; // Pass company parameter
+                        d.value = "{{ $param['value'] }}"; // Pass industry parameter
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'id',
                         render: function(data, type, row, meta) {
                             return meta.row + 1; // Auto-increment based on row index
                         }
                     },
-                    { data: 'image', name: 'image' },
-                    { data: 'unique_id', name: 'unique_id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'purpose', name: 'purpose' },
-                    { data: 'type', name: 'type' },
-                    { data: 'area', name: 'area' },
-                    { data: 'price', name: 'price' },
-                    { data: 'location_id', name: 'location_id' },
-                    { data: 'count', name: 'count' },
-                    { data: 'publish', name: 'publish' },
-                    { data: 'status', name: 'status' },
-                    { data: 'updated_at', name: 'updated_at' },
-                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                    {
+                        data: 'image',
+                        name: 'image'
+                    },
+                    {
+                        data: 'unique_id',
+                        name: 'unique_id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'purpose',
+                        name: 'purpose'
+                    },
+                    {
+                        data: 'type',
+                        name: 'type'
+                    },
+                    {
+                        data: 'area',
+                        name: 'area'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'location_id',
+                        name: 'location_id'
+                    },
+                    {
+                        data: 'count',
+                        name: 'count'
+                    },
+                    {
+                        data: 'publish',
+                        name: 'publish'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
                 ],
-                createdRow: function (row, data, dataIndex) {
-                    $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row
-                    $(row).attr('class', 'properties_row');// Assign a custom Class to the row
+                createdRow: function(row, data, dataIndex) {
+                    $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
+                    $(row).attr('class', 'properties_row'); // Assign a custom Class to the row
                 }
             });
 
@@ -150,5 +220,88 @@
                 }
             });
         });
+    </script>
+
+    <script>
+      let editorDescriptionInstance; // make sure this is global
+
+// Initialize CKEditor
+ClassicEditor
+    .create(document.querySelector('#property_description'))
+    .then(editor => {
+        editorDescriptionInstance = editor;
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+$(document).on('click', '.btn-description', function() {
+
+    let id = $(this).data('id');
+
+    let url = "{{ route('admin.properties.getDescription', ':id') }}";
+    url = url.replace(':id', id);
+
+    $('#property_id').val(id);
+
+    if (editorDescriptionInstance) {
+        editorDescriptionInstance.setData('Loading...'); // show loading in CKEditor
+    }
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function(description) {
+
+            if (!description) {
+                if (editorDescriptionInstance) editorDescriptionInstance.setData('');
+            } else {
+                // Keep HTML formatting for CKEditor
+                if (editorDescriptionInstance) editorDescriptionInstance.setData(description);
+            }
+
+            // Show Bootstrap modal
+            const modal = new bootstrap.Modal(document.getElementById('descriptionModal'));
+            modal.show();
+        },
+        error: function() {
+            toastr.error('Failed to load description');
+        }
+    });
+});
+
+// Handle saving the description
+$(document).on('click', '#saveDescription', function () {
+    $.ajax({
+        url: "{{ route('admin.properties.updateDescription') }}",
+        type: "POST",
+        data: {
+            _token: "{{ csrf_token() }}",
+            id: $('#property_id').val(),
+            description: editorDescriptionInstance.getData()
+        },
+        success: function () {
+            // Hide modal
+            bootstrap.Modal.getInstance(document.getElementById('descriptionModal')).hide();
+
+            toastr.success('Description updated successfully');
+            $('#properties_index').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+            toastr.error('Something went wrong');
+        }
+    });
+});
+    </script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .then(editor => {
+                editorDescriptionInstance = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 @endsection

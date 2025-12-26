@@ -193,6 +193,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
 
             if ($request->file('propertyImage')) {
                 foreach ($request->file('propertyImage') as $file) {
+                    
                     // Create unique filename
                     $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 

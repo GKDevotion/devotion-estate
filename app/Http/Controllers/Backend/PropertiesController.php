@@ -115,7 +115,7 @@ class PropertiesController extends Controller
 
         return view('backend.pages.properties.index', compact('param'));
     }
-    
+
 
 
     /**
@@ -261,6 +261,13 @@ class PropertiesController extends Controller
                     ';
 
                 if ($this->user->can('properties.edit')) {
+                    $action .= '<a 
+                    href="javascript:void(0);" 
+                    class="btn btn-edit text-white dropdown-item btn-description" 
+                    data-id="' . $ar->id . '" 
+                    data-description="' . htmlspecialchars($ar->description, ENT_QUOTES) . '">
+                    <i class="fa fa-pencil"></i> Description
+                      </a>';
 
                     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.properties.imageOrder', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Image
@@ -586,7 +593,7 @@ class PropertiesController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to edit Property Features !');
         }
 
-        $imageArr = PropertyImageMap::select('id', 'filename', 'sort_order')->where( 'property_id', $id )->get();
+        $imageArr = PropertyImageMap::select('id', 'filename', 'sort_order')->where('property_id', $id)->get();
 
         return view('backend.pages.properties.image-order', compact('imageArr', 'id'));
     }
@@ -604,5 +611,29 @@ class PropertiesController extends Controller
 
         session()->flash('success', 'Record has been created !!');
         return redirect()->route('admin.properties.index');
+    }
+
+    public function updateDescription(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:properties,id',
+            'description' => 'nullable|string'
+        ]);
+
+        Properties::where('id', $request->id)->update([
+            'description' => $request->description
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Description updated successfully'
+        ]);
+    }
+
+    public function getDescription($id)
+    {
+        return response()->json(
+            Properties::where('id', $id)->value('description')
+        );
     }
 }
