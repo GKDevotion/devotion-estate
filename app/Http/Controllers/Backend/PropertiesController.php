@@ -55,8 +55,15 @@ class PropertiesController extends Controller
             'field' => '',
             'value' => 0
         ];
+         $properties = Properties::latest()->get();
+        $locations = Location::all(); // or however you fetch locations
+        $agentObj = User::select('id', 'first_name', 'last_name')->where([
+            'status' => 1,
+            'type' => 4
+        ])->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
 
-        return view('backend.pages.properties.index', compact('param'));
+        return view('backend.pages.properties.index', compact('param', 'locations','agentObj','properties', 'developerObj'));
     }
 
     /**
@@ -261,13 +268,24 @@ class PropertiesController extends Controller
                     ';
 
                 if ($this->user->can('properties.edit')) {
-                    $action .= '<a 
-                    href="javascript:void(0);" 
-                    class="btn btn-edit text-white dropdown-item btn-description" 
-                    data-id="' . $ar->id . '" 
-                    data-description="' . htmlspecialchars($ar->description, ENT_QUOTES) . '">
+
+                    $action .= '<a href="javascript:void(0);" class="btn btn-edit text-white dropdown-item btn-description" data-id="' . $ar->id . '" data-description="' . htmlspecialchars($ar->description, ENT_QUOTES) . '">
                     <i class="fa fa-pencil"></i> Description
                       </a>';
+
+                    $action .= '<a href="javascript:void(0);" 
+                                class="btn btn-edit text-white dropdown-item btn-information"
+                                data-id="' . $ar->id . '"
+                                data-name="' . htmlspecialchars($ar->name, ENT_QUOTES) . '"
+                                data-price="' . $ar->price . '"
+                                data-location="' . htmlspecialchars(optional($ar->location)->name, ENT_QUOTES) . '"
+                                data-agent="' . htmlspecialchars(optional($ar->agent)->name, ENT_QUOTES) . '"
+                                data-developer="' . htmlspecialchars(optional($ar->developer)->name, ENT_QUOTES) . '"
+                                data-features="' . $ar->additional_features . '"
+                            >
+                            <i class="fa fa-pencil"></i> Other Information
+                            </a>';
+
 
                     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.properties.imageOrder', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Image
@@ -613,6 +631,7 @@ class PropertiesController extends Controller
         return redirect()->route('admin.properties.index');
     }
 
+    // Description Model
     public function updateDescription(Request $request)
     {
         $request->validate([
@@ -635,5 +654,26 @@ class PropertiesController extends Controller
         return response()->json(
             Properties::where('id', $id)->value('description')
         );
+    }
+
+    // Information Model
+    public function getInformation($id)
+    {
+        return Properties::select('name', 'price', 'location_id','agent_id', 'developer_id','additional_features')
+            ->findOrFail($id);
+    }
+
+    public function updateInformation(Request $request)
+    {
+        $property = Properties::findOrFail($request->id);
+        $property->name = $request->name;
+        $property->price = $request->price;
+        $property->location_id = $request->location_id;
+        $property->agent_id = $request->agent_id;
+        $property->developer_id = $request->developer_id;
+        $property->additional_features = $request->additional_features;
+        $property->save();
+
+        return response()->json(['success' => true]);
     }
 }

@@ -103,11 +103,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/properties-ajax-data', [PropertiesController::class, 'ajaxIndex'])->name('properties.ajaxIndex');
     Route::get('/properties-image-order/{id}', [PropertiesController::class, 'imageOrder'])->name('admin.properties.imageOrder');
     Route::post('/properties-image-order/{id}', [PropertiesController::class, 'imageOrderUpdate'])->name('admin.properties.imageOrder.update');
-   Route::post('/admin/properties/update-description',  [PropertiesController::class, 'updateDescription'])->name('admin.properties.updateDescription');
-Route::get(
-    '/admin/properties/{id}/description',
-    [PropertiesController::class, 'getDescription']
-)->name('admin.properties.getDescription');
+    // Description Model
+    Route::post('/admin/properties/update-description',  [PropertiesController::class, 'updateDescription'])->name('admin.properties.updateDescription');
+    Route::get('/admin/properties/{id}/description',[PropertiesController::class, 'getDescription'])->name('admin.properties.getDescription');
+    // Information Model
+    Route::post('admin/properties/update-information', [PropertiesController::class, 'updateInformation'])->name('admin.properties.updateInformation');
+    Route::get('properties/{id}/information',[PropertiesController::class, 'getInformation'])->name('admin.properties.getInformation');
 
 
     Route::resource('developer', 'Backend\DeveloperController', ['names' => 'admin.developer']);

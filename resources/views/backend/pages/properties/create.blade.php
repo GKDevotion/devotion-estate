@@ -5,7 +5,7 @@
 @endsection
 
 @section('styles')
-    <link href="{{ asset('public/backend/assets/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('public\backend\assets\css\select2.min.css') }}" rel="stylesheet" />
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
 
     <style>
