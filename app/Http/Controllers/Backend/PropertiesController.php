@@ -55,7 +55,7 @@ class PropertiesController extends Controller
             'field' => '',
             'value' => 0
         ];
-         $properties = Properties::latest()->get();
+        $properties = Properties::latest()->get();
         $locations = Location::all(); // or however you fetch locations
         $agentObj = User::select('id', 'first_name', 'last_name')->where([
             'status' => 1,
@@ -282,6 +282,7 @@ class PropertiesController extends Controller
                                 data-agent="' . htmlspecialchars(optional($ar->agent)->name, ENT_QUOTES) . '"
                                 data-developer="' . htmlspecialchars(optional($ar->developer)->name, ENT_QUOTES) . '"
                                 data-features="' . $ar->additional_features . '"
+                                data-building="' . $ar->building_name . '"
                             >
                             <i class="fa fa-pencil"></i> Other Information
                             </a>';
@@ -659,7 +660,7 @@ class PropertiesController extends Controller
     // Information Model
     public function getInformation($id)
     {
-        return Properties::select('name', 'price', 'location_id','agent_id', 'developer_id','additional_features')
+        return Properties::select('name', 'price', 'location_id','agent_id', 'developer_id','additional_features', 'building_name')
             ->findOrFail($id);
     }
 
@@ -672,6 +673,7 @@ class PropertiesController extends Controller
         $property->agent_id = $request->agent_id;
         $property->developer_id = $request->developer_id;
         $property->additional_features = $request->additional_features;
+        $property->building_name = $request->building_name;
         $property->save();
 
         return response()->json(['success' => true]);

@@ -92,7 +92,7 @@
 
                                         <div class="mb-3">
                                             <label class="form-label">Description</label>
-                                            <textarea class="form-control ckeditor"  name="description" id="property_description" rows="6"></textarea>
+                                            <textarea class="form-control ckeditor" name="description" id="property_description" rows="6"></textarea>
                                         </div>
                                     </div>
 
@@ -124,6 +124,12 @@
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 mb-2">
+                                            <label class="mb-0" for="building_name">Building Name<span
+                                                    class="text-error">*</span></label>
+                                            <input type="text" id="info_building" class="form-control">
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 mb-2">
                                             <label class="form-check-label mb-2">Property Features</label>
 
                                             <textarea class="form-control ckeditor" id="info_features" name="additional_features"
@@ -134,7 +140,6 @@
 
 
                                         <div class="row">
-
 
                                             <div class="col-md-4 col-sm-12 mb-2">
                                                 <label class="mb-0" for="agent_id">Agent <span
@@ -171,13 +176,13 @@
                                                 <div class="error text-error"></div>
                                             </div>
 
-
-
                                             <div class="col-md-4 col-sm-12 mb-2">
                                                 <label class="mb-0" for="price">Price <span
                                                         class="text-error">*</span></label>
                                                 <input type="number" id="info_price" class="form-control">
                                             </div>
+
+
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
@@ -252,35 +257,95 @@
                         d.value = "{{ $param['value'] }}"; // Pass industry parameter
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'id',
                         render: function(data, type, row, meta) {
                             return meta.row + 1; // Auto-increment based on row index
                         }
                     },
-                    { data: 'image', name: 'image' },
-                    { data: 'unique_id', name: 'unique_id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'purpose', name: 'purpose' },
-                    { data: 'type', name: 'type' },
-                    { data: 'area', name: 'area' },
-                    { data: 'price', name: 'price' },
-                    { data: 'location_id', name: 'location_id' },
-                    { data: 'count', name: 'count' },
-                    { data: 'publish', name: 'publish' },
-                    { data: 'status', name: 'status' },
-                    { data: 'updated_at',  name: 'updated_at' },
-                    { data: 'action',  name: 'action', orderable: false, searchable: false },
+                    {
+                        data: 'image',
+                        name: 'image'
+                    },
+                    {
+                        data: 'unique_id',
+                        name: 'unique_id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'purpose',
+                        name: 'purpose'
+                    },
+                    {
+                        data: 'type',
+                        name: 'type'
+                    },
+                    {
+                        data: 'area',
+                        name: 'area'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'location_id',
+                        name: 'location_id'
+                    },
+                    {
+                        data: 'count',
+                        name: 'count'
+                    },
+                    {
+                        data: 'publish',
+                        name: 'publish'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
                 ],
-                 columnDefs: [
-                    { responsivePriority: 1, targets: 0 },  
-                    { responsivePriority: 2, targets: 1 },  
-                    { responsivePriority: 3, targets: 2 },  
-                    { responsivePriority: 4, targets: 3 },  
-                    { responsivePriority: 5, targets: 4 },    
-                    { responsivePriority: 6, targets: 5 },
-                    { responsivePriority: 10001, targets: [6,7,8,9,10,11,12,13] }  
+                columnDefs: [{
+                        responsivePriority: 1,
+                        targets: 0
+                    },
+                    {
+                        responsivePriority: 2,
+                        targets: 1
+                    },
+                    {
+                        responsivePriority: 3,
+                        targets: 2
+                    },
+                    {
+                        responsivePriority: 4,
+                        targets: 3
+                    },
+                    {
+                        responsivePriority: 5,
+                        targets: 4
+                    },
+                    {
+                        responsivePriority: 6,
+                        targets: 5
+                    },
+                    {
+                        responsivePriority: 10001,
+                        targets: [6, 7, 8, 9, 10, 11, 12, 13]
+                    }
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
@@ -389,6 +454,7 @@
             $('#info_agent').val('');
             $('#info_developer').val('');
             $('#info_features').val('');
+            $('#info_building').val('');
 
 
             $.ajax({
@@ -402,6 +468,7 @@
                     $('#info_agent').val(res.agent_id ?? '');
                     $('#info_developer').val(res.developer_id ?? '');
                     $('#info_features').val(res.additional_features ?? '');
+                    $('#info_building').val(res.building_name ?? '');
 
 
                     // Show modal AFTER data loads
@@ -425,6 +492,7 @@
             let agent = $('#info_agent').val();
             let developer = $('#info_developer').val();
             let features = $('#info_features').val();
+            let building = $('#info_building').val();
 
             if (!id) {
                 toastr.error('Property ID missing');
@@ -442,7 +510,8 @@
                     location_id: location,
                     agent_id: agent,
                     developer_id: developer,
-                    additional_features: features
+                    additional_features: features,
+                    building_name: building
                 },
                 beforeSend: function() {
                     $('#saveInformation').prop('disabled', true).text('Saving...');
@@ -480,6 +549,4 @@
             });
         });
     </script>
-
-   
 @endsection
