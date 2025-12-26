@@ -66,7 +66,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->admin_id = $admin_id;
             $propertyDataObj->name = strip_tags($request->name);
             $propertyDataObj->building_name = $request->building_name;
-            $propertyDataObj->slug = convertStringToSlug($request->name);
+            // $propertyDataObj->slug = convertStringToSlug($request->name);
             $propertyDataObj->h1_tag = $request->name;//$request->h1_tag;
             $propertyDataObj->seo_title = $request->name; //$request->seo_title;
             $propertyDataObj->meta_description = $request->name; //$request->meta_description;
@@ -101,6 +101,9 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->price = $price;
             // $propertyDataObj->status = $status;
 
+            $propertyDataObj->save();
+
+            $propertyDataObj->slug = $propertyDataObj->id.'-'.convertStringToSlug($request->name);
             $propertyDataObj->save();
         }
 
@@ -193,7 +196,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
 
             if ($request->file('propertyImage')) {
                 foreach ($request->file('propertyImage') as $file) {
-                    
+
                     // Create unique filename
                     $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
