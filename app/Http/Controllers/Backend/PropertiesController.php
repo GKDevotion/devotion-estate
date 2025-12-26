@@ -81,8 +81,14 @@ class PropertiesController extends Controller
             'field' => 'is_new_property',
             'value' => 1
         ];
-
-        return view('backend.pages.properties.index', compact('param'));
+        $properties = Properties::latest()->get();
+        $agentObj = User::select('id', 'first_name', 'last_name')->where([
+            'status' => 1,
+            'type' => 4
+        ])->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
+        $locations = Location::all(); // or however you fetch locations
+        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
     }
 
     /**
@@ -100,8 +106,14 @@ class PropertiesController extends Controller
             'field' => 'is_luxury_property',
             'value' => 1
         ];
-
-        return view('backend.pages.properties.index', compact('param'));
+        $properties = Properties::latest()->get();
+        $agentObj = User::select('id', 'first_name', 'last_name')->where([
+            'status' => 1,
+            'type' => 4
+        ])->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
+        $locations = Location::all(); // or however you fetch locations
+        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
     }
 
     /**
@@ -119,8 +131,14 @@ class PropertiesController extends Controller
             'field' => 'is_hot_offer',
             'value' => 1
         ];
-
-        return view('backend.pages.properties.index', compact('param'));
+        $properties = Properties::latest()->get();
+        $agentObj = User::select('id', 'first_name', 'last_name')->where([
+            'status' => 1,
+            'type' => 4
+        ])->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
+        $locations = Location::all(); // or however you fetch locations
+        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
     }
 
 
@@ -140,8 +158,14 @@ class PropertiesController extends Controller
             'field' => 'is_featured_property',
             'value' => 1
         ];
-
-        return view('backend.pages.properties.index', compact('param'));
+        $properties = Properties::latest()->get();
+        $agentObj = User::select('id', 'first_name', 'last_name')->where([
+            'status' => 1,
+            'type' => 4
+        ])->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
+        $locations = Location::all(); // or however you fetch locations
+        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
     }
 
     /**
