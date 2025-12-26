@@ -108,45 +108,16 @@
                         // d.iid = ""; // Pass industry parameter
                     }
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'property_name',
-                        name: 'property_name'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'mobile_number',
-                        name: 'mobile_number'
-                    },
-                    {
-                        data: 'message',
-                        name: 'message'
-                    },
-                    {
-                        data: 'is_read',
-                        name: 'is_read'
-                    },
- 
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'property_name',  name: 'property_name' },
+                    { data: 'name',  name: 'name' },
+                    { data: 'email', name: 'email' },
+                    { data: 'mobile_number', name: 'mobile_number' },
+                    { data: 'message', name: 'message' },
+                    { data: 'is_read',  name: 'is_read' },
+                    { data: 'updated_at',  name: 'updated_at' },
+                    { data: 'action',  name: 'action', orderable: false, searchable: false },
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row

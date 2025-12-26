@@ -108,44 +108,16 @@
                         // d.iid = ""; // Pass industry parameter
                     }
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'contact_no',
-                        name: 'contact_no'
-                    },
-                    {
-                        data: 'review',
-                        name: 'review'
-                    },
-                    {
-                        data: 'property_id',
-                        name: 'property_id'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                columns: [
+                    {  data: 'id', name: 'id' },
+                    {  data: 'name',  name: 'name' },
+                    {  data: 'email', name: 'email' },
+                    {  data: 'contact_no',  name: 'contact_no' },
+                    {  data: 'review', name: 'review' },
+                    {  data: 'property_id',  name: 'property_id' },
+                    {  data: 'status',  name: 'status' },
+                    {  data: 'updated_at', name: 'updated_at' },
+                    {  data: 'action',   name: 'action', orderable: false, searchable: false },
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row

@@ -109,49 +109,17 @@
                         // d.iid = ""; // Pass industry parameter
                     }
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'continent',
-                        name: 'continent'
-                    },
-                    {
-                        data: 'iso',
-                        name: 'iso'
-                    },
-                     {
-                        data: 'numeric_code',
-                        name: 'numeric_code'
-                    },
-                     {
-                        data: 'capital',
-                        name: 'capital'
-                    },
-                     
-                     {
-                        data: 'lat_long',
-                        name: 'lat_long'
-                    },
-                     {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'continent', name: 'continent' },
+                    { data: 'iso', name: 'iso' },
+                    { data: 'numeric_code', name: 'numeric_code' },
+                    { data: 'capital', name: 'capital' },
+                    { data: 'lat_long', name: 'lat_long' },
+                    { data: 'status',  name: 'status' },
+                    { data: 'updated_at', name: 'updated_at' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row

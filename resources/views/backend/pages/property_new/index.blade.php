@@ -107,52 +107,17 @@
                             return meta.row + 1; // Auto-increment based on row index
                         }
                     }, // Auto index { data: 'id', name: 'id' },
-                    {
-                        data: 'image',
-                        name: 'image'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'purpose',
-                        name: 'purpose'
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
-                        data: 'publish',
-                        name: 'publish'
-                    },
-                    {
-                        data: 'area',
-                        name: 'area'
-                    },
-                    {
-                        data: 'price',
-                        name: 'price'
-                    },
-                    {
-                        data: 'location_id',
-                        name: 'location_id'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                    { data: 'image', name: 'image' },
+                    { data: 'name', name: 'name' },
+                    { data: 'purpose',  name: 'purpose' },
+                    { data: 'type', name: 'type' },
+                    { data: 'publish', name: 'publish' },
+                    { data: 'area', name: 'area' },
+                    { data: 'price', name: 'price' },
+                    { data: 'location_id',  name: 'location_id' },
+                    { data: 'status',  name: 'status' },
+                    { data: 'updated_at',  name: 'updated_at' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row

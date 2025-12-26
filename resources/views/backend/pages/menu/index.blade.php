@@ -193,44 +193,16 @@ Menu Page - Admin Panel
                         // d.iid = ""; // Pass industry parameter
                     }
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'slug',
-                        name: 'slg'
-                    },
-                    {
-                        data: 'group_name',
-                        name: 'group_name'
-                    },
-                     {
-                        data: 'class_name',
-                        name: 'class_name'
-                    },
-                     {
-                        data: 'sort_order',
-                        name: 'sort_order'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'slug', name: 'slug' },
+                    { data: 'group_name', name: 'group_name' },
+                    { data: 'class_name', name: 'class_name' },
+                    { data: 'sort_order', name: 'sort_order' },
+                    { data: 'status', name: 'status' },
+                    { data: 'updated_at', name: 'updated_at' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
