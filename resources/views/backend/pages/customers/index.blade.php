@@ -57,7 +57,7 @@ Customer - Admin Panel
 
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="dataTable" class="text-center">
+                        <table id="dataTable" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="customer" class="bg-light text-capitalize">
                                 <tr>
                                     <th width="5%">#</th>

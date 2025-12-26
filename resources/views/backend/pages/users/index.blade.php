@@ -57,7 +57,7 @@ Users - Admin Panel
                 <div class="card-body">
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="user_index" class="w-100">
+                        <table id="user_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="user" class="bg-light text-capitalize">
                                 <tr>
                                     <th>#</th>

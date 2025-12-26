@@ -56,7 +56,7 @@ Property Features Page
 
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="property-features_index" class="text-center w-100">
+                        <table id="property-features_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="property-features" class="bg-light text-capitalize">
                                 <tr>
                                     <th>Sr</th>

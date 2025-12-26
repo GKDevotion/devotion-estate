@@ -57,7 +57,7 @@ Continent Page - Admin Panel
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="continents_index" class="">
+                            <table id="continents_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="continents" class="bg-light text-capitalize">
                                     <tr>
                                         <th>Sr</th>

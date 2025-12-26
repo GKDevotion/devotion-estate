@@ -56,7 +56,7 @@ Property Types Page
 
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="property-types_index" class="w-100">
+                        <table id="property-types_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="property-types" class="bg-light text-capitalize">
                                 <tr>
                                     <th>Sr</th>

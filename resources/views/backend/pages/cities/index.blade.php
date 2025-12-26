@@ -56,7 +56,7 @@ City Page - Admin Panel
 
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="city_index" class="text-center">
+                        <table id="city_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="city" class="bg-light text-capitalize">
                                 <tr>
                                     <th width="1%">Sr</th>

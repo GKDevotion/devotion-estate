@@ -56,7 +56,7 @@
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="contact-us_index" class="">
+                            <table id="contact-us_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="contact-us" class="bg-light text-capitalize">
                                     <tr>
                                         <th>#</th>

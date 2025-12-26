@@ -56,7 +56,7 @@ Admin Log Page - Admin Panel
                 <div class="card-body">
                    <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="admin_log_index" class="text-center">
+                        <table id="admin_log_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="admin_log" class="bg-light text-capitalize">
                                 <tr>
                                     <th>Sr</th>

@@ -60,7 +60,7 @@
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="payment-plan_index" class="">
+                            <table id="payment-plan_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="corporate-emails" class="bg-light text-capitalize">
                                     <tr>
                                         <th>#</th>

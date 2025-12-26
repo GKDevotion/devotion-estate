@@ -56,7 +56,7 @@ Status Page - Admin Panel
 
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="dataTable" class="text-center" style="width: 100%">
+                        <table id="dataTable" class="table table-bordered table-striped display responsive nowrap" style="width: 100%">
                             <thead id="projectStatus" class="bg-light text-capitalize">
                                 <tr>
                                     <th>Sr</th>

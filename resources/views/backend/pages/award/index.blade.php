@@ -56,7 +56,7 @@ Award Page - Admin Panel
 
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="award_index" class="text-center">
+                        <table id="award_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="award" class="bg-light text-capitalize">
                                 <tr>
                                     <th width="1%">Sr</th>

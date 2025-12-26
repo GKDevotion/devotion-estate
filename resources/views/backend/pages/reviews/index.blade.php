@@ -56,7 +56,7 @@
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="reviews_index" class="">
+                            <table id="reviews_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="reviews" class="bg-light text-capitalize">
                                     <tr>
                                         <th>#</th>

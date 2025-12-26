@@ -63,7 +63,7 @@ Role Page - Admin Panel
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="roles_index" class="">
+                            <table id="roles_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="roles" class="bg-light text-capitalize">
                                     <tr>
                                         <th>Sr</th>

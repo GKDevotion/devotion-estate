@@ -58,7 +58,7 @@ Company Location Page - Admin Panel
 
                         @include('backend.layouts.partials.messages')
 
-                        <table id="locations_index" class="">
+                        <table id="locations_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="locations" class="bg-light text-capitalize">
                                 <tr>
                                     <th>#</th>

@@ -63,7 +63,7 @@ Admins - Admin Panel
 
                         @include('backend.layouts.partials.messages')
 
-                        <table id="dataTable" class="text-center">
+                        <table id="dataTable" class="table table-bordered table-striped display responsive nowrap">
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th width="2%">#</th>

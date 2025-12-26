@@ -56,7 +56,7 @@
 
                         <div class="data-tables">
                             @include('backend.layouts.partials.messages')
-                            <table id="properties_index" class="text-center w-100">
+                            <table id="properties_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="properties" class="bg-light text-capitalize">
                                     <tr>
                                         <th>Sr</th>

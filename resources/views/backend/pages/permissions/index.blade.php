@@ -50,7 +50,7 @@ Permission - Admin Panel
                 <div class="card-body">
                     <div class="data-tables">
                         @include('backend.layouts.partials.messages')
-                        <table id="dataTable" class="text-center">
+                        <table id="dataTable" class="table table-bordered table-striped display responsive nowrap">
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th width="5%">Sl</th>

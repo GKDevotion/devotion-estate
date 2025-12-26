@@ -56,7 +56,7 @@
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="countries_index" class="">
+                            <table id="countries_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="countries" class="bg-light text-capitalize">
                                     <tr>
                                         <th>sr</th>

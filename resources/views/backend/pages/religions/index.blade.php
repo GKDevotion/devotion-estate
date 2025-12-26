@@ -57,7 +57,7 @@ Religion Page - Admin Panel
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="religions_index" class="">
+                            <table id="religions_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="religions" class="bg-light text-capitalize">
                                     <tr>
                                         <th>Sr</th>

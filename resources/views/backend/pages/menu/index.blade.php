@@ -136,7 +136,7 @@ Menu Page - Admin Panel
 
                             @include('backend.layouts.partials.messages')
 
-                            <table id="menu_index" class="">
+                            <table id="menu_index" class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="admin_menus" class="bg-light text-capitalize">
                                     <tr>
                                         <th>Sr</th>
