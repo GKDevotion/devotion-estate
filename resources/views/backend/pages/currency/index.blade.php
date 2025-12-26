@@ -104,6 +104,18 @@ Currency Page - Admin Panel
                     { data: 'status', name: 'status', orderable: false, searchable: false },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
+                ],
+                    
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 2, targets: 1 },
+                    { responsivePriority: 3, targets: 2 }, 
+                    { responsivePriority: 4, targets: 3 }, 
+                    { responsivePriority: 5, targets: 4 }, 
+                    { responsivePriority: 6, targets: 5 }, 
+
+                    // Least important → "+"
+                    { responsivePriority: 10001, targets: [6] } 
                 ]
             });
         });

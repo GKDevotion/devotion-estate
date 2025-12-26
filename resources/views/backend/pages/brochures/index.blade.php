@@ -110,6 +110,16 @@ Brochure Page - Admin Panel
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
+
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 }, // #
+                    { responsivePriority: 2, targets: 1 }, // Location
+                    { responsivePriority: 3, targets: 2 }, // Action
+                    { responsivePriority: 4, targets: 3}, // Status
+                    { responsivePriority: 5, targets: 4 }, // Agent
+                    { responsivePriority: 6, targets: 5 }, // File
+                    { responsivePriority: 10001, targets: [6] } // Updated At
+                ],
                  createdRow: function (row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row
                     $(row).attr('class', 'brochures_row');// Assign a custom Class to the row

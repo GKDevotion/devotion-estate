@@ -206,6 +206,12 @@
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
+                  columnDefs: [
+                    { responsivePriority: 1, targets: 0 },  
+                    { responsivePriority: 2, targets: 1 },  
+                    { responsivePriority: 3, targets: 2 },  
+                    { responsivePriority: 10001, targets: [3, 4] }  
+                ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
                     $(row).attr('class', 'payment-plan_row'); // Assign a custom Class to the row

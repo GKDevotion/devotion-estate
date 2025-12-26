@@ -142,7 +142,15 @@ Admins - Admin Panel
         ==================================*/
         if ($('#dataTable').length) {
             $('#dataTable').DataTable({
-                responsive: true
+                responsive: true,
+                    columnDefs: [
+                    { responsivePriority: 1, targets: 0 }, // #
+                    { responsivePriority: 2, targets: 1 }, // Name
+                    { responsivePriority: 3, targets: 2 }, // User Name
+                    { responsivePriority: 4, targets: 3 }, // Email
+                    { responsivePriority: 10001, targets: [4, 5, 6] }, // Contact, Roles, Updated At
+                    { responsivePriority: 5, targets: 7 }
+                ]
             });
         }
 

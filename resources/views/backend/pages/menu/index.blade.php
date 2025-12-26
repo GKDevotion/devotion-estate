@@ -204,6 +204,18 @@ Menu Page - Admin Panel
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
+                  
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 }, 
+                    { responsivePriority: 2, targets: 1 }, 
+                    { responsivePriority: 3, targets: 2 },  
+                    { responsivePriority: 4, targets: 3 },  
+                    { responsivePriority: 5, targets: 4 },  
+                    { responsivePriority: 6, targets: 5 },   
+                    { responsivePriority: 7, targets: 6 },    
+                    { responsivePriority: 10001, targets: [7, 8] }  
+                ],
+
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
                     $(row).attr('class', 'menu_row'); // Assign a custom Class to the row

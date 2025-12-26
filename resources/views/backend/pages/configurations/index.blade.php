@@ -110,10 +110,22 @@
                     {  data: 'updated_at', name: 'updated_at' },
                     {  data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
+   
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 }, // ID 
+                    { responsivePriority: 2, targets: 1 }, // Display Name
+                    { responsivePriority: 3, targets: 2 }, // Key
+                    { responsivePriority: 4, targets: 3 }, // Value
+
+          
+                    { responsivePriority: 10001, targets: [4, 5] } 
+                ],
+
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
                     $(row).attr('class', 'configurations_row'); // Assign a custom Class to the row
                 },
+                
                 language: {
                     emptyTable: "No data available in table" // Custom message for empty table
                 },

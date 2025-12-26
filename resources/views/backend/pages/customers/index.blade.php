@@ -149,6 +149,17 @@ Customer - Admin Panel
                 buttons: ['excel', 'pdf'],
                 lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 pageLength: 10,
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 }, 
+            { responsivePriority: 2, targets: 1 },
+            { responsivePriority: 3, targets: 2 }, 
+            { responsivePriority: 4, targets: 3 }, 
+            { responsivePriority: 5, targets: 4 }, 
+            { responsivePriority: 6, targets: 5 }, 
+            { responsivePriority: 7, targets: 6 }, 
+            // Least important → "+"
+            { responsivePriority: 10001, targets: [7 , 8 , 9 , 10 , 11] } 
+        ]
             });
         }
 

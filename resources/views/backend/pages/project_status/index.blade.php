@@ -140,6 +140,14 @@ Status Page - Admin Panel
                 buttons: ['excel', 'pdf'],
                 lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 pageLength: 10,
+                columnDefs: [
+                { responsivePriority: 1, targets: 0 },  
+                { responsivePriority: 2, targets: 1 },  
+                { responsivePriority: 2, targets: 2 },  
+                { responsivePriority: 2, targets: 3 },  
+                { responsivePriority: 2, targets: 4 },  
+                { responsivePriority: 10001, targets: [5, 6] } 
+            ],
             });
         }
 

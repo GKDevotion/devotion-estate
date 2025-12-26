@@ -120,7 +120,13 @@ Permission - Admin Panel
         ==================================*/
         if ($('#dataTable').length) {
             $('#dataTable').DataTable({
-                responsive: true
+                responsive: true,
+                columnDefs: [
+                { responsivePriority: 1, targets: 0 },  
+                { responsivePriority: 2, targets: 1 },  
+                { responsivePriority: 3, targets: 2 },  
+                { responsivePriority: 10001, targets: [3, 4] } 
+            ],
             });
         }
 
