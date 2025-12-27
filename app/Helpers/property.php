@@ -307,7 +307,7 @@ function getPropertiesByType($type = [1])
             'publish' => 1
         ])
         ->where('status', "!=" , 2)// 2 : Deleted
-        ->groupBy( 'developer_id' )
+        // ->groupBy( 'developer_id' )
         ->latest()
         ->take($sliderPage)
         ->get();
