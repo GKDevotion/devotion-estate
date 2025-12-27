@@ -306,6 +306,7 @@ function getPropertiesByType($type = [1])
             'status' => 1,
             'publish' => 1
         ])
+        ->where('status', "!=" , 2)// 2 : Deleted
         ->groupBy( 'developer_id' )
         ->latest()
         ->take($sliderPage)
@@ -318,7 +319,8 @@ function getSearchByProperties($request, $perPage = 4)
     $query = Properties::where([
             'status' => 1,
             'publish' => 1
-        ]);
+        ])
+        ->where('status', "!=" , 2);// 2 : Deleted;
 
 
  // 🔹 Detect page source (rent, buy, offplan, luxury, etc.)
