@@ -596,7 +596,7 @@ class PropertiesController extends Controller
             // PropertyImageMap::where('property_id', $id)->delete();
 
             //delete proerty
-            $record->status = 3;
+            $record->status = 2;
             $record->save();
         }
 
