@@ -1,3 +1,6 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
 <style>
     .btn-outline-custom.active {
         background-color: #aa8038;
@@ -21,20 +24,21 @@
         <!-- Location Dropdown -->
         <div class="col-lg-2 col-md-4 col-sm-6 position-relative">
             <div class="input-group">
-                <span class="input-group-text bg-white border-end-0">
-                    <i class="bi bi-geo-alt"></i>
-                </span>
-                <select id="locationInput" name="location" class="form-select border-start-1">
+
+                <select id="locationInput" name="location" class="form-select border-start-0 select-location">
                     <option value="">All Location</option>
-                   @forelse($locationObj->sortBy('name') as $p)
-                        <option value="{{ $p->id ?? 'Unknown Location id' }}"
-                            {{ request('location') == $p->id ? 'selected' : '' }}>
-                            {{ $p->name ?? 'Unknown Location' }}
+
+                    @forelse($locationObj->sortBy('name') as $p)
+                        <option value="{{ $p->id }}" {{ request('location') == $p->id ? 'selected' : '' }}>
+                            {{ $p->name }}
                         </option>
-                    @endforeach
+                    @empty
+                        <option disabled>No Locations Found</option>
+                    @endforelse
                 </select>
             </div>
         </div>
+
 
         <!-- Property Type Dropdown -->
         <div class="col-lg-2 col-md-4 col-sm-6">
@@ -124,18 +128,21 @@
 
         <!-- Bed -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-            <input type="number" class="form-control rounded-2" name="bed" placeholder="Bed" value="{{request('bed') ?? ''}}" min="1">
+            <input type="number" class="form-control rounded-2" name="bed" placeholder="Bed"
+                value="{{ request('bed') ?? '' }}" min="1">
         </div>
 
         <!-- Bath -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-            <input type="number" class="form-control rounded-2" name="bath" placeholder="Bath" value="{{request('bath') ?? ''}}" min="1">
+            <input type="number" class="form-control rounded-2" name="bath" placeholder="Bath"
+                value="{{ request('bath') ?? '' }}" min="1">
         </div>
 
 
         <!-- Keyword -->
         <div class="col-lg-2 col-md-4 col-sm-6 d-none">
-            <input type="text" class="form-control" name="keyword" value="{{request('keyword') ?? ''}}" placeholder="Search Keyword here">
+            <input type="text" class="form-control" name="keyword" value="{{ request('keyword') ?? '' }}"
+                placeholder="Search Keyword here">
         </div>
 
         <!-- Price Dropdown -->
@@ -191,6 +198,9 @@
         </div>
     </div>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -278,6 +288,14 @@
             minPriceInput.value = '';
             maxPriceInput.value = '';
             priceBtn.innerHTML = 'Price (AED) <i class="bi bi-chevron-down"></i>';
+        });
+    });
+
+    $(document).ready(function() {
+        $('.select-location').select2({
+            placeholder: "Search location",
+            allowClear: true,
+            width: '100%'
         });
     });
 </script>

@@ -69,11 +69,8 @@
                                     <!-- Location -->
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="input-group">
-                                            <span class="input-group-text bg-white border-end-0">
-                                                <i class="bi bi-geo-alt"></i>
-                                            </span>
-                                            <select name="location" class="form-select border-start-0">
-                                                <option value="">All Location</option>
+                                            <select name="location" class="form-select select2">
+                                                <option value="">Search Location</option>
                                                 @foreach ($location as $p)
                                                     <option value="{{ $p->id }}">{{ $p->name }}</option>
                                                 @endforeach
@@ -84,8 +81,7 @@
                                     <!-- Property Type -->
                                     <div class="col-lg-2 col-md-6 col-sm-12">
 
-                                        <select class="form-select" id="type" name="type"
-                                            style="font-size: 1rem;">
+                                        <select class="form-select" id="type" name="type" style="font-size: 1rem;">
                                             <option value="" selected disabled>Property Type</option>
                                             <option value="1">Residential</option>
                                             <option value="2">Commercial</option>
@@ -94,8 +90,7 @@
 
                                     <!-- Property Sub Type -->
                                     <div class="col-lg-2 col-md-6 col-sm-12">
-                                        <select class="form-select" id="sub_type" name="sub_type"
-                                            style="font-size: 1rem;">
+                                        <select class="form-select" id="sub_type" name="sub_type" style="font-size: 1rem;">
                                             <option value="" select disabled> Sub Type</option>
                                             @foreach ($propertyTypeObj as $type)
                                                 <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
@@ -133,11 +128,8 @@
                                 <!-- Location -->
                                 <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="input-group">
-                                        <span class="input-group-text bg-white border-end-0">
-                                            <i class="bi bi-geo-alt"></i>
-                                        </span>
-                                        <select name="location" class="form-select border-start-0">
-                                            <option value="">All Location</option>
+                                        <select name="location" class="form-select select2">
+                                            <option value="">Search Location</option>
                                             @foreach ($location as $p)
                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
@@ -157,8 +149,7 @@
 
                                 <!-- Property Sub Type -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
-                                    <select class="form-select" id="sub_type" name="sub_type"
-                                        style="font-size: 1rem;">
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 1rem;">
                                         <option value="" select disabled> Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
@@ -195,11 +186,8 @@
                                 <!-- Location -->
                                 <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="input-group">
-                                        <span class="input-group-text bg-white border-end-0">
-                                            <i class="bi bi-geo-alt"></i>
-                                        </span>
-                                        <select name="location" class="form-select border-start-0">
-                                            <option value="">All Location</option>
+                                        <select name="location" class="form-select select2">
+                                            <option value="">Search Location</option>
                                             @foreach ($location as $p)
                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
@@ -211,8 +199,7 @@
                                 <!-- Property Type -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
 
-                                    <select class="form-select" id="type" name="type"
-                                        style="font-size: 1rem;">
+                                    <select class="form-select" id="type" name="type" style="font-size: 1rem;">
                                         <option value="" selected disabled>Property Type</option>
                                         <option value="1">Residential</option>
                                         <option value="2">Commercial</option>
@@ -221,8 +208,7 @@
 
                                 <!-- Property Sub Type -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
-                                    <select class="form-select" id="sub_type" name="sub_type"
-                                        style="font-size: 1rem;">
+                                    <select class="form-select" id="sub_type" name="sub_type" style="font-size: 1rem;">
                                         <option value="" select disabled> Sub Type</option>
                                         @foreach ($propertyTypeObj as $type)
                                             <option value="{{ $type->id }}" data-main="{{ $type->main_type }}"
@@ -547,7 +533,7 @@
                     <p class="text-muted mb-0">Find newly listed properties in your local area with best pricing.</p>
                 </div>
 
-                <div >
+                <div>
                     <a href="{{ route('new.properties') }}" class="text-decoration-none small text-secondary">View all
                         &rarr;</a>
                 </div>
@@ -1133,6 +1119,7 @@
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         $(function() {
             const $type = $('#type');
@@ -1149,6 +1136,22 @@
 
             // Initial check (for edit pages)
             $type.trigger('change');
+        });
+
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: "Search Location",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: "Search Location",
+                allowClear: true,
+                width: '100%'
+            });
         });
     </script>
 
