@@ -67,163 +67,161 @@
                                         <th>Type</th>
                                         <th>Area</th>
                                         <th>Price</th>
+                                        <th>Status</th>
                                         <th>Address</th>
                                         <th>View</th>
                                         <th>Publish</th>
-                                        <th>Status</th>
                                         <th>Update At</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
-
-                        <div class="modal fade" id="descriptionModal" tabindex="-1">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Update Property Description</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <input type="hidden" id="property_id">
-
-                                        <div class="mb-3">
-                                            <label class="form-label">Description</label>
-                                            <textarea class="form-control ckeditor" name="description" id="property_description" rows="6"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="saveDescription">Save</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="informationModal" tabindex="-1">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Update Property Information</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <input type="hidden" id="info_property_id">
-
-                                        <div class="col-md-12 col-sm-12 mb-2">
-                                            <label class="form-label">Property Name</label>
-                                            <input type="text" id="info_name" class="form-control">
-                                        </div>
-
-                                        <div class="col-md-12 col-sm-12 mb-2">
-                                            <label class="mb-0" for="building_name">Building Name<span
-                                                    class="text-error">*</span></label>
-                                            <input type="text" id="info_building" class="form-control">
-                                        </div>
-
-                                        <div class="col-md-12 col-sm-12 mb-2">
-                                            <label class="form-check-label mb-2">Property Features</label>
-
-                                            <textarea class="form-control ckeditor" id="info_features" name="additional_features"
-                                                placeholder="Add additional property Features"></textarea>
-
-                                            <div class="error text-error"></div>
-                                        </div>
-
-
-                                        <div class="row">
-
-                                            <div class="col-md-4 col-sm-12 mb-2">
-                                                <label class="mb-0" for="agent_id">Agent <span
-                                                        class="text-error">*</span></label>
-                                                <select name="agent_id" id="info_agent" class="form-control"
-                                                    data-required="yes">
-                                                    <option value="">Select Agent</option>
-                                                    @foreach ($agentObj as $ar)
-                                                        <option value="{{ $ar->id }}"
-                                                            {{ old('agent_id', $data->agent_id ?? '') == $ar->id ? 'selected' : '' }}>
-                                                            {{ $ar->first_name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-
-                                                @error('agent_id')
-                                                    <div class="error text-error">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 mb-2">
-                                                <label class="mb-0" for="developer_id">Develop By <span
-                                                        class="text-error">*</span></label>
-                                                <select name="developer_id" id="info_developer"
-                                                    class="form-control select2" data-required="yes">
-                                                    <option value="">Select Location</option>
-                                                    @foreach ($developerObj as $ar)
-                                                        <option value="{{ $ar->id }}"
-                                                            {{ old('developer_id', $data->developer_id ?? '') == $ar->id ? 'selected' : '' }}>
-                                                            {{ $ar->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="error text-error"></div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 mb-2">
-                                                <label class="mb-0" for="price">Price <span
-                                                        class="text-error">*</span></label>
-                                                <input type="number" id="info_price" class="form-control">
-                                            </div>
-
-
-                                        </div>
-
-                                        <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="location_id">Location <span
-                                                    class="text-error">*</span></label>
-                                            <select name="location_id" id="info_location" class="form-control select2"
-                                                data-required="yes">
-                                                <option value="">Select Location</option>
-                                                @foreach ($locations as $location)
-                                                    <option value="{{ $location->id }}"
-                                                        {{ old('location_id', $location->location_id ?? '') == $location->id ? 'selected' : '' }}>
-                                                        {{ $location->name }}
-                                                    </option>
-                                                @endforeach
-                                                <option value="other">Other</option>
-                                            </select>
-
-                                            @error('location_id')
-                                                <div class="error text-error">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="saveInformation">Save</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
             <!-- data table end -->
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="descriptionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Property Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="property_id">
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control ckeditor" name="description" id="property_description" rows="6"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveDescription">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="informationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Property Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="info_property_id">
+
+                    <div class="col-md-12 col-sm-12 mb-2">
+                        <label class="form-label">Property Name</label>
+                        <input type="text" id="info_name" class="form-control">
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 mb-2">
+                        <label class="mb-0" for="building_name">Building Name<span
+                                class="text-error">*</span></label>
+                        <input type="text" id="info_building" class="form-control">
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 mb-2">
+                        <label class="form-check-label mb-2">Property Features</label>
+
+                        <textarea class="form-control ckeditor" id="info_features" name="additional_features"
+                            placeholder="Add additional property Features"></textarea>
+
+                        <div class="error text-error"></div>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-12 mb-2">
+                            <label class="mb-0" for="agent_id">Agent <span
+                                    class="text-error">*</span></label>
+                            <select name="agent_id" id="info_agent" class="form-control"
+                                data-required="yes">
+                                <option value="">Select Agent</option>
+                                @foreach ($agentObj as $ar)
+                                    <option value="{{ $ar->id }}"
+                                        {{ old('agent_id', $data->agent_id ?? '') == $ar->id ? 'selected' : '' }}>
+                                        {{ $ar->first_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @error('agent_id')
+                                <div class="error text-error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 mb-2">
+                            <label class="mb-0" for="developer_id">Develop By <span
+                                    class="text-error">*</span></label>
+                            <select name="developer_id" id="info_developer"
+                                class="form-control select2" data-required="yes">
+                                <option value="">Select Location</option>
+                                @foreach ($developerObj as $ar)
+                                    <option value="{{ $ar->id }}"
+                                        {{ old('developer_id', $data->developer_id ?? '') == $ar->id ? 'selected' : '' }}>
+                                        {{ $ar->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="error text-error"></div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 mb-2">
+                            <label class="mb-0" for="price">Price <span
+                                    class="text-error">*</span></label>
+                            <input type="number" id="info_price" class="form-control">
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <label class="mb-0" for="location_id">Location <span
+                                class="text-error">*</span></label>
+                        <select name="location_id" id="info_location" class="form-control select2"
+                            data-required="yes">
+                            <option value="">Select Location</option>
+                            @foreach ($locations as $location)
+                                <option value="{{ $location->id }}"
+                                    {{ old('location_id', $location->location_id ?? '') == $location->id ? 'selected' : '' }}>
+                                    {{ $location->name }}
+                                </option>
+                            @endforeach
+                            <option value="other">Other</option>
+                        </select>
+
+                        @error('location_id')
+                            <div class="error text-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveInformation">Save</button>
+                </div>
+
+            </div>
         </div>
     </div>
 @endsection
@@ -292,6 +290,10 @@
                         name: 'price'
                     },
                     {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
                         data: 'location_id',
                         name: 'location_id'
                     },
@@ -302,10 +304,6 @@
                     {
                         data: 'publish',
                         name: 'publish'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
                     },
                     {
                         data: 'updated_at',
