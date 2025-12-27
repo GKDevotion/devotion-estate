@@ -182,7 +182,7 @@ class PropertiesController extends Controller
             $query->where('admin_id', $this->admin_id);
         }
 
-        $query->where('status'," !=", 2);// 2 : Deleted
+        $query->where('status', "!=" , 2);// 2 : Deleted
 
         /**
          * set dynamic other property features
