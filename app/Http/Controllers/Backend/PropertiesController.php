@@ -192,7 +192,7 @@ class PropertiesController extends Controller
             $query->where($request->field, $request->value);
         }
 
-        $query->select('id', 'unique_id', 'developer_id', 'name', 'slug', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at');
+        $query->select('id', 'unique_id', 'developer_id', 'name', 'slug', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'is_hot_offer', 'is_luxury_property', 'is_featured_property', 'is_new_property');
 
         return DataTables::eloquent($query)
             ->addColumn('id', function (Properties $ar) {
@@ -281,6 +281,18 @@ class PropertiesController extends Controller
 
                 return $status;
             })
+            ->addColumn('is_new_property', function (Properties $ar) {
+                return '<i class="fa fa-' . ($ar->is_new_property == 0 ? 'times' : 'check') . ' update-field-status" data-field="is_new_property" data-status="' . $ar->is_new_property . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="properties"></i>';
+            })
+            ->addColumn('is_featured_property', function (Properties $ar) {
+                return '<i class="fa fa-' . ($ar->is_featured_property == 0 ? 'times' : 'check') . ' update-field-status" data-field="is_featured_property" data-status="' . $ar->is_featured_property . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="properties"></i>';
+            })
+            ->addColumn('is_luxury_property', function (Properties $ar) {
+                return '<i class="fa fa-' . ($ar->is_luxury_property == 0 ? 'times' : 'check') . ' update-field-status" data-field="is_luxury_property" data-status="' . $ar->is_luxury_property . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="properties"></i>';
+            })
+            ->addColumn('is_hot_offer', function (Properties $ar) {
+                return '<i class="fa fa-' . ($ar->is_hot_offer == 0 ? 'times' : 'check') . ' update-field-status" data-field="is_hot_offer" data-status="' . $ar->is_hot_offer . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="properties"></i>';
+            })
             ->addColumn('updated_at', function (Properties $ar) {
                 return formatDate("Y-m-d H:i", $ar->updated_at);
             })
@@ -336,7 +348,7 @@ class PropertiesController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'image', 'unique_id', 'developer', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'image', 'unique_id', 'developer', 'name', 'purpose', 'type', 'publish', 'area', 'price', 'location_id', 'count', 'status', 'updated_at', 'action', 'is_hot_offer', 'is_luxury_property', 'is_featured_property', 'is_new_property'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];

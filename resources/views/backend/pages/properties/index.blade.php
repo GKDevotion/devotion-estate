@@ -71,6 +71,10 @@
                                         <th>Address</th>
                                         <th>View</th>
                                         <th>Publish</th>
+                                        <th>New Property</th>
+                                        <th>Feature Property</th>
+                                        <th>Hot Property</th>
+                                        <th>Luxury</th>
                                         <th>Update At</th>
                                         <th>Action</th>
                                     </tr>
@@ -306,6 +310,22 @@
                         name: 'publish'
                     },
                     {
+                        data: 'is_new_property',
+                        name: 'is_new_property'
+                    },
+                    {
+                        data: 'is_featured_property',
+                        name: 'is_featured_property'
+                    },
+                    {
+                        data: 'is_hot_offer',
+                        name: 'is_hot_offer'
+                    },
+                    {
+                        data: 'is_hot_offer',
+                        name: 'is_hot_offer'
+                    },
+                    {
                         data: 'updated_at',
                         name: 'updated_at'
                     },
@@ -342,7 +362,7 @@
                     },
                     {
                         responsivePriority: 10001,
-                        targets: [6, 7, 8, 9, 10, 11, 12, 13]
+                        targets: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
                     }
                 ],
                 createdRow: function(row, data, dataIndex) {
