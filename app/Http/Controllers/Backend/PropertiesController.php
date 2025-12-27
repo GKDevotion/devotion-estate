@@ -182,6 +182,8 @@ class PropertiesController extends Controller
             $query->where('admin_id', $this->admin_id);
         }
 
+        $query->where('status'," !=", 3);// 3 : Deleted
+
         /**
          * set dynamic other property features
          * like: new, feature, luxury, etc...,
@@ -297,7 +299,7 @@ class PropertiesController extends Controller
                     <i class="fa fa-pencil"></i> Description
                       </a>';
 
-                    $action .= '<a href="javascript:void(0);" 
+                    $action .= '<a href="javascript:void(0);"
                                 class="btn btn-edit text-white dropdown-item btn-information"
                                 data-id="' . $ar->id . '"
                                 data-name="' . htmlspecialchars($ar->name, ENT_QUOTES) . '"
@@ -588,13 +590,14 @@ class PropertiesController extends Controller
         if (!is_null($record)) {
 
             //delete Featured property map if applicable
-            PropertyFeatureMap::where('property_id', $id)->delete();
+            // PropertyFeatureMap::where('property_id', $id)->delete();
 
             //delete property image map if applicable
-            PropertyImageMap::where('property_id', $id)->delete();
+            // PropertyImageMap::where('property_id', $id)->delete();
 
             //delete proerty
-            $record->delete();
+            $record->status = 3;
+            $record->save();
         }
 
         return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
