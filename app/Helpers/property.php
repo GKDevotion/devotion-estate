@@ -301,16 +301,17 @@ function getPropertiesByType($type = [1])
 {
     $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
     return Properties::with('subType', 'location', 'single_image')
-        ->whereIn('purpose', $type)
-        ->where([
-            'status' => 1,
-            'publish' => 1
-        ])
-        ->where('status', "!=" , 2)// 2 : Deleted
-        // ->groupBy( 'developer_id' )
-        ->latest()
-        ->take($sliderPage)
-        ->get();
+            ->whereIn('purpose', $type)
+            ->where('status', 1)
+            ->where('publish', 1)
+            ->whereIn('id', function ($q) {
+                $q->selectRaw('MAX(id)')
+                ->from('properties')
+                ->groupBy('developer_id');
+            })
+            ->latest()
+            ->take($sliderPage)
+            ->get();
 }
 
 
@@ -319,8 +320,7 @@ function getSearchByProperties($request, $perPage = 4)
     $query = Properties::where([
             'status' => 1,
             'publish' => 1
-        ])
-        ->where('status', "!=" , 2);// 2 : Deleted;
+        ]);
 
 
  // 🔹 Detect page source (rent, buy, offplan, luxury, etc.)
