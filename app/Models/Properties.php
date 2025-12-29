@@ -68,6 +68,6 @@ class Properties extends Model
 
      public function variants()
     {
-        return $this->hasMany(PropertyVariant::class);
+        return $this->hasOne(PropertyVariant::class, 'id', 'property_id');
     }
 }
