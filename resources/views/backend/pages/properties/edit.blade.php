@@ -933,22 +933,23 @@
 
                                             <div class="p-2" id="price-list">
                                                 <?php
-                                                $priceArr = json_decode( $data->price, 1 );
+                                                $priceArr = json_decode( $data->variants->price, 1 );
                                                 ?>
 
-                                                @if( COUNT( $priceArr ) )
-                                                    @foreach( $priceArr as $k=>$price )
+                                               @if(is_array($priceArr) && count($priceArr))
+                                                    @foreach($priceArr as $k => $price)
                                                         <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{$price}}</span>
+                                                            <span>{{ $price }}</span>
                                                             <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="price[]" value="{{$price}}">
+                                                            <input type="hidden" name="price[]" value="{{  $price }}">
                                                         </div>
                                                     @endforeach
                                                 @endif
+
                                             </div>
                                         </div>
                                     </div>
-
+{{-- 
 
                                     <div class="col-md-3 col-sm-12 mb-2">
                                         <div class="form-group mb-0">
@@ -976,7 +977,7 @@
                                                         <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
                                                             <span>{{$size}}</span>
                                                             <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="size[]" value="{{$size}}">
+                                                            <input type="hidden" name="size[]" value="{{$variants->$size}}">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -1012,7 +1013,7 @@
                                                         <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
                                                             <span>{{$unit}}</span>
                                                             <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="unit[]" value="{{$unit}}">
+                                                            <input type="hidden" name="unit[]" value="{{$variants->$unit}}">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -1047,13 +1048,13 @@
                                                         <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
                                                             <span>{{$bath}}</span>
                                                             <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="bath[]" value="{{$bath}}">
+                                                            <input type="hidden" name="bath[]" value="{{$variants->$bath}}">
                                                         </div>
                                                     @endforeach
                                                 @endif
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
 

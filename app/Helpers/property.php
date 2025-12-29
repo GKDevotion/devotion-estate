@@ -267,7 +267,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
 
             PropertyVariant::updateOrCreate(
                 [
-                    'property_id' => $propertyDataObj->unique_id, // UNIQUE KEY
+                    'property_id' => $propertyDataObj->id, // UNIQUE KEY
                 ],
                 [
                     'price' => json_encode($request->price), // store as JSON
