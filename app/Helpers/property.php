@@ -295,7 +295,7 @@ function getPropertyFeatures()
 }
 
 /**
- * $type = 0: 'All', 1: 'Sale', 2:'rent , 3:'land'
+ * $type = 0: 'All', 1: 'Sale', 2:'Rent , 3:'Land'
  */
 function getPropertiesByType($type = [1], $queryParam = null )
 {
