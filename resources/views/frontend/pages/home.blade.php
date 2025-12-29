@@ -548,7 +548,7 @@
                 /**
                  * $type = 0: 'sell', 1: 'rent'
                  */
-                $allproperties = getPropertiesByType([1, 2])->where('is_new_property', 1);
+                $allproperties = getPropertiesByType([1, 2], 'is_new_property');
                 $chunks = $allproperties->chunk(3);
             @endphp
 
