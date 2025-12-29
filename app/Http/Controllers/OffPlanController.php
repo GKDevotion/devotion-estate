@@ -14,7 +14,7 @@ class OffPlanController extends Controller
     {
         $perPage = $request->get('perPage', 4);
 
-        $query = Properties::where('is_complete', 3)->where('status', 1);
+        $query = Properties::where('is_complete', 3)->where('status', 1)->orderBy('created_at', 'desc');
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 

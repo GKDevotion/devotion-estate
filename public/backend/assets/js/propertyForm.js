@@ -190,7 +190,7 @@ function nextPrev( n, formID ) {
 
                     if( response.isRedirectThankYou ){
                         // window.location.href = url+'/thank-you';
-                        $("#PropertyStepForm3, .reference-tag").addClass("d-none");
+                        $("#PropertyStepForm4, .reference-tag").addClass("d-none");
                         $(".thank-you-page").removeClass("d-none");
                         $(".property-unique-id").text(response.unique_id);
                     } else {

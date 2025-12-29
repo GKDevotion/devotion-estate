@@ -65,4 +65,9 @@ class Properties extends Model
     public function developer(){
     return $this->hasOne(Developer::class, 'id', 'developer_id');
     }
+
+     public function variants()
+    {
+        return $this->hasMany(PropertyVariant::class);
+    }
 }

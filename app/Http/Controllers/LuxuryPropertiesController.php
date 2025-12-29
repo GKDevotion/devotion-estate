@@ -15,7 +15,7 @@ public function index(Request $request)
 {
         $perPage = $request->get('perPage', 4);
 
-        $query = Properties::where('is_luxury_property', 1)->where('status', 1);
+        $query = Properties::where('is_luxury_property', 1)->where('status', 1)->orderBy('created_at', 'desc');
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 

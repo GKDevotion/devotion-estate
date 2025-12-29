@@ -8,6 +8,7 @@ use App\Models\PropertyImageMap;
 use App\Models\PropertyType;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use App\Models\PropertyVariant;
 
 /**
  * Create employee records
@@ -66,8 +67,8 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $propertyDataObj->admin_id = $admin_id;
             $propertyDataObj->name = strip_tags($request->name);
             $propertyDataObj->building_name = $request->building_name;
-            // $propertyDataObj->slug = convertStringToSlug($request->name);
-            $propertyDataObj->h1_tag = $request->name;//$request->h1_tag;
+            $propertyDataObj->slug = convertStringToSlug($request->name);
+            $propertyDataObj->h1_tag = $request->name; //$request->h1_tag;
             $propertyDataObj->seo_title = $request->name; //$request->seo_title;
             $propertyDataObj->meta_description = $request->name; //$request->meta_description;
             $propertyDataObj->description = $request->description;
@@ -259,9 +260,29 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
                 $propertyDataObj->status = $request->status;
                 $propertyDataObj->save();
             }
+        }
+
+        //3. Varients-->
+        if ($request->step == 4 || $request->_method == "PUT") {
+
+            PropertyVariant::updateOrCreate(
+                [
+                    'property_id' => $propertyDataObj->unique_id, // UNIQUE KEY
+                ],
+                [
+                    'price' => json_encode($request->price), // store as JSON
+                    'size' => json_encode($request->size), // store as JSON
+                    'unit' => json_encode($request->unit), // store as JSON
+                    'bath' => json_encode($request->bath), // store as JSON
+                   'status' => 1,
+                ]
+            );
+
+            $propertyDataObj->save();
 
             $isRedirectThankYou = true;
         }
+
 
         return ['type' => 'success', 'id' => $propertyDataObj->id, 'unique_id' => $propertyDataObj->unique_id,  'message' => $propertyDataObj->name . ' has been ' . $msg . ' !!', 'status_code' => 200, 'isRedirectThankYou' => $isRedirectThankYou];
     } catch (Exception $e) {
@@ -329,12 +350,12 @@ function getPropertiesByType($type = [1], $queryParam = null )
 function getSearchByProperties($request, $perPage = 4)
 {
     $query = Properties::where([
-            'status' => 1,
-            'publish' => 1
-        ]);
+        'status' => 1,
+        'publish' => 1
+    ]);
 
 
- // 🔹 Detect page source (rent, buy, offplan, luxury, etc.)
+    // 🔹 Detect page source (rent, buy, offplan, luxury, etc.)
     $redirectPage = $request['redirect_page'] ?? null;
 
     if ($redirectPage) {
@@ -372,7 +393,7 @@ function getSearchByProperties($request, $perPage = 4)
         $query->where('sub_type_id', $request['sub_type']);
     }
 
-        // ✅ Bed filter
+    // ✅ Bed filter
     if (!empty($request['bed'])) {
         $query->where('beds', '>=', $request['bed']); // can also use '=' if you want exact match
     }
@@ -401,13 +422,13 @@ function getSearchByProperties($request, $perPage = 4)
         $keyword = trim($request['keyword']);
         $query->where(function ($q) use ($keyword) {
             $q->where('name', 'like', "%{$keyword}%")
-              ->orWhere('h1_tag', 'like', "%{$keyword}%")
-              ->orWhere('description', 'like', "%{$keyword}%")
-              ->orWhere('meta_description', 'like', "%{$keyword}%")
-              ->orWhere('additional_features', 'like', "%{$keyword}%")
-              ->orWhere('finance_name', 'like', "%{$keyword}%")
-              ->orWhere('rera_number', 'like', "%{$keyword}%")
-              ->orWhere('permit_number', 'like', "%{$keyword}%");
+                ->orWhere('h1_tag', 'like', "%{$keyword}%")
+                ->orWhere('description', 'like', "%{$keyword}%")
+                ->orWhere('meta_description', 'like', "%{$keyword}%")
+                ->orWhere('additional_features', 'like', "%{$keyword}%")
+                ->orWhere('finance_name', 'like', "%{$keyword}%")
+                ->orWhere('rera_number', 'like', "%{$keyword}%")
+                ->orWhere('permit_number', 'like', "%{$keyword}%");
 
             $q->orWhereHas('location', function ($locQuery) use ($keyword) {
                 $locQuery->where('name', 'like', "%{$keyword}%");

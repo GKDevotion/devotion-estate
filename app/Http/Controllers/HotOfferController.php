@@ -15,9 +15,10 @@ class HotOfferController extends Controller
 
         $query = Properties::where([
             'is_hot_offer' => 1,
+            
             'status' => 1,
             'publish' => 1
-        ]);
+        ])->orderBy('created_at', 'desc');
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 

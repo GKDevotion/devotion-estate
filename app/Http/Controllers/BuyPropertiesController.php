@@ -13,7 +13,7 @@ class BuyPropertiesController extends Controller
     {
         $perPage = $request->get('perPage', 4); // Default 4 per page (can be adjusted)
         // 0:all , 1:sale , 2:rent , 3 :land
-        $query = Properties::where('purpose', 1)->where('status', 1);
+        $query = Properties::where('purpose', 1)->where('status', 1)->orderBy('created_at', 'desc');
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 

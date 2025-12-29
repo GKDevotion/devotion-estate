@@ -14,7 +14,7 @@ class RentPropertiesController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->get('perPage', 4); // Default 4 per page
-        $query = Properties::where('purpose', 2)->where('status', 1);
+        $query = Properties::where('purpose', 2)->where('status', 1)->orderBy('created_at', 'desc');
         $properties = $query->paginate($perPage);
         $total = $properties->total();
 
