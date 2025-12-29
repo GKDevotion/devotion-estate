@@ -941,8 +941,13 @@
 
                                             <div class="pt-2" id="price-list">
                                                 <?php
-                                                $priceArr = json_decode($data->variants['price'], 1);
+                                                $priceArr = [];
+                                                
+                                                if (!empty($data->variants) && !empty($data->variants['price'])) {
+                                                    $priceArr = json_decode($data->variants['price'], true);
+                                                }
                                                 ?>
+
 
                                                 @if (is_array($priceArr) && count($priceArr))
                                                     @foreach ($priceArr as $k => $price)
@@ -979,17 +984,22 @@
                                             </div>
 
                                             <div class="p-2" id="size-list">
+
                                                 <?php
-                                                $sizeArr = json_decode($data->variants['size'], 1);
+                                                $sizeArr = [];
+                                                
+                                                if (!empty($data->variants) && !empty($data->variants['size'])) {
+                                                    $sizeArr = json_decode($data->variants['size'], true);
+                                                }
+                                                
                                                 ?>
 
-                                                {{-- @if (COUNT($sizeArr)) --}}
                                                 @if (is_array($sizeArr) && count($sizeArr))
                                                     @foreach ($sizeArr as $k => $size)
                                                         <div
                                                             class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
                                                             <span>{{ $size }}</span>
-                                                             <i class="fa fa-times remove-item"
+                                                            <i class="fa fa-times remove-item"
                                                                 style="cursor:pointer; color:#ab8134;"></i>
                                                             <input type="hidden" name="size[]"
                                                                 value="{{ $size }}">
@@ -1020,7 +1030,12 @@
 
                                             <div class="p-2" id="unit-list">
                                                 <?php
-                                                $unitArr = json_decode($data->variants['unit'], 1);
+                                                $unitArr = [];
+                                                
+                                                if (!empty($data->variants) && !empty($data->variants['unit'])) {
+                                                    $unitArr = json_decode($data->variants['unit'], true);
+                                                }
+                                                
                                                 ?>
 
                                                 @if (COUNT($unitArr))
@@ -1028,7 +1043,7 @@
                                                         <div
                                                             class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
                                                             <span>{{ $unit }}</span>
-                                                              <i class="fa fa-times remove-item"
+                                                            <i class="fa fa-times remove-item"
                                                                 style="cursor:pointer; color:#ab8134;"></i>
                                                             <input type="hidden" name="unit[]"
                                                                 value="{{ $unit }}">
@@ -1058,7 +1073,12 @@
 
                                             <div class="p-2" id="bath-list">
                                                 <?php
-                                                $bathArr = json_decode($data->variants['bath'], 1);
+                                                $bathArr = [];
+                                                
+                                                if (!empty($data->variants) && !empty($data->variants['bath'])) {
+                                                    $bathArr = json_decode($data->variants['bath'], true);
+                                                }
+                                                
                                                 ?>
 
                                                 @if (COUNT($bathArr))
@@ -1066,7 +1086,7 @@
                                                         <div
                                                             class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
                                                             <span>{{ $bath }}</span>
-                                                             <i class="fa fa-times remove-item"
+                                                            <i class="fa fa-times remove-item"
                                                                 style="cursor:pointer; color:#ab8134;"></i>
                                                             <input type="hidden" name="bath[]"
                                                                 value="{{ $bath }}">

@@ -235,7 +235,7 @@
                 </div>
 
                 <!-- Two Column Property Info -->
-                <div class="card">
+                <div class="card mb-4">
 
                     <div class="card-body">
                         <div class="row g-4">
@@ -346,6 +346,46 @@
                     {{-- @include('frontend.layouts.partials.mortgage') --}}
 
                 </div>
+
+                @if($count > 0)
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="fw-semibold mb-3">Property Variants</h5>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered align-middle mb-0">
+                                    <thead class="bg-light">
+                                        <tr class="text-nowrap">
+                                            <th>Price</th>
+                                            <th>Size</th>
+                                            <th>Unit</th>
+                                            <th>Bath</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for ($i = 0; $i < $count; $i++)
+                                            <tr>
+                                                <td class="fw-semibold">
+                                                    {{ isset($prices[$i]) ? 'AED ' . number_format($prices[$i]) : '-' }}
+                                                </td>
+                                                <td>
+                                                    {{ isset($sizes[$i]) ? $sizes[$i] . ' sq.ft' : '-' }}
+                                                </td>
+                                                <td>
+                                                    {{ $units[$i] ?? '-' }}
+                                                </td>
+                                                <td>
+                                                    {{ $baths[$i] ?? '-' }}
+                                                </td>
+                                            </tr>
+                                        @endfor
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
 
             </div>
 

@@ -11,6 +11,7 @@ use App\Models\PropertyFeature;
 use App\Models\PropertyFeatureMap;
 use App\Models\PropertyImageMap;
 use App\Models\PropertyType;
+use App\Models\PropertyVariant;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,7 @@ class PropertiesController extends Controller
         ])->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
 
-        return view('backend.pages.properties.index', compact('param', 'locations','agentObj','properties', 'developerObj'));
+        return view('backend.pages.properties.index', compact('param', 'locations', 'agentObj', 'properties', 'developerObj'));
     }
 
     /**
@@ -88,7 +89,7 @@ class PropertiesController extends Controller
         ])->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
         $locations = Location::all(); // or however you fetch locations
-        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
+        return view('backend.pages.properties.index', compact('param', 'agentObj', 'developerObj', 'locations', 'properties'));
     }
 
     /**
@@ -113,7 +114,7 @@ class PropertiesController extends Controller
         ])->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
         $locations = Location::all(); // or however you fetch locations
-        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
+        return view('backend.pages.properties.index', compact('param', 'agentObj', 'developerObj', 'locations', 'properties'));
     }
 
     /**
@@ -138,7 +139,7 @@ class PropertiesController extends Controller
         ])->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
         $locations = Location::all(); // or however you fetch locations
-        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
+        return view('backend.pages.properties.index', compact('param', 'agentObj', 'developerObj', 'locations', 'properties'));
     }
 
 
@@ -165,7 +166,7 @@ class PropertiesController extends Controller
         ])->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
         $locations = Location::all(); // or however you fetch locations
-        return view('backend.pages.properties.index', compact('param','agentObj','developerObj','locations','properties'));
+        return view('backend.pages.properties.index', compact('param', 'agentObj', 'developerObj', 'locations', 'properties'));
     }
 
     /**
@@ -182,7 +183,7 @@ class PropertiesController extends Controller
             $query->where('admin_id', $this->admin_id);
         }
 
-        $query->where('status', "!=" , 2);// 2 : Deleted
+        $query->where('status', "!=", 2);// 2 : Deleted
 
         /**
          * set dynamic other property features
@@ -468,7 +469,26 @@ class PropertiesController extends Controller
             ->where('type', 4)
             ->get();
 
-        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'relatedProperties'));
+        $variant = PropertyVariant::where('property_id', $property->id)->first();
+
+        $prices = $sizes = $units = $baths = [];
+        $count = 0;
+
+        if ($variant) {
+            $prices = json_decode($variant->price, true) ?? [];
+            $sizes  = json_decode($variant->size, true) ?? [];
+            $units  = json_decode($variant->unit, true) ?? [];
+            $baths  = json_decode($variant->bath, true) ?? [];
+
+            $count = max(
+                count($prices),
+                count($sizes),
+                count($units),
+                count($baths)
+            );
+        }
+
+        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'relatedProperties' ,'prices','sizes', 'units', 'baths', 'count'));
     }
 
 
@@ -527,7 +547,7 @@ class PropertiesController extends Controller
             'type' => 4
         ])->get();
 
-        $data = Properties::findOrFail($id);
+        $data = Properties::with('variants')->findOrFail($id);
 
         $featureMap = [];
         if ($data->featureMap) {
@@ -535,7 +555,6 @@ class PropertiesController extends Controller
                 $featureMap[] = $dt->feature_id;
             }
         }
-
         // dd($id, $data->variants);
         $paymentPlanArr = PaymentPlan::where('status', 1)->pluck('name', 'id'); //->select('id', 'name')->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
@@ -700,7 +719,7 @@ class PropertiesController extends Controller
     // Information Model
     public function getInformation($id)
     {
-        return Properties::select('name', 'price', 'location_id','agent_id', 'developer_id','additional_features', 'building_name')
+        return Properties::select('name', 'price', 'location_id', 'agent_id', 'developer_id', 'additional_features', 'building_name')
             ->findOrFail($id);
     }
 
