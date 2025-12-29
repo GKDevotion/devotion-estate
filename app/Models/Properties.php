@@ -66,8 +66,8 @@ class Properties extends Model
     return $this->hasOne(Developer::class, 'id', 'developer_id');
     }
 
-     public function variants()
+    public function variants()
     {
-        return $this->hasOne(PropertyVariant::class, 'id', 'property_id');
+        return $this->hasOne(PropertyVariant::class, 'property_id', 'id');
     }
 }

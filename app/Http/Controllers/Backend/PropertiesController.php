@@ -527,7 +527,7 @@ class PropertiesController extends Controller
             'type' => 4
         ])->get();
 
-        $data = Properties::with('variants')->findOrFail($id);
+        $data = Properties::findOrFail($id);
 
         $featureMap = [];
         if ($data->featureMap) {
@@ -535,7 +535,8 @@ class PropertiesController extends Controller
                 $featureMap[] = $dt->feature_id;
             }
         }
-         dd($id, $data->variants);
+
+        // dd($id, $data->variants);
         $paymentPlanArr = PaymentPlan::where('status', 1)->pluck('name', 'id'); //->select('id', 'name')->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
 

@@ -931,9 +931,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="p-2" id="price-list">
+                                            <div class="pt-2" id="price-list">
                                                 <?php
-                                                $priceArr = json_decode( $data->variants->price, 1 );
+                                                $priceArr = json_decode( $data->variants['price'], 1 );
                                                 ?>
 
                                                @if(is_array($priceArr) && count($priceArr))
@@ -949,7 +949,7 @@
                                             </div>
                                         </div>
                                     </div>
-{{-- 
+{{--
 
                                     <div class="col-md-3 col-sm-12 mb-2">
                                         <div class="form-group mb-0">
