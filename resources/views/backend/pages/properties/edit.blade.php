@@ -32,6 +32,12 @@
         li.child-nested .form-check-input {
             width: auto !important;
         }
+
+
+        .btn-price {
+            font-size: 25px;
+            min-width: 50px;
+        }
     </style>
 @endsection
 
@@ -595,7 +601,8 @@
                                         </div>
 
                                         <div class="col-md-4 col-sm-12 mb-2">
-                                            <label class="mb-0" for="developer_id">Develop By <span class="text-error">*</span></label>
+                                            <label class="mb-0" for="developer_id">Develop By <span
+                                                    class="text-error">*</span></label>
                                             <select name="developer_id" id="developer_id" class="form-control select2"
                                                 data-required="yes">
                                                 <option value="">Select Location</option>
@@ -889,7 +896,7 @@
                                                 </button>
                                             </div> --}}
 
-                                               <div class="col-md-6">
+                                            <div class="col-md-6">
                                                 <button type="button" id="nextBtn"
                                                     onclick="nextPrev(1, 'PropertyStepForm3')">
                                                     Next <i class="fa fa-arrow-right"></i>
@@ -921,7 +928,8 @@
                                             <div class="row">
 
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Price" id="priceInput">
+                                                    <input type="text" class="form-control" placeholder="Enter Price"
+                                                        id="priceInput">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <a href="javascript:void(0)" class="btn btn-price" id="addPrice"
@@ -933,15 +941,18 @@
 
                                             <div class="pt-2" id="price-list">
                                                 <?php
-                                                $priceArr = json_decode( $data->variants['price'], 1 );
+                                                $priceArr = json_decode($data->variants['price'], 1);
                                                 ?>
 
-                                               @if(is_array($priceArr) && count($priceArr))
-                                                    @foreach($priceArr as $k => $price)
-                                                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                @if (is_array($priceArr) && count($priceArr))
+                                                    @foreach ($priceArr as $k => $price)
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
                                                             <span>{{ $price }}</span>
-                                                            <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="price[]" value="{{  $price }}">
+                                                            <i class="fa fa-times remove-item"
+                                                                style="cursor:pointer; color:#ab8134;"></i>
+                                                            <input type="hidden" name="price[]"
+                                                                value="{{ $price }}">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -949,7 +960,7 @@
                                             </div>
                                         </div>
                                     </div>
-{{--
+
 
                                     <div class="col-md-3 col-sm-12 mb-2">
                                         <div class="form-group mb-0">
@@ -969,15 +980,19 @@
 
                                             <div class="p-2" id="size-list">
                                                 <?php
-                                                $sizeArr = json_decode( $data->size, 1 );
+                                                $sizeArr = json_decode($data->variants['size'], 1);
                                                 ?>
 
-                                                @if( COUNT( $sizeArr ) )
-                                                    @foreach( $sizeArr as $k=>$size )
-                                                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{$size}}</span>
-                                                            <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="size[]" value="{{$variants->$size}}">
+                                                {{-- @if (COUNT($sizeArr)) --}}
+                                                @if (is_array($sizeArr) && count($sizeArr))
+                                                    @foreach ($sizeArr as $k => $size)
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                            <span>{{ $size }}</span>
+                                                             <i class="fa fa-times remove-item"
+                                                                style="cursor:pointer; color:#ab8134;"></i>
+                                                            <input type="hidden" name="size[]"
+                                                                value="{{ $size }}">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -1005,15 +1020,18 @@
 
                                             <div class="p-2" id="unit-list">
                                                 <?php
-                                                $unitArr = json_decode( $data->unit, 1 );
+                                                $unitArr = json_decode($data->variants['unit'], 1);
                                                 ?>
 
-                                                @if( COUNT( $unitArr ) )
-                                                    @foreach( $unitArr as $k=>$unit )
-                                                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{$unit}}</span>
-                                                            <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="unit[]" value="{{$variants->$unit}}">
+                                                @if (COUNT($unitArr))
+                                                    @foreach ($unitArr as $k => $unit)
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                            <span>{{ $unit }}</span>
+                                                              <i class="fa fa-times remove-item"
+                                                                style="cursor:pointer; color:#ab8134;"></i>
+                                                            <input type="hidden" name="unit[]"
+                                                                value="{{ $unit }}">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -1040,21 +1058,24 @@
 
                                             <div class="p-2" id="bath-list">
                                                 <?php
-                                                $bathArr = json_decode( $data->bath, 1 );
+                                                $bathArr = json_decode($data->variants['bath'], 1);
                                                 ?>
 
-                                                @if( COUNT( $bathArr ) )
-                                                    @foreach( $bathArr as $k=>$bath )
-                                                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{$bath}}</span>
-                                                            <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="bath[]" value="{{$variants->$bath}}">
+                                                @if (COUNT($bathArr))
+                                                    @foreach ($bathArr as $k => $bath)
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                            <span>{{ $bath }}</span>
+                                                             <i class="fa fa-times remove-item"
+                                                                style="cursor:pointer; color:#ab8134;"></i>
+                                                            <input type="hidden" name="bath[]"
+                                                                value="{{ $bath }}">
                                                         </div>
                                                     @endforeach
                                                 @endif
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                 </div>
 
@@ -1073,7 +1094,7 @@
                                                     Save <i class="fa fa-save"></i>
                                                 </button>
                                             </div> --}}
-                                             <button type="button" class="btn-submit-final"
+                                            <button type="button" class="btn-submit-final"
                                                 onclick="handleFinalSubmit(this)">
                                                 Submit <i class="fa fa-save"></i>
                                             </button>
@@ -1173,7 +1194,7 @@
             });
         });
 
-         // Initialize Dropify
+        // Initialize Dropify
         var drEvent = $('.dropify').dropify();
 
         // Limit to max 5 images
@@ -1200,7 +1221,7 @@
         });
     </script>
 
-     <script>
+    <script>
         let isSubmitting = false;
 
         function handleFinalSubmit(btn) {
@@ -1219,5 +1240,36 @@
             // Call your existing function
             nextPrev(1, 'PropertyStepForm4');
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            function addItem(inputId, listId, inputName) {
+                let value = $('#' + inputId).val().trim();
+                if (value === '') return;
+
+                let html = `
+            <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                <span>${value}</span>
+                <i class="fa fa-times remove-item" style="cursor:pointer; color:#ab8134;"></i>
+                <input type="hidden" name="${inputName}[]" value="${value}">
+            </div>
+        `;
+
+                $('#' + listId).append(html);
+                $('#' + inputId).val('');
+            }
+
+            $('#addPrice').click(() => addItem('priceInput', 'price-list', 'price'));
+            $('#addSize').click(() => addItem('sizeInput', 'size-list', 'size'));
+            $('#addUnit').click(() => addItem('unitInput', 'unit-list', 'unit'));
+            $('#addBath').click(() => addItem('bathInput', 'bath-list', 'bath'));
+
+            // 🔥 Remove existing & new items
+            $(document).on('click', '.remove-item', function() {
+                $(this).closest('div').remove();
+            });
+
+        });
     </script>
 @endsection
