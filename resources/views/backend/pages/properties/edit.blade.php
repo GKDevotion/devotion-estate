@@ -85,6 +85,7 @@
                             <span class="stepIndicator">1. Property Details</span>
                             <span class="stepIndicator">2. Feature(s)</span>
                             <span class="stepIndicator">3. Upload</span>
+                            <span class="stepIndicator">4. Varient</span>
                         </div>
                         <!-- end step indicators -->
 
@@ -797,7 +798,7 @@
                             <form autocomplete="off" id="PropertyStepForm3" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" value="3" name="step">
-                                <input type="hidden" value="4" name="id" class="property-id">
+                                <input type="hidden" value="" name="id" class="property-id">
 
                                 <div class="row box-shadow-10">
                                     <div class="col-md-4 col-sm-12 mb-2">
@@ -881,12 +882,130 @@
                                                     <i class="fa fa-arrow-left"></i> Previous
                                                 </button>
                                             </div>
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <button type="button" id="nextBtn"
                                                     onclick="nextPrev(1, 'PropertyStepForm3')">
                                                     Save <i class="fa fa-save"></i>
                                                 </button>
+                                            </div> --}}
+
+                                               <div class="col-md-6">
+                                                <button type="button" id="nextBtn"
+                                                    onclick="nextPrev(1, 'PropertyStepForm3')">
+                                                    Next <i class="fa fa-arrow-right"></i>
+                                                </button>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end previous / next buttons -->
+
+                            </form>
+                        </div>
+
+                        
+                        <!-- 4. Varient -->
+                        <div class="step">
+                            <h3 class="text-center mb-2">Varient(s)</h3>
+                            <p class="text-center mb-2">Provide Varient of property.</p>
+                            <form autocomplete="off" id="PropertyStepForm4" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" value="4" name="step">
+                                <input type="hidden" value="" name="id" class="property-id">
+
+                                <div class="row box-shadow-10">
+
+                                    <div class="col-md-4 col-sm-12 mb-2">
+                                        <label class="mb-0" for="property_image">Property Images</label>
+                                        <input type="file" class="dropify" id="property_image" name="propertyImage[]"
+                                            accept="image/jpg, image/jpeg, image/png" multiple>
+
+                                        <span id="image-error" class="text-danger">You can select only five images.</span>
+                                        @if ($errors->has('avtar'))
+                                            <div class="error">{{ $errors->first('avtar') }}</div>
+                                        @endif
+
+
+                                        <!-- Show existing images -->
+                                        @if (!empty($data->images) && count($data->images) > 0)
+                                            <div class="col-12 mb-3">
+                                                <label class="fw-semibold">Existing Images</label>
+                                                <div class="d-flex flex-wrap gap-3">
+                                                    @foreach ($data->images as $image)
+                                                        <div class="position-relative border rounded p-1"
+                                                            style="width:120px; height:120px; overflow:hidden;">
+                                                            <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}"
+                                                                alt="Property Image"
+                                                                class="img-fluid w-100 h-100 object-fit-cover rounded">
+                                                            <!-- Delete Checkbox -->
+                                                            <div
+                                                                class="form-check position-absolute top-0 end-0 bg-white rounded-circle m-1 p-1 shadow-sm">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="delete_images[]" value="{{ $image->id }}"
+                                                                    id="delete_{{ $image->id }}">
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <small class="text-muted d-block mt-1">Check images you want to
+                                                    remove</small>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-12 mb-2">
+                                        <label class="mb-0" for="publish">Publish <span
+                                                class="text-error">*</span></label>
+                                        <select name="publish" id="publish" class="form-control" data-required="yes">
+                                            <option value="0"
+                                                {{ old('publish', $data->publish ?? '') == 0 ? 'selected' : '' }}>No
+                                            </option>
+                                            <option value="1"
+                                                {{ old('publish', $data->publish ?? '') == 1 ? 'selected' : '' }}>Yes
+                                            </option>
+                                        </select>
+
+                                        @error('publish')
+                                            <div class="error text-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-12 mb-2">
+                                        <label class="mb-0" for="status">Status <span
+                                                class="text-error">*</span></label>
+                                        <select name="status" id="status" class="form-control" data-required="yes">
+                                            <option value="0" {{ $data->status == 0 ? 'selected' : '' }}>Disabled
+                                            </option>
+                                            <option value="1" {{ $data->status == 1 ? 'selected' : '' }}>Enabled
+                                            </option>
+                                        </select>
+
+                                        @error('status')
+                                            <div class="error text-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+
+                                <!-- start previous / next buttons -->
+                                <div class="row mt-4">
+                                    <div class="col-md-6 offset-3">
+                                        <div class="row form-footer d-flex">
+                                            <div class="col-md-6 text-end">
+                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, 'PREV')">
+                                                    <i class="fa fa-arrow-left"></i> Previous
+                                                </button>
+                                            </div>
+                                            {{-- <div class="col-md-6">
+                                                <button type="button" id="nextBtn"
+                                                    onclick="nextPrev(1, 'PropertyStepForm3')">
+                                                    Save <i class="fa fa-save"></i>
+                                                </button>
+                                            </div> --}}
+                                             <button type="button" class="btn-submit-final"
+                                                onclick="handleFinalSubmit(this)">
+                                                Submit <i class="fa fa-save"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -918,10 +1037,9 @@
                             </div>
 
 
-
-
-
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -1009,5 +1127,26 @@
                 });
             }
         });
+    </script>
+
+     <script>
+        let isSubmitting = false;
+
+        function handleFinalSubmit(btn) {
+
+            // Prevent multiple clicks
+            if (isSubmitting) {
+                return false;
+            }
+
+            isSubmitting = true;
+
+            // Disable button
+            btn.disabled = true;
+            btn.innerHTML = 'Submitting... <i class="fa fa-spinner fa-spin"></i>';
+
+            // Call your existing function
+            nextPrev(1, 'PropertyStepForm4');
+        }
     </script>
 @endsection

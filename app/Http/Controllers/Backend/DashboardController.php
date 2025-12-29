@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Developer;
+use App\Models\Properties;
+use App\Models\PropertyContact;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,15 +27,35 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // if (is_null($this->user) || !$this->user->can('dashboard.view')) {
-        //     abort(403, 'Sorry !! You are Unauthorized to view dashboard !');
-        // }
-
         $aTitle = pgTitle("Devotion Real Estate - Dubai UAE ( Holding Company )");
         $hTitle = pgTitle("Devotion Group");
 
-        return view('backend.pages.dashboard.index', compact('hTitle', 'aTitle'));
+        $totalProperties  = Properties::count();
+        $newProperties   = Properties::where('is_new_property', 1)->count();
+        $hotProperties   = Properties::where('is_hot_offer', 1)->count();
+        $luxuryProperties   = Properties::where('is_luxury_property', 1)->count();
+        $developer   = Developer::where('status', 1)->count();
+        $activeProperties = Properties::where('status', 1)->count();
+
+
+        // Latest contact messages
+           // Latest contact messages
+        $contactMessages = PropertyContact::latest()->where('is_read', 0)->take(5)->get();
+
+        return view('backend.pages.dashboard.index', compact(
+            'hTitle',
+            'aTitle',
+            'totalProperties',
+            'newProperties',
+            'hotProperties',
+            'luxuryProperties',
+            'activeProperties',
+            'developer',
+            'contactMessages'
+        ));
     }
+
+
 
     public function CompanyManagement(Request $request, $slug, $id = null)
     {
@@ -58,11 +81,11 @@ class DashboardController extends Controller
         $industries = [];
 
         $companies = Cache::remember('companies', 10, function () use ($where) {
-            return Company::select( 'id', 'name' )->where($where)->orderBy('name', 'ASC')->get();
+            return Company::select('id', 'name')->where($where)->orderBy('name', 'ASC')->get();
         });
 
         $industryObj = Cache::remember('industryObj', 10, function () use ($id) {
-            return Industry::select( 'id', 'name' )->select('name')->find(_de($id));
+            return Industry::select('id', 'name')->select('name')->find(_de($id));
         });
 
         $pageTitle = pgTitle($industryObj->name);
@@ -92,17 +115,17 @@ class DashboardController extends Controller
         $queryParam .= "&type=" . $type;
 
         $industries = Cache::remember('industries', 10, function () use ($key) {
-            return Industry::select( 'id', 'name', 'slug' )
-                    ->where(['status' => 1, 'type' => $key])
-                    ->orderBy('sort_order', 'ASC')
-                    ->orderBy('name', 'ASC')
-                    ->get();
+            return Industry::select('id', 'name', 'slug')
+                ->where(['status' => 1, 'type' => $key])
+                ->orderBy('sort_order', 'ASC')
+                ->orderBy('name', 'ASC')
+                ->get();
         });
 
         $companies = []; //Company::where( $where )->orderBy('name', 'ASC')->get();
 
         $industryURL = "";
-        $hTitle = pgTitle( ( $type == "services" ) ? 'Industry' : $type );
+        $hTitle = pgTitle(($type == "services") ? 'Industry' : $type);
 
         return view('backend.pages.dashboard.index', compact('companyShow', 'totalCountBadge', 'industries', 'companies', 'industryAuthAccessDetails', 'showCompanyBadge', 'industryURL', 'queryParam', 'holdingCompanies', 'hTitle'));
     }
@@ -146,13 +169,13 @@ class DashboardController extends Controller
         $industries = [];
 
         $departments = Cache::remember('departments', 10, function () use ($where) {
-            return Department::select( 'id', 'name', 'admin_menu_id' )->where($where)->orderBy('sort_order')->get();
+            return Department::select('id', 'name', 'admin_menu_id')->where($where)->orderBy('sort_order')->get();
         });
 
         $industryURL = $slug . "/" . $id . "/company/" . $cid;
 
         $pageTitle = Cache::remember('pageTitle', 10, function () use ($cid) {
-            $comapnyObj = Company::select( 'id', 'name')->find(_de($cid));
+            $comapnyObj = Company::select('id', 'name')->find(_de($cid));
             return pgTitle($comapnyObj->name);
         });
 
@@ -168,7 +191,7 @@ class DashboardController extends Controller
             $totalCountBadge = [
                 'totalAdmins' => DB::table('admins')->select('id')->where($where)->count(),
                 'totalUsers' => DB::table('users')->select('id')->where($where)->count(),
-                'totalEmployees' => DB::table('persons')->select('id')->where('type',1)->where($where)->count(),
+                'totalEmployees' => DB::table('persons')->select('id')->where('type', 1)->where($where)->count(),
                 'totalCorporateEmails' => DB::table('corporate_emails')->select('id')->where($where)->count(),
                 'totalMobileDevices' => DB::table('mobile_records')->select('id')->where($where)->count(),
                 'totalLaptopDevices' => DB::table('laptop_records')->select('id')->where($where)->count(),
@@ -195,7 +218,7 @@ class DashboardController extends Controller
         $totalCountBadge = [
             'totalAdmins' => Admin::select('id')->where($where)->count(),
             'totalUsers' => User::select('id')->where($where)->count(),
-            'totalEmployees' => Person::select('id')->where('type',1)->where($where)->count(),
+            'totalEmployees' => Person::select('id')->where('type', 1)->where($where)->count(),
             'totalCorporateEmails' => CorporateEmail::select('id')->where($where)->count(),
             'totalMobileDevices' => MobileRecord::select('id')->where($where)->count(),
             'totalLaptopDevices' => LaptopRecord::select('id')->where($where)->count(),

@@ -29,6 +29,11 @@
         li.child-nested .form-check-input {
             width: auto !important;
         }
+
+        .btn-price {
+            font-size: 25px;
+            min-width: 50px;
+        }
     </style>
 @endsection
 
@@ -81,6 +86,7 @@
                             <span class="stepIndicator">1. Property Details</span>
                             <span class="stepIndicator">2. Feature(s)</span>
                             <span class="stepIndicator">3. Upload</span>
+                            <span class="stepIndicator">4. Varient</span>
                         </div>
                         <!-- end step indicators -->
 
@@ -637,7 +643,7 @@
                             <form autocomplete="off" id="PropertyStepForm3" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" value="3" name="step">
-                                <input type="hidden" value="4" name="id" class="property-id">
+                                <input type="hidden" value="" name="id" class="property-id">
 
                                 <div class="row box-shadow-10">
                                     <div class="col-md-4 col-sm-12 mb-2">
@@ -685,10 +691,14 @@
                                                     Submit <i class="fa fa-save"></i>
                                                 </button>
                                             </div> --}}
-                                            <button type="button" class="btn-submit-final"
-                                                onclick="handleFinalSubmit(this)">
-                                                Submit <i class="fa fa-save"></i>
-                                            </button>
+
+                                            <div class="col-md-6">
+                                                <button type="button" id="nextBtn"
+                                                    onclick="nextPrev(1, 'PropertyStepForm3')">
+                                                    Next <i class="fa fa-arrow-right"></i>
+                                                </button>
+                                            </div>
+
 
                                         </div>
                                     </div>
@@ -697,6 +707,133 @@
 
                             </form>
 
+
+                        </div>
+
+                        <!-- 4. Varient(s) -->
+                        <div class="step">
+                            <h3 class="text-center mb-2">Varient(s)</h3>
+                            <p class="text-center mb-2">Provide details of Varient(if any.)</p>
+
+                            <form autocomplete="off" id="PropertyStepForm4">
+                                @csrf
+                                <input type="hidden" value="4" name="step">
+                                <input type="hidden" value="" name="id" class="property-id">
+
+                                <div class="row mt-4">
+                                    
+                                    <div class="col-md-3 col-sm-12 mb-2">
+                                        <div class="form-group mb-0">
+                                            <label>Price</label>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" placeholder="Enter Price"
+                                                        id="priceInput">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="javascript:void(0)" class="btn btn-price" id="addPrice"
+                                                        style="background-color: #ab8134">
+                                                        <i class="fa fa-plus" style="color: white"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-2" id="price-list"></div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-3 col-sm-12 mb-2">
+                                        <div class="form-group mb-0">
+                                            <label>Size</label>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" placeholder="Enter Size"
+                                                        id="sizeInput">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addSize"
+                                                        style="background-color: #ab8134">
+                                                        <i class="fa fa-plus" style="color: white"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-2" id="size-list"></div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-3 col-sm-12 mb-2">
+                                        <div class="form-group mb-0">
+                                            <label>Unit</label>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" placeholder="Enter Unit"
+                                                        id="unitInput">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addUnit"
+                                                        style="background-color: #ab8134">
+                                                        <i class="fa fa-plus" style="color: white"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-2" id="unit-list"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3 col-sm-12 mb-2">
+                                        <div class="form-group mb-0">
+                                            <label>Bath</label>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" placeholder="Enter Bath"
+                                                        id="bathInput">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addBath"
+                                                        style="background-color: #ab8134 ">
+                                                        <i class="fa fa-plus" style="color: white"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-2" id="bath-list"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- start previous / next buttons -->
+                                <div class="row mt-4">
+                                    <div class="col-md-6 offset-3">
+                                        <div class="row form-footer d-flex">
+                                            <div class="col-md-6 text-end">
+                                                <button type="button" id="prevBtn" onclick="nextPrev(-1, 'PREV')">
+                                                    <i class="fa fa-arrow-left"></i> Previous
+                                                </button>
+                                            </div>
+                                            {{-- <div class="col-md-6">
+                                                <button type="button" id="nextBtn"
+                                                    onclick="nextPrev(1, 'PropertyStepForm3')">
+                                                    Next <i class="fa fa-arrow-right"></i>
+                                                </button>
+                                            </div> --}}
+                                            <button type="button" class="btn-submit-final"
+                                                onclick="handleFinalSubmit(this)">
+                                                Submit <i class="fa fa-save"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end previous / next buttons -->
+                            </form>
                             <div class="thank-you-page d-none">
                                 <div class="properties-thank-you-content">
                                     <h1>Thank you !</h1>
@@ -831,7 +968,70 @@
             btn.innerHTML = 'Submitting... <i class="fa fa-spinner fa-spin"></i>';
 
             // Call your existing function
-            nextPrev(1, 'PropertyStepForm3');
+            nextPrev(1, 'PropertyStepForm4');
         }
+    </script>
+    <script>
+        function addDynamicItem(config) {
+            const {
+                buttonId,
+                inputId,
+                listId,
+                inputName
+            } = config;
+
+            document.getElementById(buttonId).addEventListener('click', function() {
+                const input = document.getElementById(inputId);
+                const value = input.value.trim();
+
+                if (!value) return;
+
+                const list = document.getElementById(listId);
+
+                const item = document.createElement('div');
+                item.className =
+                    'd-flex justify-content-between align-items-center mb-2 p-2 border rounded';
+
+                item.innerHTML = `
+                <span>${value}</span>
+                <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
+                <input type="hidden" name="${inputName}[]" value="${value}">
+            `;
+
+                item.querySelector('i').addEventListener('click', () => item.remove());
+
+                list.appendChild(item);
+                input.value = '';
+            });
+        }
+
+        // Initialize all dynamic inputs
+        addDynamicItem({
+            buttonId: 'addPrice',
+            inputId: 'priceInput',
+            listId: 'price-list',
+            inputName: 'price'
+        });
+
+        addDynamicItem({
+            buttonId: 'addSize',
+            inputId: 'sizeInput',
+            listId: 'size-list',
+            inputName: 'size'
+        });
+
+        addDynamicItem({
+            buttonId: 'addUnit',
+            inputId: 'unitInput',
+            listId: 'unit-list',
+            inputName: 'unit'
+        });
+
+        addDynamicItem({
+            buttonId: 'addBath',
+            inputId: 'bathInput',
+            listId: 'bath-list',
+            inputName: 'bath'
+        });
     </script>
 @endsection
