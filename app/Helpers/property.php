@@ -270,10 +270,10 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
                     'property_id' => $propertyDataObj->id, // UNIQUE KEY
                 ],
                 [
-                    'price' => json_encode($request->price), // store as JSON
-                    'size' => json_encode($request->size), // store as JSON
-                    'unit' => json_encode($request->unit), // store as JSON
-                    'bath' => json_encode($request->bath), // store as JSON
+                    'price' => json_encode($request->price ?? []), // store as JSON
+                    'size' => json_encode($request->size ?? []), // store as JSON
+                    'unit' => json_encode($request->unit ?? []), // store as JSON
+                    'bath' => json_encode($request->bath ?? []), // store as JSON
                    'status' => 1,
                 ]
             );
