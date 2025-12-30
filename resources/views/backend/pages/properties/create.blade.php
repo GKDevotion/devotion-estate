@@ -721,6 +721,7 @@
                                 <input type="hidden" value="" name="id" class="property-id">
 
                                 <div class="row mt-4">
+
                                     <div class="col-12 mb-3">
                                         <label class="fw-semibold">Add Property Variant</label>
 
@@ -769,7 +770,6 @@
                                             <tbody id="variant-list"></tbody>
                                         </table>
                                     </div>
-
 
                                 </div>
 

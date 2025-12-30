@@ -921,7 +921,7 @@
                                 <input type="hidden" value="" name="id" class="property-id">
 
                                 <div class="row mt-4">
-                                 
+
                                     <div class="col-12 mb-3">
                                         <label class="fw-semibold">Add Property Variant</label>
 
@@ -964,110 +964,50 @@
                                                     <th>Size</th>
                                                     <th>Bed</th>
                                                     <th>Bath</th>
-
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="variant-list">
-
-                                                <tr>
-                                                    <td>
-
-                                                        <?php
-                                                        $priceArr = [];
-                                                        
-                                                        if (!empty($data->variants) && !empty($data->variants['price'])) {
-                                                            $priceArr = json_decode($data->variants['price'], true);
-                                                        }
-                                                        ?>
-
-
-                                                        @if (COUNT($priceArr))
-                                                            @foreach ($priceArr as $k => $price)
-                                                                <div
-                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                                    <span>{{ $price }}</span>
-                                                                    <i class="fa fa-times remove-item"
-                                                                        style="cursor:pointer; color:#ab8134;"></i>
-                                                                    <input type="hidden" name="price[]"
-                                                                        value="{{ $price }}">
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td> <?php
-                                                    $sizeArr = [];
-                                                    
-                                                    if (!empty($data->variants) && !empty($data->variants['size'])) {
-                                                        $sizeArr = json_decode($data->variants['size'], true);
-                                                    }
-                                                    
+                                                @if (!empty($data->variants))
+                                                    <?php
+                                                    $prices = json_decode($data->variants['price'] ?? '[]', true);
+                                                    $sizes = json_decode($data->variants['size'] ?? '[]', true);
+                                                    $beds = json_decode($data->variants['bed'] ?? '[]', true);
+                                                    $baths = json_decode($data->variants['bath'] ?? '[]', true);
                                                     ?>
-
-                                                        @if (is_array($sizeArr) && count($sizeArr))
-                                                            @foreach ($sizeArr as $k => $size)
-                                                                <div
-                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                                    <span>{{ $size }}</span>
-                                                                    <i class="fa fa-times remove-item"
-                                                                        style="cursor:pointer; color:#ab8134;"></i>
-                                                                    <input type="hidden" name="size[]"
-                                                                        value="{{ $size }}">
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td> <?php
-                                                    $bedArr = [];
-                                                    
-                                                    if (!empty($data->variants) && !empty($data->variants['bed'])) {
-                                                        $bedArr = json_decode($data->variants['bed'], true);
-                                                    }
-                                                    
-                                                    ?>
-
-                                                        @if (COUNT($bedArr))
-                                                            @foreach ($bedArr as $k => $bed)
-                                                                <div
-                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                                    <span>{{ $bed }}</span>
-                                                                    <i class="fa fa-times remove-item"
-                                                                        style="cursor:pointer; color:#ab8134;"></i>
-                                                                    <input type="hidden" name="bed[]"
-                                                                        value="{{ $bed }}">
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td> <?php
-                                                    $bathArr = [];
-                                                    
-                                                    if (!empty($data->variants) && !empty($data->variants['bath'])) {
-                                                        $bathArr = json_decode($data->variants['bath'], true);
-                                                    }
-                                                    
-                                                    ?>
-
-                                                        @if (COUNT($bathArr))
-                                                            @foreach ($bathArr as $k => $bath)
-                                                                <div
-                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                                    <span>{{ $bath }}</span>
-                                                                    <i class="fa fa-times remove-item"
-                                                                        style="cursor:pointer; color:#ab8134;"></i>
-                                                                    <input type="hidden" name="bath[]"
-                                                                        value="{{ $bath }}">
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-
-
-                                                </tr>
-
+                                                    @for ($i = 0; $i < max(count($prices), count($sizes), count($beds), count($baths)); $i++)
+                                                        <tr>
+                                                            <td>
+                                                                <span>{{ $prices[$i] ?? '' }}</span>
+                                                                <input type="hidden" name="price[]"
+                                                                    value="{{ $prices[$i] ?? '' }}">
+                                                            </td>
+                                                            <td>
+                                                                <span>{{ $sizes[$i] ?? '' }}</span>
+                                                                <input type="hidden" name="size[]"
+                                                                    value="{{ $sizes[$i] ?? '' }}">
+                                                            </td>
+                                                            <td>
+                                                                <span>{{ $beds[$i] ?? '' }}</span>
+                                                                <input type="hidden" name="bed[]"
+                                                                    value="{{ $beds[$i] ?? '' }}">
+                                                            </td>
+                                                            <td>
+                                                                <span>{{ $baths[$i] ?? '' }}</span>
+                                                                <input type="hidden" name="bath[]"
+                                                                    value="{{ $baths[$i] ?? '' }}">
+                                                            </td>
+                                                            <td>
+                                                                <i class="fa fa-times remove-item"
+                                                                    style="cursor:pointer; color:#ab8134;"></i>
+                                                            </td>
+                                                        </tr>
+                                                    @endfor
+                                                @endif
                                             </tbody>
-
                                         </table>
                                     </div>
+
 
                                 </div>
 
@@ -1243,30 +1183,32 @@
     <script>
         $(document).ready(function() {
 
-            function addItem(inputId, listId, inputName) {
-                let value = $('#' + inputId).val().trim();
-                if (value === '') return;
+            // Add new variant row
+            $('#addVariant').click(function() {
+                let price = $('#priceInput').val().trim();
+                let size = $('#sizeInput').val().trim();
+                let bed = $('#bedInput').val().trim();
+                let bath = $('#bathInput').val().trim();
+
+                if (price === '' && size === '' && bed === '' && bath === '') return;
 
                 let html = `
-            <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                <span>${value}</span>
-                <i class="fa fa-times remove-item" style="cursor:pointer; color:#ab8134;"></i>
-                <input type="hidden" name="${inputName}[]" value="${value}">
-            </div>
+            <tr>
+                <td><span>${price}</span><input type="hidden" name="price[]" value="${price}"></td>
+                <td><span>${size}</span><input type="hidden" name="size[]" value="${size}"></td>
+                <td><span>${bed}</span><input type="hidden" name="bed[]" value="${bed}"></td>
+                <td><span>${bath}</span><input type="hidden" name="bath[]" value="${bath}"></td> 
+                <td><button type="button" class="btn btn-sm btn-danger remove-item"><i class="fa fa-trash"></i></button></td>
+            </tr>
         `;
 
-                $('#' + listId).append(html);
-                $('#' + inputId).val('');
-            }
+                $('#variant-list').append(html);
+                $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
+            });
 
-            $('#addPrice').click(() => addItem('priceInput', 'price-list', 'price'));
-            $('#addSize').click(() => addItem('sizeInput', 'size-list', 'size'));
-            $('#addBed').click(() => addItem('bedInput', 'bed-list', 'bed'));
-            $('#addBath').click(() => addItem('bathInput', 'bath-list', 'bath'));
-
-            // 🔥 Remove existing & new items
+            // Remove any row
             $(document).on('click', '.remove-item', function() {
-                $(this).closest('div').remove();
+                $(this).closest('tr').remove();
             });
 
         });
