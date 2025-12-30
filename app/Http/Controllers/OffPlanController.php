@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Developer;
 use App\Models\Location;
 use App\Models\Properties;
 use App\Models\PropertyType;
@@ -19,6 +20,7 @@ class OffPlanController extends Controller
         $total = $properties->total();
 
         $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
 
         // Fetch Residential (main_type = 0)
@@ -36,6 +38,7 @@ class OffPlanController extends Controller
             'locationObj',
             'propertyTypeObj',
             'residentialTypes',
+            'developerObj',
             'commercialTypes',
             'total',
             'perPage'

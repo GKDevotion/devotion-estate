@@ -29,7 +29,8 @@ class LocationController extends Controller
     /**
      *
      */
-    public function setPublicVar(){
+    public function setPublicVar()
+    {
         $this->is_assign_super_admin = $this->user->is_assign_super_admin;
         $this->admin_id = $this->user->id;
     }
@@ -39,7 +40,7 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request )
+    public function index(Request $request)
     {
         if (is_null($this->user) || !$this->user->can('locations.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view Location !');
@@ -51,67 +52,68 @@ class LocationController extends Controller
     /**
      *
      */
-    public function ajaxIndex( Request $request ){
+    public function ajaxIndex(Request $request)
+    {
 
         $this->setPublicVar();
 
         $query = Location::query();
 
-        if( !$this->is_assign_super_admin ){
-            $query->where( 'admin_id', $this->admin_id );
+        if (!$this->is_assign_super_admin) {
+            $query->where('admin_id', $this->admin_id);
         }
 
         $query->select('id', 'name', 'display_name', 'updated_at', 'status');
 
         return DataTables::eloquent($query)
-            ->addColumn('id', function(Location $ar) {
+            ->addColumn('id', function (Location $ar) {
                 return $ar->id;
             })
-            ->addColumn('name', function(Location $ar) {
+            ->addColumn('name', function (Location $ar) {
                 return $ar->name;
             })
-            ->addColumn('display_name', function(Location $ar) {
+            ->addColumn('display_name', function (Location $ar) {
                 return $ar->display_name;
             })
-            
-            ->addColumn('status', function(Location $ar) {
+
+            ->addColumn('status', function (Location $ar) {
                 $status = "";
-                if( true ){
-                    $status = '<i class="fa fa-'.( $ar->status == 0 ? 'times' : 'check').' update-status" data-status="'.$ar->status.'" data-id="'.$ar->id.'" aria-hidden="true" data-table="locations"></i>';
+                if (true) {
+                    $status = '<i class="fa fa-' . ($ar->status == 0 ? 'times' : 'check') . ' update-status" data-status="' . $ar->status . '" data-id="' . $ar->id . '" aria-hidden="true" data-table="locations"></i>';
                 } else {
-                 $status = '<select class="form-control update-status badge '.( $ar->status == 0 ? 'bg-warning' : 'bg-success').' text-white" name="status" data-id="'.$ar->id.'" data-table="locations">
-                            <option value="1" '.($ar->status == 1 ? 'selected' : '').'>Active</option>
-                            <option value="0" '.($ar->status == 0 ? 'selected' : '').'>De-Active</option>
+                    $status = '<select class="form-control update-status badge ' . ($ar->status == 0 ? 'bg-warning' : 'bg-success') . ' text-white" name="status" data-id="' . $ar->id . '" data-table="locations">
+                            <option value="1" ' . ($ar->status == 1 ? 'selected' : '') . '>Active</option>
+                            <option value="0" ' . ($ar->status == 0 ? 'selected' : '') . '>De-Active</option>
                         </select>';
                 }
 
                 return $status;
             })
-            ->addColumn('updated_at', function(Location $ar) {
-                return formatDate( "Y-m-d H:i", $ar->updated_at );
+            ->addColumn('updated_at', function (Location $ar) {
+                return formatDate("Y-m-d H:i", $ar->updated_at);
             })
-            ->addColumn('action', function(Location $ar ) {
+            ->addColumn('action', function (Location $ar) {
 
                 $action = '
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_'.$ar->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="action_menu_' . $ar->id . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         &#x22EE;
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="action_menu_'.$ar->id.'">
+                    <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                    if ($this->user->can('locations.edit')) {
-                        $action.= '<a class="btn btn-edit text-white dropdown-item" href="'.route('admin.locations.edit', $ar->id).'">
+                if ($this->user->can('locations.edit')) {
+                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.locations.edit', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Edit
                         </a>';
-                    }
+                }
 
-                    if ($this->user->can('locations.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$ar->id.'" data-title="'.$ar->display_name.'" data-segment="locations">
+                if ($this->user->can('locations.delete')) {
+                    $action .= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="' . $ar->id . '" data-title="' . $ar->display_name . '" data-segment="locations">
                                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                                     </button>';
-                    }
+                }
 
-                    $action.= '
+                $action .= '
                     </div>
                 ';
 
@@ -121,10 +123,10 @@ class LocationController extends Controller
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
-                    if( $searchValue != "" ){
+                    if ($searchValue != "") {
                         $query->where('name', 'like', "%{$searchValue}%")
                             ->orWhere('display_name', 'like', "%{$searchValue}%");
-                        }
+                    }
                 }
             })
             ->order(function ($query) {
@@ -192,7 +194,7 @@ class LocationController extends Controller
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->display_name.' record has been created !!');
+        session()->flash('success', $request->display_name . ' record has been created !!');
         return redirect()->route('admin.locations.index');
     }
 
@@ -255,7 +257,7 @@ class LocationController extends Controller
         ]);
 
         // Create New Server Record
-        $location = Location::find( $id );
+        $location = Location::find($id);
         $location->admin_id = $this->user->id;
         $location->name = $request->name;
         $location->display_name = $request->display_name;
@@ -268,7 +270,7 @@ class LocationController extends Controller
         $location->status = $request->status;
         $location->save();
 
-        session()->flash('success', $request->display_name.' record has been updated !!');
+        session()->flash('success', $request->display_name . ' record has been updated !!');
         return redirect()->route('admin.locations.index');
     }
 
@@ -291,6 +293,32 @@ class LocationController extends Controller
         }
 
         // session()->flash('success', 'Record has been deleted !!');
-        return response()->json( ['data' => ['message' => "'".$record->name.'" has been successfully deleted.' ] ], 200);
+        return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->q;
+
+        // 🔥 prevent space-only search
+        if (strlen($search) < 3) {
+            return response()->json([]);
+        }
+
+
+        $locations = Location::where('name', 'LIKE', "%{$search}%")
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $formatted = [];
+
+        foreach ($locations as $location) {
+            $formatted[] = [
+                'id' => $location->id,
+                'text' => $location->name
+            ];
+        }
+
+        return response()->json($formatted);
     }
 }

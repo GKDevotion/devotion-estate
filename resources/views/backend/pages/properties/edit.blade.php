@@ -1014,39 +1014,39 @@
 
                                     <div class="col-md-3 col-sm-12 mb-2">
                                         <div class="form-group mb-0">
-                                            <label>Unit</label>
+                                            <label>Bed</label>
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Unit"
-                                                        id="unitInput">
+                                                    <input type="text" class="form-control" placeholder="Enter Bed Rooms"
+                                                        id="bedInput">
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addUnit"
+                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addBed"
                                                         style="background-color: #ab8134">
                                                         <i class="fa fa-plus" style="color: white"></i>
                                                     </a>
                                                 </div>
                                             </div>
 
-                                            <div class="p-2" id="unit-list">
+                                            <div class="p-2" id="bed-list">
                                                 <?php
-                                                $unitArr = [];
+                                                $bedArr = [];
                                                 
-                                                if (!empty($data->variants) && !empty($data->variants['unit'])) {
-                                                    $unitArr = json_decode($data->variants['unit'], true);
+                                                if (!empty($data->variants) && !empty($data->variants['bed'])) {
+                                                    $bedArr = json_decode($data->variants['bed'], true);
                                                 }
                                                 
                                                 ?>
 
-                                                @if (COUNT($unitArr))
-                                                    @foreach ($unitArr as $k => $unit)
+                                                @if (COUNT($bedArr))
+                                                    @foreach ($bedArr as $k => $bed)
                                                         <div
                                                             class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{ $unit }}</span>
+                                                            <span>{{ $bed }}</span>
                                                             <i class="fa fa-times remove-item"
                                                                 style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="unit[]"
-                                                                value="{{ $unit }}">
+                                                            <input type="hidden" name="bed[]"
+                                                                value="{{ $bed }}">
                                                         </div>
                                                     @endforeach
                                                 @endif
@@ -1060,7 +1060,7 @@
                                             <label>Bath</label>
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Bath"
+                                                    <input type="text" class="form-control" placeholder="Enter Bath Rooms"
                                                         id="bathInput">
                                                 </div>
                                                 <div class="col-md-2">
@@ -1135,11 +1135,17 @@
                                     </p>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6 text-end">
+                                    {{-- <div class="col-6 text-end">
                                         <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
                                             <i class="fa fa-save"></i> Save
                                         </button>
-                                    </div>
+                                    </div> --}}
+                                    <div class="col-6 text-end">
+                                        <a class=" go-back cursor-pointer" href="{{ route('admin.properties.create') }}">
+                                            <i class="fa fa-plus"></i> Properties
+                                        </a>
+                                    </div> 
+                                    
                                     <div class="col-md-6 text-start">
                                         <a href="{{ route('admin.properties.index') }}" class="go-back">
                                             <i class="fa fa-back"></i> go Back
@@ -1282,7 +1288,7 @@
 
             $('#addPrice').click(() => addItem('priceInput', 'price-list', 'price'));
             $('#addSize').click(() => addItem('sizeInput', 'size-list', 'size'));
-            $('#addUnit').click(() => addItem('unitInput', 'unit-list', 'unit'));
+            $('#addBed').click(() => addItem('bedInput', 'bed-list', 'bed'));
             $('#addBath').click(() => addItem('bathInput', 'bath-list', 'bath'));
 
             // 🔥 Remove existing & new items

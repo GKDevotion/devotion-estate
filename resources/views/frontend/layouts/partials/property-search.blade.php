@@ -21,7 +21,7 @@
     <!-- Filters and Search Section -->
     <div class="row g-2 justify-content-center mb-4" style="padding-top: 100px">
 
-        <!-- Location Dropdown -->
+         <!-- Location Dropdown Search -->
         <div class="col-lg-2 col-md-4 col-sm-6 position-relative">
             <div class="input-group">
 
@@ -38,6 +38,26 @@
                 </select>
             </div>
         </div>
+
+        <!-- Developer Dropdown Search -->
+        <div class="col-lg-2 col-md-4 col-sm-6 position-relative">
+            <div class="input-group">
+
+                <select id="developerInput" name="developer" class="form-select border-start-0 select-developer">
+                    <option value="">All Developers</option>
+
+                    @forelse($developerObj->sortBy('name') as $p)
+                        <option value="{{ $p->id }}" {{ request('developer') == $p->id ? 'selected' : '' }}>
+                            {{ $p->name }}
+                        </option>
+                    @empty
+                        <option disabled>No Developer Found</option>
+                    @endforelse
+                </select>
+            </div>
+        </div>
+
+
 
 
         <!-- Property Type Dropdown -->
@@ -291,11 +311,61 @@
         });
     });
 
-    $(document).ready(function() {
-        $('.select-location').select2({
-            placeholder: "Search location",
-            allowClear: true,
-            width: '100%'
+ 
+        $(document).ready(function() {
+            $('.select-location').select2({
+                placeholder: "Search Location",
+                allowClear: true,
+                width: '100%',
+                minimumInputLength: 3,
+                ajax: {
+                    transport: function(params, success, failure) {
+                        let term = params.data.q ? params.data.q.trim() : '';
+
+                        // 🔥 BLOCK space-only or short input
+                        if (term.length < 3) {
+                            success({
+                                results: []
+                            });
+                            return;
+                        }
+
+                        params.data.q = term;
+
+                        return $.ajax(params).then(success).fail(failure);
+                    },
+                    url: "{{ route('locations.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                language: {
+                    noResults: function() {
+                        return 'Type at least 3 characters';
+                    }
+                }
+            });
+
+            $(window).on('scroll', function() {
+                $('.select-location').select2('close');
+            });
         });
-    });
+     
+      $(document).ready(function() {
+            $('.select-developer').select2({
+                placeholder: "Search Developer",
+                allowClear: true,
+                width: '100%'
+            });
+        });
 </script>

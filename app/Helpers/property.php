@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Developer;
 use App\Models\Location;
 use App\Models\Properties;
 use App\Models\PropertyFeature;
@@ -104,7 +105,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
 
             $propertyDataObj->save();
 
-            $propertyDataObj->slug = $propertyDataObj->id.'-'.convertStringToSlug($request->name);
+            $propertyDataObj->slug = $propertyDataObj->id . '-' . convertStringToSlug($request->name);
             $propertyDataObj->save();
         }
 
@@ -272,9 +273,9 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
                 [
                     'price' => json_encode($request->price ?? []), // store as JSON
                     'size' => json_encode($request->size ?? []), // store as JSON
-                    'unit' => json_encode($request->unit ?? []), // store as JSON
+                    'bed' => json_encode($request->bed ?? []), // store as JSON
                     'bath' => json_encode($request->bath ?? []), // store as JSON
-                   'status' => 1,
+                    'status' => 1,
                 ]
             );
 
@@ -318,32 +319,32 @@ function getPropertyFeatures()
 /**
  * $type = 0: 'All', 1: 'Sale', 2:'Rent , 3:'Land'
  */
-function getPropertiesByType($type = [1], $queryParam = null )
+function getPropertiesByType($type = [1], $queryParam = null)
 {
     $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
     $query = Properties::with('subType', 'location', 'single_image')
-            ->whereIn('purpose', $type)
-            ->where([
-                'status' => 1,
-                'publish' => 1
-            ])
-            ->whereIn('id', function ($q) {
-                $q->selectRaw('MAX(id)')
+        ->whereIn('purpose', $type)
+        ->where([
+            'status' => 1,
+            'publish' => 1
+        ])
+        ->whereIn('id', function ($q) {
+            $q->selectRaw('MAX(id)')
                 ->from('properties')
                 ->where([
                     'status' => 1,
                     'publish' => 1
                 ])
                 ->groupBy('developer_id');
-            });
+        });
 
-    if( $queryParam ){
-        $query = $query->where( $queryParam, 1 );
+    if ($queryParam) {
+        $query = $query->where($queryParam, 1);
     }
 
     return $query->latest()
-            ->take($sliderPage)
-            ->get();
+        ->take($sliderPage)
+        ->get();
 }
 
 
@@ -383,6 +384,10 @@ function getSearchByProperties($request, $perPage = 4)
 
     if (!empty($request['location'] ?? null)) {
         $query->where('location_id', $request['location']);
+    }
+
+    if (!empty($request['developer'] ?? null)) {
+        $query->where('developer_id', $request['developer']);
     }
 
     if (!empty($request['type'] ?? null)) {
@@ -433,12 +438,20 @@ function getSearchByProperties($request, $perPage = 4)
             $q->orWhereHas('location', function ($locQuery) use ($keyword) {
                 $locQuery->where('name', 'like', "%{$keyword}%");
             });
+            $q->orWhereHas('developer', function ($locQuery) use ($keyword) {
+                $locQuery->where('name', 'like', "%{$keyword}%");
+            });
         });
     }
 
     $properties = $query->paginate($perPage)->withQueryString();
     $total = $properties->total();
     $locationObj = Location::select('id', 'name')
+        ->where('status', 1)
+        ->orderBy('name', 'asc')  // sorted alphabetically
+        ->get();
+        
+    $developerObj = Developer::select('id', 'name')
         ->where('status', 1)
         ->orderBy('name', 'asc')  // sorted alphabetically
         ->get();
@@ -452,6 +465,7 @@ function getSearchByProperties($request, $perPage = 4)
     return compact(
         'properties',
         'locationObj',
+        'developerObj',
         'featureObj',
         'propertyTypeObj',
         'residentialTypes',

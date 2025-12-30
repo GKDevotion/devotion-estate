@@ -471,24 +471,24 @@ class PropertiesController extends Controller
 
         $variant = PropertyVariant::where('property_id', $property->id)->first();
 
-        $prices = $sizes = $units = $baths = [];
+        $prices = $sizes = $beds = $baths = [];
         $count = 0;
 
         if ($variant) {
             $prices = json_decode($variant->price, true) ?? [];
             $sizes  = json_decode($variant->size, true) ?? [];
-            $units  = json_decode($variant->unit, true) ?? [];
+            $beds  = json_decode($variant->bed, true) ?? [];
             $baths  = json_decode($variant->bath, true) ?? [];
 
             $count = max(
                 count($prices),
                 count($sizes),
-                count($units),
+                count($beds),
                 count($baths)
             );
         }
 
-        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'relatedProperties' ,'prices','sizes', 'units', 'baths', 'count'));
+        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'relatedProperties' ,'prices','sizes', 'beds', 'baths', 'count'));
     }
 
 

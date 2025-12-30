@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Developer;
 use App\Models\Location;
 use App\Models\Properties;
 use App\Models\PropertyType;
@@ -20,6 +21,7 @@ public function index(Request $request)
         $total = $properties->total();
 
         $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+        $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
 
         // Fetch Residential (main_type = 1)
@@ -36,6 +38,7 @@ public function index(Request $request)
             'properties',
             'locationObj',
             'propertyTypeObj',
+            'developerObj',
             'residentialTypes',
             'commercialTypes',
             'total',

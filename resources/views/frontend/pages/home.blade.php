@@ -482,7 +482,6 @@
         </div>
     @endif
 
-
     <style>
         .btn-type {
             border: 1px solid transparent;
@@ -554,7 +553,7 @@
 
 
             @if ($allproperties->isNotEmpty())
-                <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div id="propertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
                     <div class="carousel-inner">
 
                         @foreach ($chunks as $chunkIndex => $chunk)
@@ -667,7 +666,7 @@
 
 
             @if ($saleProperties->isNotEmpty())
-                <div id="salePropertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
                     <div class="carousel-inner">
 
                         @foreach ($saleChunks as $chunkIndex => $chunk)
@@ -1138,21 +1137,65 @@
             $type.trigger('change');
         });
 
-        $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: "Search Location",
-                allowClear: true,
-                width: '100%'
-            });
-        });
+        // $(document).ready(function() {
+        //     $('.select2').select2({
+        //         placeholder: "Search Location",
+        //         allowClear: true,
+        //         width: '100%'
+        //     });
+        // });
+    </script>
 
+    <script>
         $(document).ready(function() {
             $('.select2').select2({
                 placeholder: "Search Location",
                 allowClear: true,
-                width: '100%'
+                width: '100%',
+                minimumInputLength: 3,
+                ajax: {
+                    transport: function(params, success, failure) {
+                        let term = params.data.q ? params.data.q.trim() : '';
+
+                        // 🔥 BLOCK space-only or short input
+                        if (term.length < 3) {
+                            success({
+                                results: []
+                            });
+                            return;
+                        }
+
+                        params.data.q = term;
+
+                        return $.ajax(params).then(success).fail(failure);
+                    },
+                    url: "{{ route('locations.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                language: {
+                    noResults: function() {
+                        return 'Type at least 3 characters';
+                    }
+                }
+            });
+
+            $(window).on('scroll', function() {
+                $('.select2').select2('close');
             });
         });
     </script>
+
 
 @endsection

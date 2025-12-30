@@ -72,6 +72,7 @@ class HomeController extends Controller
             "ALTER TABLE `banners` ADD `link` VARCHAR(255) NOT NULL AFTER `image`;",
             "ALTER TABLE `property_image_map` ADD `sort_order` TINYINT NOT NULL DEFAULT '0' AFTER `filename`;",
             "ALTER TABLE `properties` CHANGE `status` `status` TINYINT(1) NULL DEFAULT '0' COMMENT '0: Disabled, 1: Enabled, 2: Deleted';",
+            "ALTER TABLE `property_variants` CHANGE `unit` `bed` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;",
         ];
 
         foreach ($sqlArr as $sql) {

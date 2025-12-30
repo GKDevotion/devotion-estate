@@ -97,7 +97,7 @@
             <a href="{{ url('/admin/developer') }}">
                 <div class="card shadow-sm border-0">
                     <div class="card-body text-center">
-                        <i class="bi bi-building-fill-down fs-1"></i>
+                        <i class="bi bi-people-fill fs-1"></i>
                         <h6 class="text-muted">Developers</h6>
                         <h2 class="fw-bold" style="color: #ab8134">{{ $developer }}</h2>
                     </div>

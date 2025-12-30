@@ -768,21 +768,21 @@
 
                                     <div class="col-md-3 col-sm-12 mb-2">
                                         <div class="form-group mb-0">
-                                            <label>Unit</label>
+                                            <label>Bed</label>
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Unit"
-                                                        id="unitInput">
+                                                    <input type="text" class="form-control" placeholder="Enter Bed Room"
+                                                        id="bedInput">
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addUnit"
+                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addBed"
                                                         style="background-color: #ab8134">
                                                         <i class="fa fa-plus" style="color: white"></i>
                                                     </a>
                                                 </div>
                                             </div>
 
-                                            <div class="p-2" id="unit-list"></div>
+                                            <div class="p-2" id="bed-list"></div>
                                         </div>
                                     </div>
 
@@ -792,7 +792,7 @@
                                             <label>Bath</label>
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Bath"
+                                                    <input type="text" class="form-control" placeholder="Enter Bath Room"
                                                         id="bathInput">
                                                 </div>
                                                 <div class="col-md-2">
@@ -1021,10 +1021,10 @@
         });
 
         addDynamicItem({
-            buttonId: 'addUnit',
-            inputId: 'unitInput',
-            listId: 'unit-list',
-            inputName: 'unit'
+            buttonId: 'addBed',
+            inputId: 'bedInput',
+            listId: 'bed-list',
+            inputName: 'bed'
         });
 
         addDynamicItem({

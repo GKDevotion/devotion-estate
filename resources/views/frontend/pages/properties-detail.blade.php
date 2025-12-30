@@ -347,6 +347,7 @@
 
                 </div>
 
+                <!-- property varient table  -->
                 @if($count > 0)
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
@@ -358,24 +359,24 @@
                                         <tr class="text-nowrap">
                                             <th>Price</th>
                                             <th>Size</th>
-                                            <th>Unit</th>
-                                            <th>Bath</th>
+                                            <th>Bed Room</th>
+                                            <th>Bath Room</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @for ($i = 0; $i < $count; $i++)
                                             <tr>
-                                                <td class="fw-semibold">
-                                                    {{ isset($prices[$i]) ? 'AED ' . number_format($prices[$i]) : '-' }}
+                                                <td >
+                                                    {{ isset($prices[$i]) ? 'AED ' . number_format($prices[$i]) : '' }}
                                                 </td>
                                                 <td>
-                                                    {{ isset($sizes[$i]) ? $sizes[$i] . ' sq.ft' : '-' }}
+                                                    {{ isset($sizes[$i]) ? $sizes[$i] . ' sq.ft' : '' }}
                                                 </td>
                                                 <td>
-                                                    {{ $units[$i] ?? '-' }}
+                                                    {{ $beds[$i] ?? '' }}
                                                 </td>
                                                 <td>
-                                                    {{ $baths[$i] ?? '-' }}
+                                                    {{ $baths[$i] ?? '' }}
                                                 </td>
                                             </tr>
                                         @endfor
@@ -385,7 +386,6 @@
                         </div>
                     </div>
                 @endif
-
 
             </div>
 

@@ -118,7 +118,7 @@
                                             <div class="col-4 text-end">
                                                 <img src="{{ url('public\img\devotion-group-favicon-64X64.png') }}"
                                                     alt="Estate Agent Logo" class="img-fluid" style="max-width: 160px;">
-                                                <p class="small text-muted text-end mt-2 mb-0">Devotion Estate Agent</p>
+                                                <p class="small text-muted text-end mt-2 mb-0">Devotion Estate </p>
                                             </div>
                                         </div>
                                     </div>
