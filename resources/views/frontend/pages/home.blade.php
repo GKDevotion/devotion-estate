@@ -69,9 +69,22 @@
                                     <!-- Location -->
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="input-group">
-                                            <select name="location" class="form-select select2">
+                                            <select name="location" class="form-select select-location">
                                                 <option value="">Search Location</option>
                                                 @foreach ($location as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Developer -->
+                                    <div class="col-lg-2 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <select name="developer" class="form-select select-developer">
+                                                <option value="">Search Developer</option>
+                                                @foreach ($developer as $p)
                                                     <option value="{{ $p->id }}">{{ $p->name }}</option>
                                                 @endforeach
                                             </select>
@@ -137,6 +150,18 @@
                                     </div>
                                 </div>
 
+                                <!-- Developer -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <select name="developer" class="form-select select-developer">
+                                            <option value="">Search Developer</option>
+                                            @foreach ($developer as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <!-- Property Type -->
                                 <div class="col-lg-2 col-md-6 col-sm-12">
 
@@ -189,6 +214,18 @@
                                         <select name="location" class="form-select select2">
                                             <option value="">Search Location</option>
                                             @foreach ($location as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Developer -->
+                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <select name="developer" class="form-select select-developer">
+                                            <option value="">Search Developer</option>
+                                            @foreach ($developer as $p)
                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                             @endforeach
                                         </select>
@@ -1137,18 +1174,18 @@
             $type.trigger('change');
         });
 
-        // $(document).ready(function() {
-        //     $('.select2').select2({
-        //         placeholder: "Search Location",
-        //         allowClear: true,
-        //         width: '100%'
-        //     });
-        // });
+        $(document).ready(function() {
+            $('.select-developer').select2({
+                placeholder: "Search Developer",
+                allowClear: true,
+                width: '100%'
+            });
+        });
     </script>
 
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
+            $('.select-location').select2({
                 placeholder: "Search Location",
                 allowClear: true,
                 width: '100%',
@@ -1192,7 +1229,7 @@
             });
 
             $(window).on('scroll', function() {
-                $('.select2').select2('close');
+                $('.select-location').select2('close');
             });
         });
     </script>

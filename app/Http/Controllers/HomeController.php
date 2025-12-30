@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Award;
 use App\Models\Banner;
+use App\Models\Developer;
 use App\Models\Location;
 use App\Models\Properties;
 use App\Models\PropertyFeature;
@@ -38,6 +39,11 @@ class HomeController extends Controller
         ->where('status', 1)
         ->orderBy('name', 'asc')  // sorted alphabetically
         ->get();
+
+          $developer = Developer::select('id', 'name')
+        ->where('status', 1)
+        ->orderBy('name', 'asc')  // sorted alphabetically
+        ->get();
         // Fetch Residential (main_type = 0)
         $residentialTypes = PropertyType::where('main_type', 1)
             ->where('status', 1)
@@ -51,7 +57,7 @@ class HomeController extends Controller
         $bannerObjs = Banner::where('status', 1)->orderBy('id', 'DESC')->get();
         $awardObjs = Award::where('status', 1)->orderBy('id', 'DESC')->get();
 
-        return view('frontend.pages.home' , compact('location','bannerObjs','propertyTypeObj','residentialTypes','commercialTypes', 'awardObjs'));
+        return view('frontend.pages.home' , compact('location','bannerObjs','propertyTypeObj','residentialTypes','developer','commercialTypes', 'awardObjs'));
     }
 
     /**
