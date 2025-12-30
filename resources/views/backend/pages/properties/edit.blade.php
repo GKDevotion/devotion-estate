@@ -921,180 +921,152 @@
                                 <input type="hidden" value="" name="id" class="property-id">
 
                                 <div class="row mt-4">
+                                 
+                                    <div class="col-12 mb-3">
+                                        <label class="fw-semibold">Add Property Variant</label>
 
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Price</label>
-                                            <div class="row">
-
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Price"
-                                                        id="priceInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn btn-price" id="addPrice"
-                                                        style="background-color: #ab8134">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
+                                        <div class="row align-items-end">
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="priceInput"
+                                                    placeholder="Price">
                                             </div>
 
-                                            <div class="pt-2" id="price-list">
-                                                <?php
-                                                $priceArr = [];
-                                                
-                                                if (!empty($data->variants) && !empty($data->variants['price'])) {
-                                                    $priceArr = json_decode($data->variants['price'], true);
-                                                }
-                                                ?>
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="sizeInput"
+                                                    placeholder="Size">
+                                            </div>
 
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="bedInput"
+                                                    placeholder="Bed">
+                                            </div>
 
-                                                @if (is_array($priceArr) && count($priceArr))
-                                                    @foreach ($priceArr as $k => $price)
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{ $price }}</span>
-                                                            <i class="fa fa-times remove-item"
-                                                                style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="price[]"
-                                                                value="{{ $price }}">
-                                                        </div>
-                                                    @endforeach
-                                                @endif
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="bathInput"
+                                                    placeholder="Bath">
+                                            </div>
 
+                                            <div class="col-md-2 mb-2">
+                                                <button type="button" class="btn btn-price w-100 text-white"
+                                                    id="addVariant" style="background-color:#ab8134">
+                                                    <i class="fa fa-plus"></i> Add
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
 
+                                    <!-- Stored Data -->
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered align-middle">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th>Price</th>
+                                                    <th>Size</th>
+                                                    <th>Bed</th>
+                                                    <th>Bath</th>
 
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Size</label>
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Size"
-                                                        id="sizeInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addSize"
-                                                        style="background-color: #ab8134">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="variant-list">
 
-                                            <div class="p-2" id="size-list">
+                                                <tr>
+                                                    <td>
 
-                                                <?php
-                                                $sizeArr = [];
-                                                
-                                                if (!empty($data->variants) && !empty($data->variants['size'])) {
-                                                    $sizeArr = json_decode($data->variants['size'], true);
-                                                }
-                                                
-                                                ?>
-
-                                                @if (is_array($sizeArr) && count($sizeArr))
-                                                    @foreach ($sizeArr as $k => $size)
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{ $size }}</span>
-                                                            <i class="fa fa-times remove-item"
-                                                                style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="size[]"
-                                                                value="{{ $size }}">
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                                        <?php
+                                                        $priceArr = [];
+                                                        
+                                                        if (!empty($data->variants) && !empty($data->variants['price'])) {
+                                                            $priceArr = json_decode($data->variants['price'], true);
+                                                        }
+                                                        ?>
 
 
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Bed</label>
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Bed Rooms"
-                                                        id="bedInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addBed"
-                                                        style="background-color: #ab8134">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                                        @if (COUNT($priceArr))
+                                                            @foreach ($priceArr as $k => $price)
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                                    <span>{{ $price }}</span>
+                                                                    <i class="fa fa-times remove-item"
+                                                                        style="cursor:pointer; color:#ab8134;"></i>
+                                                                    <input type="hidden" name="price[]"
+                                                                        value="{{ $price }}">
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td> <?php
+                                                    $sizeArr = [];
+                                                    
+                                                    if (!empty($data->variants) && !empty($data->variants['size'])) {
+                                                        $sizeArr = json_decode($data->variants['size'], true);
+                                                    }
+                                                    
+                                                    ?>
 
-                                            <div class="p-2" id="bed-list">
-                                                <?php
-                                                $bedArr = [];
-                                                
-                                                if (!empty($data->variants) && !empty($data->variants['bed'])) {
-                                                    $bedArr = json_decode($data->variants['bed'], true);
-                                                }
-                                                
-                                                ?>
+                                                        @if (is_array($sizeArr) && count($sizeArr))
+                                                            @foreach ($sizeArr as $k => $size)
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                                    <span>{{ $size }}</span>
+                                                                    <i class="fa fa-times remove-item"
+                                                                        style="cursor:pointer; color:#ab8134;"></i>
+                                                                    <input type="hidden" name="size[]"
+                                                                        value="{{ $size }}">
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td> <?php
+                                                    $bedArr = [];
+                                                    
+                                                    if (!empty($data->variants) && !empty($data->variants['bed'])) {
+                                                        $bedArr = json_decode($data->variants['bed'], true);
+                                                    }
+                                                    
+                                                    ?>
 
-                                                @if (COUNT($bedArr))
-                                                    @foreach ($bedArr as $k => $bed)
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{ $bed }}</span>
-                                                            <i class="fa fa-times remove-item"
-                                                                style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="bed[]"
-                                                                value="{{ $bed }}">
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
+                                                        @if (COUNT($bedArr))
+                                                            @foreach ($bedArr as $k => $bed)
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                                    <span>{{ $bed }}</span>
+                                                                    <i class="fa fa-times remove-item"
+                                                                        style="cursor:pointer; color:#ab8134;"></i>
+                                                                    <input type="hidden" name="bed[]"
+                                                                        value="{{ $bed }}">
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td> <?php
+                                                    $bathArr = [];
+                                                    
+                                                    if (!empty($data->variants) && !empty($data->variants['bath'])) {
+                                                        $bathArr = json_decode($data->variants['bath'], true);
+                                                    }
+                                                    
+                                                    ?>
+
+                                                        @if (COUNT($bathArr))
+                                                            @foreach ($bathArr as $k => $bath)
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                                                    <span>{{ $bath }}</span>
+                                                                    <i class="fa fa-times remove-item"
+                                                                        style="cursor:pointer; color:#ab8134;"></i>
+                                                                    <input type="hidden" name="bath[]"
+                                                                        value="{{ $bath }}">
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
 
 
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Bath</label>
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Bath Rooms"
-                                                        id="bathInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addBath"
-                                                        style="background-color: #ab8134 ">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                                </tr>
 
-                                            <div class="p-2" id="bath-list">
-                                                <?php
-                                                $bathArr = [];
-                                                
-                                                if (!empty($data->variants) && !empty($data->variants['bath'])) {
-                                                    $bathArr = json_decode($data->variants['bath'], true);
-                                                }
-                                                
-                                                ?>
+                                            </tbody>
 
-                                                @if (COUNT($bathArr))
-                                                    @foreach ($bathArr as $k => $bath)
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                                            <span>{{ $bath }}</span>
-                                                            <i class="fa fa-times remove-item"
-                                                                style="cursor:pointer; color:#ab8134;"></i>
-                                                            <input type="hidden" name="bath[]"
-                                                                value="{{ $bath }}">
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                        </div>
+                                        </table>
                                     </div>
 
                                 </div>
@@ -1141,11 +1113,12 @@
                                         </button>
                                     </div> --}}
                                     <div class="col-6 text-end">
-                                        <a class=" go-back cursor-pointer" href="{{ route('admin.properties.create') }}">
+                                        <a class=" go-back cursor-pointer"
+                                            href="{{ route('admin.properties.create') }}">
                                             <i class="fa fa-plus"></i> Properties
                                         </a>
-                                    </div> 
-                                    
+                                    </div>
+
                                     <div class="col-md-6 text-start">
                                         <a href="{{ route('admin.properties.index') }}" class="go-back">
                                             <i class="fa fa-back"></i> go Back

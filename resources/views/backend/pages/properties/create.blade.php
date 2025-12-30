@@ -31,7 +31,7 @@
         }
 
         .btn-price {
-            font-size: 25px;
+            font-size: 20px;
             min-width: 50px;
         }
     </style>
@@ -721,91 +721,55 @@
                                 <input type="hidden" value="" name="id" class="property-id">
 
                                 <div class="row mt-4">
-                                    
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Price</label>
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Price"
-                                                        id="priceInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn btn-price" id="addPrice"
-                                                        style="background-color: #ab8134">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="fw-semibold">Add Property Variant</label>
+
+                                        <div class="row align-items-end">
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="priceInput"
+                                                    placeholder="Price">
                                             </div>
 
-                                            <div class="p-2" id="price-list"></div>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Size</label>
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Size"
-                                                        id="sizeInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addSize"
-                                                        style="background-color: #ab8134">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="sizeInput"
+                                                    placeholder="Size">
                                             </div>
 
-                                            <div class="p-2" id="size-list"></div>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Bed</label>
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Bed Room"
-                                                        id="bedInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addBed"
-                                                        style="background-color: #ab8134">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="bedInput"
+                                                    placeholder="Bed">
                                             </div>
 
-                                            <div class="p-2" id="bed-list"></div>
+                                            <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="bathInput"
+                                                    placeholder="Bath">
+                                            </div>
+
+                                            <div class="col-md-2 mb-2">
+                                                <button type="button" class="btn btn-price w-100 text-white"
+                                                    id="addVariant" style="background-color:#ab8134">
+                                                    <i class="fa fa-plus"></i> Add
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
-
-                                    <div class="col-md-3 col-sm-12 mb-2">
-                                        <div class="form-group mb-0">
-                                            <label>Bath</label>
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Bath Room"
-                                                        id="bathInput">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="javascript:void(0)" class="btn  btn-price" id="addBath"
-                                                        style="background-color: #ab8134 ">
-                                                        <i class="fa fa-plus" style="color: white"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="p-2" id="bath-list"></div>
-                                        </div>
+                                    <!-- Stored Data -->
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered align-middle">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th>Price</th>
+                                                    <th>Size</th>
+                                                    <th>Bed</th>
+                                                    <th>Bath</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="variant-list"></tbody>
+                                        </table>
                                     </div>
+
 
                                 </div>
 
@@ -971,7 +935,7 @@
             nextPrev(1, 'PropertyStepForm4');
         }
     </script>
-    <script>
+    {{-- <script>
         function addDynamicItem(config) {
             const {
                 buttonId,
@@ -1032,6 +996,56 @@
             inputId: 'bathInput',
             listId: 'bath-list',
             inputName: 'bath'
+        });
+    </script> --}}
+
+    <script>
+        $('#addVariant').on('click', function() {
+            let price = $('#priceInput').val().trim();
+            let size = $('#sizeInput').val().trim();
+            let bed = $('#bedInput').val().trim();
+            let bath = $('#bathInput').val().trim();
+
+            if (!price || !size || !bed || !bath) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            let row = `
+            <tr>
+                <td>
+                    ${price}
+                    <input type="hidden" name="price[]" value="${price}">
+                </td>
+                <td>
+                    ${size}
+                    <input type="hidden" name="size[]" value="${size}">
+                </td>
+                <td>
+                    ${bed}
+                    <input type="hidden" name="bed[]" value="${bed}">
+                </td>
+                <td>
+                    ${bath}
+                    <input type="hidden" name="bath[]" value="${bath}">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-danger removeRow">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+
+            $('#variant-list').append(row);
+
+            // Clear inputs
+            $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
+        });
+
+        // Remove row
+        $(document).on('click', '.removeRow', function() {
+            $(this).closest('tr').remove();
         });
     </script>
 @endsection

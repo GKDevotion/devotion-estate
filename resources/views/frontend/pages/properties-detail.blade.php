@@ -92,8 +92,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                IMAGE GALLERY
-                 ======================== -->
+                    IMAGE GALLERY
+                     ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -150,8 +150,8 @@
         </div>
 
         <!-- =======================
-                 CONTENT ROW (DETAILS + CONTACT)
-                 ======================== -->
+                     CONTENT ROW (DETAILS + CONTACT)
+                     ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -348,7 +348,7 @@
                 </div>
 
                 <!-- property varient table  -->
-                @if($count > 0)
+                @if ($count > 0)
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
                             <h5 class="fw-semibold mb-3">Property Variants</h5>
@@ -366,9 +366,10 @@
                                     <tbody>
                                         @for ($i = 0; $i < $count; $i++)
                                             <tr>
-                                                <td >
-                                                    {{ isset($prices[$i]) ? 'AED ' . number_format($prices[$i]) : '' }}
+                                                <td class="fw-semibold text-nowrap">
+                                                    {{ isset($prices[$i]) ? 'AED ' . number_format((float) $prices[$i], 2) : '' }}
                                                 </td>
+
                                                 <td>
                                                     {{ isset($sizes[$i]) ? $sizes[$i] . ' sq.ft' : '' }}
                                                 </td>
@@ -532,7 +533,6 @@
                         font-size: 14px;
                         font-weight: bold;
                     }
-
                 </style>
 
                 </style>
@@ -550,8 +550,7 @@
                                             <img src="{{ $item->images->first()
                                                 ? asset('storage/app/propertyImage/' . $item->images->first()->filename)
                                                 : asset('public/img/no-image.jpg') }}"
-                                                class="card-img-top rounded-top-4"
-                                                style="height:220px; object-fit:fill;">
+                                                class="card-img-top rounded-top-4" style="height:220px; object-fit:fill;">
                                         </div>
 
                                         <!-- Body -->
@@ -568,8 +567,8 @@
                                             </p>
 
                                             <div class="d-flex justify-content-between align-items-center">
-                                                
-                                                 <h5 class="fw-bold mt-1 fs-20" style=" color:#aa8038;">
+
+                                                <h5 class="fw-bold mt-1 fs-20" style=" color:#aa8038;">
                                                     AED {{ number_format($item->price, 2) }}
                                                 </h5>
 
@@ -577,7 +576,7 @@
                                         </div>
 
                                     </div>
-                                    
+
                                 </a>
                             </div>
                         @endforeach

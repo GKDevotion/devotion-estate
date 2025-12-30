@@ -555,6 +555,7 @@ class PropertiesController extends Controller
                 $featureMap[] = $dt->feature_id;
             }
         }
+        
         // dd($id, $data->variants);
         $paymentPlanArr = PaymentPlan::where('status', 1)->pluck('name', 'id'); //->select('id', 'name')->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();

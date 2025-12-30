@@ -263,7 +263,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             }
         }
 
-        //3. Varients-->
+        //4. Varients-->
         if ($request->step == 4 || $request->_method == "PUT") {
 
             PropertyVariant::updateOrCreate(
