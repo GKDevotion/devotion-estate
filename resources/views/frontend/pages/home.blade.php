@@ -602,62 +602,53 @@
                                                 class="text-decoration-none text-dark">
 
                                                 <div class="card property-card h-100 border-1 shadow-sm rounded-3">
+
                                                     <div class="position-relative">
                                                         <img src="{{ asset('storage/app/propertyImage/' . ($property->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
                                                             class="card-img-top rounded-top-3"
                                                             alt="{!! $property->name !!}">
-
-                                                        {{-- <span
-                                                            class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                                        <span
-                                                            class="badge {{ $property->purpose == 1 ? 'badge-rent' : 'badge-sale' }} position-absolute top-0 end-0 m-2">
-                                                            {{ $property->purpose == 1 ? 'For Rent' : 'For sale' }}
-                                                        </span> --}}
-
                                                     </div>
 
+                                                    <!-- BODY -->
                                                     <div class="card-body">
 
-                                                        <div class="d-flex align-items-start mb-2">
-                                                            <h5 class="card-title mb-0 me-3" style="min-height: 50px">
-                                                                {!! $property->name !!}
-                                                            </h5>
-                                                        </div>
+                                                        <!-- TITLE -->
+                                                        <h5 class="card-title mb-2">
+                                                            {!! $property->name !!}
+                                                        </h5>
 
+                                                        <!-- LOCATION -->
                                                         <p class="card-text small text-muted mb-1">
                                                             <i class="bi bi-map me-2"></i>
                                                             {{ ucfirst($property->location->name ?? 'N/A') }}
                                                         </p>
-                                                        <p class="card-text small mt-0">
+
+                                                        <!-- DETAILS -->
+                                                        <p class="card-text small mb-0">
                                                             <i class="bi bi-door-closed me-1"></i>
                                                             Beds: {{ $property->beds }}
-                                                            <i class="bi bi-bucket me-1"></i>
+                                                            <i class="bi bi-bucket me-1 ms-2"></i>
                                                             Baths: {{ $property->baths }}
-                                                            {{-- </p>
-                                                        <p class="card-text small"> --}}
-                                                            <i class="bi bi-rulers me-1"></i>
+                                                            <i class="bi bi-rulers me-1 ms-2"></i>
                                                             Area: {{ $property->area }} Sq.Ft.
-                                                            {{-- </p> --}}
-
-                                                            {{-- <button class="d-none btn btn-type rounded-pill btn-sm featureMap">
-                                                            {{ $property->subType->name ?? '' }}
-                                                        </button> --}}
+                                                        </p>
 
                                                     </div>
 
-                                                    <hr class="property-divider">
+                                                    <hr class="property-divider my-2">
 
-
+                                                    <!-- FOOTER -->
                                                     <div
-                                                        class="card-footer bg-white border-top-0 d-flex mb-2 justify-content-between align-items-center">
-                                                        <p class="fs-5  property-price mb-0">
-                                                            AED {{ number_format($property->price, 2) }}</p>
-                                                        <div class="text-end">
-                                                            <img src="{{ url('public/frontend/assets/images/Devotion Real Estate.png') }}"
-                                                                alt="Logo" class="property-logo img-fluid">
-                                                        </div>
+                                                        class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
+                                                        <p class="fs-5 property-price mb-0">
+                                                            AED {{ number_format($property->price, 2) }}
+                                                        </p>
+                                                        <img src="{{ url('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                                            alt="Logo" class="property-logo img-fluid">
                                                     </div>
+
                                                 </div>
+
                                             </a>
                                         </div>
                                     @endforeach

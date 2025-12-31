@@ -228,6 +228,69 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="variantModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <form id="variantForm">
+            @csrf
+            <input type="hidden" name="property_id" id="variantPropertyId">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Property Variants</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- Add Variant -->
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <input type="text" id="priceInput" class="form-control" placeholder="Price">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="sizeInput" class="form-control" placeholder="Size">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="bedInput" class="form-control" placeholder="Bed">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="bathInput" class="form-control" placeholder="Bath">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn w-100 text-white" id="addVariant"
+                                style="background:#ab8134">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Variant Table -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Price</th>
+                                <th>Size</th>
+                                <th>Bed</th>
+                                <th>Bath</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="variant-list"></tbody>
+                    </table>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn text-white" style="background:#ab8134">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
@@ -567,4 +630,71 @@
             });
         });
     </script>
+
+    <script>
+$(document).on('click', '.btn-variant', function () {
+
+    let id = $(this).data('id');
+    let prices = $(this).data('price') || [];
+    let sizes  = $(this).data('size') || [];
+    let beds   = $(this).data('bed') || [];
+    let baths  = $(this).data('bath') || [];
+
+    $('#variantPropertyId').val(id);
+    $('#variant-list').html('');
+
+    let max = Math.max(prices.length, sizes.length, beds.length, baths.length);
+
+    for (let i = 0; i < max; i++) {
+        $('#variant-list').append(`
+            <tr>
+                <td><span>${prices[i] ?? ''}</span><input type="hidden" name="price[]" value="${prices[i] ?? ''}"></td>
+                <td><span>${sizes[i] ?? ''}</span><input type="hidden" name="size[]" value="${sizes[i] ?? ''}"></td>
+                <td><span>${beds[i] ?? ''}</span><input type="hidden" name="bed[]" value="${beds[i] ?? ''}"></td>
+                <td><span>${baths[i] ?? ''}</span><input type="hidden" name="bath[]" value="${baths[i] ?? ''}"></td>
+                <td><button type="button" class="btn btn-sm btn-danger remove-item"><i class="fa fa-trash"></i></button></td>
+            </tr>
+        `);
+    }
+
+    $('#variantModal').modal('show');
+});
+
+$('#addVariant').click(function () {
+
+    let price = $('#priceInput').val();
+    let size  = $('#sizeInput').val();
+    let bed   = $('#bedInput').val();
+    let bath  = $('#bathInput').val();
+
+    if (!price && !size && !bed && !bath) return;
+
+    $('#variant-list').append(`
+        <tr>
+            <td><span>${price}</span><input type="hidden" name="price[]" value="${price}"></td>
+            <td><span>${size}</span><input type="hidden" name="size[]" value="${size}"></td>
+            <td><span>${bed}</span><input type="hidden" name="bed[]" value="${bed}"></td>
+            <td><span>${bath}</span><input type="hidden" name="bath[]" value="${bath}"></td>
+            <td><button type="button" class="btn btn-sm btn-danger remove-item"><i class="fa fa-trash"></i></button></td>
+        </tr>
+    `);
+
+    $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
+});
+
+$(document).on('click', '.remove-item', function () {
+    $(this).closest('tr').remove();
+});
+
+$('#variantForm').submit(function(e){
+    e.preventDefault();
+
+    $.post("{{ route('admin.properties.updateVariants') }}", $(this).serialize(), function(){
+        $('#variantModal').modal('hide');
+        location.reload();
+    });
+});
+
+</script>
+
 @endsection

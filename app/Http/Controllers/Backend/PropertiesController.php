@@ -326,6 +326,18 @@ class PropertiesController extends Controller
                             <i class="fa fa-pencil"></i> Other Information
                             </a>';
 
+                    $action .= '<a href="javascript:void(0);"
+                                class="btn btn-edit text-white dropdown-item btn-variant"
+                                data-id="' . $ar->id . '"
+                                data-price=\'' . json_encode(json_decode($ar->variants["price"] ?? "[]")) . '\'
+                                data-size=\'' . json_encode(json_decode($ar->variants["size"] ?? "[]")) . '\'
+                                data-bed=\'' . json_encode(json_decode($ar->variants["bed"] ?? "[]")) . '\'
+                                data-bath=\'' . json_encode(json_decode($ar->variants["bath"] ?? "[]")) . '\'
+                                >
+                                <i class="fa fa-pencil"></i> Variants
+                                </a>';
+
+
 
                     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.properties.imageOrder', $ar->id) . '">
                             <i class="fa fa-pencil"></i> Image
@@ -451,6 +463,17 @@ class PropertiesController extends Controller
             ->take(10)
             ->get();
 
+
+        // ✅ Seller properties (by same agent, excluding current)
+        $sellerProperties = \App\Models\Properties::with(['images', 'location'])
+            ->where('status', 1)
+            ->where('id', '!=', $property->id)
+            ->where('agent_id', $property->agent_id)
+            ->latest()
+            ->take(10)
+            ->get();
+
+
         // Determine the property type label based on DB value
         $typeMap = [
             0 => 'All',
@@ -488,7 +511,7 @@ class PropertiesController extends Controller
             );
         }
 
-        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'relatedProperties' ,'prices','sizes', 'beds', 'baths', 'count'));
+        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'sellerProperties', 'relatedProperties', 'prices', 'sizes', 'beds', 'baths', 'count'));
     }
 
 
@@ -555,7 +578,7 @@ class PropertiesController extends Controller
                 $featureMap[] = $dt->feature_id;
             }
         }
-        
+
         // dd($id, $data->variants);
         $paymentPlanArr = PaymentPlan::where('status', 1)->pluck('name', 'id'); //->select('id', 'name')->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
@@ -738,4 +761,29 @@ class PropertiesController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+   public function updateVariants(Request $request)
+{
+    $request->validate([
+        'property_id' => 'required|exists:properties,id',
+    ]);
+
+    PropertyVariant::updateOrCreate(
+        [
+            'property_id' => $request->property_id, // UNIQUE
+        ],
+        [
+            'price'  => json_encode($request->price ?? []),
+            'size'   => json_encode($request->size ?? []),
+            'bed'    => json_encode($request->bed ?? []),
+            'bath'   => json_encode($request->bath ?? []),
+            'status' => 1,
+        ]
+    );
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Property variants updated successfully'
+    ]);
+}
 }

@@ -109,6 +109,8 @@ Route::prefix('admin')->group(function () {
     // Information Model
     Route::post('admin/properties/update-information', [PropertiesController::class, 'updateInformation'])->name('admin.properties.updateInformation');
     Route::get('properties/{id}/information',[PropertiesController::class, 'getInformation'])->name('admin.properties.getInformation');
+Route::post('admin/properties/update-variants', [PropertiesController::class, 'updateVariants'])
+    ->name('admin.properties.updateVariants');
 
 
     Route::resource('developer', 'Backend\DeveloperController', ['names' => 'admin.developer']);
