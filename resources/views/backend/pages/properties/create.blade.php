@@ -747,7 +747,7 @@
                                             </div>
 
                                             <div class="col-md-2 mb-2">
-                                                <button type="button" class="btn btn-price w-100 text-white"
+                                                <button type="button" class="btn btn-primary w-100 text-white"
                                                     id="addVariant" style="background-color:#ab8134">
                                                     <i class="fa fa-plus"></i> Add
                                                 </button>
@@ -762,8 +762,8 @@
                                                 <tr>
                                                     <th>Price</th>
                                                     <th>Size</th>
-                                                    <th>Bed</th>
-                                                    <th>Bath</th>
+                                                    <th>Bed Room</th>
+                                                    <th>Bath Room</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

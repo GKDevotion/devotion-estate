@@ -817,33 +817,6 @@
                                         @if ($errors->has('avtar'))
                                             <div class="error">{{ $errors->first('avtar') }}</div>
                                         @endif
-
-
-                                        <!-- Show existing images -->
-                                        @if (!empty($data->images) && count($data->images) > 0)
-                                            <div class="col-12 mb-3">
-                                                <label class="fw-semibold">Existing Images</label>
-                                                <div class="d-flex flex-wrap gap-3">
-                                                    @foreach ($data->images as $image)
-                                                        <div class="position-relative border rounded p-1"
-                                                            style="width:120px; height:120px; overflow:hidden;">
-                                                            <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}"
-                                                                alt="Property Image"
-                                                                class="img-fluid w-100 h-100 object-fit-cover rounded">
-                                                            <!-- Delete Checkbox -->
-                                                            <div
-                                                                class="form-check position-absolute top-0 end-0 bg-white rounded-circle m-1 p-1 shadow-sm">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    name="delete_images[]" value="{{ $image->id }}"
-                                                                    id="delete_{{ $image->id }}">
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <small class="text-muted d-block mt-1">Check images you want to
-                                                    remove</small>
-                                            </div>
-                                        @endif
                                     </div>
 
                                     <div class="col-md-4 col-sm-12 mb-2">
@@ -878,6 +851,33 @@
                                         @enderror
                                     </div>
 
+                                    <div class="col-12">
+                                        <!-- Show existing images -->
+                                        @if (!empty($data->images) && count($data->images) > 0)
+                                            <div class="col-12 mb-3">
+                                                <label class="fw-semibold">Existing Images</label>
+                                                <div class="d-flex flex-wrap gap-3">
+                                                    @foreach ($data->images as $image)
+                                                        <div class="position-relative border rounded p-1"
+                                                            style="width:120px; height:120px; overflow:hidden;">
+                                                            <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}"
+                                                                alt="Property Image"
+                                                                class="img-fluid w-100 h-100 object-fit-cover rounded">
+                                                            <!-- Delete Checkbox -->
+                                                            <div
+                                                                class="form-check position-absolute top-0 end-0 bg-white rounded-circle m-1 p-1 shadow-sm">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="delete_images[]" value="{{ $image->id }}"
+                                                                    id="delete_{{ $image->id }}">
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <small class="text-muted d-block mt-1">Check images you want to
+                                                    remove</small>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
 
                                 <!-- start previous / next buttons -->
@@ -947,8 +947,7 @@
                                             </div>
 
                                             <div class="col-md-2 mb-2">
-                                                <button type="button" class="btn btn-price w-100 text-white"
-                                                    id="addVariant" style="background-color:#ab8134">
+                                                <button type="button" class="btn btn-primary w-50 text-white p-2" id="addVariant">
                                                     <i class="fa fa-plus"></i> Add
                                                 </button>
                                             </div>
@@ -962,8 +961,8 @@
                                                 <tr>
                                                     <th>Price</th>
                                                     <th>Size</th>
-                                                    <th>Bed</th>
-                                                    <th>Bath</th>
+                                                    <th>Bed Room</th>
+                                                    <th>Bath Room</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -998,8 +997,7 @@
                                                                     value="{{ $baths[$i] ?? '' }}">
                                                             </td>
                                                             <td>
-                                                                <i class="fa fa-times remove-item"
-                                                                    style="cursor:pointer; color:#ab8134;"></i>
+                                                                <i class="fa fa-times remove-item" style="cursor:pointer; color:#ab8134;"></i>
                                                             </td>
                                                         </tr>
                                                     @endfor
@@ -1066,11 +1064,7 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -1180,6 +1174,7 @@
             nextPrev(1, 'PropertyStepForm4');
         }
     </script>
+
     <script>
         $(document).ready(function() {
 
@@ -1197,8 +1192,8 @@
                 <td><span>${price}</span><input type="hidden" name="price[]" value="${price}"></td>
                 <td><span>${size}</span><input type="hidden" name="size[]" value="${size}"></td>
                 <td><span>${bed}</span><input type="hidden" name="bed[]" value="${bed}"></td>
-                <td><span>${bath}</span><input type="hidden" name="bath[]" value="${bath}"></td> 
-                <td><button type="button" class="btn btn-sm btn-danger remove-item"><i class="fa fa-trash"></i></button></td>
+                <td><span>${bath}</span><input type="hidden" name="bath[]" value="${bath}"></td>
+                <td><i class="fa fa-times remove-item" style="cursor:pointer; color:#ab8134;"></i></td>
             </tr>
         `;
 
