@@ -3,7 +3,6 @@
 @section('title', 'Buy Properties')
 @section('content')
 
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -92,7 +91,7 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                IMAGE GALLERY
+            IMAGE GALLERY
             ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -150,7 +149,7 @@
         </div>
 
         <!-- =======================
-                CONTENT ROW (DETAILS + CONTACT)
+            CONTENT ROW (DETAILS + CONTACT)
             ======================== -->
         <div class="row g-4">
 
@@ -665,35 +664,6 @@
 
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        new Swiper('.relatedSwiperRight', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: false,
-            },
-
-            navigation: {
-                nextEl: '.related-next',
-                prevEl: '.related-prev',
-            },
-
-
-            pagination: {
-                el: '.relatedSwiperRight .swiper-pagination',
-                clickable: true,
-            },
-        });
-    </script>
-
-
-
-
     <!-- 🔽 Fixed Vertical Feedback Button -->
     <button type="button" class="btn btn-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal">
         <i class="bi bi-chat-left-text me-1"></i> Send Feedback
@@ -766,8 +736,9 @@
         </div>
     </div>
 
-
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
     <script>
         function changeMainImage(element) {
             document.getElementById('mainImage').src = element.src;
@@ -857,4 +828,29 @@
         }
     </script>
 
+    <script>
+        new Swiper('.relatedSwiperRight', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+
+            navigation: {
+                nextEl: '.related-next',
+                prevEl: '.related-prev',
+            },
+
+
+            pagination: {
+                el: '.relatedSwiperRight .swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+
 @endsection
+

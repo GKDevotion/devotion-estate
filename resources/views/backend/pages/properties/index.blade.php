@@ -108,8 +108,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="saveDescription">Save</button>
                 </div>
 
@@ -135,8 +134,7 @@
                     </div>
 
                     <div class="col-md-12 col-sm-12 mb-2">
-                        <label class="mb-0" for="building_name">Building Name<span
-                                class="text-error">*</span></label>
+                        <label class="mb-0" for="building_name">Building Name<span class="text-error">*</span></label>
                         <input type="text" id="info_building" class="form-control">
                     </div>
 
@@ -153,10 +151,8 @@
                     <div class="row">
 
                         <div class="col-md-4 col-sm-12 mb-2">
-                            <label class="mb-0" for="agent_id">Agent <span
-                                    class="text-error">*</span></label>
-                            <select name="agent_id" id="info_agent" class="form-control"
-                                data-required="yes">
+                            <label class="mb-0" for="agent_id">Agent <span class="text-error">*</span></label>
+                            <select name="agent_id" id="info_agent" class="form-control" data-required="yes">
                                 <option value="">Select Agent</option>
                                 @foreach ($agentObj as $ar)
                                     <option value="{{ $ar->id }}"
@@ -172,10 +168,9 @@
                         </div>
 
                         <div class="col-md-4 col-sm-12 mb-2">
-                            <label class="mb-0" for="developer_id">Develop By <span
-                                    class="text-error">*</span></label>
-                            <select name="developer_id" id="info_developer"
-                                class="form-control select2" data-required="yes">
+                            <label class="mb-0" for="developer_id">Develop By <span class="text-error">*</span></label>
+                            <select name="developer_id" id="info_developer" class="form-control select2"
+                                data-required="yes">
                                 <option value="">Select Location</option>
                                 @foreach ($developerObj as $ar)
                                     <option value="{{ $ar->id }}"
@@ -188,8 +183,7 @@
                         </div>
 
                         <div class="col-md-4 col-sm-12 mb-2">
-                            <label class="mb-0" for="price">Price <span
-                                    class="text-error">*</span></label>
+                            <label class="mb-0" for="price">Price <span class="text-error">*</span></label>
                             <input type="number" id="info_price" class="form-control">
                         </div>
 
@@ -197,10 +191,8 @@
                     </div>
 
                     <div class="col-md-4 col-sm-12 mb-2">
-                        <label class="mb-0" for="location_id">Location <span
-                                class="text-error">*</span></label>
-                        <select name="location_id" id="info_location" class="form-control select2"
-                            data-required="yes">
+                        <label class="mb-0" for="location_id">Location <span class="text-error">*</span></label>
+                        <select name="location_id" id="info_location" class="form-control select2" data-required="yes">
                             <option value="">Select Location</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}"
@@ -220,8 +212,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="saveInformation">Save</button>
                 </div>
 
@@ -230,67 +221,66 @@
     </div>
 
     <div class="modal fade" id="variantModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <form id="variantForm">
-            @csrf
-            <input type="hidden" name="property_id" id="variantPropertyId">
+        <div class="modal-dialog modal-lg">
+            <form id="variantForm">
+                @csrf
+                <input type="hidden" name="property_id" id="variantPropertyId">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Property Variants</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-
-                    <!-- Add Variant -->
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <input type="text" id="priceInput" class="form-control" placeholder="Price">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" id="sizeInput" class="form-control" placeholder="Size">
-                        </div>
-                        <div class="col-md-2">
-                            <input type="text" id="bedInput" class="form-control" placeholder="Bed">
-                        </div>
-                        <div class="col-md-2">
-                            <input type="text" id="bathInput" class="form-control" placeholder="Bath">
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn w-100 text-white" id="addVariant"
-                                style="background:#ab8134">
-                                <i class="fa fa-plus"></i> Add
-                            </button>
-                        </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Property Variants</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <!-- Variant Table -->
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Price</th>
-                                <th>Size</th>
-                                <th>Bed</th>
-                                <th>Bath</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="variant-list"></tbody>
-                    </table>
+                    <div class="modal-body">
 
-                </div>
+                        <!-- Add Variant -->
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <input type="text" id="priceInput" class="form-control" placeholder="Price">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="sizeInput" class="form-control" placeholder="Size">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" id="bedInput" class="form-control" placeholder="Bed">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" id="bathInput" class="form-control" placeholder="Bath">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn w-100 text-white" id="addVariant"
+                                    style="background:#ab8134">
+                                    <i class="fa fa-plus"></i> Add
+                                </button>
+                            </div>
+                        </div>
 
-                <div class="modal-footer">
-                    <button type="submit" class="btn text-white" style="background:#ab8134">
-                        Save Changes
-                    </button>
+                        <!-- Variant Table -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Price</th>
+                                    <th>Size</th>
+                                    <th>Bed</th>
+                                    <th>Bath</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="variant-list"></tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn text-white" style="background:#ab8134">
+                            Save Changes
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
-
 @endsection
 
 @section('scripts')
@@ -328,105 +318,32 @@
                             return meta.row + 1; // Auto-increment based on row index
                         }
                     },
-                    {
-                        data: 'image',
-                        name: 'image'
-                    },
-                    {
-                        data: 'unique_id',
-                        name: 'unique_id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'purpose',
-                        name: 'purpose'
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
-                        data: 'area',
-                        name: 'area'
-                    },
-                    {
-                        data: 'price',
-                        name: 'price'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'location_id',
-                        name: 'location_id'
-                    },
-                    {
-                        data: 'count',
-                        name: 'count'
-                    },
-                    {
-                        data: 'publish',
-                        name: 'publish'
-                    },
-                    {
-                        data: 'is_new_property',
-                        name: 'is_new_property'
-                    },
-                    {
-                        data: 'is_featured_property',
-                        name: 'is_featured_property'
-                    },
-                    {
-                        data: 'is_hot_offer',
-                        name: 'is_hot_offer'
-                    },
-                    {
-                        data: 'is_hot_offer',
-                        name: 'is_hot_offer'
-                    },
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                    {  data: 'image',   name: 'image' },
+                    {  data: 'unique_id',  name: 'unique_id' },
+                    {  data: 'name',  name: 'name' },
+                    {  data: 'purpose',  name: 'purpose' },
+                    {  data: 'type',  name: 'type' },
+                    {  data: 'area',  name: 'area' },
+                    {  data: 'price',  name: 'price' },
+                    {  data: 'status',  name: 'status' },
+                    {  data: 'location_id',  name: 'location_id' },
+                    {  data: 'count',  name: 'count' },
+                    {  data: 'publish',   name: 'publish' },
+                    {  data: 'is_new_property',  name: 'is_new_property' },
+                    {  data: 'is_featured_property', name: 'is_featured_property' },
+                    {  data: 'is_hot_offer',  name: 'is_hot_offer' },
+                    {  data: 'is_hot_offer',  name: 'is_hot_offer' },
+                    {  data: 'updated_at',  name: 'updated_at' },
+                    {  data: 'action',  name: 'action', orderable: false, searchable: false },
                 ],
-                columnDefs: [{
-                        responsivePriority: 1,
-                        targets: 0
-                    },
-                    {
-                        responsivePriority: 2,
-                        targets: 1
-                    },
-                    {
-                        responsivePriority: 3,
-                        targets: 2
-                    },
-                    {
-                        responsivePriority: 4,
-                        targets: 3
-                    },
-                    {
-                        responsivePriority: 5,
-                        targets: 4
-                    },
-                    {
-                        responsivePriority: 6,
-                        targets: 5
-                    },
-                    {
-                        responsivePriority: 10001,
-                        targets: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-                    }
+                columnDefs: [
+                    { responsivePriority: 1,  targets: 0 },
+                    { responsivePriority: 2,  targets: 1 },
+                    { responsivePriority: 3,  targets: 2 },
+                    { responsivePriority: 4,  targets: 3 },
+                    { responsivePriority: 5,  targets: 4 },
+                    { responsivePriority: 6,  targets: 5 },
+                    { responsivePriority: 10001,  targets: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] }
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
@@ -519,6 +436,7 @@
             });
         });
     </script>
+
     {{-- information model --}}
     <script>
         $(document).on('click', '.btn-information', function() {
@@ -618,9 +536,7 @@
                 }
             });
         });
-    </script>
 
-    <script>
         $('#informationModal').on('shown.bs.modal', function() {
             $('#info_location').select2({
                 placeholder: "Search Location",
@@ -631,22 +547,23 @@
         });
     </script>
 
+    {{-- variant model --}}
     <script>
-$(document).on('click', '.btn-variant', function () {
+        $(document).on('click', '.btn-variant', function() {
 
-    let id = $(this).data('id');
-    let prices = $(this).data('price') || [];
-    let sizes  = $(this).data('size') || [];
-    let beds   = $(this).data('bed') || [];
-    let baths  = $(this).data('bath') || [];
+            let id = $(this).data('id');
+            let prices = $(this).data('price') || [];
+            let sizes = $(this).data('size') || [];
+            let beds = $(this).data('bed') || [];
+            let baths = $(this).data('bath') || [];
 
-    $('#variantPropertyId').val(id);
-    $('#variant-list').html('');
+            $('#variantPropertyId').val(id);
+            $('#variant-list').html('');
 
-    let max = Math.max(prices.length, sizes.length, beds.length, baths.length);
+            let max = Math.max(prices.length, sizes.length, beds.length, baths.length);
 
-    for (let i = 0; i < max; i++) {
-        $('#variant-list').append(`
+            for (let i = 0; i < max; i++) {
+                $('#variant-list').append(`
             <tr>
                 <td><span>${prices[i] ?? ''}</span><input type="hidden" name="price[]" value="${prices[i] ?? ''}"></td>
                 <td><span>${sizes[i] ?? ''}</span><input type="hidden" name="size[]" value="${sizes[i] ?? ''}"></td>
@@ -655,21 +572,21 @@ $(document).on('click', '.btn-variant', function () {
                 <td><button type="button" class="btn btn-sm btn-danger remove-item"><i class="fa fa-trash"></i></button></td>
             </tr>
         `);
-    }
+            }
 
-    $('#variantModal').modal('show');
-});
+            $('#variantModal').modal('show');
+        });
 
-$('#addVariant').click(function () {
+        $('#addVariant').click(function() {
 
-    let price = $('#priceInput').val();
-    let size  = $('#sizeInput').val();
-    let bed   = $('#bedInput').val();
-    let bath  = $('#bathInput').val();
+            let price = $('#priceInput').val();
+            let size = $('#sizeInput').val();
+            let bed = $('#bedInput').val();
+            let bath = $('#bathInput').val();
 
-    if (!price && !size && !bed && !bath) return;
+            if (!price && !size && !bed && !bath) return;
 
-    $('#variant-list').append(`
+            $('#variant-list').append(`
         <tr>
             <td><span>${price}</span><input type="hidden" name="price[]" value="${price}"></td>
             <td><span>${size}</span><input type="hidden" name="size[]" value="${size}"></td>
@@ -677,24 +594,22 @@ $('#addVariant').click(function () {
             <td><span>${bath}</span><input type="hidden" name="bath[]" value="${bath}"></td>
             <td><button type="button" class="btn btn-sm btn-danger remove-item"><i class="fa fa-trash"></i></button></td>
         </tr>
-    `);
+        `);
 
-    $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
-});
+            $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
+        });
 
-$(document).on('click', '.remove-item', function () {
-    $(this).closest('tr').remove();
-});
+        $(document).on('click', '.remove-item', function() {
+            $(this).closest('tr').remove();
+        });
 
-$('#variantForm').submit(function(e){
-    e.preventDefault();
+        $('#variantForm').submit(function(e) {
+            e.preventDefault();
 
-    $.post("{{ route('admin.properties.updateVariants') }}", $(this).serialize(), function(){
-        $('#variantModal').modal('hide');
-        location.reload();
-    });
-});
-
-</script>
-
+            $.post("{{ route('admin.properties.updateVariants') }}", $(this).serialize(), function() {
+                $('#variantModal').modal('hide');
+                location.reload();
+            });
+        });
+    </script>
 @endsection
