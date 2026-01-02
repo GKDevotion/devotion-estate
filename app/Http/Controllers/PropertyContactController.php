@@ -48,38 +48,43 @@ class PropertyContactController extends Controller
 
             try{
                 // SEND MAIL
-                // Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
-                //     $message->to('admin@devotionestate.com')
-                //         ->cc('gk@devotiontech.io') // Add CC email here
-                //         ->subject('New Contact Seller Message');
-                // });
 
-                $mail = new PHPMailer(true);
+                if( true ){
+                    Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
+                        $message->to('admin@devotionestate.com')
+                            ->cc('gk@devotiontech.io') // Add CC email here
+                            ->subject('New Property Contact Seller Message');
+                    });
+                }
 
-                // SERVER SETTINGS (GoDaddy shared hosting)
-                $mail->isSMTP();
-                $mail->Host = "relay-hosting.secureserver.net";
-                $mail->Port = 25;
-                $mail->SMTPAuth = false;
-                $mail->SMTPSecure = false;
+                if( false ){
+                    $mail = new PHPMailer(true);
 
-                // SENDER DETAILS
-                $mail->setFrom('admin@devotionestate.com', 'Devotion Estate');
+                    // SERVER SETTINGS (GoDaddy shared hosting)
+                    $mail->isSMTP();
+                    $mail->Host = "relay-hosting.secureserver.net";
+                    $mail->Port = 25;
+                    $mail->SMTPAuth = false;
+                    $mail->SMTPSecure = false;
 
-                // RECEIVER + CC
-                $mail->addAddress('admin@devotionestate.com');
-                $mail->addCC('gk@devotiontech.io');
+                    // SENDER DETAILS
+                    $mail->setFrom('admin@devotionestate.com', 'Devotion Estate');
 
-                // SUBJECT
-                $mail->Subject = "New Contact Us Message";
+                    // RECEIVER + CC
+                    $mail->addAddress('admin@devotionestate.com');
+                    $mail->addCC('gk@devotiontech.io');
 
-                // BODY (HTML view)
-                $html = view('frontend.emails.contactSellerMail', $data)->render();
-                $mail->isHTML(true);
-                $mail->Body = $html;
+                    // SUBJECT
+                    $mail->Subject = "New Property Contact Us Message";
 
-                // SEND
-                $mail->send();
+                    // BODY (HTML view)
+                    $html = view('frontend.emails.contactSellerMail', $data)->render();
+                    $mail->isHTML(true);
+                    $mail->Body = $html;
+
+                    // SEND
+                    $mail->send();
+                }
 
             } catch( Exception $e ){
                 Log::error('Error occurred: ' . $e->getMessage(), [

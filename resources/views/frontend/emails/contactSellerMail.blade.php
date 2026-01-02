@@ -1,4 +1,4 @@
-<h3>New Contact Message</h3>
+<h3>New Property Contact Message</h3>
 
 <p><strong>Property:</strong> {{ $propertyname." (".$propertyid.")" }}</p>
 <p><strong>Name:</strong> {{ $name }}</p>
