@@ -49,7 +49,7 @@ class PropertyContactController extends Controller
             try{
                 // SEND MAIL
 
-                if( true ){
+                if( false ){
                     Mail::send('frontend.emails.contactSellerMail', $data, function($message) use ($data){
                         $message->to('admin@devotionestate.com')
                             ->cc('gk@devotiontech.io') // Add CC email here
@@ -57,15 +57,23 @@ class PropertyContactController extends Controller
                     });
                 }
 
-                if( false ){
+                if( true ){
                     $mail = new PHPMailer(true);
 
                     // SERVER SETTINGS (GoDaddy shared hosting)
                     $mail->isSMTP();
-                    $mail->Host = "relay-hosting.secureserver.net";
-                    $mail->Port = 25;
-                    $mail->SMTPAuth = false;
-                    $mail->SMTPSecure = false;
+                    // $mail->Host = "relay-hosting.secureserver.net";
+                    // $mail->Port = 25;
+                    // $mail->SMTPAuth = false;
+                    // $mail->SMTPSecure = false;
+
+                    $mail->Host       = 'smtp.gmail.com';
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = 'admin@devotionestate.com';
+                    $mail->Password   = 'kyke pskc xxqa qbqv';
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port       = 587;
+
 
                     // SENDER DETAILS
                     $mail->setFrom('admin@devotionestate.com', 'Devotion Estate');
