@@ -197,64 +197,86 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
             $uploadedImages = [];
 
             if ($request->file('propertyImage')) {
-                foreach ($request->file('propertyImage') as $file) {
-
-                    // Create unique filename
-                    $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-
-                    // Open image
-                    $img = Image::make($file->getRealPath());
-
-                    // Add copyright watermark (icon or text)
-                    // 1️⃣ Add copyright text
-                    $img->text('©DevotionEstate', $img->width() - 10, $img->height() - 10, function ($font) {
-                        $font->file(public_path('backend/assets/fonts/themify.ttf')); // optional custom font
-                        $font->size(24);
-                        $font->color([255, 255, 255, 0.8]);
-                        $font->align('left');
-                        $font->valign('bottom');
-                    });
-
-                    // OR 2️⃣ Add watermark icon (replace with your logo path)
-
-                    $watermark = public_path('img/devotion-trusted-real-estate.png'); // original watermark
-                    if (file_exists($watermark)) {
-                        // Load and resize the watermark
-                        $watermarkImg = Image::make($watermark)->resize(240, 60, function ($constraint) {
-                            $constraint->aspectRatio();
-                            $constraint->upsize();
-                        });
-
-                        // Insert resized watermark into main image
-                        $img->insert($watermarkImg, 'bottom-right', 10, 3);
-                    }
-
-                    // Save to storage
-                    $path = 'propertyImage/' . $filename;
-                    Storage::put($path, (string) $img->encode());
-
-                    $uploadedImages[] = [
-                        'image' => Storage::url($path),
-                        'filename' => $filename
-                    ];
-                }
 
                 //reset Property Feature Map status
                 PropertyImageMap::where('property_id', $property_id)->update(['status' => 0]);
 
-                foreach ($uploadedImages as $ar) {
+                foreach ($request->file('propertyImage') as $k=>$file) {
 
-                    PropertyImageMap::updateOrCreate(
-                        [
-                            'property_id' => $property_id,
-                            'image' => $ar['image'],
-                            'filename' => $ar['filename'],
-                        ], // Search criteria
-                        [
-                            'status' => 1
-                        ] // Attributes to update or create
-                    );
+                    // Create unique filename
+                    // $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = $originalName.'.'.$extension;
+
+                    //cross check image record exist or not
+                    $checkRecord = PropertyImageMap::where( [
+                        'property_id' => $property_id,
+                        'filename' => $filename
+                    ] )
+                    ->first();
+
+                    if( !$checkRecord ){// if not available then upload new data
+                        // Open image
+                        $img = Image::make($file->getRealPath());
+
+                        // Add copyright watermark (icon or text)
+                        // 1️⃣ Add copyright text
+                        $img->text('©DevotionEstate', $img->width() - 10, $img->height() - 10, function ($font) {
+                            $font->file(public_path('backend/assets/fonts/themify.ttf')); // optional custom font
+                            $font->size(24);
+                            $font->color([255, 255, 255, 0.8]);
+                            $font->align('left');
+                            $font->valign('bottom');
+                        });
+
+                        // OR 2️⃣ Add watermark icon (replace with your logo path)
+
+                        $watermark = public_path('img/devotion-trusted-real-estate.png'); // original watermark
+                        if (file_exists($watermark)) {
+                            // Load and resize the watermark
+                            $watermarkImg = Image::make($watermark)->resize(240, 60, function ($constraint) {
+                                $constraint->aspectRatio();
+                                $constraint->upsize();
+                            });
+
+                            // Insert resized watermark into main image
+                            $img->insert($watermarkImg, 'bottom-right', 10, 3);
+                        }
+
+                        // Save to storage
+                        $path = 'propertyImage/' . $filename;
+                        Storage::put($path, (string) $img->encode());
+
+                        // $uploadedImages[] = [
+                        //     'image' => Storage::url($path),
+                        //     'filename' => $filename
+                        // ];
+
+                        //create DB record
+                        PropertyImageMap::create([
+                            'property_id' => $request->property_id,
+                            'image'       => $filename, // column name
+                            'filename'    => $filename,
+                            'sort_order'  => $k, // optional
+                            'status'      => 1
+                        ]);
+                    }
                 }
+
+                // foreach ($uploadedImages as $ar) {
+
+                //     PropertyImageMap::updateOrCreate(
+                //         [
+                //             'property_id' => $property_id,
+                //             'image' => $ar['image'],
+                //             'filename' => $ar['filename'],
+                //         ], // Search criteria
+                //         [
+                //             'status' => 1
+                //         ] // Attributes to update or create
+                //     );
+                // }
 
                 //update proper property status
                 $propertyDataObj->publish = $request->publish;
@@ -453,7 +475,7 @@ function getSearchByProperties($request, $perPage = 4)
         ->where('status', 1)
         ->orderBy('name', 'asc')  // sorted alphabetically
         ->get();
-        
+
     $developerObj = Developer::select('id', 'name')
         ->where('status', 1)
         ->orderBy('name', 'asc')  // sorted alphabetically
