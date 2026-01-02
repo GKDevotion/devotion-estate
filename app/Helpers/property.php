@@ -255,7 +255,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
 
                         //create DB record
                         PropertyImageMap::create([
-                            'property_id' => $request->property_id,
+                            'property_id' => $property_id,
                             'image'       => $filename, // column name
                             'filename'    => $filename,
                             'sort_order'  => $k, // optional
