@@ -613,9 +613,12 @@
                                                     <div class="card-body">
 
                                                         <!-- TITLE -->
-                                                        <h5 class="card-title mb-2">
-                                                            {!! $property->name !!}
-                                                        </h5>
+                                                       
+                                                        <div class="d-flex align-items-start mb-2">
+                                                            <h5 class="card-title mb-0 me-3" style="min-height: 50px">
+                                                                {!! $property->name !!}
+                                                            </h5>
+                                                        </div>
 
                                                         <!-- LOCATION -->
                                                         <p class="card-text small text-muted mb-1">
@@ -688,11 +691,11 @@
             </div>
 
             @php
-                $saleProperties = getPropertiesByType([1]);
+                $saleProperties = getPropertiesByType([1], null, 9);
                 $saleChunks = $saleProperties->chunk(3);
             @endphp
 
-
+ 
             @if ($saleProperties->isNotEmpty())
                 <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -710,14 +713,7 @@
                                                         <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
                                                             class="card-img-top rounded-top-3"
                                                             alt="{{ $propertysale->title }}">
-
-                                                        {{-- <span
-                                                            class="badge badge-new position-absolute top-0 start-0 m-2">New</span>
-                                                        <span
-                                                            class="badge {{ $propertysale->purpose == 1 ? 'badge-rent' : 'badge-sell' }} position-absolute top-0 end-0 m-2">
-                                                            {{ $propertysale->purpose == 1 ? 'For sale' : 'For Rent' }}
-                                                        </span> --}}
-
+                                           
                                                     </div>
 
                                                     <div class="card-body">

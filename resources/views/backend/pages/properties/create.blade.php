@@ -731,6 +731,11 @@
                                                     placeholder="Price">
                                             </div>
 
+                                             <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="propertyTypeInput"
+                                                    placeholder="Property Type">
+                                            </div>
+
                                             <div class="col-md-2 col-sm-6 mb-2">
                                                 <input type="text" class="form-control" id="sizeInput"
                                                     placeholder="Size">
@@ -761,6 +766,7 @@
                                             <thead class="bg-light">
                                                 <tr>
                                                     <th>Price</th>
+                                                    <th>Property type</th>
                                                     <th>Size</th>
                                                     <th>Bed Room</th>
                                                     <th>Bath Room</th>
@@ -770,6 +776,25 @@
                                             <tbody id="variant-list"></tbody>
                                         </table>
                                     </div>
+
+
+                                </div>
+
+                                <div class="row d-none">
+                                    
+                                    @php
+                                        $selectedRelated = json_decode($variant->related_id ?? '[]', true);
+                                    @endphp
+
+
+                                    <select name="related_id[]" class="form-select" multiple>
+                                        @foreach ($properties as $property)
+                                            <option value="{{ $property->id }}"
+                                                {{ in_array($property->id, $selectedRelated) ? 'selected' : '' }}>
+                                                {{ $property->unique_id }} ({{ $property->name }})
+                                            </option>
+                                        @endforeach
+                                    </select>
 
                                 </div>
 
@@ -935,78 +960,16 @@
             nextPrev(1, 'PropertyStepForm4');
         }
     </script>
-    {{-- <script>
-        function addDynamicItem(config) {
-            const {
-                buttonId,
-                inputId,
-                listId,
-                inputName
-            } = config;
-
-            document.getElementById(buttonId).addEventListener('click', function() {
-                const input = document.getElementById(inputId);
-                const value = input.value.trim();
-
-                if (!value) return;
-
-                const list = document.getElementById(listId);
-
-                const item = document.createElement('div');
-                item.className =
-                    'd-flex justify-content-between align-items-center mb-2 p-2 border rounded';
-
-                item.innerHTML = `
-                <span>${value}</span>
-                <i class="fa fa-times" style="cursor:pointer; color:#ab8134;"></i>
-                <input type="hidden" name="${inputName}[]" value="${value}">
-            `;
-
-                item.querySelector('i').addEventListener('click', () => item.remove());
-
-                list.appendChild(item);
-                input.value = '';
-            });
-        }
-
-        // Initialize all dynamic inputs
-        addDynamicItem({
-            buttonId: 'addPrice',
-            inputId: 'priceInput',
-            listId: 'price-list',
-            inputName: 'price'
-        });
-
-        addDynamicItem({
-            buttonId: 'addSize',
-            inputId: 'sizeInput',
-            listId: 'size-list',
-            inputName: 'size'
-        });
-
-        addDynamicItem({
-            buttonId: 'addBed',
-            inputId: 'bedInput',
-            listId: 'bed-list',
-            inputName: 'bed'
-        });
-
-        addDynamicItem({
-            buttonId: 'addBath',
-            inputId: 'bathInput',
-            listId: 'bath-list',
-            inputName: 'bath'
-        });
-    </script> --}}
 
     <script>
         $('#addVariant').on('click', function() {
             let price = $('#priceInput').val().trim();
+            let propertyType = $('#propertyTypeInput').val().trim();
             let size = $('#sizeInput').val().trim();
             let bed = $('#bedInput').val().trim();
             let bath = $('#bathInput').val().trim();
 
-            if (!price || !size || !bed || !bath) {
+            if (!price || !propertyType || !size || !bed || !bath) {
                 alert('Please fill all fields');
                 return;
             }
@@ -1016,6 +979,10 @@
                 <td>
                     ${price}
                     <input type="hidden" name="price[]" value="${price}">
+                </td>
+                <td>
+                    ${propertyType}
+                    <input type="hidden" name="property_type[]" value="${propertyType}">
                 </td>
                 <td>
                     ${size}
@@ -1040,7 +1007,7 @@
             $('#variant-list').append(row);
 
             // Clear inputs
-            $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
+            $('#priceInput, #propertyTypeInput, #sizeInput, #bedInput, #bathInput').val('');
         });
 
         // Remove row

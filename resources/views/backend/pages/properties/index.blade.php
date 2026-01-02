@@ -236,10 +236,15 @@
 
                         <!-- Add Variant -->
                         <div class="row mb-3">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <input type="text" id="priceInput" class="form-control" placeholder="Price">
                             </div>
+
                             <div class="col-md-3">
+                                <input type="text" id="propertyTypeInput" class="form-control" placeholder="Property Type">
+                            </div>
+
+                            <div class="col-md-2">
                                 <input type="text" id="sizeInput" class="form-control" placeholder="Size">
                             </div>
                             <div class="col-md-2">
@@ -261,6 +266,7 @@
                             <thead>
                                 <tr>
                                     <th>Price</th>
+                                    <th>Property Type</th>
                                     <th>Size</th>
                                     <th>Bed</th>
                                     <th>Bath</th>
@@ -553,6 +559,7 @@
 
             let id = $(this).data('id');
             let prices = $(this).data('price') || [];
+            let propertyTypes = $(this).data('property-type') || [];
             let sizes = $(this).data('size') || [];
             let beds = $(this).data('bed') || [];
             let baths = $(this).data('bath') || [];
@@ -560,12 +567,13 @@
             $('#variantPropertyId').val(id);
             $('#variant-list').html('');
 
-            let max = Math.max(prices.length, sizes.length, beds.length, baths.length);
+            let max = Math.max(prices.length, propertyTypes.length, sizes.length, beds.length, baths.length);
 
             for (let i = 0; i < max; i++) {
                 $('#variant-list').append(`
             <tr>
                 <td><span>${prices[i] ?? ''}</span><input type="hidden" name="price[]" value="${prices[i] ?? ''}"></td>
+                <td><span>${propertyTypes[i] ?? ''}</span><input type="hidden" name="property_type[]" value="${propertyTypes[i] ?? ''}"></td>
                 <td><span>${sizes[i] ?? ''}</span><input type="hidden" name="size[]" value="${sizes[i] ?? ''}"></td>
                 <td><span>${beds[i] ?? ''}</span><input type="hidden" name="bed[]" value="${beds[i] ?? ''}"></td>
                 <td><span>${baths[i] ?? ''}</span><input type="hidden" name="bath[]" value="${baths[i] ?? ''}"></td>
@@ -580,15 +588,17 @@
         $('#addVariant').click(function() {
 
             let price = $('#priceInput').val();
+            let propertyType = $('#propertyTypeInput').val();
             let size = $('#sizeInput').val();
             let bed = $('#bedInput').val();
             let bath = $('#bathInput').val();
 
-            if (!price && !size && !bed && !bath) return;
+            if (!price && !propertyType && !size && !bed && !bath) return;
 
             $('#variant-list').append(`
         <tr>
             <td><span>${price}</span><input type="hidden" name="price[]" value="${price}"></td>
+            <td><span>${propertyType}</span><input type="hidden" name="property_type[]" value="${propertyType}"></td>
             <td><span>${size}</span><input type="hidden" name="size[]" value="${size}"></td>
             <td><span>${bed}</span><input type="hidden" name="bed[]" value="${bed}"></td>
             <td><span>${bath}</span><input type="hidden" name="bath[]" value="${bath}"></td>
@@ -596,7 +606,7 @@
         </tr>
         `);
 
-            $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
+            $('#priceInput, #propertyTypeInput, #sizeInput, #bedInput, #bathInput').val('');
         });
 
         $(document).on('click', '.remove-item', function() {

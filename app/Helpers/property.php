@@ -272,9 +272,11 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
                 ],
                 [
                     'price' => json_encode($request->price ?? []), // store as JSON
+                    'property_type' => json_encode($request->property_type ?? []), // store as JSON
                     'size' => json_encode($request->size ?? []), // store as JSON
                     'bed' => json_encode($request->bed ?? []), // store as JSON
                     'bath' => json_encode($request->bath ?? []), // store as JSON
+                    'related_id' => json_encode($request->related_id ?? []), // store as JSON
                     'status' => 1,
                 ]
             );
@@ -319,9 +321,10 @@ function getPropertyFeatures()
 /**
  * $type = 0: 'All', 1: 'Sale', 2:'Rent , 3:'Land'
  */
-function getPropertiesByType($type = [1], $queryParam = null)
+function getPropertiesByType($type = [1], $queryParam = null, $limit = null)
 {
-    $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
+    // $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
+    $sliderPage = $limit ?? getConfigurationField('SLIDER_PER_PAGE');
     $query = Properties::with('subType', 'location', 'single_image')
         ->whereIn('purpose', $type)
         ->where([

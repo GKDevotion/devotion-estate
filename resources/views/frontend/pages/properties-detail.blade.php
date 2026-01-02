@@ -91,7 +91,7 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-            IMAGE GALLERY
+                 IMAGE GALLERY
             ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -349,6 +349,7 @@
                 <!-- property varient table  -->
                 @if ($count > 0)
                     <div class="card mb-4 shadow-sm">
+
                         <div class="card-body">
                             <h5 class="fw-semibold mb-3">Property Variants</h5>
 
@@ -357,6 +358,7 @@
                                     <thead class="bg-light">
                                         <tr class="text-nowrap">
                                             <th>Price</th>
+                                            <th>Property Type</th>
                                             <th>Size</th>
                                             <th>Bed Room</th>
                                             <th>Bath Room</th>
@@ -367,6 +369,10 @@
                                             <tr>
                                                 <td class="fw-semibold text-nowrap">
                                                     {{ isset($prices[$i]) ? 'AED ' . number_format((float) $prices[$i], 2) : '' }}
+                                                </td>
+
+                                                <td>
+                                                    {{ isset($propertyTypes[$i]) ? $propertyTypes[$i] : '' }}
                                                 </td>
 
                                                 <td>
@@ -384,8 +390,46 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="card-body d-none">
+                            <div class="row g-3">
+                                @forelse ($relatedProperty as $related)
+                                    <div class="col">
+                                        <div class="card h-100 shadow-sm border-0 rounded-4">
+                                            <a href="{{ route('property.detail', $related->slug) }}">
+                                                <img src="{{ asset('storage/app/propertyImage/' . ($related->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                                    class="card-img-top" style="height:180px;object-fit:cover"
+                                                    alt="{{ $related->name }}">
+                                            </a>
+                                            <div class="card-body p-2">
+                                                <h6 class="card-title mb-0">
+                                                    <a href="{{ route('property.detail', $related->slug) }}"
+                                                        class="fw-semibold text-dark text-decoration-none ">
+                                                        {{ $related->name }}
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="d-flex align-items-center gap-2 p-2">
+                                                    <span class="fw-semibold">Type:</span>
+                                                    <span>{{ $property->type == 1 ? 'Residential' : 'Commercial' }}</span>
+                                                </p>
+                                                <p class="d-flex align-items-center gap-2 p-2">
+                                                    <span class="fw-semibold">Sub Type:</span>
+                                                    <span>{{ $property->subtype->name ?? 'N/A' }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            </div>
+                        </div>
+
                     </div>
                 @endif
+
+
 
             </div>
 
@@ -411,7 +455,7 @@
                             }
 
                             /*
-                                    Inactive bullets */
+                                                        Inactive bullets */
                             .relatedSwiperRight .swiper-pagination-bullet {
                                 background-color: #d6c29a;
                                 /* light gold */
@@ -736,9 +780,9 @@
         </div>
     </div>
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  
+
     <script>
         function changeMainImage(element) {
             document.getElementById('mainImage').src = element.src;
@@ -853,4 +897,3 @@
     </script>
 
 @endsection
-

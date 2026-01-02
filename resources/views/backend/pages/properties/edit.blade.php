@@ -932,6 +932,11 @@
                                             </div>
 
                                             <div class="col-md-2 col-sm-6 mb-2">
+                                                <input type="text" class="form-control" id="propertyTypeInput"
+                                                    placeholder="Property Type">
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-6 mb-2">
                                                 <input type="text" class="form-control" id="sizeInput"
                                                     placeholder="Size">
                                             </div>
@@ -960,6 +965,7 @@
                                             <thead class="bg-light">
                                                 <tr>
                                                     <th>Price</th>
+                                                    <th>Property Type</th>
                                                     <th>Size</th>
                                                     <th>Bed Room</th>
                                                     <th>Bath Room</th>
@@ -970,17 +976,23 @@
                                                 @if (!empty($data->variants))
                                                     <?php
                                                     $prices = json_decode($data->variants['price'] ?? '[]', true);
+                                                    $propertyTypes = json_decode($data->variants['property_type'] ?? '[]', true);
                                                     $sizes = json_decode($data->variants['size'] ?? '[]', true);
                                                     $beds = json_decode($data->variants['bed'] ?? '[]', true);
                                                     $baths = json_decode($data->variants['bath'] ?? '[]', true);
                                                     ?>
-                                                    @for ($i = 0; $i < max(count($prices), count($sizes), count($beds), count($baths)); $i++)
+                                                    @for ($i = 0; $i < max(count($prices), count($propertyTypes), count($sizes), count($beds), count($baths)); $i++)
                                                         <tr>
                                                             <td>
                                                                 <span>{{ $prices[$i] ?? '' }}</span>
                                                                 <input type="hidden" name="price[]"
                                                                     value="{{ $prices[$i] ?? '' }}">
                                                             </td>
+                                                             <td>
+                                                                 <span>{{ $propertyTypes[$i] ?? '' }}</span>
+                                                                 <input type="hidden" name="property_type[]"
+                                                                     value="{{ $propertyTypes[$i] ?? '' }}">
+                                                             </td>
                                                             <td>
                                                                 <span>{{ $sizes[$i] ?? '' }}</span>
                                                                 <input type="hidden" name="size[]"
@@ -1181,15 +1193,17 @@
             // Add new variant row
             $('#addVariant').click(function() {
                 let price = $('#priceInput').val().trim();
+                let propertyType = $('#propertyTypeInput').val().trim();
                 let size = $('#sizeInput').val().trim();
                 let bed = $('#bedInput').val().trim();
                 let bath = $('#bathInput').val().trim();
 
-                if (price === '' && size === '' && bed === '' && bath === '') return;
+                if (price === '' && propertyType === '' && size === '' && bed === '' && bath === '') return;
 
                 let html = `
             <tr>
                 <td><span>${price}</span><input type="hidden" name="price[]" value="${price}"></td>
+                <td><span>${propertyType}</span><input type="hidden" name="property_type[]" value="${propertyType}"></td>
                 <td><span>${size}</span><input type="hidden" name="size[]" value="${size}"></td>
                 <td><span>${bed}</span><input type="hidden" name="bed[]" value="${bed}"></td>
                 <td><span>${bath}</span><input type="hidden" name="bath[]" value="${bath}"></td>
@@ -1198,7 +1212,7 @@
         `;
 
                 $('#variant-list').append(html);
-                $('#priceInput, #sizeInput, #bedInput, #bathInput').val('');
+                $('#priceInput, #propertyTypeInput , #sizeInput, #bedInput, #bathInput').val('');
             });
 
             // Remove any row

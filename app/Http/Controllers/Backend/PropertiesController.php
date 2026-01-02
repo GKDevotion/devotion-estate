@@ -330,6 +330,7 @@ class PropertiesController extends Controller
                                 class="btn btn-edit text-white dropdown-item btn-variant"
                                 data-id="' . $ar->id . '"
                                 data-price=\'' . json_encode(json_decode($ar->variants["price"] ?? "[]")) . '\'
+                                data-property-type=\'' . json_encode(json_decode($ar->variants["property_type"] ?? "[]")) . '\'
                                 data-size=\'' . json_encode(json_decode($ar->variants["size"] ?? "[]")) . '\'
                                 data-bed=\'' . json_encode(json_decode($ar->variants["bed"] ?? "[]")) . '\'
                                 data-bath=\'' . json_encode(json_decode($ar->variants["bath"] ?? "[]")) . '\'
@@ -396,13 +397,18 @@ class PropertiesController extends Controller
         $propertyTypeObj = PropertyType::select('id', 'main_type', 'name')->where('status', 1)->get();
         $propertyFeatureObj = PropertyFeature::select('id', 'name')->where('status', 1)->get();
         $locationObj = Location::select('id', 'name')->where('status', 1)->get();
+        $properties = Properties::where('status', 1)
+            ->where('id', '!=', $propertyDataObj->id ?? null)
+            ->select('id', 'unique_id', 'name')
+            ->get();
+
         $agentObj = User::select('id', 'first_name', 'last_name')->where([
             'status' => 1,
             'type' => 4
         ])->get();
         $developerObj = Developer::select('id', 'name')->where('status', 1)->get();
 
-        return view('backend.pages.properties.create', compact('propertyTypeObj', 'propertyFeatureObj', 'locationObj', 'paymentPlanObj', 'agentObj', 'developerObj'));
+        return view('backend.pages.properties.create', compact('propertyTypeObj', 'properties', 'propertyFeatureObj', 'locationObj', 'paymentPlanObj', 'agentObj', 'developerObj'));
     }
 
     /**
@@ -473,6 +479,21 @@ class PropertiesController extends Controller
             ->take(10)
             ->get();
 
+        // Fetch related IDs from variants table
+        $variant = PropertyVariant::where('property_id', $property->id)->first();
+
+
+        $relatedProperty = collect(); // empty collection by default
+
+        if ($variant && $variant->related_id) {
+            $relatedIds = json_decode($variant->related_id, true);
+
+            $relatedProperty = Properties::whereIn('id', $relatedIds)
+                ->where('status', 1)
+                ->get();
+        }
+
+
 
         // Determine the property type label based on DB value
         $typeMap = [
@@ -494,24 +515,26 @@ class PropertiesController extends Controller
 
         $variant = PropertyVariant::where('property_id', $property->id)->first();
 
-        $prices = $sizes = $beds = $baths = [];
+        $prices = $propertyTypes = $sizes = $beds = $baths = [];
         $count = 0;
 
         if ($variant) {
             $prices = json_decode($variant->price, true) ?? [];
+            $propertyTypes = json_decode($variant->property_type, true) ?? [];
             $sizes  = json_decode($variant->size, true) ?? [];
             $beds  = json_decode($variant->bed, true) ?? [];
             $baths  = json_decode($variant->bath, true) ?? [];
 
             $count = max(
                 count($prices),
+                count($propertyTypes),
                 count($sizes),
                 count($beds),
                 count($baths)
             );
         }
 
-        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'sellerProperties', 'relatedProperties', 'prices', 'sizes', 'beds', 'baths', 'count'));
+        return view('frontend.pages.properties-detail', compact('property', 'type', 'agent', 'sellerProperties', 'relatedProperties', 'relatedProperty', 'prices', 'propertyTypes', 'sizes', 'beds', 'baths', 'count'));
     }
 
 
@@ -762,28 +785,29 @@ class PropertiesController extends Controller
         return response()->json(['success' => true]);
     }
 
-   public function updateVariants(Request $request)
-{
-    $request->validate([
-        'property_id' => 'required|exists:properties,id',
-    ]);
+    public function updateVariants(Request $request)
+    {
+        $request->validate([
+            'property_id' => 'required|exists:properties,id',
+        ]);
 
-    PropertyVariant::updateOrCreate(
-        [
-            'property_id' => $request->property_id, // UNIQUE
-        ],
-        [
-            'price'  => json_encode($request->price ?? []),
-            'size'   => json_encode($request->size ?? []),
-            'bed'    => json_encode($request->bed ?? []),
-            'bath'   => json_encode($request->bath ?? []),
-            'status' => 1,
-        ]
-    );
+        PropertyVariant::updateOrCreate(
+            [
+                'property_id' => $request->property_id, // UNIQUE
+            ],
+            [
+                'price'  => json_encode($request->price ?? []),
+                'property_type' => json_encode($request->property_type ?? []),
+                'size'   => json_encode($request->size ?? []),
+                'bed'    => json_encode($request->bed ?? []),
+                'bath'   => json_encode($request->bath ?? []),
+                'status' => 1,
+            ]
+        );
 
-    return response()->json([
-        'success' => true,
-        'message' => 'Property variants updated successfully'
-    ]);
-}
+        return response()->json([
+            'success' => true,
+            'message' => 'Property variants updated successfully'
+        ]);
+    }
 }

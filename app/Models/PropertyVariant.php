@@ -11,10 +11,12 @@ class PropertyVariant extends Model
 {
     use HasFactory;
   protected $fillable = [
-       'property_id','price','size','bath', 'bed', 'status'
+       'property_id','price', 'property_type', 'size','bath', 'bed','related_id', 'status'
     ];
     protected $casts = [
-    'price' => 'array'
+    'price' => 'array',
+    'property_type' => 'array',
+    'related_id' => 'array',
 ];
     public static function boot()
     {
