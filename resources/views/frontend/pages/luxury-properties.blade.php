@@ -87,7 +87,7 @@
                                                 <div class="d-flex flex-column align-items-start">
                                                     <div class="mb-2">
                                                         <i class="bi bi-door-closed me-1"></i>
-                                                        <span class="small">Beds : {{ $p->beds }}</span>
+                                                        <span class="small">Beds : {{ $p->beds == 0 ? 'Studio' : $p->beds }}</span>
                                                     </div>
 
                                                     <div class="mb-2">

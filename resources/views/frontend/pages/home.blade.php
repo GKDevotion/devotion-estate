@@ -629,7 +629,7 @@
                                                         <!-- DETAILS -->
                                                         <p class="card-text small mb-0">
                                                             <i class="bi bi-door-closed me-1"></i>
-                                                            Beds: {{ $property->beds }}
+                                                            Beds: {{ $property->beds == 0 ? 'Studio' : $property->beds }}
                                                             <i class="bi bi-bucket me-1 ms-2"></i>
                                                             Baths: {{ $property->baths }}
                                                             <i class="bi bi-rulers me-1 ms-2"></i>
@@ -730,12 +730,12 @@
                                                         </p>
                                                         <p class="card-text small mt-0">
                                                             <i class="bi bi-door-closed me-1"></i>
-                                                            Beds: {{ $propertysale->beds }}
-                                                            <i class="bi bi-bucket me-1"></i>
+                                                            Beds: {{ $propertysale->beds==0 ? 'Studio' : $propertysale->beds }}
+                                                            <i class="bi bi-bucket me-2"></i>
                                                             Baths: {{ $propertysale->baths }}
                                                             {{-- </p>
                                                         <p class="card-text small"> --}}
-                                                            <i class="bi bi-rulers me-1"></i>
+                                                            <i class="bi bi-rulers me-2"></i>
                                                             Area: {{ $propertysale->area }} Sq.Ft.
                                                             {{-- </p> --}}
 
