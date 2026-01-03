@@ -791,9 +791,9 @@
             </div>
 
             <div class="swiper partnerSwiper">
-                <div class="swiper-wrapper align-items-center">
+                <div class="swiper-wrapper pb-3 align-items-center">
                     @foreach ($developerImages as $partner)
-                        <div class="swiper-slide text-center">
+                        <div class="swiper-slide text-center" style="border : 1px solid lightgray">
                             <img src="{{ asset('storage/app/developer/' . $partner->image) }}" class="img-fluid grayscale"
                                 style="max-height:60px width:100%;" alt="{{ $partner->name }}">
                         </div>
