@@ -787,17 +787,23 @@
         <div class="container">
             <div class="text-center mb-4">
                 <h2 class="fw-bold text-uppercase mb-1 pb-3">Our Developers</h2>
-
             </div>
 
             <div class="swiper partnerSwiper">
                 <div class="swiper-wrapper pb-3 align-items-center">
+
                     @foreach ($developerImages as $partner)
-                        <div class="swiper-slide text-center" style="border : 1px solid lightgray">
-                            <img src="{{ asset('storage/app/developer/' . $partner->image) }}" class="img-fluid grayscale"
-                                style="max-height:60px width:100%;" alt="{{ $partner->name }}">
-                        </div>
+                        @if (!empty($partner->image))
+                            <div class="swiper-slide text-center" style="border : 1px solid lightgray">
+                                <a href="{{ route('developer.properties', $partner->id) }}">
+                                    <img src="{{ asset('storage/app/developer/' . $partner->image) }}"
+                                        class="img-fluid grayscale" style="max-height:60px width:100%;"
+                                        alt="{{ $partner->name }}">
+                                </a>
+                            </div>
+                        @endif
                     @endforeach
+
                 </div>
             </div>
         </div>

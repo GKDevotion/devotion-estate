@@ -10,6 +10,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BuyerGuideController;
 use App\Http\Controllers\BuyPropertiesController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DeveloperPropertiesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotOfferController;
 use App\Http\Controllers\InvestmentAdvisoryController;
@@ -85,6 +86,7 @@ Route::get('buy-properties', [BuyPropertiesController::class, 'index'])->name('b
 Route::get('rent-properties', [RentPropertiesController::class, 'index'])->name('rent.properties');
 Route::get('luxury-properties', [LuxuryPropertiesController::class, 'index'])->name('luxury.properties');
 Route::get('new-properties', [NewPropertiesController::class, 'index'])->name('new.properties');
+Route::get('developer-properties/{id}', [DeveloperPropertiesController::class, 'index'])->name('developer.properties');
 Route::get('buyer-guide', [BuyerGuideController::class, 'index'])->name('buyer-guide');
 Route::get('seller-guide', [SellerGuideController::class, 'index'])->name('seller-guide');
 Route::get('tenant-guide', [TenantGuideController::class, 'index'])->name('tenant-guide');
