@@ -19,10 +19,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-
-    }
+    public function __construct() {}
 
     /**
      * Show the application dashboard.
@@ -35,15 +32,20 @@ class HomeController extends Controller
     public function index()
     {
         // $location = Location::select('id', 'name')->where('status', 1)->get();
-         $location = Location::select('id', 'name')
-        ->where('status', 1)
-        ->orderBy('name', 'asc')  // sorted alphabetically
-        ->get();
+        $location = Location::select('id', 'name')
+            ->where('status', 1)
+            ->orderBy('name', 'asc')  // sorted alphabetically
+            ->get();
 
-          $developer = Developer::select('id', 'name')
-        ->where('status', 1)
-        ->orderBy('name', 'asc')  // sorted alphabetically
-        ->get();
+        $developer = Developer::select('id', 'name', 'image')
+            ->where('status', 1)
+            ->orderBy('name', 'asc')  // sorted alphabetically
+            ->get();
+
+        $developerImages = Developer::where('status', 1)
+            ->orderBy('sort_order', 'asc')   // controls image order
+            ->get(['id', 'image']);
+
         // Fetch Residential (main_type = 0)
         $residentialTypes = PropertyType::where('main_type', 1)
             ->where('status', 1)
@@ -57,13 +59,14 @@ class HomeController extends Controller
         $bannerObjs = Banner::where('status', 1)->orderBy('id', 'DESC')->get();
         $awardObjs = Award::where('status', 1)->orderBy('id', 'DESC')->get();
 
-        return view('frontend.pages.home' , compact('location','bannerObjs','propertyTypeObj','residentialTypes','developer','commercialTypes', 'awardObjs'));
+        return view('frontend.pages.home', compact('location', 'bannerObjs', 'propertyTypeObj', 'residentialTypes', 'developer', 'developerImages', 'commercialTypes', 'awardObjs'));
     }
 
     /**
      *
      */
-    public function setSqlStatement(){
+    public function setSqlStatement()
+    {
 
         $sqlArr = [
             "ALTER TABLE `property_contact` ADD `property_name` VARCHAR(255) NOT NULL COMMENT 'Reference from the properties table' AFTER `property_id`;",
@@ -81,16 +84,17 @@ class HomeController extends Controller
             "ALTER TABLE `property_variants` CHANGE `unit` `bed` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;",
             "ALTER TABLE `property_variants` ADD `related_id` TEXT NOT NULL AFTER `property_id`;",
             "ALTER TABLE `property_variants` ADD `property_type` TEXT NOT NULL AFTER `price`;",
+            "ALTER TABLE `developers` ADD `image` VARCHAR(255) NOT NULL AFTER `name`;",
+            "ALTER TABLE `developers` ADD `sort_order` SMALLINT NOT NULL DEFAULT '0' COMMENT 'sort ordering' AFTER `image`;",
         ];
 
         foreach ($sqlArr as $sql) {
             try {
                 DB::statement($sql);
                 echo "Executed: $sql<br>";
-            } catch ( Exception $e ) {
+            } catch (Exception $e) {
                 // echo "Skipped (error): $sql<br>";
             }
         }
     }
-
 }

@@ -1764,3 +1764,13 @@ a:hover .bi-house-door::before {
     background-color: #aa8038 !important; /* your color */
     color: #fff !important;
 }
+/* .grayscale {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.grayscale:hover {
+    filter: grayscale(0);
+    opacity: 1;
+} */

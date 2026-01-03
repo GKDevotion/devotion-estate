@@ -5,6 +5,7 @@
 @endsection
 
 @section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .form-check-label {
             text-transform: capitalize;
@@ -62,39 +63,63 @@
 
                                         <div class="row">
 
-                                            <div class="col-md-8 mb-2">
-                                                <div class="form-group">
-                                                    <label class="mb-0" for="name">Name<span class="text-error">*</span></label>
-                                                    <input type="text" class="form-control" data-required="yes" id="name" name="name" placeholder="name">
+                                            <div class="col-4 col-sm-12">
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="mb-0" for="image">Upload New Image</label>
+                                                        <input type="file" name="image" class="dropify">
+                                                        @error('image')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                                @error('name')
-                                                    <div class="error text-error">{{ $message }}</div>
-                                                @enderror
-                                            </div>
 
-                                            <div class="col-md-4 mb-2">
-                                                <div class="form-group">
-                                                    <label class="mb-0" for="status">Status</label>
-                                                    <select class="form-control" id="status" name="status">
-                                                        <option value="1">Active</option>
-                                                        <option value="0">De Active</option>
-                                                    </select>
+                                                <div class="col-md-8 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="mb-0" for="name">Name<span
+                                                                class="text-error">*</span></label>
+                                                        <input type="text" class="form-control" data-required="yes"
+                                                            id="name" name="name" placeholder="name">
+                                                    </div>
+                                                    @error('name')
+                                                        <div class="error text-error">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="mb-0" for="sort_order">Sort Order</label>
+                                                        <input type="text" class="form-control" id="sort_order"
+                                                            name="sort_order" placeholder="Sort Order">
+                                                    </div>
+                                                    @error('sort_order')
+                                                        <div class="error text-error">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="mb-0" for="status">Status</label>
+                                                        <select class="form-control" id="status" name="status">
+                                                            <option value="1">Active</option>
+                                                            <option value="0">De Active</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row mt-4">
-                                    <div class="col-md-12 text-center">
-                                        <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
-                                            <i class="fa fa-save"></i> Save
-                                        </button>
-                                        <a href="{{ route('admin.developer.index') }}" class="btn btn-danger pr-4 pl-4">
-                                            <i class="fa fa-arrow-left"></i> Back
-                                        </a>
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
+                                                <i class="fa fa-save"></i> Save
+                                            </button>
+                                            <a href="{{ route('admin.developer.index') }}" class="btn btn-danger pr-4 pl-4">
+                                                <i class="fa fa-arrow-left"></i> Back
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
 
                         </form>
                     </div>
@@ -107,8 +132,9 @@
 @endsection
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @section('scripts')
     <script>
-
+        $('.dropify').dropify({});
     </script>
 @endsection

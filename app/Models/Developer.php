@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Developer extends Model
 {
     use HasFactory;
+     protected $fillable = [
+         'name', 'image', 'status','sort_order', 'created_at','updated_at'
+    ];
 
     public static function boot()
     {

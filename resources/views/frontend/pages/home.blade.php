@@ -613,7 +613,7 @@
                                                     <div class="card-body">
 
                                                         <!-- TITLE -->
-                                                       
+
                                                         <div class="d-flex align-items-start mb-2">
                                                             <h5 class="card-title mb-0 me-3" style="min-height: 50px">
                                                                 {!! $property->name !!}
@@ -691,11 +691,11 @@
             </div>
 
             @php
-                $saleProperties = getPropertiesByType([1], null, 9);
+                $saleProperties = getPropertiesByType([1], null, true)->shuffle();
                 $saleChunks = $saleProperties->chunk(3);
             @endphp
 
- 
+
             @if ($saleProperties->isNotEmpty())
                 <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -713,7 +713,7 @@
                                                         <img src="{{ asset('storage/app/propertyImage/' . ($propertysale->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
                                                             class="card-img-top rounded-top-3"
                                                             alt="{{ $propertysale->title }}">
-                                           
+
                                                     </div>
 
                                                     <div class="card-body">
@@ -730,7 +730,8 @@
                                                         </p>
                                                         <p class="card-text small mt-0">
                                                             <i class="bi bi-door-closed me-1"></i>
-                                                            Beds: {{ $propertysale->beds==0 ? 'Studio' : $propertysale->beds }}
+                                                            Beds:
+                                                            {{ $propertysale->beds == 0 ? 'Studio' : $propertysale->beds }}
                                                             <i class="bi bi-bucket me-2"></i>
                                                             Baths: {{ $propertysale->baths }}
                                                             {{-- </p>
@@ -778,6 +779,27 @@
             @else
                 <p class="text-center text-muted">No new properties available at the moment.</p>
             @endif
+        </div>
+    </section>
+
+    <!-- Our Developers -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-uppercase mb-1 pb-3">Our Developers</h2>
+
+            </div>
+
+            <div class="swiper partnerSwiper">
+                <div class="swiper-wrapper align-items-center">
+                    @foreach ($developerImages as $partner)
+                        <div class="swiper-slide text-center">
+                            <img src="{{ asset('storage/app/developer/' . $partner->image) }}" class="img-fluid grayscale"
+                                style="max-height:60px width:100%;" alt="{{ $partner->name }}">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1142,6 +1164,7 @@
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
     <script>
         $(function() {
@@ -1218,6 +1241,32 @@
             $(window).on('scroll', function() {
                 $('.select-location').select2('close');
             });
+        });
+    </script>
+
+    <script>
+        new Swiper(".partnerSwiper", {
+            slidesPerView: 5,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 2
+                },
+                576: {
+                    slidesPerView: 3
+                },
+                768: {
+                    slidesPerView: 4
+                },
+                992: {
+                    slidesPerView: 5
+                },
+            }
         });
     </script>
 

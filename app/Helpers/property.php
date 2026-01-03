@@ -343,10 +343,10 @@ function getPropertyFeatures()
 /**
  * $type = 0: 'All', 1: 'Sale', 2:'Rent , 3:'Land'
  */
-function getPropertiesByType($type = [1], $queryParam = null, $limit = null)
+function getPropertiesByType($type = [1], $queryParam = null, $all = false)
 {
     // $sliderPage = getConfigurationField('SLIDER_PER_PAGE'); //get slider per page
-    $sliderPage = $limit ?? getConfigurationField('SLIDER_PER_PAGE');
+    
     $query = Properties::with('subType', 'location', 'single_image')
         ->whereIn('purpose', $type)
         ->where([
@@ -367,9 +367,16 @@ function getPropertiesByType($type = [1], $queryParam = null, $limit = null)
         $query = $query->where($queryParam, 1);
     }
 
-    return $query->latest()
-        ->take($sliderPage)
-        ->get();
+      // If $all = true, do NOT limit results
+    if (!$all) {
+        $sliderPage = getConfigurationField('SLIDER_PER_PAGE');
+        $query = $query->take($sliderPage);
+    }
+
+    // return $query->latest()
+    //     ->take($sliderPage)
+    //     ->get();
+      return $query->get();
 }
 
 

@@ -5,6 +5,7 @@
 @endsection
 
 @section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .form-check-label {
             text-transform: capitalize;
@@ -62,15 +63,44 @@
                                 <div class="col-md-10 offset-1">
                                     <div class="row">
                                         <div class="row">
+
+                                            <div class="col-4">
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="mb-0" for="image">Upload New Image</label>
+                                                        <input type="file" name="image" class="dropify"
+                                                            data-default-file="{{ asset('storage/app/developer/' . $data->image) }}">
+                                                        @error('image')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-md-8 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="name">Name</label>
-                                                    <input type="text" class="form-control" id="name" name="name" placeholder="name" value="{{ $data->name }}">
+                                                    <input type="text" class="form-control" id="name" name="name"
+                                                        placeholder="name" value="{{ $data->name }}">
                                                 </div>
                                                 @error('name')
                                                     <div class="error text-error">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
+                                            <div class="col-md-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="mb-0" for="sort_order">Sort Order</label>
+                                                    <input type="text" class="form-control" id="sort_order"
+                                                        name="sort_order" placeholder="Sort Order"
+                                                        value="{{ $data->sort_order }}">
+                                                </div>
+                                                @error('sort_order')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
 
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-group">
@@ -109,6 +139,6 @@
 
 @section('scripts')
     <script>
-
+        $('.dropify').dropify({});
     </script>
 @endsection

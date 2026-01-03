@@ -56,7 +56,9 @@ Developer Page - Admin Panel
                             <thead id="developer" class="bg-light text-capitalize">
                                 <tr>
                                     <th width="1%">Sr</th>
+                                    <th width="5%">Image</th>
                                     <th width="5%">Name</th>
+                                    <th width="3%">Sort Order</th>
                                     <th width="2%">Status</th>
                                     <th width="3%">Update At</th>
                                     <th width="3%">Action</th>
@@ -96,7 +98,9 @@ Developer Page - Admin Panel
                             return meta.row + 1; // Auto-increment based on row index
                         }
                     }, // Auto index { data: 'id', name: 'id' },
+                    { data: 'image', name: 'image' },
                     { data: 'name', name: 'name' },
+                    { data: 'sort_order', name: 'sort_order' },
                     { data: 'status', name: 'status', orderable: false, searchable: false },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },

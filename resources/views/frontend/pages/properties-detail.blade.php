@@ -593,7 +593,7 @@
 
                             <p class="text-muted small mb-1">
                                 <a href="tel:{{ $property->agent->mobile_no }}" class="text-muted text-decoration-none">
-                                    <i class="bi bi-phone"></i> {{ $property->agent->mobile_no }}
+                                    <i class="bi bi-phone"></i> +{{ $property->agent->mobile_no }}
                                 </a>
                             </p>
 
