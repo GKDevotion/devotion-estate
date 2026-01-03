@@ -697,7 +697,7 @@
 
 
             @if ($saleProperties->isNotEmpty())
-                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="true" data-bs-ride="carousel">
                     <div class="carousel-inner">
 
                         @foreach ($saleChunks as $chunkIndex => $chunk)
