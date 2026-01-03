@@ -68,9 +68,9 @@
                                         <th>Area</th>
                                         <th>Price</th>
                                         <th>Status</th>
-                                        <th>Address</th>
-                                        <th>View</th>
                                         <th>Publish</th>
+                                        <th>Address</th>
+                                        <th>View</th> 
                                         <th>New Property</th>
                                         <th>Feature Property</th>
                                         <th>Hot Property</th>
@@ -332,9 +332,9 @@
                     {  data: 'area',  name: 'area' },
                     {  data: 'price',  name: 'price' },
                     {  data: 'status',  name: 'status' },
-                    {  data: 'location_id',  name: 'location_id' },
-                    {  data: 'count',  name: 'count' },
                     {  data: 'publish',   name: 'publish' },
+                    {  data: 'location_id',  name: 'location_id' },
+                    {  data: 'count',  name: 'count' }, 
                     {  data: 'is_new_property',  name: 'is_new_property' },
                     {  data: 'is_featured_property', name: 'is_featured_property' },
                     {  data: 'is_hot_offer',  name: 'is_hot_offer' },
