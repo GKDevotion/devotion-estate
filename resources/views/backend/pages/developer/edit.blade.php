@@ -6,6 +6,7 @@
 
 @section('styles')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
     <style>
         .form-check-label {
             text-transform: capitalize;
@@ -89,6 +90,18 @@
                                                 @enderror
                                             </div>
 
+                                            <div class="col-md-12 col-sm-12 mb-2">
+                                                <label class="mb-0" for="description">About Developer <span
+                                                        class="text-error">*</span></label>
+                                                <textarea class="ckeditor form-control" id="description" name="description" rows="16"
+                                                    placeholder="Enter description here...">{{ old('description', $data->description ?? '') }}</textarea>
+
+                                                @error('description')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+
                                             <div class="col-md-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="sort_order">Sort Order</label>
@@ -139,6 +152,15 @@
 
 @section('scripts')
     <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .then(editor => {
+                editorDescriptionInstance = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
         $('.dropify').dropify({});
     </script>
 @endsection

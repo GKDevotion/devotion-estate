@@ -19,15 +19,47 @@
         <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
     </head>
 
+    <section style="padding-top: 100px">
+        <div class="container">
+            <div class="card border-0 shadow-sm rounded-4">
+                <!-- Header -->
+                <div class="card-header bg-white border-bottom py-4 px-4">
+                    <h4 class="mb-0 fw-semibold" style="color: #aa8038">
+                        About {{ $developerObj['name'] }} Developer
+                    </h4>
+                </div>
 
-    <div class="container my-5">
+               <!-- Body -->
+            <div class="card-body px-4 py-4">
+                @if(!empty($developerObj['description']))
+                    <div class="text-muted lh-lg">
+                        {!! $developerObj['description'] !!}
+                    </div>
+                @else
+                    <div class="text-muted fst-italic">
+                        Description will be updated soon.
+                    </div>
+                @endif
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container  my-5">
         <!-- Filters and Search Section -->
-        @include('frontend.layouts.partials.property-search', ['type' => 'new'])
+        {{-- @include('frontend.layouts.partials.property-search', ['type' => 'new']) --}}
 
         <!-- Header -->
         <div class="row align-items-center mb-3">
             <div class="col-md-8 properties-header">
-                <h1 class="properties-title">New Properties in Dubai UAE</h1>
+                @if (isset($developerObj))
+                    <h1 class="properties-title">
+                        {{ $developerObj->name }} Properties in Dubai, UAE
+                    </h1>
+                @endif
+
                 <p class="properties-count">
                     There are currently <span>{{ $total }}</span> properties.
                 </p>
@@ -39,9 +71,10 @@
                     <div class="col-12 d-flex justify-content-end">
                         <select name="perPage" id="showProps" class="form-select form-select-sm w-50"
                             onchange="this.form.submit()">
-                            <option value="2" {{ $perPage == 2 ? 'selected' : '' }}>2</option>
-                            <option value="4" {{ $perPage == 4 ? 'selected' : '' }}>4</option>
                             <option value="6" {{ $perPage == 6 ? 'selected' : '' }}>6</option>
+                            <option value="12" {{ $perPage == 12 ? 'selected' : '' }}>12</option>
+                            <option value="24" {{ $perPage == 24 ? 'selected' : '' }}>24</option>
+                            <option value="36" {{ $perPage == 36 ? 'selected' : '' }}>36</option>
                         </select>
                     </div>
                 </form>
@@ -51,81 +84,57 @@
         <!-- Property Cards Container -->
         <div class="row">
             @forelse($properties as $p)
-                <div class="col-md-12 mb-4">
-                    <a href="{{ route('property.detail', $p->slug) }}" class="text-decoration-none text-dark">
+                <!-- ONE CARD COLUMN -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="{{ route('property.detail', $p->slug) }}" class="text-decoration-none text-dark d-block h-100">
 
-                        <div class="card p-3 shadow-sm border-0 h-100">
-                            <div class="row g-0">
-                                <div class="col-lg-4 d-flex">
-                                    <img src="{{ asset('storage/app/propertyImage/' . ($p->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
-                                        class="img-fluid rounded-start property-img flex-grow-1" alt="Property Image">
+                        <div class="card property-card h-100 border-1 shadow-sm rounded-3">
+
+                            <div class="position-relative">
+                                <img src="{{ asset('storage/app/propertyImage/' . ($p->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
+                                    class="card-img-top rounded-top-3" alt="{{ $p->name }}">
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-start mb-2">
+                                    <h5 class="card-title mb-0 me-3" style="min-height: 50px">
+                                        {!! $p->name !!}
+                                    </h5>
                                 </div>
-                                <style>
-                                    .property-img {
-                                        width: 100%;
-                                        height: 270px;
-                                        object-fit: fill;
-                                        object-position: center;
-                                        border-radius: 8px;
-                                    }
-                                </style>
-                                
-                                <div class="col-lg-8">
-                                    <div class="card-body">
-                                        <div class="row align-items-start">
 
-                                            <div class="col-8">
-                                                
-                                                <h5 class="fw-bold">{!! $p->name !!}</h5>
-                                                <p class="text-muted mb-1" style="font-size: 0.85rem;">
-                                                    <i class="bi bi-map me-1"></i>
-                                                    {{ $p->location->name ?? 'Unknown Location' }}
-                                                </p>
-                                                <h4 class="fw-bold mt-4 fs-20" style=" color:#aa8038;">
-                                                    AED {{ number_format($p->price, 2) }}
-                                                </h4>
+                                <!-- Location -->
+                                <p class="card-text small text-muted mb-1">
+                                    <i class="bi bi-map me-2"></i>
+                                    {{ ucfirst($p->location->name ?? 'N/A') }}
+                                </p>
 
+                                <!-- Property Details -->
+                                <p class="card-text small mb-0">
+                                    <i class="bi bi-door-closed me-1"></i>
+                                    Beds: {{ $p->beds == 0 ? 'Studio' : $p->beds }}
+                                    <i class="bi bi-bucket me-1 ms-2"></i>
+                                    Baths: {{ $p->baths }}
+                                    <i class="bi bi-rulers me-1 ms-2"></i>
+                                    Area: {{ $p->area }} Sq.Ft.
+                                </p>
 
-                                                <div class="d-flex flex-column align-items-start">
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-door-closed me-1"></i>
-                                                        <span class="small">Beds : {{ $p->beds == 0 ? 'Studio' : $p->beds }}</span>
-                                                    </div>
+                                <hr class="my-2">
 
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-bucket me-1"></i>
-                                                        <span class="small">Baths : {{ $p->baths }}</span>
-                                                    </div>
+                                <!-- Price & Logo -->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="fs-5 mt-2 mb-0">
+                                        AED {{ number_format($p->price, 2) }}
+                                    </p>
 
-
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-rulers me-1"></i>
-                                                        <span class="small">Area : {{ $p->area }} Sq.Ft.</span>
-                                                    </div>
-
-                                                    <div class="d-flex gap-2 d-none">
-                                                        <button class="btn btn-sm"
-                                                            style="background-color: #aa8038; color: white;">
-                                                            <i class="bi bi-compass"></i>
-                                                        </button>
-                                                        <button class="btn btn-sm"
-                                                            style="background-color: #aa8038; color: white;">
-                                                            <i class="bi bi-heart"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-4 text-end">
-                                                <img src="{{ url('public\img\devotion-group-favicon-64X64.png') }}"
-                                                    alt="Estate Agent Logo" class="img-fluid" style="max-width: 160px;">
-                                                <p class="small text-muted text-end mt-2 mb-0">Devotion Estate </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <img src="{{ url('public/frontend/assets/images/Devotion Real Estate.png') }}"
+                                        alt="Logo" class="property-logo img-fluid">
                                 </div>
+
                             </div>
                         </div>
+
                     </a>
                 </div>
             @empty

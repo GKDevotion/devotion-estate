@@ -88,6 +88,7 @@ class HomeController extends Controller
             "ALTER TABLE `property_variants` ADD `property_type` TEXT NOT NULL AFTER `price`;",
             "ALTER TABLE `developers` ADD `image` VARCHAR(255) NOT NULL AFTER `name`;",
             "ALTER TABLE `developers` ADD `sort_order` SMALLINT NOT NULL DEFAULT '0' COMMENT 'sort ordering' AFTER `image`;",
+            "ALTER TABLE `developers` ADD `description` LONGTEXT NOT NULL AFTER `image`;",
         ];
 
         foreach ($sqlArr as $sql) {

@@ -784,21 +784,24 @@
 
     <!-- Our Developers -->
     <section class="py-5 bg-white">
-        <div class="container">
+        <div class="container position-relative">
+
             <div class="text-center mb-4">
-                <h2 class="fw-bold text-uppercase mb-1 pb-3">Our Developers</h2>
+                <h2 class="fw-bold text-uppercase mb-1 pb-3">Developers We Work With</h2>
             </div>
 
+            <!-- Swiper -->
             <div class="swiper partnerSwiper">
-                <div class="swiper-wrapper pb-3 align-items-center">
+                <div class="swiper-wrapper align-items-center">
 
                     @foreach ($developerImages as $partner)
                         @if (!empty($partner->image))
-                            <div class="swiper-slide text-center" style="border : 1px solid lightgray">
-                                <a href="{{ route('developer.properties', $partner->id) }}">
+                            <div class="swiper-slide d-flex justify-content-center">
+                                <a href="{{ route('developer.properties', $partner->id) }}"
+                                    class="partner-card text-center">
+
                                     <img src="{{ asset('storage/app/developer/' . $partner->image) }}"
-                                        class="img-fluid grayscale" style="max-height:60px width:100%;"
-                                        alt="{{ $partner->name }}">
+                                        alt="{{ $partner->name }}" class="img-fluid grayscale">
                                 </a>
                             </div>
                         @endif
@@ -806,6 +809,7 @@
 
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -1251,16 +1255,16 @@
     </script>
 
     <script>
-        new Swiper(".partnerSwiper", {
+        const partnerSwiper = new Swiper('.partnerSwiper', {
             slidesPerView: 5,
-            spaceBetween: 30,
+            spaceBetween: 20,
             loop: true,
             autoplay: {
-                delay: 2000,
+                delay: 2500,
                 disableOnInteraction: false,
             },
             breakpoints: {
-                0: {
+                320: {
                     slidesPerView: 2
                 },
                 576: {
@@ -1274,7 +1278,17 @@
                 },
             }
         });
-    </script>
 
+        // Pause on hover
+        const swiperEl = document.querySelector('.partnerSwiper');
+
+        swiperEl.addEventListener('mouseenter', () => {
+            partnerSwiper.autoplay.stop();
+        });
+
+        swiperEl.addEventListener('mouseleave', () => {
+            partnerSwiper.autoplay.start();
+        });
+    </script>
 
 @endsection
