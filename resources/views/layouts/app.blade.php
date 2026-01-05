@@ -104,6 +104,8 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item"><a class="nav-link" href="{{ route('developers') }}">Developer</a></li>
+
                         <!-- Our Services Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#"

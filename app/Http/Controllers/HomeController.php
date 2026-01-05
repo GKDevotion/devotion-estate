@@ -89,6 +89,8 @@ class HomeController extends Controller
             "ALTER TABLE `developers` ADD `image` VARCHAR(255) NOT NULL AFTER `name`;",
             "ALTER TABLE `developers` ADD `sort_order` SMALLINT NOT NULL DEFAULT '0' COMMENT 'sort ordering' AFTER `image`;",
             "ALTER TABLE `developers` ADD `description` LONGTEXT NOT NULL AFTER `image`;",
+            "ALTER TABLE `developers` ADD `sub_title` TEXT NOT NULL AFTER `image`;",
+            "ALTER TABLE `developers` CHANGE `description` `description` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;",
         ];
 
         foreach ($sqlArr as $sql) {

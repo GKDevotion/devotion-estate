@@ -90,6 +90,19 @@
                                                 @enderror
                                             </div>
 
+                                            <div class="col-md-4 mb-2">
+                                                <div class="form-group">
+                                                    <label class="mb-0" for="sub_title">Sub Title</label>
+                                                    <input type="text" class="form-control" id="sub_title"
+                                                        name="sub_title" placeholder="sub_title"
+                                                        value="{{ $data->sub_title }}">
+                                                </div>
+                                                @error('sub_title')
+                                                    <div class="error text-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+
                                             <div class="col-md-12 col-sm-12 mb-2">
                                                 <label class="mb-0" for="description">About Developer <span
                                                         class="text-error">*</span></label>

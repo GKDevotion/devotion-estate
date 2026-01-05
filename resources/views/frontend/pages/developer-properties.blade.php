@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'New properties')
+@section('title', 'Developer Properties')
 
 @section('content')
 

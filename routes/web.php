@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Backend\AgentsController;
 use App\Http\Controllers\Backend\ContactUsController as BackendContactUsController;
+use App\Http\Controllers\Backend\DeveloperController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\PropertiesController;
 use App\Http\Controllers\Backend\ReviewsController;
@@ -10,7 +11,9 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BuyerGuideController;
 use App\Http\Controllers\BuyPropertiesController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DeveloperController as ControllersDeveloperController;
 use App\Http\Controllers\DeveloperPropertiesController;
+use App\Http\Controllers\DevelopersController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotOfferController;
 use App\Http\Controllers\InvestmentAdvisoryController;
@@ -101,7 +104,8 @@ Route::get('/property-management', function () {
 });
 
 Route::get('hot-offer', [HotOfferController::class, 'index'])->name('hot-offer');
-
+Route::get('/developers', [DevelopersController::class, 'index'])->name('developers');
+Route::get('/developers/search', [DevelopersController::class, 'search'])->name('developers.search');
 
 Route::get('/login', function () {
     return view('frontend.pages.login');
