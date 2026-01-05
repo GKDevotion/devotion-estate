@@ -27,4 +27,10 @@ class Developer extends Model
         });
     }
 
+    public function properties()
+    {
+        return $this->hasMany(Properties::class, 'developer_id', 'id')->where('status', 1);
+    }
+    
+ 
 }

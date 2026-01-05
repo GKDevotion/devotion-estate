@@ -14,7 +14,7 @@ class DevelopersController extends Controller
     public function index(Request $request)
     {
 
-        $developers = Developer::latest()->paginate(8); // 8 per page
+        $developers = Developer::withCount('properties')->latest()->paginate(8); // 8 per page
 
         return view('frontend.pages.developers', compact('developers'));
     }
