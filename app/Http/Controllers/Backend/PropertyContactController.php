@@ -64,7 +64,7 @@ class PropertyContactController extends Controller
             ->orderBy('is_read', 'asc')
             ->orderBy('id', 'desc');
 
-        $query->select('id', 'property_name', 'property_unique_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'is_read');
+        $query->select('id', 'property_name', 'property_unique_id', 'name', 'email', 'mobile_number', 'message', 'cityName', 'countryName', 'ip', 'regionName', 'updated_at', 'is_read');
 
         return DataTables::eloquent($query)
             ->addColumn('id', function (PropertyContact $ar) {
@@ -85,6 +85,22 @@ class PropertyContactController extends Controller
             })
             ->addColumn('review', function (PropertyContact $ar) {
                 return $ar->review;
+            })
+
+            ->addColumn('cityName', function (PropertyContact $ar) {
+                return $ar->cityName;
+            })
+ 
+            ->addColumn('countryName', function (PropertyContact $ar) {
+                return $ar->countryName;
+            })
+
+            ->addColumn('ip', function (PropertyContact $ar) {
+                return $ar->ip;
+            })
+
+            ->addColumn('regionName', function (PropertyContact $ar) {
+                return $ar->regionName;
             })
 
             ->addColumn('is_read', function (PropertyContact $ar) {
@@ -144,7 +160,7 @@ class PropertyContactController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id', 'property_name', 'property_unique_id', 'name', 'email', 'mobile_number', 'message', 'updated_at', 'is_read', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'property_name', 'property_unique_id', 'name', 'email', 'mobile_number', 'message', 'cityName', 'countryName', 'ip', 'regionName', 'updated_at', 'is_read', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];

@@ -65,6 +65,10 @@
                                         <th>Email Address</th>
                                         <th>Contact No.</th>
                                         <th>Message</th>
+                                        <th>City Name</th>
+                                        <th>Country Name</th>
+                                        <th>Ip Address</th>
+                                        <th>Region Name</th>
                                         <th>Read</th>
                                         <th>Updated At</th>
                                         <th>Action</th>
@@ -115,6 +119,10 @@
                     { data: 'email', name: 'email' },
                     { data: 'mobile_number', name: 'mobile_number' },
                     { data: 'message', name: 'message' },
+                    { data: 'cityName',  name: 'cityName' },
+                    { data: 'countryName',  name: 'countryName' },
+                    { data: 'ip',  name: 'ip' },
+                    { data: 'regionName',  name: 'regionName' },
                     { data: 'is_read',  name: 'is_read' },
                     { data: 'updated_at',  name: 'updated_at' },
                     { data: 'action',  name: 'action', orderable: false, searchable: false },

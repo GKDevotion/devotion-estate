@@ -65,6 +65,7 @@
                                         <div class="row">
 
                                             <div class="col-4 col-sm-12">
+
                                                 <div class="col-12 mb-2">
                                                     <div class="form-group">
                                                         <label class="mb-0" for="image">Upload New Image</label>
@@ -75,7 +76,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-8 mb-2">
+                                                <div class="col-md-12 mb-2">
                                                     <div class="form-group">
                                                         <label class="mb-0" for="name">Name<span
                                                                 class="text-error">*</span></label>
@@ -85,9 +86,9 @@
                                                     @error('name')
                                                         <div class="error text-error">{{ $message }}</div>
                                                     @enderror
-                                                </div>       
+                                                </div>
 
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-12 mb-2">
                                                     <div class="form-group">
                                                         <label class="mb-0" for="sub_title">Sub Title</label>
                                                         <input type="text" class="form-control" id="sub_title"
@@ -106,28 +107,33 @@
                                                     <div class="error text-error"></div>
                                                 </div>
 
-                                                <div class="col-md-6 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="mb-0" for="sort_order">Sort Order</label>
-                                                        <input type="text" class="form-control" id="sort_order"
-                                                            name="sort_order" placeholder="Sort Order">
-                                                    </div>
-                                                    @error('sort_order')
-                                                        <div class="error text-error">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                <div class="row">
 
-                                                <div class="col-md-4 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="mb-0" for="status">Status</label>
-                                                        <select class="form-control" id="status" name="status">
-                                                            <option value="1">Active</option>
-                                                            <option value="0">De Active</option>
-                                                        </select>
+                                                    <div class="col-md-6 mb-2">
+                                                        <div class="form-group">
+                                                            <label class="mb-0" for="sort_order">Sort Order</label>
+                                                            <input type="text" class="form-control" id="sort_order"
+                                                                name="sort_order" placeholder="Sort Order">
+                                                        </div>
+                                                        @error('sort_order')
+                                                            <div class="error text-error">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
+
+                                                    <div class="col-md-6 mb-2">
+                                                        <div class="form-group">
+                                                            <label class="mb-0" for="status">Status</label>
+                                                            <select class="form-control" id="status" name="status">
+                                                                <option value="1">Active</option>
+                                                                <option value="0">De Active</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
 
                                     <div class="row mt-4">
@@ -135,7 +141,8 @@
                                             <button type="submit" class="btn btn-success pr-4 pl-4" id="submitForm">
                                                 <i class="fa fa-save"></i> Save
                                             </button>
-                                            <a href="{{ route('admin.developer.index') }}" class="btn btn-danger pr-4 pl-4">
+                                            <a href="{{ route('admin.developer.index') }}"
+                                                class="btn btn-danger pr-4 pl-4">
                                                 <i class="fa fa-arrow-left"></i> Back
                                             </a>
                                         </div>
@@ -156,7 +163,7 @@
 
 @section('scripts')
     <script>
-         ClassicEditor
+        ClassicEditor
             .create(document.querySelector('#description'))
             .then(editor => {
                 editorDescriptionInstance = editor;

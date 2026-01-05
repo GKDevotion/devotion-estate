@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
+use Stevebauman\Location\Facades\Location;
 
 class PropertyContactController extends Controller
 {
@@ -23,17 +24,51 @@ class PropertyContactController extends Controller
             'message'      => 'required|string',
         ]);
 
-        PropertyContact::create([
-            'property_id' => $request->property_id,
-            'property_name' => $request->property_name,
-            'property_unique_id' => $request->property_unique_id,
-            'website_id'  => $request->website_id ?? 1,
-            'name'        => $request->name,
-            'email'       => $request->email,
-            'mobile_number'  => $request->mobile_number,
-            'message'      => $request->message,
+        // PropertyContact::create([
+        //     'property_id' => $request->property_id,
+        //     'property_name' => $request->property_name,
+        //     'property_unique_id' => $request->property_unique_id,
+        //     'website_id'  => $request->website_id ?? 1,
+        //     'name'        => $request->name,
+        //     'email'       => $request->email,
+        //     'mobile_number'  => $request->mobile_number,
+        //     'message'      => $request->message,
 
-        ]);
+        // ]);
+
+           // 3. Get user IP
+        $ip = "122.173.87.53";//$request->ip();
+
+        if ($ip != "127.0.0.1" && strlen($ip) > 7) {
+                $locationPosition = Location::get($ip);
+                $locationPosition = json_encode($locationPosition);
+                $locationPosition = json_decode($locationPosition, 1);
+
+                $propertyContact = new PropertyContact();
+                $propertyContact->property_id = $request->property_id;
+                $propertyContact->property_name = $request->property_name;
+                $propertyContact->property_unique_id = $request->property_unique_id;
+                $propertyContact->website_id  = $reques->website_id ?? 1;
+                $propertyContact->name        = $request->name;
+                $propertyContact->email       = $request->email;
+                $propertyContact->mobile_number  = $request->mobile_number;
+                $propertyContact->message      = $request->message;
+                
+                $propertyContact->areaCode = $locationPosition['areaCode'];
+                $propertyContact->cityName = $locationPosition['cityName'];
+                $propertyContact->countryCode = $locationPosition['countryCode'];
+                $propertyContact->countryName = $locationPosition['countryName'];
+                $propertyContact->ip = $locationPosition['ip'];
+                $propertyContact->isoCode = $locationPosition['isoCode'];
+                $propertyContact->latitude = $locationPosition['latitude'];
+                $propertyContact->longitude = $locationPosition['longitude'];
+                $propertyContact->metroCode = $locationPosition['metroCode'];
+                $propertyContact->postalCode = $locationPosition['postalCode'];
+                $propertyContact->regionCode = $locationPosition['regionCode'];
+                $propertyContact->regionName = $locationPosition['regionName'];
+                $propertyContact->zipCode     = $locationPosition['zipCode'];
+                $propertyContact->save();
+            }
 
         if( getConfigurationField( "IS_SEND_MAIL" ) ){
             // EMAIL DETAILS

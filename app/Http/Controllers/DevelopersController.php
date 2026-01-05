@@ -15,18 +15,20 @@ class DevelopersController extends Controller
     {
 
         $developers = Developer::latest()->paginate(8); // 8 per page
-   
-        return view('frontend.pages.developers', compact(
-           
-            'developers'
-            
-        ));
+
+        return view('frontend.pages.developers', compact('developers'));
     }
 
-    
+
     public function search(Request $request)
     {
         $query = $request->get('q');
+
+        $q = trim($request->q);
+
+        if ($query === '') {
+            return ''; // or return empty view
+        }
 
         $developers = Developer::where('name', 'LIKE', "%{$query}%")
             ->orderBy('name')

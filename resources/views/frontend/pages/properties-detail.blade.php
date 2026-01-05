@@ -91,8 +91,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                 IMAGE GALLERY
-            ======================== -->
+                     IMAGE GALLERY
+                ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -149,8 +149,8 @@
         </div>
 
         <!-- =======================
-            CONTENT ROW (DETAILS + CONTACT)
-            ======================== -->
+                CONTENT ROW (DETAILS + CONTACT)
+                ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -455,7 +455,7 @@
                             }
 
                             /*
-                                                        Inactive bullets */
+                                                            Inactive bullets */
                             .relatedSwiperRight .swiper-pagination-bullet {
                                 background-color: #d6c29a;
                                 /* light gold */
@@ -633,7 +633,7 @@
                         <!-- Buttons -->
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn flex-fill text-white fw-semibold"
-                                style="background:#aa8038; border-radius:30px;">
+                                onclick="handleFinalSubmit(this)" style="background:#aa8038; border-radius:30px;">
                                 <i class="bi bi-envelope-fill me-2"></i>
                                 <span id="submit_text">Send message</span>
                             </button>
@@ -869,6 +869,22 @@
             var myCarousel = document.getElementById('propertyCarousel');
             var carousel = bootstrap.Carousel.getInstance(myCarousel);
             carousel.to(index);
+        }
+
+        let isSubmitting = false;
+
+        function handleFinalSubmit(btn) {
+
+            // Prevent multiple clicks
+            if (isSubmitting) {
+                return false;
+            }
+
+            isSubmitting = true;
+
+            // Disable button
+            btn.disabled = true;
+            btn.innerHTML = 'Submitting... <i class="fa fa-spinner fa-spin"></i>';
         }
     </script>
 

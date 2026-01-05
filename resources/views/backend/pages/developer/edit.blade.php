@@ -65,21 +65,22 @@
                                     <div class="row">
                                         <div class="row">
 
-                                            <div class="col-4">
-                                                <div class="col-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="mb-0" for="image">Upload New Image</label>
-                                                        <input type="file" name="image" class="dropify"
-                                                            data-default-file="{{ asset('storage/app/developer/' . $data->image) }}">
-                                                        @error('image')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
+
+
+                                            <div class="col-12 mb-2">
+                                                <div class="form-group">
+                                                    <label class="mb-0" for="image">Upload New Image</label>
+                                                    <input type="file" name="image" class="dropify"
+                                                        data-default-file="{{ asset('storage/app/developer/' . $data->image) }}">
+                                                    @error('image')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
 
 
-                                            <div class="col-md-8 mb-2">
+
+                                            <div class="col-md-12 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="name">Name</label>
                                                     <input type="text" class="form-control" id="name" name="name"
@@ -90,7 +91,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <div class="col-md-12 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="sub_title">Sub Title</label>
                                                     <input type="text" class="form-control" id="sub_title"
@@ -128,7 +129,7 @@
                                             </div>
 
 
-                                            <div class="col-md-4 mb-2">
+                                            <div class="col-md-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="mb-0" for="status">Status</label>
                                                     <select class="form-control" id="status" name="status">

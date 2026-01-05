@@ -96,30 +96,33 @@
             }
         }
     </style>
-    <script>
-        const searchInput = document.getElementById('developerSearch');
-        const resultsDiv = document.getElementById('developerResults');
-        const pagination = document.getElementById('paginationWrapper');
+<script>
+    const searchInput = document.getElementById('developerSearch');
+    const resultsDiv = document.getElementById('developerResults');
+    const pagination = document.getElementById('paginationWrapper');
 
-        let debounceTimer;
+    let debounceTimer;
 
-        searchInput.addEventListener('keyup', function() {
-            clearTimeout(debounceTimer);
+    searchInput.addEventListener('keyup', function () {
+        clearTimeout(debounceTimer);
 
-            debounceTimer = setTimeout(() => {
-                let query = this.value.trim();
+        debounceTimer = setTimeout(() => {
+            let query = this.value;
 
-                fetch(`{{ route('developers.search') }}?q=${query}`)
-                    .then(res => res.text())
-                    .then(html => {
-                        resultsDiv.innerHTML = html;
+            // ✅ If input is empty OR only spaces
+            if (!query || query.trim() === '') {
+                pagination.style.display = 'block';
+                return; // 🚫 Stop search request
+            }
 
-                        // Hide pagination only while searching
-                        pagination.style.display = query.length ? 'none' : 'block';
-                    });
-            }, 300);
-        });
-    </script>
-
+            fetch(`{{ route('developers.search') }}?q=${encodeURIComponent(query.trim())}`)
+                .then(res => res.text())
+                .then(html => {
+                    resultsDiv.innerHTML = html;
+                    pagination.style.display = 'none';
+                });
+        }, 300);
+    });
+</script>
 
 @endsection
