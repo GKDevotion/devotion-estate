@@ -38,12 +38,14 @@ class HomeController extends Controller
             ->get();
 
         $developer = Developer::select('id', 'name', 'image')
-            ->where('status', 1)
+            ->where('status', 1) 
             ->orderBy('name', 'asc')  // sorted alphabetically
             ->get();
 
         $developerImages = Developer::where('status', 1)
             ->orderBy('sort_order', 'asc')   // controls image order
+            ->latest()
+            ->limit(12)
             ->whereNotNull('image')
             ->get(['id', 'image']);
 
