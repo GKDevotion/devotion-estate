@@ -1793,7 +1793,7 @@ a:hover .bi-house-door::before {
 
 .partner-card {
     width: 260px;
-    height: 160px;
+    height: 140px;
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid lightgray;
@@ -1807,7 +1807,7 @@ a:hover .bi-house-door::before {
 }
 
 .partner-card img {
-    max-height: 150px;
+    max-height: 120px;
     width: auto;
 }
 

@@ -7,33 +7,46 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactUs extends Model
 {
-    //
+  //
 
-      use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-        'website_id',
-        'name',
-        'type',
-        'sub_type',
-        'email',
-        // 'mobile_number',
-        'ip_address',
-        'comment',
-    ];
+  protected $fillable = [
+    'website_id',
+    'name',
+    'type',
+    'sub_type',
+    'email',
+    // 'mobile_number',
+    'ip_address',
+    'comment',
+    'areaCode',
+    'cityName',
+    'countryCode',
+    'countryName', 
+    'isoCode',
+    'latitude',
+    'longitude',
+    'metroCode',
+    'postalCode',
+    'regionCode',
+    'regionName',
+    'zipCode',
+    'status',
+  ];
 
-      // ✅ Add accessor
-    public function getTypeDisplayAttribute()
-    {
-        // Handle nulls gracefully
-        if ($this->type && $this->sub_type) {
-            return "{$this->type} → {$this->sub_type}";
-        }
-
-        
-
-        return $this->type ?? '-';
+  // ✅ Add accessor
+  public function getTypeDisplayAttribute()
+  {
+    // Handle nulls gracefully
+    if ($this->type && $this->sub_type) {
+      return "{$this->type} → {$this->sub_type}";
     }
+
+
+
+    return $this->type ?? '-';
+  }
 
   public function subType()
   {
