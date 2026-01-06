@@ -30,10 +30,10 @@ class DashboardController extends Controller
         $aTitle = pgTitle("Devotion Real Estate - Dubai UAE ( Holding Company )");
         $hTitle = pgTitle("Devotion Group");
 
-        $totalProperties  = Properties::count();
-        $newProperties   = Properties::where('is_new_property', 1)->count();
-        $hotProperties   = Properties::where('is_hot_offer', 1)->count();
-        $luxuryProperties   = Properties::where('is_luxury_property', 1)->count();
+        $totalProperties  = Properties::where('status', 1)->count();
+        $newProperties   = Properties::where('status', 1)->where('is_new_property', 1)->count();
+        $hotProperties   = Properties::where('status', 1)->where('is_hot_offer', 1)->count();
+        $luxuryProperties   = Properties::where('status', 1)->where('is_luxury_property', 1)->count();
         $developer   = Developer::where('status', 1)->count();
         $activeProperties = Properties::where('status', 1)->count();
 

@@ -8,7 +8,7 @@
     {{--  Banner Section --}}
     <section class="developer-section postion-relative ">
         <div class="container">
-            <h2 class="display-5 fw-bold text-uppercase">Developers We Work With</h2>
+            <h2 class="display-5 fw-bold text-uppercase">Our Trusted Partners</h2>
         </div>
     </section>
 

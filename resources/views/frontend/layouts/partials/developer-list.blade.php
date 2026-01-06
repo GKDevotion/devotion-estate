@@ -19,18 +19,24 @@
                                <!-- Content -->
                                <div class="col-md-8">
                                    <div class="card-body px-4">
-                                       <a href="{{ route('developer.properties', $dev->id) }}"
-                                           class="  text-start text-decoration-none text-dark developer-name">
-                                           <div class="d-flex justify-content-between align-items-center">
+
+                                       <div class="d-flex justify-content-between align-items-center">
+                                           <a href="{{ route('developer.properties', $dev->id) }}" class="  text-start text-decoration-none text-dark developer-name">
                                                <h5 class="fw-bold mb-0 developer-name">
                                                    {{ $dev->name }}
                                                </h5>
+                                           </a>
 
-                                               <span class="badge rounded-3 p-2" style="background-color: #fff; font-size: 0.9rem; border: 1px solid lightgray; color: #aa8038;">
-                                                   {{ $dev->properties_count }} Properties
-                                               </span>
-                                           </div>
-                                           {{-- <h5 class="fw-bold mb-2">{{ $dev->name }}</h5> --}}
+                                           @if ($dev->properties_count > 0)
+                                               <a href="{{ route('developer.properties', $dev->id) }}" class="text-start text-decoration-none text-dark developer-name">
+                                                   <span class="badge rounded-3 p-2"
+                                                       style="background-color:#fff; font-size:0.9rem; border:1px solid lightgray; color:#aa8038;">
+                                                       {{ $dev->properties_count }} Properties
+                                                   </span>
+                                               </a>
+                                           @endif
+                                       </div>
+                                       {{-- <h5 class="fw-bold mb-2">{{ $dev->name }}</h5> --}}
                                        </a>
                                        <p class="text-muted mt-3">
                                            {{ $dev->short_description }}
@@ -48,8 +54,6 @@
                @endforelse
 
            </div>
-
-
 
        </div>
    </section>
