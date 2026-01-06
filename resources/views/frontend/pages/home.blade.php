@@ -787,7 +787,7 @@
         <div class="container position-relative">
 
             <div class="text-center mb-4">
-                <h2 class="fw-bold text-uppercase mb-1 pb-3">Developers We Work With</h2>
+                <h2 class="fw-bold text-uppercase mb-1 pb-3">Our Trusted Partners</h2>
             </div>
 
             <!-- Swiper -->
