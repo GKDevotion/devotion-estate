@@ -97,7 +97,8 @@ class HomeController extends Controller
             "ALTER TABLE `property_contact` CHANGE `countryName` `countryName` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL;",
             "ALTER TABLE `developers` CHANGE `sub_title` `short_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;",
             "ALTER TABLE `developers` CHANGE `image` `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;",
-            "ALTER TABLE `developers` CHANGE `short_description` `short_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;"
+            "ALTER TABLE `developers` CHANGE `short_description` `short_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;",
+            "ALTER TABLE `contact_us` ADD `areaCode` VARCHAR(4) NULL DEFAULT NULL AFTER `ip_address`, ADD `cityName` VARCHAR(30) NULL DEFAULT NULL AFTER `areaCode`, ADD `countryCode` VARCHAR(4) NULL DEFAULT NULL AFTER `cityName`, ADD `countryName` VARCHAR(30) NULL DEFAULT NULL AFTER `countryCode`, ADD `isoCode` VARCHAR(5) NULL DEFAULT NULL AFTER `countryName`, ADD `latitude` VARCHAR(10) NULL DEFAULT NULL AFTER `isoCode`, ADD `longitude` VARCHAR(10) NULL DEFAULT NULL AFTER `latitude`, ADD `metroCode` VARCHAR(5) NULL DEFAULT NULL AFTER `longitude`, ADD `postalCode` VARCHAR(10) NULL DEFAULT NULL AFTER `metroCode`, ADD `regionCode` VARCHAR(5) NULL DEFAULT NULL AFTER `postalCode`, ADD `regionName` VARCHAR(100) NULL DEFAULT NULL AFTER `regionCode`, ADD `zipCode` VARCHAR(10) NULL DEFAULT NULL AFTER `regionName`;"
         ];
 
         foreach ($sqlArr as $sql) {

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Stevebauman\Location\Facades\Location;
 
 class ContactUsController extends Controller
 {
@@ -46,16 +47,48 @@ class ContactUsController extends Controller
         // Clear code after success
         Session::forget('contact_verification_code');
 
-        // ✅ Step 2: Store Data
-        ContactUs::create([
-            'website_id'     => $request->website_id ?? 1,   // Default website_id = 1
-            'name'           => $request->name,
-            'type'           => $request->type,
-            'sub_type'       => $request->sub_type,
-            'email'          => $request->email,
-            'ip_address'     => $request->ip(),              // User IP
-            'comment'        => $request->comment,
-        ]);
+        // // ✅ Step 2: Store Data
+        // ContactUs::create([
+        //     'website_id'     => $request->website_id ?? 1,   // Default website_id = 1
+        //     'name'           => $request->name,
+        //     'type'           => $request->type,
+        //     'sub_type'       => $request->sub_type,
+        //     'email'          => $request->email,
+        //     'ip_address'     => $request->ip(),              // User IP
+        //     'comment'        => $request->comment,
+        // ]);
+
+            $ip = "122.173.87.53";//$request->ip();
+
+        if ($ip != "127.0.0.1" && strlen($ip) > 7) {
+                $locationPosition = Location::get($ip);
+                $locationPosition = json_encode($locationPosition);
+                $locationPosition = json_decode($locationPosition, 1);
+
+                $ContactUs = new ContactUs(); 
+                $ContactUs->website_id  = $reques->website_id ?? 1;
+                $ContactUs->name        = $request->name;
+                $ContactUs->email       = $request->email;
+                $ContactUs->type        = $request->type; 
+                $ContactUs->sub_type    = $request->sub_type;
+                $ContactUs->ip_address = $request->ip();                
+                $ContactUs->comment      = $request->comment;
+                
+                $ContactUs->areaCode = $locationPosition['areaCode'];
+                $ContactUs->cityName = $locationPosition['cityName'];
+                $ContactUs->countryCode = $locationPosition['countryCode'];
+                $ContactUs->countryName = $locationPosition['countryName'];
+                 
+                $ContactUs->isoCode = $locationPosition['isoCode'];
+                $ContactUs->latitude = $locationPosition['latitude'];
+                $ContactUs->longitude = $locationPosition['longitude'];
+                $ContactUs->metroCode = $locationPosition['metroCode'];
+                $ContactUs->postalCode = $locationPosition['postalCode'];
+                $ContactUs->regionCode = $locationPosition['regionCode'];
+                $ContactUs->regionName = $locationPosition['regionName'];
+                $ContactUs->zipCode     = $locationPosition['zipCode'];
+                $ContactUs->save();
+            }
 
         if( getConfigurationField( "IS_SEND_MAIL" ) ){
             // EMAIL DETAILS
