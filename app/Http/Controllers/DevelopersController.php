@@ -14,7 +14,7 @@ class DevelopersController extends Controller
     public function index(Request $request)
     {
 
-        $developers = Developer::withCount('properties')->latest()->paginate(8); // 8 per page
+        $developers = Developer::withCount('properties')->orderBy('name', 'asc')->latest()->paginate(8); // 8 per page
 
         return view('frontend.pages.developers', compact('developers'));
     }
@@ -22,18 +22,26 @@ class DevelopersController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->get('q');
+        $query = trim($request->q);
 
-        $q = trim($request->q);
-
-        if ($query === '') {
-            return ''; // or return empty view
+        if (!$query) {
+            return '';
         }
 
-        $developers = Developer::where('name', 'LIKE', "%{$query}%")
+        $developers = Developer::withCount('properties') // ✅ IMPORTANT 
+            ->where('name', 'LIKE', "%{$query}%")
             ->orderBy('name')
             ->get();
 
+        return view('frontend.layouts.partials.developer-list', compact('developers'))->render();
+    }
+    
+    public function ajaxIndex()
+    {
+        $developers = Developer::withCount('properties')
+            ->orderBy('name')
+            ->paginate(8); // page 1 automatically
+            
         return view('frontend.layouts.partials.developer-list', compact('developers'))->render();
     }
 }

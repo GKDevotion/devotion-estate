@@ -96,33 +96,44 @@
             }
         }
     </style>
-<script>
-    const searchInput = document.getElementById('developerSearch');
-    const resultsDiv = document.getElementById('developerResults');
-    const pagination = document.getElementById('paginationWrapper');
+    <script>
+        const searchInput = document.getElementById('developerSearch');
+        const resultsDiv = document.getElementById('developerResults');
+        const pagination = document.getElementById('paginationWrapper');
 
-    let debounceTimer;
+        let debounceTimer;
 
-    searchInput.addEventListener('keyup', function () {
-        clearTimeout(debounceTimer);
+        searchInput.addEventListener('keyup', function() {
+            clearTimeout(debounceTimer);
 
-        debounceTimer = setTimeout(() => {
-            let query = this.value;
+            debounceTimer = setTimeout(() => {
+                let query = this.value.trim();
 
-            // ✅ If input is empty OR only spaces
-            if (!query || query.trim() === '') {
-                pagination.style.display = 'block';
-                return; // 🚫 Stop search request
-            }
+                // ✅ INPUT EMPTY → LOAD DEFAULT PAGE 1 VIA AJAX
+                if (query === '') {
+                    fetch(`{{ route('developers.ajax') }}`)
+                        .then(res => res.text())
+                        .then(html => {
+                            resultsDiv.innerHTML = html;
+                            pagination.style.display = 'block';
+                        });
+                    return;
+                }
 
-            fetch(`{{ route('developers.search') }}?q=${encodeURIComponent(query.trim())}`)
-                .then(res => res.text())
-                .then(html => {
-                    resultsDiv.innerHTML = html;
-                    pagination.style.display = 'none';
-                });
-        }, 300);
-    });
-</script>
+                // 🔍 AJAX SEARCH
+                fetch(`{{ route('developers.search') }}?q=${encodeURIComponent(query)}`, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(res => res.text())
+                    .then(html => {
+                        resultsDiv.innerHTML = html;
+                        pagination.style.display = 'none';
+                    });
+
+            }, 300);
+        });
+    </script>
 
 @endsection

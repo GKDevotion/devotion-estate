@@ -93,12 +93,12 @@
 
                                             <div class="col-md-12 mb-2">
                                                 <div class="form-group">
-                                                    <label class="mb-0" for="sub_title">Sub Title</label>
-                                                    <input type="text" class="form-control" id="sub_title"
-                                                        name="sub_title" placeholder="sub_title"
-                                                        value="{{ $data->sub_title }}">
+                                                    <label class="mb-0" for="short_description">Short Description</label>
+                                                    <input type="text" class="form-control" id="short_description"
+                                                        name="short_description" placeholder="Developer Short Description"
+                                                        value="{{ $data->short_description }}">
                                                 </div>
-                                                @error('sub_title')
+                                                @error('short_description')
                                                     <div class="error text-error">{{ $message }}</div>
                                                 @enderror
                                             </div>

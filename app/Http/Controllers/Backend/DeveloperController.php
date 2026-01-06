@@ -190,7 +190,7 @@ class DeveloperController extends Controller
         $dataObj->name = $request->name;
         $dataObj->image = $imageName;
         $dataObj->description = $request->description;
-        $dataObj->sub_title = $request->sub_title;
+        $dataObj->short_description = $request->short_description;
         $dataObj->sort_order  = $request->sort_order;
         $dataObj->status = $request->status;
         $dataObj->save();
@@ -278,7 +278,7 @@ class DeveloperController extends Controller
         $dataObj = Developer::findOrFail($id);
         $dataObj->image = $imageName;
         $dataObj->name = $request->name;
-        $dataObj->sub_title = $request->sub_title;
+        $dataObj->short_description = $request->short_description;
         $dataObj->description = $request->description;
         $dataObj->sort_order  = $request->sort_order;
         $dataObj->status = $request->status;

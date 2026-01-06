@@ -106,6 +106,8 @@ Route::get('/property-management', function () {
 Route::get('hot-offer', [HotOfferController::class, 'index'])->name('hot-offer');
 Route::get('/developers', [DevelopersController::class, 'index'])->name('developers');
 Route::get('/developers/search', [DevelopersController::class, 'search'])->name('developers.search');
+Route::get('/developers/ajax', [DevelopersController::class, 'ajaxIndex']) ->name('developers.ajax');
+ 
 
 Route::get('/login', function () {
     return view('frontend.pages.login');

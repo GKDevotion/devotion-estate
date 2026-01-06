@@ -1795,6 +1795,7 @@ a:hover .bi-house-door::before {
     width: 260px;
     height: 160px;
     margin-top: 10px;
+    margin-bottom: 10px;
     border: 1px solid lightgray;
     background: #fff;
     border-radius: 14px;

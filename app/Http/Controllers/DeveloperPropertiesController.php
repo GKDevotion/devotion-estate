@@ -15,7 +15,7 @@ class DeveloperPropertiesController extends Controller
     {
         $developerId = $id;
 
-        $perPage = $request->get('perPage', 4);
+        $perPage = $request->get('perPage', 6);
 
         $properties = Properties::where('developer_id', $developerId)
             ->where('status', 1)

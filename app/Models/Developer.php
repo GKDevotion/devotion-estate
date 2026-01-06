@@ -10,7 +10,7 @@ class Developer extends Model
 {
     use HasFactory;
      protected $fillable = [
-         'name', 'image', 'sub_title', 'description', 'status','sort_order', 'created_at','updated_at'
+         'name', 'image', 'short_description', 'description', 'status','sort_order', 'created_at','updated_at'
     ];
 
     public static function boot()

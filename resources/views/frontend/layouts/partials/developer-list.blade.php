@@ -33,7 +33,7 @@
                                            {{-- <h5 class="fw-bold mb-2">{{ $dev->name }}</h5> --}}
                                        </a>
                                        <p class="text-muted mt-3">
-                                           {{ $dev->sub_title }}
+                                           {{ $dev->short_description }}
                                        </p>
                                    </div>
                                </div>
