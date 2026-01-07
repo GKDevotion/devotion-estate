@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\BrochuresController;
 use App\Http\Controllers\Backend\CitiesController;
 use App\Http\Controllers\Backend\ClientsController;
 use App\Http\Controllers\Backend\ConfigurationController;
+use App\Http\Controllers\Backend\ContactSellerController;
 use App\Http\Controllers\Backend\ContactUsController;
 use App\Http\Controllers\Backend\ContinentsController;
 use App\Http\Controllers\Backend\CountriesController;
@@ -152,6 +153,10 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('property-contact', 'Backend\PropertyContactController', ['names' => 'admin.property-contact']);
     Route::get('/property-contact-ajax-data', [PropertyContactController::class, 'ajaxIndex'])->name('property-contact.ajaxIndex');
+
+
+    Route::resource('contact-seller', 'Backend\ContactSellerController', ['names' => 'admin.contact-seller']);
+    Route::get('/contact-seller-ajax-data', [ContactSellerController::class, 'ajaxIndex'])->name('contact-seller.ajaxIndex');
 
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admin']);
 
