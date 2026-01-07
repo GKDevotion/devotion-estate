@@ -86,8 +86,7 @@ class PropertyContactController extends Controller
             ->addColumn('review', function (PropertyContact $ar) {
                 return $ar->review;
             })
-
-
+ 
             ->addColumn('is_read', function (PropertyContact $ar) {
                 $is_read = "";
 
