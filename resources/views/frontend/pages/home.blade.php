@@ -31,8 +31,9 @@
                 class="search-overlay position-absolute top-50 mt-5 start-50 translate-middle w-100 d-flex justify-content-center">
 
                 <div class="carousel-content text-center">
-                    <h1 class="carousel-title mb-2 fs-1">
-                        Find your dream home</h1>
+                    <h1 class="carousel-title mb-2 fs-1" style="color: #aa8038">
+                        Find your dream home
+                    </h1>
 
                     <!-- Buttons act as tab triggers -->
                     <div class="mb-3 role-list" role="tablist">
