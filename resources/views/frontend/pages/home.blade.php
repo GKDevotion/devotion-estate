@@ -20,7 +20,7 @@
                     </iframe> --}}
 
                     <video autoplay muted loop playsinline class="w-100 h-100 object-fit-cover">
-                        <source src="{{ url('public/frontend/assets/video/Inside-Riviera-Jumeirah.mp4') }}" type="video/mp4">
+                        <source src="{{ url('public/frontend/assets/video/Inside-Riviera-Jumeirah-720.mp4') }}" type="video/mp4">
                     </video>
                 </div>
 
