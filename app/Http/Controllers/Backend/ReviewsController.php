@@ -184,16 +184,18 @@ class ReviewsController extends Controller
 
         ]);
 
-        // Create New Server Record
-        $location = new Review();
-        $location->admin_id = $this->user->id;
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->contact_no = $request->contact_no;
-        $location->review = $request->review;
-        $location->rating = $request->rating;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = new Review();
+        // $location->admin_id = $this->user->id;
+        // $location->name = $request->name;
+        // $location->email = $request->email;
+        // $location->contact_no = $request->contact_no;
+        // $location->review = $request->review;
+        // $location->rating = $request->rating;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request);
 
         session()->flash('success', $request->name . ' record has been created !!');
         return redirect()->route('admin.reviews.index');
@@ -249,16 +251,18 @@ class ReviewsController extends Controller
             'rating' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = Review::find($id);
-        $location->admin_id = $this->user->id;
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->contact_no = $request->contact_no;
-        $location->review = $request->review;
-        $location->rating = $request->rating;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = Review::find($id);
+        // $location->admin_id = $this->user->id;
+        // $location->name = $request->name;
+        // $location->email = $request->email;
+        // $location->contact_no = $request->contact_no;
+        // $location->review = $request->review;
+        // $location->rating = $request->rating;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $request->name . ' record has been updated !!');
         return redirect()->route('admin.reviews.index');
@@ -284,5 +288,22 @@ class ReviewsController extends Controller
 
         // session()->flash('success', 'Record has been deleted !!');
         return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $location = $id ? Review::findOrFail($id) : new Review();
+
+        $location->admin_id = $this->user->id;
+        $location->name = $request->name;
+        $location->email = $request->email;
+        $location->contact_no = $request->contact_no;
+        $location->review = $request->review;
+        $location->rating = $request->rating;
+        $location->status = $request->status;
+        $location->save();
+
+        return $location;
     }
 }

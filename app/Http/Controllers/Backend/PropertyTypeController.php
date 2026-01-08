@@ -181,16 +181,18 @@ class PropertyTypeController extends Controller
             'sort_order' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = new PropertyType();
-        $location->admin_id = $this->user->id;
-        $location->main_type = $request->main_type;
-        $location->name = $request->name;
-        $location->description = $request->description;
-        $location->sort_order = $request->sort_order;
-        $location->slug = convertStringToSlug( $request->name );
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = new PropertyType();
+        // $location->admin_id = $this->user->id;
+        // $location->main_type = $request->main_type;
+        // $location->name = $request->name;
+        // $location->description = $request->description;
+        // $location->sort_order = $request->sort_order;
+        // $location->slug = convertStringToSlug( $request->name );
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData( $request );
 
         session()->flash('success', $request->name.' record has been created !!');
         return redirect()->route('admin.property-types.index');
@@ -246,16 +248,18 @@ class PropertyTypeController extends Controller
             'sort_order' => 'required',
         ]);
 
-        // Update Old Feature data
-        $location = PropertyType::findOrFail($id);
-        $location->admin_id = $this->user->id;
-        $location->main_type = $request->main_type;
-        $location->name = $request->name;
-        $location->description = $request->description;
-        $location->sort_order = $request->sort_order;
-        $location->slug = convertStringToSlug( $request->name );
-        $location->status = $request->status;
-        $location->save();
+        // // Update Old Feature data
+        // $location = PropertyType::findOrFail($id);
+        // $location->admin_id = $this->user->id;
+        // $location->main_type = $request->main_type;
+        // $location->name = $request->name;
+        // $location->description = $request->description;
+        // $location->sort_order = $request->sort_order;
+        // $location->slug = convertStringToSlug( $request->name );
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData( $request, $id );
 
         session()->flash('success', $request->name.' record has been updated !!');
         return redirect()->route('admin.property-types.index');
@@ -281,5 +285,22 @@ class PropertyTypeController extends Controller
 
         // session()->flash('success', 'Record has been deleted !!');
         return response()->json( ['data' => ['message' => "'".$record->name.'" has been successfully deleted.' ] ], 200);
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $location = $id ? PropertyType::findOrFail($id) : new PropertyType();
+
+        $location->admin_id = $this->user->id;
+        $location->main_type = $request->main_type;
+        $location->name = $request->name;
+        $location->description = $request->description;
+        $location->sort_order = $request->sort_order;
+        $location->slug = convertStringToSlug( $request->name );
+        $location->status = $request->status;
+        $location->save();
+
+        return $location;
     }
 }
