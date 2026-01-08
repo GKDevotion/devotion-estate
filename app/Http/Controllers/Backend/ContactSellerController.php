@@ -154,11 +154,11 @@ class ContactSellerController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                if ($this->user->can('property-contact.edit')) {
-                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.property-contact.edit', $ar->id) . '">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>';
-                }
+                // if ($this->user->can('property-contact.edit')) {
+                //     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.property-contact.edit', $ar->id) . '">
+                //             <i class="fa fa-pencil"></i> Edit
+                //         </a>';
+                // }
 
 
                 // if ($this->user->can('property-contact.delete')) {
@@ -239,18 +239,20 @@ class ContactSellerController extends Controller
             'property_name' => 'required'
         ]);
 
-        // Create New Server Record
-        $location = new PropertyContact();
-        $location->website_id = $request->website_id ?? 1;
-        $location->property_id = $request->property_id;
-        $location->property_name = $request->property_name;
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->mobile_number = $request->mobile_number;
-        $location->message = $request->message;
-        $location->is_read = $request->is_read;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = new PropertyContact();
+        // $location->website_id = $request->website_id ?? 1;
+        // $location->property_id = $request->property_id;
+        // $location->property_name = $request->property_name;
+        // $location->name = $request->name;
+        // $location->email = $request->email;
+        // $location->mobile_number = $request->mobile_number;
+        // $location->message = $request->message;
+        // $location->is_read = $request->is_read;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request);
 
         session()->flash('success', $request->name . ' record has been created !!');
         return redirect()->route('admin.property-contact.index');
@@ -305,15 +307,17 @@ class ContactSellerController extends Controller
             'message' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = PropertyContact::find($id);
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->mobile_number = $request->mobile_number;
-        $location->message = $request->message;
-        $location->is_read = $request->is_read;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = PropertyContact::find($id);
+        // $location->name = $request->name;
+        // $location->email = $request->email;
+        // $location->mobile_number = $request->mobile_number;
+        // $location->message = $request->message;
+        // $location->is_read = $request->is_read;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $request->name . ' record has been updated !!');
         return redirect()->route('admin.property-contact.index');
@@ -339,5 +343,25 @@ class ContactSellerController extends Controller
 
         // session()->flash('success', 'Record has been deleted !!');
         return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
+    }
+
+        public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $location = $id ? PropertyContact::findOrFail($id) : new PropertyContact();
+
+        
+        $location->website_id = $request->website_id ?? 1;
+        $location->property_id = $request->property_id;
+        $location->property_name = $request->property_name;
+        $location->name = $request->name;
+        $location->email = $request->email;
+        $location->mobile_number = $request->mobile_number;
+        $location->message = $request->message;
+        $location->is_read = $request->is_read;
+        $location->status = $request->status;
+        $location->save();
+
+        return $location;
     }
 }

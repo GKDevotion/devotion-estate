@@ -1,115 +1,175 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mortgage Calculator</title>
 
-    <div class="mx-auto p-4 p-md-5 bg-white shadow rounded-4">
-        <!-- Header -->
-        <div class="text-center mb-4">
-            <h2 class="fw-bold">Mortgage Calculator</h2>
-            <p class="text-muted">Unlock your home purchasing potential.</p>
+    <!-- Add favicon link -->
+    <link rel="icon" href="{{ url('public/frontend/assets/images/favicon.png') }}" type="image/x-icon">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+
+    <link href="{{ asset('public/frontend/css/custom.css') }}" rel="stylesheet">
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
+</head>
+
+<div class="mx-auto p-4 p-md-5 bg-white shadow rounded-4">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Find the Mortgage That Fits Your Financial Goals</h2>
+ 
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center gap-2 py-4">
+                <span class="text-muted small fw-medium" style="font-size: 20px;">
+                    Powered by
+                </span>
+
+                <img
+                    src="public\img\devotion-trusted-real-estate.png"
+                    alt="Mortgage Finder"
+                    style="height: 46px; width: auto;">
+            </div>
         </div>
 
-        <div class="row g-4">
-            <!-- Left -->
-            <div class="col-md-6">
+    </div>
 
-                <!-- Property Price -->
-                <div>
-                    <label class="form-label fw-semibold mt-3">Property Price</label>
+    <div class="row g-4">
+        <!-- Left -->
+        <div class="col-md-6">
 
-                    <input type="number" id="price" value="1675000" step="1000" min="100000"
-                        oninput="calculateMortgage()"
-                        class="form-control form-control-lg text-muted">
-                </div>
+            <!-- Property Price -->
+            <div>
+                <label class="form-label fw-semibold mt-3">Property Price</label>
 
-                <!-- Down Payment -->
-                <div>
-                    <label class="form-label fw-semibold mt-3">Down Payment</label>
-                    <div class="d-flex gap-2">
-                        <input type="number" id="downPayment" value="251250" step="100" min="0"
-                            oninput="updatePercentageAndCalculate()"
-                            class="form-control form-control-lg fw-semibold">
+                <input type="number" id="price" value="1675000" step="1000" min="100000"
+                    oninput="calculateMortgage()"
+                    class="form-control form-control-lg text-muted">
+            </div>
 
-                        <div class="position-relative" style="width: 35%;">
-                            <input type="number" id="downPaymentPercent" value="15" step="1" min="0" max="100"
-                                oninput="updateDownPaymentValueAndCalculate()"
-                                class="form-control form-control-lg fw-semibold text-end">
-                            <span class="position-absolute top-50 translate-middle-y end-0 me-3 text-muted">%</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- Down Payment -->
+            <div>
+                <label class="form-label fw-semibold mt-3">Down Payment</label>
+                <div class="d-flex gap-2">
+                    <input type="number" id="downPayment" value="251250" step="100" min="0"
+                        oninput="updatePercentageAndCalculate()"
+                        class="form-control form-control-lg fw-semibold">
 
-                <!-- Loan Term -->
-                <div>
-                    <label class="form-label fw-semibold mt-3">Loan Term</label>
-                    <div class="position-relative">
-                        <input type="number" id="loanTerm" value="25" min="5" max="30"
-                            oninput="calculateMortgage()"
-                            class="form-control form-control-lg fw-semibold text-start">
-                        <span class="position-absolute top-50 translate-middle-y end-0 me-3 text-muted">Years</span>
-                    </div>
-                </div>
-
-                <!-- Interest Rate -->
-                <div>
-                    <label class="form-label fw-semibold mt-3">Interest Rate</label>
-                    <div class="position-relative">
-                        <input type="number" id="interestRate" value="3.75" step="0.01" min="0"
-                            oninput="calculateMortgage()"
+                    <div class="position-relative" style="width: 35%;">
+                        <input type="number" id="downPaymentPercent" value="15" step="1" min="0" max="100"
+                            oninput="updateDownPaymentValueAndCalculate()"
                             class="form-control form-control-lg fw-semibold text-start">
                         <span class="position-absolute top-50 translate-middle-y end-0 me-3 text-muted">%</span>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Right -->
-            <div class="col-md-6">
-                <div class="p-3 bg-light rounded-4 shadow-sm h-100 d-flex flex-column">
-
-                    <!-- Monthly Payment -->
-                    <div class="text-center mb-4">
-                        <p class="text-uppercase small text-muted mb-1">Monthly Payment</p>
-                        <h2 id="monthlyPaymentDisplay" class="fw-bold">AED 7,320</h2>
-                    </div>
-
-                    <!-- Breakdown -->
-                    <div class="mb-4 small">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span><span class="badge me-2" style=" background-color: #e2b465ff;">&nbsp;</span> Principal</span>
-                            <strong id="principalDisplay">AED 1,423,750</strong>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-2">
-                            <span><span class="badge me-2" style=" background-color: #aa8038;">&nbsp;</span> Interest</span>
-                            <strong id="interestDisplay">AED 772,233</strong>
-                        </div>
-
-                        <div class="border-top pt-2 d-flex justify-content-between">
-                            <strong>Total Loan Amount</strong>
-                            <strong id="totalLoanAmountDisplay">AED 2,195,983</strong>
-                        </div>
-                    </div>
-
-                    <!-- Visualization Bar -->
-                    <div class="mb-3">
-                        <div class="d-flex rounded overflow-hidden" style="height: 14px;">
-                            <div id="principalBar" class="" style="width: 65%; background-color: #e2b465ff;"></div>
-                            <div id="interestBar" class="" style="width: 35%; background-color: #aa8038;"></div>
-                        </div>
-
-                        <div class="d-flex justify-content-between small text-muted mt-1">
-                            <span id="principalPercent">65%</span>
-                            <span id="interestPercent">35%</span>
-                        </div>
-                    </div>
-
-                    <p class="text-center small text-muted mt-2">
-                        Powered by <span class="fw-bold">Devotion</span>
-                    </p>
+            <!-- Loan Term -->
+            <div>
+                <label class="form-label fw-semibold mt-3">Loan Term</label>
+                <div class="position-relative">
+                    <input type="number" id="loanTerm" value="25" min="5" max="30"
+                        oninput="calculateMortgage()"
+                        class="form-control form-control-lg fw-semibold text-start">
+                    <span class="position-absolute top-50 translate-middle-y end-0 me-3 text-muted">Years</span>
                 </div>
+            </div>
+
+            <!-- Interest Rate -->
+            <div>
+                <label class="form-label fw-semibold mt-3">Interest Rate</label>
+                <div class="position-relative">
+                    <input type="number" id="interestRate" value="3.75" step="0.01" min="0"
+                        oninput="calculateMortgage()"
+                        class="form-control form-control-lg fw-semibold text-start">
+                    <span class="position-absolute top-50 translate-middle-y end-0 me-3 text-muted">%</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right -->
+        <div class="col-md-6">
+            <div class="p-3 bg-light rounded-4 shadow-sm h-100 d-flex flex-column">
+
+                <!-- Monthly Payment -->
+                <div class="text-center mb-4">
+                    <p class="text-uppercase small text-muted mb-1">Monthly Payment</p>
+                    <h2 id="monthlyPaymentDisplay" class="fw-bold">AED 7,320</h2>
+                </div>
+
+                <!-- Breakdown -->
+                <div class="mb-4 small">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span><span class="badge me-2" style=" background-color: #e2b465ff;">&nbsp;</span> Principal</span>
+                        <strong id="principalDisplay">AED 1,423,750</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span><span class="badge me-2" style=" background-color: #aa8038;">&nbsp;</span> Interest</span>
+                        <strong id="interestDisplay">AED 772,233</strong>
+                    </div>
+
+                    <div class="border-top pt-2 d-flex justify-content-between">
+                        <strong>Total Loan Amount</strong>
+                        <strong id="totalLoanAmountDisplay">AED 2,195,983</strong>
+                    </div>
+                </div>
+
+                <!-- Visualization Bar -->
+                <div class="mb-3">
+                    <div class="d-flex rounded overflow-hidden" style="height: 14px;">
+                        <div id="principalBar" class="" style="width: 65%; background-color: #e2b465ff;"></div>
+                        <div id="interestBar" class="" style="width: 35%; background-color: #aa8038;"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-between small text-muted mt-1">
+                        <span id="principalPercent">65%</span>
+                        <span id="interestPercent">35%</span>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="d-flex justify-content-center align-items-center gap-2 py-4">
+                        <span class="text-muted small fw-medium" style="font-size: 20px;">
+                            Powered by
+                        </span>
+
+                        <img
+                            src="public\img\devotion-trusted-real-estate.png"
+                            alt="Mortgage Finder"
+                            style="height: 46px; width: auto;">
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-
-
+</div>
 
 <script>
     // Helper function for formatting numbers to UAE style (e.g., 1,234,567)

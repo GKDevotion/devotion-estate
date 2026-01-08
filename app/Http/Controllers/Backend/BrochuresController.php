@@ -160,27 +160,29 @@ class BrochuresController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        $fileName = null;
+        // $fileName = null;
 
-        // ✅ Handle upload
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
+        // // ✅ Handle upload
+        // if ($request->hasFile('file')) {
+        //     $file = $request->file('file');
 
-            if ($file->isValid()) { // extra check
-                $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-                $file->storeAs('public/brochures', $fileName);
-            } else {
-                return back()->withErrors(['file' => 'The file failed to upload properly.']);
-            }
-        }
+        //     if ($file->isValid()) { // extra check
+        //         $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+        //         $file->storeAs('public/brochures', $fileName);
+        //     } else {
+        //         return back()->withErrors(['file' => 'The file failed to upload properly.']);
+        //     }
+        // }
 
-        // ✅ Save to database
-        $dataObj = new Brochures();
-        $dataObj->location = $request->location;
-        $dataObj->file = $fileName;
-        $dataObj->agent = $request->agent;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // ✅ Save to database
+        // $dataObj = new Brochures();
+        // $dataObj->location = $request->location;
+        // $dataObj->file = $fileName;
+        // $dataObj->agent = $request->agent;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $this->StoreUpdateData($request);
 
         session()->flash('success', 'Brochure record has been created successfully!');
         return redirect()->route('admin.brochures.index');
@@ -236,36 +238,38 @@ class BrochuresController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        // Find Record
-        $dataObj = Brochures::findOrFail($id);
+        // // Find Record
+        // $dataObj = Brochures::findOrFail($id);
 
-        $fileName = $dataObj->file; // keep old file
+        // $fileName = $dataObj->file; // keep old file
 
-        // Handle file upload if exists
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
+        // // Handle file upload if exists
+        // if ($request->hasFile('file')) {
+        //     $file = $request->file('file');
 
-            if ($file->isValid()) {
+        //     if ($file->isValid()) {
 
-                if ($dataObj->file && Storage::disk('public')->exists('brochures/' . $dataObj->file)) {
-                    Storage::disk('public')->delete('brochures/' . $dataObj->file);
-                }
+        //         if ($dataObj->file && Storage::disk('public')->exists('brochures/' . $dataObj->file)) {
+        //             Storage::disk('public')->delete('brochures/' . $dataObj->file);
+        //         }
 
 
-                // Upload new
-                $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-                $file->storeAs('public/brochures', $fileName);
-            } else {
-                return back()->withErrors(['file' => 'The file failed to upload properly.']);
-            }
-        }
+        //         // Upload new
+        //         $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+        //         $file->storeAs('public/brochures', $fileName);
+        //     } else {
+        //         return back()->withErrors(['file' => 'The file failed to upload properly.']);
+        //     }
+        // }
 
-        // Update database
-        $dataObj->location = $request->location;
-        $dataObj->file = $fileName;
-        $dataObj->agent = $request->agent;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Update database
+        // $dataObj->location = $request->location;
+        // $dataObj->file = $fileName;
+        // $dataObj->agent = $request->agent;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $this->StoreUpdateData($request, $id);
 
         session()->flash('success', 'Brochure updated successfully!');
         return redirect()->route('admin.brochures.index');
@@ -290,5 +294,47 @@ class BrochuresController extends Controller
         } else {
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Brochures::findOrFail($id) : new Brochures();
+
+        // ✅ Keep old file if updating
+        $fileName = $dataObj->file ?? null;
+
+        // ✅ Handle file upload
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            if ($file->isValid()) {
+
+                // ✅ Delete old file on update
+                if ($id && $dataObj->file && Storage::exists('public/brochures/' . $dataObj->file)) {
+                    Storage::delete('public/brochures/' . $dataObj->file);
+                }
+
+                // ✅ Unique file name
+                // $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $originalName.'.'.$extension;
+
+                $file->storeAs('public/brochures', $fileName);
+            } else {
+                return back()->withErrors(['file' => 'The file failed to upload properly.']);
+            }
+        }
+
+        // ✅ Save data (NO reinitialization)
+        $dataObj->location = $request->location;
+        $dataObj->file = $fileName;
+        $dataObj->agent = $request->agent;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+        return $dataObj;
     }
 }

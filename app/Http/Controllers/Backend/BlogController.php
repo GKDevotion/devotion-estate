@@ -180,21 +180,21 @@ class BlogController extends Controller
             'zipcode' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = new Blog();
-        $location->admin_id = $this->user->id;
-        $location->name = $request->name;
-        $location->display_name = $request->display_name;
-        $location->address = $request->address;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
-        $location->status = $request->status;
-        $location->save();
-
-        session()->flash('success', $request->display_name.' record has been created !!');
+        // // Create New Server Record
+        // $location = new Blog();
+        // $location->admin_id = $this->user->id;
+        // $location->name = $request->name;
+        // $location->display_name = $request->display_name;
+        // $location->address = $request->address;
+        // $location->continent_id = $request->continent_id;
+        // $location->country_id = $request->country_id;
+        // $location->state_id = $request->state_id;
+        // $location->city_id = $request->city_id;
+        // $location->zipcode = $request->zipcode;
+        // $location->status = $request->status;
+        // $location->save();
+        $location = $this->StoreUpdateData($request);
+        session()->flash('success', $location->display_name.' record has been created !!');
         return redirect()->route('admin.blogs.index');
     }
 
@@ -256,21 +256,23 @@ class BlogController extends Controller
             'zipcode' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = Blog::find( $id );
-        $location->admin_id = $this->user->id;
-        $location->name = $request->name;
-        $location->display_name = $request->display_name;
-        $location->address = $request->address;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = Blog::find( $id );
+        // $location->admin_id = $this->user->id;
+        // $location->name = $request->name;
+        // $location->display_name = $request->display_name;
+        // $location->address = $request->address;
+        // $location->continent_id = $request->continent_id;
+        // $location->country_id = $request->country_id;
+        // $location->state_id = $request->state_id;
+        // $location->city_id = $request->city_id;
+        // $location->zipcode = $request->zipcode;
+        // $location->status = $request->status;
+        // $location->save();
 
-        session()->flash('success', $request->display_name.' record has been updated !!');
+        $location = $this->StoreUpdateData($request, $id);
+
+        session()->flash('success', $location->display_name.' record has been updated !!');
         return redirect()->route('admin.blogs.index');
     }
 
@@ -295,4 +297,27 @@ class BlogController extends Controller
         // session()->flash('success', 'Record has been deleted !!');
         return response()->json( ['data' => ['message' => "'".$record->name.'" has been successfully deleted.' ] ], 200);
     }
+
+    
+    
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $location = $id ? Blog::findOrFail($id) : new Blog();
+
+        $location->admin_id = $this->user->id;
+        $location->name = $request->name;
+        $location->display_name = $request->display_name;
+        $location->address = $request->address;
+        $location->continent_id = $request->continent_id;
+        $location->country_id = $request->country_id;
+        $location->state_id = $request->state_id;
+        $location->city_id = $request->city_id;
+        $location->zipcode = $request->zipcode;
+        $location->status = $request->status;
+        $location->save(); 
+          
+        return $location;
+    }
+
 }

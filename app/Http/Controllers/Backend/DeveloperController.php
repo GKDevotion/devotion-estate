@@ -42,7 +42,7 @@ class DeveloperController extends Controller
     {
 
         $query = Developer::query();
-        $query->select('id','image', 'name', 'status', 'sort_order', 'created_at', 'updated_at');
+        $query->select('id', 'image', 'name', 'status', 'sort_order', 'created_at', 'updated_at');
 
         return DataTables::eloquent($query)
             ->addColumn('id', function (Developer $ar) {
@@ -62,7 +62,7 @@ class DeveloperController extends Controller
             ->addColumn('name', function (Developer $ar) {
                 return $ar->name; // Display the country name
             })
-              ->addColumn('sort_order', function (Developer $dt) {
+            ->addColumn('sort_order', function (Developer $dt) {
                 return $dt->sort_order; // Display the country name
             })
             ->addColumn('sub_title', function (Developer $ar) {
@@ -112,7 +112,7 @@ class DeveloperController extends Controller
 
                 return $action;
             })
-            ->rawColumns(['id','image', 'name', 'sort_order', 'status', 'created_at', 'updated_at', 'action'])  // Specify the columns that contain HTML
+            ->rawColumns(['id', 'image', 'name', 'sort_order', 'status', 'created_at', 'updated_at', 'action'])  // Specify the columns that contain HTML
             ->filter(function ($query) {
                 if (request()->has('search')) {
                     $searchValue = request('search')['value'];
@@ -162,39 +162,39 @@ class DeveloperController extends Controller
             'name' => 'required',
         ]);
 
-         $imageName = null;
+        //  $imageName = null;
 
-        if ($request->hasFile('image')) {
+        // if ($request->hasFile('image')) {
 
-            $file = $request->file('image');
+        //     $file = $request->file('image');
 
-            if ($file->isValid()) {
+        //     if ($file->isValid()) {
 
-                if (!Storage::exists('developer/')) {
-                    Storage::makeDirectory('developer/', 0777, true);
-                }
-                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = $file->getClientOriginalExtension();
-                $imageName = $originalName.'.'.$extension;
-              
-                $file->storeAs('developer/', $imageName);
-            } else {
-                return back()->withErrors(['image' => 'The image failed to upload properly.']);
-            }
-        }
+        //         if (!Storage::exists('developer/')) {
+        //             Storage::makeDirectory('developer/', 0777, true);
+        //         }
+        //         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        //         $extension = $file->getClientOriginalExtension();
+        //         $imageName = $originalName.'.'.$extension;
+
+        //         $file->storeAs('developer/', $imageName);
+        //     } else {
+        //         return back()->withErrors(['image' => 'The image failed to upload properly.']);
+        //     }
+        // }
 
 
 
-        // ✅ Save to database
-        $dataObj = new Developer();
-        $dataObj->name = $request->name;
-        $dataObj->image = $imageName;
-        $dataObj->description = $request->description;
-        $dataObj->short_description = $request->short_description;
-        $dataObj->sort_order  = $request->sort_order;
-        $dataObj->status = $request->status;
-        $dataObj->save();
-
+        // // ✅ Save to database
+        // $dataObj = new Developer();
+        // $dataObj->name = $request->name;
+        // $dataObj->image = $imageName;
+        // $dataObj->description = $request->description;
+        // $dataObj->short_description = $request->short_description;
+        // $dataObj->sort_order  = $request->sort_order;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+        $dataObj = $this->StoreUpdateData($request);
         session()->flash('success', $dataObj->name . ' record has been created successfully!');
         return redirect()->route('admin.developer.index');
     }
@@ -240,7 +240,7 @@ class DeveloperController extends Controller
         if (is_null($this->user) || !$this->user->can('developer.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit Banner !');
         }
-         // Create New Developer
+        // Create New Developer
         $developer = Developer::find($id);
 
         // Validate input
@@ -248,42 +248,42 @@ class DeveloperController extends Controller
             'name' => 'required',
         ]);
 
-        $imageName = $developer->image; // keep old image
+        // $imageName = $developer->image; // keep old image
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+        // if ($request->hasFile('image')) {
+        //     $file = $request->file('image');
 
-            if ($file->isValid()) {
+        //     if ($file->isValid()) {
 
-                // Make folder if missing
-                if (!Storage::exists('developer/')) {
-                    Storage::makeDirectory('developer/');
-                }
+        //         // Make folder if missing
+        //         if (!Storage::exists('developer/')) {
+        //             Storage::makeDirectory('developer/');
+        //         }
 
-                // Delete old image
-                if ($developer->image && Storage::exists('developer/' . $developer->image)) {
-                    Storage::delete('developer/' . $developer->image);
-                }
+        //         // Delete old image
+        //         if ($developer->image && Storage::exists('developer/' . $developer->image)) {
+        //             Storage::delete('developer/' . $developer->image);
+        //         }
 
-                // Upload new image
-                    $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                    $extension = $file->getClientOriginalExtension();
-                    $imageName = $originalName.'.'.$extension;
-            
-                $file->storeAs('developer/', $imageName);
-            }
-        }
+        //         // Upload new image
+        //             $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        //             $extension = $file->getClientOriginalExtension();
+        //             $imageName = $originalName.'.'.$extension;
 
-        // Fetch existing record
-        $dataObj = Developer::findOrFail($id);
-        $dataObj->image = $imageName;
-        $dataObj->name = $request->name;
-        $dataObj->short_description = $request->short_description;
-        $dataObj->description = $request->description;
-        $dataObj->sort_order  = $request->sort_order;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        //         $file->storeAs('developer/', $imageName);
+        //     }
+        // }
 
+        // // Fetch existing record
+        // $dataObj = Developer::findOrFail($id);
+        // $dataObj->image = $imageName;
+        // $dataObj->name = $request->name;
+        // $dataObj->short_description = $request->short_description;
+        // $dataObj->description = $request->description;
+        // $dataObj->sort_order  = $request->sort_order;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+        $dataObj = $this->StoreUpdateData($request, $id);
         session()->flash('success', $dataObj->name . ' record has been updated successfully!');
         return redirect()->route('admin.developer.index');
     }
@@ -309,4 +309,54 @@ class DeveloperController extends Controller
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }
     }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Developer::findOrFail($id) : new Developer();
+
+        // ✅ Keep old image by default
+        $imageName = $dataObj->image ?? null;
+
+        // ✅ Image upload
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+
+                // Delete old image on update
+                if ($id && $dataObj->image && Storage::exists('developer/' . $dataObj->image)) {
+                    Storage::delete('developer/' . $dataObj->image);
+                }
+
+                // Ensure directory exists
+                if (!Storage::exists('developer')) {
+                    Storage::makeDirectory('developer', 0777, true);
+                }
+
+                // ✅ Unique filename (important)
+                // $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $imageName = $originalName.'.'.$extension;
+
+                $file->storeAs('developer', $imageName);
+            } else {
+                return back()->withErrors(['image' => 'The image failed to upload properly.']);
+            }
+        }
+
+        // ✅ Save data (update OR insert)
+        $dataObj->name = $request->name;
+        $dataObj->image = $imageName;
+        $dataObj->description = $request->description;
+        $dataObj->short_description = $request->short_description;
+        $dataObj->sort_order = $request->sort_order;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+        return $dataObj;
+    }
+
 }

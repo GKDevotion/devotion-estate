@@ -146,11 +146,13 @@ class ConfigurationController extends Controller
             'value' => 'required',
         ]);
 
-        $dataObj = new Configuration();
-        $dataObj->display_name = $request->display_name;
-        $dataObj->key = $request->key;
-        $dataObj->value = $request->value;
-        $dataObj->save();
+        // $dataObj = new Configuration();
+        // $dataObj->display_name = $request->display_name;
+        // $dataObj->key = $request->key;
+        // $dataObj->value = $request->value;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request);
 
         session()->flash('success', $dataObj->key . ' has been created !!');
         return redirect()->route('admin.configurations.index');
@@ -194,11 +196,13 @@ class ConfigurationController extends Controller
             'value' => 'required',
         ]);
 
-        $dataObj = Configuration::find($id);
-        $dataObj->display_name = $request->display_name;
-        $dataObj->key = $request->key;
-        $dataObj->value = $request->value;
-        $dataObj->save();
+        // $dataObj = Configuration::find($id);
+        // $dataObj->display_name = $request->display_name;
+        // $dataObj->key = $request->key;
+        // $dataObj->value = $request->value;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $dataObj->key . ' has been updated !!');
         return redirect()->route('admin.configurations.index');
@@ -220,4 +224,19 @@ class ConfigurationController extends Controller
         // session()->flash('success', $dataObj->name.' menu has been deleted !!');
         return response()->json(['data' => ['message' => "'" . $dataObj->key . '" has been successfully deleted.']], 200);
     }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Configuration::findOrFail($id) : new Configuration();
+
+        
+        $dataObj->display_name = $request->display_name;
+        $dataObj->key = $request->key;
+        $dataObj->value = $request->value;
+        $dataObj->save();
+
+        return $dataObj;
+    }
+ 
 }
