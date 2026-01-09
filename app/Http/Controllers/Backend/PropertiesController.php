@@ -16,6 +16,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Yajra\DataTables\Facades\DataTables;
 
 class PropertiesController extends Controller
@@ -728,13 +730,131 @@ class PropertiesController extends Controller
      */
     public function imageOrderUpdate(Request $request)
     {
-        foreach ($request->image_id as $key => $imageId) {
-            PropertyImageMap::where('id', $imageId)->update([
-                'sort_order' => $request->sort_order[$key]
-            ]);
+        $request->validate([
+            'property_id' => 'required|integer'
+        ]);
+
+        $property_id = $request->property_id;
+ 
+        // Count existing images (excluding deleted ones)
+        $existingImagesCount = PropertyImageMap::where('property_id', $property_id)
+            ->where('status', 1) // assuming status 1 = active
+            ->whereNotIn('id', $request->delete_images ?? [])
+            ->count();
+
+        $maxImages = 5;
+        $uploadedCount = count($request->file('propertyImage') ?? []);
+
+        if ($existingImagesCount + $uploadedCount > $maxImages) {
+            return back()->withErrors([
+                'propertyImage' => "You can upload maximum " . ($maxImages - $existingImagesCount) . " more images."
+            ])->withInput();
         }
 
-        session()->flash('success', 'Record has been created !!');
+        /* ----------------------------------------
+     | 1️⃣ Update Sort Order
+     ---------------------------------------- */
+        if ($request->has('image_id') && $request->has('sort_order')) {
+            foreach ($request->image_id as $key => $imageId) {
+                if (isset($request->sort_order[$key])) {
+                    PropertyImageMap::where('id', $imageId)->update([
+                        'sort_order' => $request->sort_order[$key]
+                    ]);
+                }
+            }
+        }
+
+        /* ----------------------------------------
+     | 2️⃣ Handle Image Deletions
+     ---------------------------------------- */
+        if ($request->filled('delete_images')) {
+            foreach ($request->delete_images as $imageId) {
+                $imageMap = PropertyImageMap::find($imageId);
+
+                if ($imageMap) {
+                    $filePath = 'propertyImage/' . $imageMap->filename;
+
+                    if (Storage::exists($filePath)) {
+                        Storage::delete($filePath);
+                    }
+
+                    $imageMap->delete();
+                }
+            }
+        }
+
+        /* ----------------------------------------
+     | 3️⃣ Handle New Image Uploads
+     ---------------------------------------- */
+        if ($request->hasFile('propertyImage')) {
+
+            // ✅ Get last sort order once
+            // ✅ Get max sort_order safely
+            $lastSortOrder = PropertyImageMap::where('property_id', $property_id)
+                ->whereNotNull('sort_order')
+                ->max('sort_order');
+
+            $lastSortOrder = (int) ($lastSortOrder ?? 0);
+
+            foreach ($request->file('propertyImage') as $file) {
+
+                if (!$file || !$file->isValid()) {
+                    continue;
+                }
+
+                $ext = strtolower($file->getClientOriginalExtension());
+                if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                    continue;
+                }
+
+                // $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
+                //     . '_' . time() . '_' . uniqid() . '.jpg';
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $filename = $originalName . '.' . $extension;
+
+                $img = Image::make($file);
+
+                // Watermark text
+                $img->text('© DevotionEstate', $img->width() - 20, $img->height() - 20, function ($font) {
+                    $font->size(20);
+                    $font->color([255, 255, 255, 0.7]);
+                    $font->align('right');
+                    $font->valign('bottom');
+                });
+
+                // Logo watermark
+                $watermarkPath = public_path('img/devotion-trusted-real-estate.png');
+                if (is_file($watermarkPath)) {
+                    $watermark = Image::make($watermarkPath)
+                        ->resize(240, 60, function ($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        });
+
+                    // Insert resized watermark into main image
+                    $img->insert($watermark, 'bottom-right', 10, 3);
+                }
+
+
+                $path = 'propertyImage/' . $filename;
+                Storage::put($path, (string) $img->encode());
+
+                // 🔥 increment correctly
+                $lastSortOrder++;
+
+                PropertyImageMap::create([
+                    'property_id' => $property_id,
+                    'image'       => $filename,
+                    'filename'    => $filename,
+                    'sort_order'  => $lastSortOrder,
+                    'status'      => 1 
+                ]);
+            }
+        }
+
+
+        session()->flash('success', 'Property images updated successfully!');
         return redirect()->route('admin.properties.index');
     }
 

@@ -20,7 +20,11 @@ class PropertyImageMap extends Model
     protected $fillable = [
         'property_id',
         'filename',
-        'status',
+        'status' => 1,
+        'sort_order',
+        'created_at',
+        'updated_at',
+        'status'
     ];
 
     public static function boot()
