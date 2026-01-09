@@ -63,12 +63,15 @@ Route::prefix('admin')->group(function () {
     Route::resource('locations', 'Backend\LocationController', ['names' => 'admin.locations']);
     Route::get('/locations-ajax-data', [LocationController::class, 'ajaxIndex'])->name('locations.ajaxIndex');
 
-    Route::get('/property-features', [PropertyFeatureController::class, 'index'])->name('admin.property-features.index');
-    Route::get('/property-features/create', [PropertyFeatureController::class, 'create'])->name('admin.property-features.create');
-    Route::post('/property-features/store', [PropertyFeatureController::class, 'store'])->name('admin.property-features.store');
-    Route::get('/property-features/edit/{id}', [PropertyFeatureController::class, 'edit'])->name('admin.property-features.edit');
-    Route::post('/property-features/update', [PropertyFeatureController::class, 'update'])->name('admin.property-features.update');
-    Route::delete('/property-features/{id}', [PropertyFeatureController::class, 'destroy'])->name('admin.property-features.destroy');
+    // Route::get('/property-features', [PropertyFeatureController::class, 'index'])->name('admin.property-features.index');
+    // Route::get('/property-features/create', [PropertyFeatureController::class, 'create'])->name('admin.property-features.create');
+    // Route::post('/property-features/store', [PropertyFeatureController::class, 'store'])->name('admin.property-features.store');
+    // Route::get('/property-features/edit/{id}', [PropertyFeatureController::class, 'edit'])->name('admin.property-features.edit');
+    // Route::post('/property-features/update', [PropertyFeatureController::class, 'update'])->name('admin.property-features.update');
+    // Route::delete('/property-features/{id}', [PropertyFeatureController::class, 'destroy'])->name('admin.property-features.destroy');
+    // Route::get('/property-features-ajax-data', [PropertyFeatureController::class, 'ajaxIndex'])->name('property-features.ajaxIndex');
+
+    Route::resource('property-features', 'Backend\PropertyFeatureController', ['names' => 'admin.property-features']);
     Route::get('/property-features-ajax-data', [PropertyFeatureController::class, 'ajaxIndex'])->name('property-features.ajaxIndex');
 
     Route::resource('property-types', 'Backend\PropertyTypeController', ['names' => 'admin.property-types']);

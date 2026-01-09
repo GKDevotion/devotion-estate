@@ -113,7 +113,7 @@
             <span class="get-city-list-url d-none">{{ url('api/get-city-list') }}</span>
         </div>
     </div>
-
+{{-- 
     <!-- Payment Plan Modal -->
     <div class="modal fade" id="editpaymentPlanModal" tabindex="-1" aria-labelledby="paymentPlanModalLabel"
         aria-hidden="true">
@@ -190,5 +190,5 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection

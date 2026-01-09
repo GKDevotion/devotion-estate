@@ -118,11 +118,11 @@ class ContactUsController extends Controller
                     <div class="dropdown-menu" aria-labelledby="action_menu_' . $ar->id . '">
                     ';
 
-                if ($this->user->can('contact-us.edit')) {
-                    $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.contact-us.edit', $ar->id) . '">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>';
-                }
+                // if ($this->user->can('contact-us.edit')) {
+                //     $action .= '<a class="btn btn-edit text-white dropdown-item" href="' . route('admin.contact-us.edit', $ar->id) . '">
+                //             <i class="fa fa-pencil"></i> Edit
+                //         </a>';
+                // }
                 
                 if ($this->user->can('contact-us.delete')) {
                     $action .= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="' . $ar->id . '" data-title="' . $ar->name . '" data-segment="contact-us">
@@ -191,17 +191,19 @@ class ContactUsController extends Controller
             'message' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = new ContactUs();
-        $location->website_id = $request->website_id ?? 1;
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->mobile_number = $request->mobile_number;
-        $location->message = $request->message;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = new ContactUs();
+        // $location->website_id = $request->website_id ?? 1;
+        // $location->name = $request->name;
+        // $location->email = $request->email;
+        // $location->mobile_number = $request->mobile_number;
+        // $location->message = $request->message;
+        // $location->status = $request->status;
+        // $location->save();
 
-        session()->flash('success', $request->name . ' record has been created !!');
+        $location = $this->StoreUpdateData($request);
+
+        session()->flash('success', $location->name . ' record has been created !!');
         return redirect()->route('admin.contact-us.index');
     }
 
@@ -255,16 +257,18 @@ class ContactUsController extends Controller
             'message' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = ContactUs::find($id);
-        $location->name = $request->name;
-        $location->email = $request->email;
-        $location->mobile_number = $request->mobile_number;
-        $location->message = $request->message;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = ContactUs::find($id);
+        // $location->name = $request->name;
+        // $location->email = $request->email;
+        // $location->mobile_number = $request->mobile_number;
+        // $location->message = $request->message;
+        // $location->status = $request->status;
+        // $location->save();
 
-        session()->flash('success', $request->name . ' record has been updated !!');
+        $location = $this->StoreUpdateData($request, $id);
+
+        session()->flash('success', $location->name . ' record has been updated !!');
         return redirect()->route('admin.contact-us.index');
     }
 
@@ -288,5 +292,20 @@ class ContactUsController extends Controller
 
         // session()->flash('success', 'Record has been deleted !!');
         return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $location = $id ? ContactUs::findOrFail($id) : new ContactUs(); 
+        
+        $location->name = $request->name;
+        $location->email = $request->email;
+        $location->mobile_number = $request->mobile_number;
+        $location->message = $request->message;
+        $location->status = $request->status;
+        $location->save();
+
+        return $location;
     }
 }

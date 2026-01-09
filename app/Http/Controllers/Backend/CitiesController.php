@@ -100,7 +100,7 @@ class CitiesController extends Controller
                     }
 
                     if ($this->user->can('city.delete')) {
-                        $action.= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="'.$city->id.'" data-title="'.$city->name.'" data-segment="city">
+                        $action.= '<button class="btn btn-edit text-white delete-record dropdown-item" data-id="'.$city->id.'" data-title="'.$city->name.'" data-segment="cities">
                                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                                     </button>';
                     }
@@ -177,16 +177,18 @@ class CitiesController extends Controller
             'longitude' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = new City();
-        $dataObj->continent_id = $request->continent_id;
-        $dataObj->country_id  = $request->country_id ;
-        $dataObj->state_id  = $request->state_id ;
-        $dataObj->name = $request->name;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = new City();
+        // $dataObj->continent_id = $request->continent_id;
+        // $dataObj->country_id  = $request->country_id ;
+        // $dataObj->state_id  = $request->state_id ;
+        // $dataObj->name = $request->name;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request);
 
         session()->flash('success', $dataObj->name.' record has been created !!');
         return redirect()->route('admin.city.index');
@@ -245,16 +247,18 @@ class CitiesController extends Controller
             'longitude' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = City::find( $id );
-        $dataObj->continent_id = $request->continent_id;
-        $dataObj->country_id  = $request->country_id ;
-        $dataObj->state_id  = $request->state_id ;
-        $dataObj->name = $request->name;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = City::find( $id );
+        // $dataObj->continent_id = $request->continent_id;
+        // $dataObj->country_id  = $request->country_id ;
+        // $dataObj->state_id  = $request->state_id ;
+        // $dataObj->name = $request->name;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $dataObj->name.' records has been updated !!');
         return redirect()->route('admin.city.index');
@@ -279,5 +283,23 @@ class CitiesController extends Controller
         } else {
             return response()->json( ['data' => ['message' => 'Record already deleted.'] ], 200);
         }
+    }
+
+         public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? City::findOrFail($id) : new City();
+
+        $dataObj->continent_id = $request->continent_id;
+        $dataObj->country_id  = $request->country_id ;
+        $dataObj->state_id  = $request->state_id ;
+        $dataObj->name = $request->name;
+        $dataObj->latitude = $request->latitude;
+        $dataObj->longitude = $request->longitude;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+
+        return $dataObj;
     }
 }

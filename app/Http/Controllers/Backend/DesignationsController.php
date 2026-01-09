@@ -144,15 +144,16 @@ class DesignationsController extends Controller
             'name' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = new Designations();
-        $dataObj->name = $request->name;
-        $dataObj->admin_id = $this->user->id;
-        $dataObj->slug = convertStringToSlug( $request->name );
-        $dataObj->sort_order  = $request->sort_order;
-        $dataObj->status = $request->status;
-        $dataObj->save();
-
+        // // Create New Server Record
+        // $dataObj = new Designations();
+        // $dataObj->name = $request->name;
+        // $dataObj->admin_id = $this->user->id;
+        // $dataObj->slug = convertStringToSlug($request->name);
+        // $dataObj->sort_order  = $request->sort_order;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+        
+        $dataObj = $this->StoreUpdateData($request);
         session()->flash('success', $dataObj->name . ' record has been created !!');
         return redirect()->route('admin.designations.index');
     }
@@ -202,14 +203,15 @@ class DesignationsController extends Controller
             'name' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = Designations::find($id);
-        $dataObj->name = $request->name;
-        $dataObj->admin_id = $this->user->id;
-        $dataObj->slug = convertStringToSlug( $request->name );
-        $dataObj->sort_order  = $request->sort_order;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = Designations::find($id);
+        // $dataObj->name = $request->name;
+        // $dataObj->admin_id = $this->user->id;
+        // $dataObj->slug = convertStringToSlug($request->name);
+        // $dataObj->sort_order  = $request->sort_order;
+        // $dataObj->save();
 
+        $dataObj = $this->StoreUpdateData($request, $id);
         session()->flash('success', $dataObj->name . ' records has been updated !!');
         return redirect()->route('admin.designations.index');
     }
@@ -233,5 +235,20 @@ class DesignationsController extends Controller
         } else {
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Designations::findOrFail($id) : new Designations();
+
+        $dataObj->name = $request->name;
+        $dataObj->admin_id = $this->user->id;
+        $dataObj->slug = convertStringToSlug($request->name);
+        $dataObj->sort_order  = $request->sort_order;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+        return $dataObj;
     }
 }

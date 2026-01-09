@@ -103,7 +103,7 @@
                                 <div class="col-md-12 m-2">
                                     <div class="form-group">
                                         <label class="mb-0" for="name">Value <span class="text-error">*</span></label>
-                                        <input type="number" class="form-control" id="name" name="name"
+                                        <input type="text" class="form-control" id="name" name="name"
                                             placeholder="Enter value" step="any" min="0" required>
                                     </div>
                                     @error('name')

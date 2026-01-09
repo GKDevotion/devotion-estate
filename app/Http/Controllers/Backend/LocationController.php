@@ -180,19 +180,21 @@ class LocationController extends Controller
             'zipcode' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = new Location();
-        $location->admin_id = $this->user->id;
-        $location->name = $request->name;
-        $location->display_name = $request->display_name;
-        $location->address = $request->name;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = new Location();
+        // $location->admin_id = $this->user->id;
+        // $location->name = $request->name;
+        // $location->display_name = $request->display_name;
+        // $location->address = $request->name;
+        // $location->continent_id = $request->continent_id;
+        // $location->country_id = $request->country_id;
+        // $location->state_id = $request->state_id;
+        // $location->city_id = $request->city_id;
+        // $location->zipcode = $request->zipcode;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request);
 
         session()->flash('success', $request->display_name . ' record has been created !!');
         return redirect()->route('admin.locations.index');
@@ -256,19 +258,21 @@ class LocationController extends Controller
             'zipcode' => 'required',
         ]);
 
-        // Create New Server Record
-        $location = Location::find($id);
-        $location->admin_id = $this->user->id;
-        $location->name = $request->name;
-        $location->display_name = $request->display_name;
-        $location->address = $request->name;
-        $location->continent_id = $request->continent_id;
-        $location->country_id = $request->country_id;
-        $location->state_id = $request->state_id;
-        $location->city_id = $request->city_id;
-        $location->zipcode = $request->zipcode;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = Location::find($id);
+        // $location->admin_id = $this->user->id;
+        // $location->name = $request->name;
+        // $location->display_name = $request->display_name;
+        // $location->address = $request->name;
+        // $location->continent_id = $request->continent_id;
+        // $location->country_id = $request->country_id;
+        // $location->state_id = $request->state_id;
+        // $location->city_id = $request->city_id;
+        // $location->zipcode = $request->zipcode;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $request->display_name . ' record has been updated !!');
         return redirect()->route('admin.locations.index');
@@ -320,5 +324,25 @@ class LocationController extends Controller
         }
 
         return response()->json($formatted);
+    }
+
+     public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $location = $id ? Location::findOrFail($id) : new Location();
+ 
+        $location->admin_id = $this->user->id;
+        $location->name = $request->name;
+        $location->display_name = $request->display_name;
+        $location->address = $request->name;
+        $location->continent_id = $request->continent_id;
+        $location->country_id = $request->country_id;
+        $location->state_id = $request->state_id;
+        $location->city_id = $request->city_id;
+        $location->zipcode = $request->zipcode;
+        $location->status = $request->status;
+        $location->save();
+
+        return $location;
     }
 }

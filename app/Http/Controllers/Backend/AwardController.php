@@ -152,33 +152,36 @@ class AwardController extends Controller
         ]);
 
 
-        // ✅ Save to database
-        $dataObj = new Award();
-        $dataObj->name = $request->name;
-        $dataObj->sub_title = $request->sub_title;
-        $dataObj->status = $request->status;
+        // // ✅ Save to database
+        // $dataObj = new Award();
+        // $dataObj->name = $request->name;
+        // $dataObj->sub_title = $request->sub_title;
+        // $dataObj->status = $request->status;
 
-        // Handle Image Upload
-        if ($request->hasFile('image')) {
+        // // Handle Image Upload
+        // if ($request->hasFile('image')) {
 
-            // Create folder if not exists
-            if (!file_exists(storage_path('app/award'))) {
-                mkdir(storage_path('app/award'), 0777, true);
-            }
+        //     // Create folder if not exists
+        //     if (!file_exists(storage_path('app/award'))) {
+        //         mkdir(storage_path('app/award'), 0777, true);
+        //     }
 
-            $file = $request->file('image');
-            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        //     $file = $request->file('image');
+        //     $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-            // Save in storage/app/award
-            $file->storeAs('award', $fileName);
+        //     // Save in storage/app/award
+        //     $file->storeAs('award', $fileName);
 
-            // Save filename in DB
-            $dataObj->image = $fileName;
-        }
+        //     // Save filename in DB
+        //     $dataObj->image = $fileName;
+        // }
 
 
-        $dataObj->save();
+        // $dataObj->save();
+        $dataObj =  
+        $this->StoreUpdateData( $request ); 
 
+        
         session()->flash('success', $dataObj->name.' record has been created successfully!');
         return redirect()->route('admin.award.index');
     }
@@ -232,36 +235,39 @@ class AwardController extends Controller
         ]);
 
         // Fetch existing record
-        $dataObj = Award::findOrFail($id);
+        // $dataObj = Award::findOrFail($id);
 
-        $dataObj->name = $request->name;
-        $dataObj->sub_title = $request->sub_title;
-        $dataObj->status = $request->status;
+        // $dataObj->name = $request->name;
+        // $dataObj->sub_title = $request->sub_title;
+        // $dataObj->status = $request->status;
 
-        // Handle image update
-        if ($request->hasFile('image')) {
+        // // Handle image update
+        // if ($request->hasFile('image')) {
 
-            // Ensure folder exists
-            if (!file_exists(storage_path('app/award'))) {
-                mkdir(storage_path('app/award'), 0777, true);
-            }
+        //     // Ensure folder exists
+        //     if (!file_exists(storage_path('app/award'))) {
+        //         mkdir(storage_path('app/award'), 0777, true);
+        //     }
 
-            // Delete old image if exists
-            if (!empty($dataObj->image) && file_exists(storage_path('app/award/' . $dataObj->image))) {
-                unlink(storage_path('app/award/' . $dataObj->image));
-            }
+        //     // Delete old image if exists
+        //     if (!empty($dataObj->image) && file_exists(storage_path('app/award/' . $dataObj->image))) {
+        //         unlink(storage_path('app/award/' . $dataObj->image));
+        //     }
 
-            $file = $request->file('image');
-            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        //     $file = $request->file('image');
+        //     $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-            // Save new file
-            $file->storeAs('award', $fileName);
+        //     // Save new file
+        //     $file->storeAs('award', $fileName);
 
-            // Update DB with new file
-            $dataObj->image = $fileName;
-        }
+        //     // Update DB with new file
+        //     $dataObj->image = $fileName;
+        // }
 
-        $dataObj->save();
+        // $dataObj->save();
+
+        $dataObj =
+        $this->StoreUpdateData( $request, $id );
 
         session()->flash('success', $dataObj->name.' record has been updated successfully!');
         return redirect()->route('admin.award.index');
@@ -287,5 +293,56 @@ class AwardController extends Controller
         } else {
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }
+    }
+
+    /**
+     * 
+     */
+    public function StoreUpdateData( Request $request, int $id  = null){
+         // ✅ Save to database
+
+        if( $id ){
+            $dataObj = Award::findOrFail($id);
+        } else {
+            $dataObj = new Award();
+        }
+
+        $dataObj->name = $request->name;
+        $dataObj->sub_title = $request->sub_title;
+        $dataObj->status = $request->status;
+
+        // Handle Image Upload
+        if ($request->hasFile('image')) {
+
+            if( $id ){
+
+                 // Delete old image if exists
+                if (!empty($dataObj->image) && file_exists(storage_path('app/award/' . $dataObj->image))) {
+                    unlink(storage_path('app/award/' . $dataObj->image));
+                }
+            }
+
+            // Create folder if not exists
+            if (!file_exists(storage_path('app/award'))) {
+                mkdir(storage_path('app/award'), 0777, true);
+            }
+
+            $file = $request->file('image');
+            // $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $originalName.'.'.$extension;
+
+
+            // Save in storage/app/award
+            $file->storeAs('award', $fileName);
+
+            // Save filename in DB
+            $dataObj->image = $fileName;
+        }
+
+
+        $dataObj->save();
+        return $dataObj;
     }
 }

@@ -370,7 +370,7 @@ function getPropertiesByType($type = [1], $queryParam = null, $all = false)
       // If $all = true, do NOT limit results
     if (!$all) {
         $sliderPage = getConfigurationField('SLIDER_PER_PAGE');
-        $query = $query->take($sliderPage);
+        $query = $query->latest()->take($sliderPage);
     }
 
     // return $query->latest()

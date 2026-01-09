@@ -212,41 +212,43 @@ class AgentsController extends Controller
 
         ]);
 
-        $imageName = null;
+        // $imageName = null;
 
-        if ($request->hasFile('image')) {
+        // if ($request->hasFile('image')) {
 
-            $file = $request->file('image');
+        //     $file = $request->file('image');
 
-            if ($file->isValid()) {
+        //     if ($file->isValid()) {
 
-                if (!Storage::exists('agent/')) {
-                    Storage::makeDirectory('agent/', 0777, true);
-                }
+        //         if (!Storage::exists('agent/')) {
+        //             Storage::makeDirectory('agent/', 0777, true);
+        //         }
 
-                $imageName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-                $file->storeAs('agent/', $imageName);
-            } else {
-                return back()->withErrors(['image' => 'The image failed to upload properly.']);
-            }
-        }
+        //         $imageName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+        //         $file->storeAs('agent/', $imageName);
+        //     } else {
+        //         return back()->withErrors(['image' => 'The image failed to upload properly.']);
+        //     }
+        // }
 
-        // Create New User
-        $user = new User();
-        $user->login_by = $request->login_by;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->designation_id = $request->designation_id;
-        $user->admin_id = $this->user->id;
-        $user->email_id = $request->email_id;
-        $user->password = Hash::make($request->password);
-        $user->mobile_no = $request->mobile_no;
-        $user->login = $request->login;
-        $user->status = $request->status;
-        $user->type = $this->user_type;
+        // // Create New User
+        // $user = new User();
+        // $user->login_by = $request->login_by;
+        // $user->first_name = $request->first_name;
+        // $user->last_name = $request->last_name;
+        // $user->designation_id = $request->designation_id;
+        // $user->admin_id = $this->user->id;
+        // $user->email_id = $request->email_id;
+        // $user->password = Hash::make($request->password);
+        // $user->mobile_no = $request->mobile_no;
+        // $user->login = $request->login;
+        // $user->status = $request->status;
+        // $user->type = $this->user_type;
 
-        $user->image = $imageName;
-        $user->save();
+        // $user->image = $imageName;
+        // $user->save();
+
+//  already comment below
 
         // $userAddress = new Address();
         // $userAddress->admin_id  = $this->user->id;
@@ -260,6 +262,8 @@ class AgentsController extends Controller
         // $userAddress->address = $request->address;
         // $userAddress->person_type = $this->user_type;
         // $userAddress->save();
+
+        $user = $this->StoreUpdateData($request);
 
         session()->flash('success', $user->login_by . ' has been created !!');
         return redirect()->route('admin.agents.index');
@@ -322,45 +326,48 @@ class AgentsController extends Controller
         ]);
 
 
-        $imageName = $user->image; // keep old image
+        // $imageName = $user->image; // keep old image
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+        // if ($request->hasFile('image')) {
+        //     $file = $request->file('image');
 
-            if ($file->isValid()) {
+        //     if ($file->isValid()) {
 
-                // Make folder if missing
-                if (!Storage::exists('agent/')) {
-                    Storage::makeDirectory('agent/');
-                }
+        //         // Make folder if missing
+        //         if (!Storage::exists('agent/')) {
+        //             Storage::makeDirectory('agent/');
+        //         }
 
-                // Delete old image
-                if ($user->image && Storage::exists('agent/' . $user->image)) {
-                    Storage::delete('agent/' . $user->image);
-                }
+        //         // Delete old image
+        //         if ($user->image && Storage::exists('agent/' . $user->image)) {
+        //             Storage::delete('agent/' . $user->image);
+        //         }
 
-                // Upload new image
-                $imageName = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('agent/', $imageName);
-            }
-        }
+        //         // Upload new image
+        //         $imageName = time() . '_' . $file->getClientOriginalName();
+        //         $file->storeAs('agent/', $imageName);
+        //     }
+        // }
 
-        $user->login_by = $request->login_by;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->designation_id = $request->designation_id;
-        $user->admin_id = $this->user->id;
-        $user->email_id = $request->email_id;
-        $user->mobile_no = $request->mobile_no;
-        $user->login = $request->login;
-        $user->status = $request->status;
-        $user->type = $this->user_type;
+        // $user->login_by = $request->login_by;
+        // $user->first_name = $request->first_name;
+        // $user->last_name = $request->last_name;
+        // $user->designation_id = $request->designation_id;
+        // $user->admin_id = $this->user->id;
+        // $user->email_id = $request->email_id;
+        // $user->mobile_no = $request->mobile_no;
+        // $user->login = $request->login;
+        // $user->status = $request->status;
+        // $user->type = $this->user_type;
 
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
-        $user->image = $imageName;
-        $user->save();
+        // if ($request->password) {
+        //     $user->password = Hash::make($request->password);
+        // }
+        // $user->image = $imageName;
+        // $user->save();
+
+
+        // already comment below
 
         // $userAddress = Address::find($request->address_id);
         // $userAddress->admin_id  = $this->user->id;
@@ -376,6 +383,7 @@ class AgentsController extends Controller
         // $userAddress->save();
 
         // session()->flash('success', 'User has been updated !!');
+        $user = $this->StoreUpdateData($request, $id);
         session()->flash('success', $user->first_name . " " . $user->last_name . ' has been updated !!');
         return redirect()->route('admin.agents.index');
     }
@@ -405,5 +413,62 @@ class AgentsController extends Controller
 
         // session()->flash('success', 'User has been deleted !!');
         return response()->json(['data' => ['message' => "'" . $user->name . '" has been successfully deleted.']], 200);
+    }
+
+     public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $user = $id ? User::findOrFail($id) : new User();
+
+
+        
+        // ✅ Keep old image by default
+        $imageName = $user->image ?? null;
+
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+
+                if($id){
+                     // Delete old image
+                if ($user->image && Storage::exists('agent/' . $user->image)) {
+                    Storage::delete('agent/' . $user->image);
+                }
+                }
+ 
+                if (!Storage::exists('agent/')) {
+                    Storage::makeDirectory('agent/', 0777, true);
+                }
+
+                $imageName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->storeAs('agent/', $imageName);
+            } else {
+                return back()->withErrors(['image' => 'The image failed to upload properly.']);
+            }
+        }
+
+       
+        $user->login_by = $request->login_by;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->designation_id = $request->designation_id;
+        $user->admin_id = $this->user->id;
+        $user->email_id = $request->email_id;
+        $user->password = Hash::make($request->password);
+        $user->mobile_no = $request->mobile_no;
+        $user->login = $request->login;
+        $user->status = $request->status;
+        $user->type = $this->user_type;
+        if ($id && $request->password == null){
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        }
+        $user->image = $imageName;
+        $user->save();
+ 
+        return $user;
     }
 }

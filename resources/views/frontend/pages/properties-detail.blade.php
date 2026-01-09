@@ -105,7 +105,7 @@
                             <style>
                                 .property-carousel-img {
                                     height: 600px;
-                                    object-fit: cover;
+                                    object-fit: fill;
                                     /* keeps equal height & fills the box */
                                     object-position: center;
                                 }

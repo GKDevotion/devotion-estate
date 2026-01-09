@@ -5,7 +5,6 @@
 @endsection
 
 @section('styles')
-
 @endsection
 
 
@@ -46,27 +45,52 @@
             <div class="col-12">
                 <div class="card p-4">
                     <h3 class="pb-3">Properties Image History</h3>
-                    <form action="{{ route('admin.properties.imageOrder.update', $id) }}" method="POST">
+                    <form action="{{ route('admin.properties.imageOrder.update', $id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
+
+                        <input type="hidden" name="property_id" value="{{ $id }}">
+
                         <div class="row">
-                            @foreach($imageArr as $image)
-                                <div class="col-3 mb-3">
-                                    <div class="row">
-                                        <div class="col-12 p-3">
-                                            <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}" style="width: 250px; height: 150px">
-                                            <input type="hidden" name="image_id[]" value="{{ $image->id }}">
-                                        </div>
-                                        <div class="col-12 p-3">
-                                            <input type="number"
-                                                name="sort_order[]"
-                                                value="{{ $image->sort_order }}"
-                                                class="form-control"
-                                                min="1">
-                                        </div>
+                            @foreach ($imageArr as $image)
+                                <div class="col-3 mb-4 border rounded p-2 text-center">
+                                    <img src="{{ asset('storage/app/propertyImage/' . $image->filename) }}"
+                                        class="img-fluid mb-2" style="height:150px; width:100%; object-fit:cover;">
+
+                                    <input type="hidden" name="image_id[]" value="{{ $image->id }}">
+
+                                    <label>Sort Order</label>
+                                    <input type="number" name="sort_order[]" value="{{ $image->sort_order }}"
+                                        class="form-control mb-2" min="1">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="delete_images[]"
+                                            value="{{ $image->id }}" id="deleteImage{{ $image->id }}">
+                                        <label class="form-check-label text-danger" for="deleteImage{{ $image->id }}">
+                                            Delete Image
+                                        </label>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
+
+                        <hr>
+
+                        {{-- Upload New Images --}}
+                        <div class="mb-3">
+                            <label class="fw-bold mb-1">
+                                Upload New Images
+                                <small class="text-muted">(You can select up to 5)</small>
+                            </label>
+
+                            <input type="file" name="propertyImage[]" class="form-control dropify" multiple
+                                accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" id="propertyImage">
+
+                            @error('propertyImage.*')
+                                <small class="text-danger d-block mt-1">{{ $message }}</small>
+                            @enderror
+                        </div>
+
 
                         <div class="row mt-4">
                             <div class="col-md-12 text-center">
@@ -88,5 +112,35 @@
 @endsection
 
 @section('scripts')
+  <script>
+    // Initialize Dropify
+    var drEvent = $('.dropify').dropify();
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var existingImages = {{ $imageArr->count() }}; // current images count
+        var maxImages = 5;
+        var remaining = maxImages - existingImages; // how many can still be uploaded
+
+        var input = document.getElementById('propertyImage');
+
+        input.addEventListener('change', function () {
+            if (this.files.length > remaining) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: `You can upload only ${remaining} more image(s).`,
+                    text: 'Only the allowed number of images will be accepted.',
+                    confirmButtonColor: '#ab8134'
+                }).then(() => {
+                    // Clear selected files
+                    this.value = "";
+
+                    // Reset Dropify preview
+                    var dropifyInstance = drEvent.data('dropify');
+                    dropifyInstance.clearElement();
+                });
+            }
+        });
+    });
+</script>
 
 @endsection

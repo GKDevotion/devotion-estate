@@ -160,13 +160,15 @@ class ContinentsController extends Controller
             'name' => 'required|max:20',
         ]);
 
-        // Create New Server Record
-        $dataObj = new Continent();
-        $dataObj->name = $request->name;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = new Continent();
+        // $dataObj->name = $request->name;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
 
-        session()->flash('success', 'Record has been created !!');
+        $dataObj = $this->StoreUpdateData($request);
+
+        session()->flash('success', $dataObj->name . ' Record has been created !!');
         return redirect()->route('admin.continent.index');
     }
 
@@ -215,13 +217,15 @@ class ContinentsController extends Controller
             'name' => 'required|max:20',
         ]);
 
-        // Create New Server Record
-        $dataObj = Continent::find($id);
-        $dataObj->name = $request->name;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = Continent::find($id);
+        // $dataObj->name = $request->name;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
 
-        session()->flash('success', 'Records has been updated !!');
+        $dataObj = $this->StoreUpdateData($request, $id);
+
+        session()->flash('success', $dataObj->name . ' Records has been updated !!');
         return redirect()->route('admin.continent.index');
     }
 
@@ -244,5 +248,17 @@ class ContinentsController extends Controller
         } else {
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Continent::findOrFail($id) : new Continent(); 
+        
+        $dataObj->name = $request->name;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+        return $dataObj;
     }
 }

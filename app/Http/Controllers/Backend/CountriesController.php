@@ -208,25 +208,27 @@ class CountriesController extends Controller
             'longitude' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = new Country();
-        $dataObj->continent_id  = $request->continent_id;
-        $dataObj->name = $request->name;
-        $dataObj->iso3 = $request->iso3;
-        $dataObj->numeric_code = $request->numeric_code;
-        $dataObj->iso2 = $request->iso2;
-        $dataObj->phone_code  = $request->phone_code;
-        $dataObj->capital = $request->capital;
-        $dataObj->currency = $request->currency;
-        $dataObj->currency_name = $request->currency_name;
-        $dataObj->currency_symbol = $request->currency_symbol;
-        $dataObj->tld  = $request->tld;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = new Country();
+        // $dataObj->continent_id  = $request->continent_id;
+        // $dataObj->name = $request->name;
+        // $dataObj->iso3 = $request->iso3;
+        // $dataObj->numeric_code = $request->numeric_code;
+        // $dataObj->iso2 = $request->iso2;
+        // $dataObj->phone_code  = $request->phone_code;
+        // $dataObj->capital = $request->capital;
+        // $dataObj->currency = $request->currency;
+        // $dataObj->currency_name = $request->currency_name;
+        // $dataObj->currency_symbol = $request->currency_symbol;
+        // $dataObj->tld  = $request->tld;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
 
-        session()->flash('success', 'Record has been created !!');
+        $dataObj = $this->StoreUpdateData($request);
+
+        session()->flash('success', $dataObj->name . ' Record has been created !!');
         return redirect()->route('admin.country.index');
     }
 
@@ -288,25 +290,27 @@ class CountriesController extends Controller
             'longitude' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = Country::find($id);
-        $dataObj->continent_id  = $request->continent_id;
-        $dataObj->name = $request->name;
-        $dataObj->iso3 = $request->iso3;
-        $dataObj->numeric_code = $request->numeric_code;
-        $dataObj->iso2 = $request->iso2;
-        $dataObj->phone_code  = $request->phone_code;
-        $dataObj->capital = $request->capital;
-        $dataObj->currency = $request->currency;
-        $dataObj->currency_name = $request->currency_name;
-        $dataObj->currency_symbol = $request->currency_symbol;
-        $dataObj->tld  = $request->tld;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = Country::find($id);
+        // $dataObj->continent_id  = $request->continent_id;
+        // $dataObj->name = $request->name;
+        // $dataObj->iso3 = $request->iso3;
+        // $dataObj->numeric_code = $request->numeric_code;
+        // $dataObj->iso2 = $request->iso2;
+        // $dataObj->phone_code  = $request->phone_code;
+        // $dataObj->capital = $request->capital;
+        // $dataObj->currency = $request->currency;
+        // $dataObj->currency_name = $request->currency_name;
+        // $dataObj->currency_symbol = $request->currency_symbol;
+        // $dataObj->tld  = $request->tld;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
 
-        session()->flash('success', 'Records has been updated !!');
+        $dataObj = $this->StoreUpdateData($request, $id);
+
+        session()->flash('success', $dataObj->name . ' Records has been updated !!');
         return redirect()->route('admin.country.index');
     }
 
@@ -330,4 +334,29 @@ class CountriesController extends Controller
         // session()->flash('success', $record->name.' record has been deleted !!');
         return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
     }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Country::findOrFail($id) : new Country(); 
+        
+    
+        $dataObj->continent_id  = $request->continent_id;
+        $dataObj->name = $request->name;
+        $dataObj->iso3 = $request->iso3;
+        $dataObj->numeric_code = $request->numeric_code;
+        $dataObj->iso2 = $request->iso2;
+        $dataObj->phone_code  = $request->phone_code;
+        $dataObj->capital = $request->capital;
+        $dataObj->currency = $request->currency;
+        $dataObj->currency_name = $request->currency_name;
+        $dataObj->currency_symbol = $request->currency_symbol;
+        $dataObj->tld  = $request->tld;
+        $dataObj->latitude = $request->latitude;
+        $dataObj->longitude = $request->longitude;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+        return $dataObj;
+    }
+
 }
