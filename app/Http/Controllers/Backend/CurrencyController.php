@@ -237,13 +237,15 @@ class CurrencyController extends Controller
 
         ]);
 
-        // Create New Server Record
-        $dataObj = new Currency();
-        $dataObj->name = $request->name;
-        $dataObj->currency_code = $request->currency_code;
-        $dataObj->currency_value  = $request->currency_value;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = new Currency();
+        // $dataObj->name = $request->name;
+        // $dataObj->currency_code = $request->currency_code;
+        // $dataObj->currency_value  = $request->currency_value;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request);
 
         session()->flash('success', $dataObj->name . ' record has been created !!');
         return redirect()->route('admin.currency.index');
@@ -297,13 +299,15 @@ class CurrencyController extends Controller
 
         ]);
 
-        // Create New Server Record
-        $dataObj = Currency::find($id);
-        $dataObj->name = $request->name;
-        $dataObj->currency_code = $request->currency_code;
-        $dataObj->currency_value  = $request->currency_value;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = Currency::find($id);
+        // $dataObj->name = $request->name;
+        // $dataObj->currency_code = $request->currency_code;
+        // $dataObj->currency_value  = $request->currency_value;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $dataObj->name . ' records has been updated !!');
         return redirect()->route('admin.currency.index');
@@ -328,5 +332,19 @@ class CurrencyController extends Controller
         } else {
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }
+    }
+
+        public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Currency::findOrFail($id) : new Currency(); 
+        
+        $dataObj->name = $request->name;
+        $dataObj->currency_code = $request->currency_code;
+        $dataObj->currency_value  = $request->currency_value;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+        return $dataObj;
     }
 }

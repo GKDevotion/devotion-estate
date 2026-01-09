@@ -171,10 +171,12 @@ class PaymentPlanController extends Controller
         ]);
 
         // Create New Server Record
-        $location = new PaymentPlan();
-        $location->name = $request->name;
-        $location->status = $request->status;
-        $location->save();
+        // $location = new PaymentPlan();
+        // $location->name = $request->name;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request);
 
         session()->flash('success', $request->name . ' record has been created !!');
         return redirect()->route('admin.payment-plan.index');
@@ -232,11 +234,13 @@ class PaymentPlanController extends Controller
 
         ]);
 
-        // Create New Server Record
-        $location = PaymentPlan::find($id);
-        $location->name = $request->name;
-        $location->status = $request->status;
-        $location->save();
+        // // Create New Server Record
+        // $location = PaymentPlan::find($id);
+        // $location->name = $request->name;
+        // $location->status = $request->status;
+        // $location->save();
+
+        $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $request->display_name . ' record has been updated !!');
         return redirect()->route('admin.payment-plan.index');
@@ -262,5 +266,19 @@ class PaymentPlanController extends Controller
 
         // session()->flash('success', 'Record has been deleted !!');
         return response()->json(['data' => ['message' => "'" . $record->name . '" has been successfully deleted.']], 200);
+    }
+
+        public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $location = $id ? PaymentPlan::findOrFail($id) : new PaymentPlan(); 
+        
+ 
+        $location->name = $request->name;
+        $location->status = $request->status;
+        $location->save();
+
+
+        return $location;
     }
 }
