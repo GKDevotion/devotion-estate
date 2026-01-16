@@ -311,6 +311,7 @@ class LocationController extends Controller
 
 
         $locations = Location::where('name', 'LIKE', "%{$search}%")
+            ->where('status', 1)
             ->orderBy('name', 'asc')
             ->get();
 

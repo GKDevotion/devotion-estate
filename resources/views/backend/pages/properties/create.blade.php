@@ -976,26 +976,11 @@
 
             let row = `
             <tr>
-                <td>
-                    ${price}
-                    <input type="hidden" name="price[]" value="${price}">
-                </td>
-                <td>
-                    ${propertyType}
-                    <input type="hidden" name="property_type[]" value="${propertyType}">
-                </td>
-                <td>
-                    ${size}
-                    <input type="hidden" name="size[]" value="${size}">
-                </td>
-                <td>
-                    ${bed}
-                    <input type="hidden" name="bed[]" value="${bed}">
-                </td>
-                <td>
-                    ${bath}
-                    <input type="hidden" name="bath[]" value="${bath}">
-                </td>
+                <td><input type="text" name="price[]" value="${price}"></td>
+                <td><input type="text" name="property_type[]" value="${propertyType}"> </td>
+                <td><input type="text" name="size[]" value="${size}"></td>
+                <td><input type="text" name="bed[]" value="${bed}"></td>
+                <td> <input type="text" name="bath[]" value="${bath}"></td>
                 <td>
                     <button type="button" class="btn btn-sm btn-danger removeRow">
                         <i class="fa fa-trash"></i>

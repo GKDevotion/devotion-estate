@@ -983,34 +983,12 @@
                                                     ?>
                                                     @for ($i = 0; $i < max(count($prices), count($propertyTypes), count($sizes), count($beds), count($baths)); $i++)
                                                         <tr>
-                                                            <td>
-                                                                <span>{{ $prices[$i] ?? '' }}</span>
-                                                                <input type="hidden" name="price[]"
-                                                                    value="{{ $prices[$i] ?? '' }}">
-                                                            </td>
-                                                             <td>
-                                                                 <span>{{ $propertyTypes[$i] ?? '' }}</span>
-                                                                 <input type="hidden" name="property_type[]"
-                                                                     value="{{ $propertyTypes[$i] ?? '' }}">
-                                                             </td>
-                                                            <td>
-                                                                <span>{{ $sizes[$i] ?? '' }}</span>
-                                                                <input type="hidden" name="size[]"
-                                                                    value="{{ $sizes[$i] ?? '' }}">
-                                                            </td>
-                                                            <td>
-                                                                <span>{{ $beds[$i] ?? '' }}</span>
-                                                                <input type="hidden" name="bed[]"
-                                                                    value="{{ $beds[$i] ?? '' }}">
-                                                            </td>
-                                                            <td>
-                                                                <span>{{ $baths[$i] ?? '' }}</span>
-                                                                <input type="hidden" name="bath[]"
-                                                                    value="{{ $baths[$i] ?? '' }}">
-                                                            </td>
-                                                            <td>
-                                                                <i class="fa fa-times remove-item" style="cursor:pointer; color:#ab8134;"></i>
-                                                            </td>
+                                                            <td><input type="text" name="price[]" value="{{ $prices[$i] ?? '' }}"></td>
+                                                             <td><input type="text" name="property_type[]" value="{{ $propertyTypes[$i] ?? '' }}"></td>
+                                                            <td><input type="text" name="size[]" value="{{ $sizes[$i] ?? '' }}"></td>
+                                                            <td><input type="text" name="bed[]" value="{{ $beds[$i] ?? '' }}"></td>
+                                                            <td><input type="text" name="bath[]" value="{{ $baths[$i] ?? '' }}"></td>
+                                                            <td><i class="fa fa-trash-o remove-item" style="cursor:pointer; color:#ab8134; font-size: 60px;"></i></td>
                                                         </tr>
                                                     @endfor
                                                 @endif
