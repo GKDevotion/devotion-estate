@@ -15,6 +15,15 @@
         .child {
             text-align: left;
         }
+
+        .btn-variant-add {
+            padding: 10px;
+            font-size: 15px;
+            letter-spacing: 0px;
+            min-width: 50px;
+            margin: 2px;
+            border: none;
+        }
     </style>
 @endsection
 
@@ -56,7 +65,8 @@
 
                         <div class="data-tables">
                             @include('backend.layouts.partials.messages')
-                            <table id="properties_index" class="table table-bordered table-striped display responsive nowrap">
+                            <table id="properties_index"
+                                class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="properties" class="bg-light text-capitalize">
                                     <tr>
                                         <th>Sr</th>
@@ -70,7 +80,7 @@
                                         <th>Status</th>
                                         <th>Publish</th>
                                         <th>Address</th>
-                                        <th>View</th> 
+                                        <th>View</th>
                                         <th>New Property</th>
                                         <th>Feature Property</th>
                                         <th>Hot Property</th>
@@ -241,7 +251,8 @@
                             </div>
 
                             <div class="col-md-3">
-                                <input type="text" id="propertyTypeInput" class="form-control" placeholder="Property Type">
+                                <input type="text" id="propertyTypeInput" class="form-control"
+                                    placeholder="Property Type">
                             </div>
 
                             <div class="col-md-2">
@@ -253,14 +264,15 @@
                             <div class="col-md-2">
                                 <input type="text" id="bathInput" class="form-control" placeholder="Bath">
                             </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn w-100 text-white" id="addVariant"
+
+                            <div class="col-md-1">
+                                <button type="button" class="btn-variant-add text-white" id="addVariant"
                                     style="background:#ab8134">
-                                    <i class="fa fa-plus"></i> Add
+                                    <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-
+                         
                         <!-- Variant Table -->
                         <table class="table table-bordered">
                             <thead>
@@ -324,32 +336,105 @@
                             return meta.row + 1; // Auto-increment based on row index
                         }
                     },
-                    {  data: 'image',   name: 'image' },
-                    {  data: 'unique_id',  name: 'unique_id' },
-                    {  data: 'name',  name: 'name' },
-                    {  data: 'purpose',  name: 'purpose' },
-                    {  data: 'type',  name: 'type' },
-                    {  data: 'area',  name: 'area' },
-                    {  data: 'price',  name: 'price' },
-                    {  data: 'status',  name: 'status' },
-                    {  data: 'publish',   name: 'publish' },
-                    {  data: 'location_id',  name: 'location_id' },
-                    {  data: 'count',  name: 'count' }, 
-                    {  data: 'is_new_property',  name: 'is_new_property' },
-                    {  data: 'is_featured_property', name: 'is_featured_property' },
-                    {  data: 'is_hot_offer',  name: 'is_hot_offer' },
-                    {  data: 'is_hot_offer',  name: 'is_hot_offer' },
-                    {  data: 'updated_at',  name: 'updated_at' },
-                    {  data: 'action',  name: 'action', orderable: false, searchable: false },
+                    {
+                        data: 'image',
+                        name: 'image'
+                    },
+                    {
+                        data: 'unique_id',
+                        name: 'unique_id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'purpose',
+                        name: 'purpose'
+                    },
+                    {
+                        data: 'type',
+                        name: 'type'
+                    },
+                    {
+                        data: 'area',
+                        name: 'area'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'publish',
+                        name: 'publish'
+                    },
+                    {
+                        data: 'location_id',
+                        name: 'location_id'
+                    },
+                    {
+                        data: 'count',
+                        name: 'count'
+                    },
+                    {
+                        data: 'is_new_property',
+                        name: 'is_new_property'
+                    },
+                    {
+                        data: 'is_featured_property',
+                        name: 'is_featured_property'
+                    },
+                    {
+                        data: 'is_hot_offer',
+                        name: 'is_hot_offer'
+                    },
+                    {
+                        data: 'is_hot_offer',
+                        name: 'is_hot_offer'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
                 ],
-                columnDefs: [
-                    { responsivePriority: 1,  targets: 0 },
-                    { responsivePriority: 2,  targets: 1 },
-                    { responsivePriority: 3,  targets: 2 },
-                    { responsivePriority: 4,  targets: 3 },
-                    { responsivePriority: 5,  targets: 4 },
-                    { responsivePriority: 6,  targets: 5 },
-                    { responsivePriority: 10001,  targets: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] }
+                columnDefs: [{
+                        responsivePriority: 1,
+                        targets: 0
+                    },
+                    {
+                        responsivePriority: 2,
+                        targets: 1
+                    },
+                    {
+                        responsivePriority: 3,
+                        targets: 2
+                    },
+                    {
+                        responsivePriority: 4,
+                        targets: 3
+                    },
+                    {
+                        responsivePriority: 5,
+                        targets: 4
+                    },
+                    {
+                        responsivePriority: 6,
+                        targets: 5
+                    },
+                    {
+                        responsivePriority: 10001,
+                        targets: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+                    }
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
@@ -572,11 +657,11 @@
             for (let i = 0; i < max; i++) {
                 $('#variant-list').append(`
             <tr>
-                <td><span>${prices[i] ?? ''}</span><input type="hidden" name="price[]" value="${prices[i] ?? ''}"></td>
-                <td><span>${propertyTypes[i] ?? ''}</span><input type="hidden" name="property_type[]" value="${propertyTypes[i] ?? ''}"></td>
-                <td><span>${sizes[i] ?? ''}</span><input type="hidden" name="size[]" value="${sizes[i] ?? ''}"></td>
-                <td><span>${beds[i] ?? ''}</span><input type="hidden" name="bed[]" value="${beds[i] ?? ''}"></td>
-                <td><span>${baths[i] ?? ''}</span><input type="hidden" name="bath[]" value="${baths[i] ?? ''}"></td>
+                <td><input type="text"  class="form-control text-start" name="price[]" value="${prices[i] ?? ''}"></td>
+                <td><input type="text"  class="form-control text-start" name="property_type[]" value="${propertyTypes[i] ?? ''}"></td>
+                <td><input type="text"  class="form-control text-start" name="size[]" value="${sizes[i] ?? ''}"></td>
+                <td><input type="text"  class="form-control text-start" name="bed[]" value="${beds[i] ?? ''}"></td>
+                <td></span><input type="text"  class="form-control text-start" name="bath[]" value="${baths[i] ?? ''}"></td>
                 <td><button type="button" class="btn btn-sm btn-danger remove-item"><i class="fa fa-trash"></i></button></td>
             </tr>
         `);
