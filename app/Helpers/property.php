@@ -200,7 +200,7 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
 
                 //reset Property Feature Map status
                 PropertyImageMap::where('property_id', $property_id)->update(['status' => 0]);
-
+ 
                 foreach ($request->file('propertyImage') as $k=>$file) {
 
                     // Create unique filename
@@ -218,31 +218,71 @@ function storePropertyRecord($request, $admin_id, $property_id = 0, $sendRegiste
 
                     if( !$checkRecord ){// if not available then upload new data
                         // Open image
+                        // $img = Image::make($file->getRealPath());
+
+                        // // Add copyright watermark (icon or text)
+                        // // 1️⃣ Add copyright text
+                        // $img->text('©DevotionEstate', $img->width() - 10, $img->height() - 10, function ($font) {
+                        //     $font->file(public_path('backend/assets/fonts/themify.ttf')); // optional custom font
+                        //     $font->size(24);
+                        //     $font->color([255, 255, 255, 0.8]);
+                        //     $font->align('left');
+                        //     $font->valign('bottom');
+                        // });
+
+                        // // OR 2️⃣ Add watermark icon (replace with your logo path)
+
+                        // $watermark = public_path('img/devotion-trusted-real-estate.png'); // original watermark
+                        // if (file_exists($watermark)) {
+                        //     // Load and resize the watermark
+                        //     $watermarkImg = Image::make($watermark)->resize(240, 60, function ($constraint) {
+                        //         $constraint->aspectRatio();
+                        //         $constraint->upsize();
+                        //     });
+
+                        //     // Insert resized watermark into main image
+                        //     $img->insert($watermarkImg, 'bottom-right', 10, 3);
+                        // }
+                        
+
+                        //start new changed code
                         $img = Image::make($file->getRealPath());
 
-                        // Add copyright watermark (icon or text)
-                        // 1️⃣ Add copyright text
-                        $img->text('©DevotionEstate', $img->width() - 10, $img->height() - 10, function ($font) {
-                            $font->file(public_path('backend/assets/fonts/themify.ttf')); // optional custom font
-                            $font->size(24);
-                            $font->color([255, 255, 255, 0.8]);
-                            $font->align('left');
-                            $font->valign('bottom');
-                        });
+                        // Original dimensions
+                        $imgWidth  = $img->width();
+                        $imgHeight = $img->height();
 
-                        // OR 2️⃣ Add watermark icon (replace with your logo path)
+                        // Watermark path (USE LARGE PNG)
+                        $watermarkPath = public_path('img/devotion-trusted-real-estate.png');
 
-                        $watermark = public_path('img/devotion-trusted-real-estate.png'); // original watermark
-                        if (file_exists($watermark)) {
-                            // Load and resize the watermark
-                            $watermarkImg = Image::make($watermark)->resize(240, 60, function ($constraint) {
+                        if (file_exists($watermarkPath)) {
+
+                            $watermark = Image::make($watermarkPath);
+
+                            // 20% width watermark
+                            $watermarkWidth = (int) ($imgWidth * 0.20);
+
+                            // Resize WITHOUT quality loss
+                            $watermark->resize($watermarkWidth, null, function ($constraint) {
                                 $constraint->aspectRatio();
                                 $constraint->upsize();
                             });
 
-                            // Insert resized watermark into main image
-                            $img->insert($watermarkImg, 'bottom-right', 10, 3);
+                            // Slight sharpen (important!)
+                            $watermark->sharpen(5);
+
+                            // Margin
+                            $margin = (int) ($imgWidth * 0.015);
+
+                            // Insert watermark
+                            $img->insert($watermark, 'bottom-right', $margin, $margin);
+
+                            // end changed code
+                            
                         }
+
+                        // 🔥 Encode image in HIGH QUALITY
+                        $img->encode('jpg', 95); // VERY IMPORTANT
 
                         // Save to storage
                         $path = 'propertyImage/' . $filename;

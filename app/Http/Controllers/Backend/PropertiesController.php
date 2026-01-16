@@ -812,28 +812,70 @@ class PropertiesController extends Controller
                 $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $file->getClientOriginalExtension();
                 $filename = $originalName . '.' . $extension;
+                //cross check image record exist or not
+                    $checkRecord = PropertyImageMap::where( [
+                        'property_id' => $property_id,
+                        'filename' => $filename
+                    ] )
+                    ->first();
 
-                $img = Image::make($file);
+                    if( !$checkRecord ){
 
-                // Watermark text
-                $img->text('© DevotionEstate', $img->width() - 20, $img->height() - 20, function ($font) {
-                    $font->size(20);
-                    $font->color([255, 255, 255, 0.7]);
-                    $font->align('right');
-                    $font->valign('bottom');
-                });
+                // $img = Image::make($file);
 
-                // Logo watermark
-                $watermarkPath = public_path('img/devotion-trusted-real-estate.png');
-                if (is_file($watermarkPath)) {
-                    $watermark = Image::make($watermarkPath)
-                        ->resize(240, 60, function ($constraint) {
-                            $constraint->aspectRatio();
-                            $constraint->upsize();
-                        });
+                // // Watermark text
+                // $img->text('© DevotionEstate', $img->width() - 20, $img->height() - 20, function ($font) {
+                //     $font->size(20);
+                //     $font->color([255, 255, 255, 0.7]);
+                //     $font->align('right');
+                //     $font->valign('bottom');
+                // });
 
-                    // Insert resized watermark into main image
-                    $img->insert($watermark, 'bottom-right', 10, 3);
+                // // Logo watermark
+                // $watermarkPath = public_path('img/devotion-trusted-real-estate.png');
+                // if (is_file($watermarkPath)) {
+                //     $watermark = Image::make($watermarkPath)
+                //         ->resize(240, 60, function ($constraint) {
+                //             $constraint->aspectRatio();
+                //             $constraint->upsize();
+                //         });
+
+                //     // Insert resized watermark into main image
+                //     $img->insert($watermark, 'bottom-right', 10, 3);
+                        $img = Image::make($file->getRealPath());
+
+                        // Original dimensions
+                        $imgWidth  = $img->width();
+                        $imgHeight = $img->height();
+
+                        // Watermark path (USE LARGE PNG)
+                        $watermarkPath = public_path('img/devotion-trusted-real-estate.png');
+
+                        if (file_exists($watermarkPath)) {
+
+                            $watermark = Image::make($watermarkPath);
+
+                            // 20% width watermark
+                            $watermarkWidth = (int) ($imgWidth * 0.20);
+
+                            // Resize WITHOUT quality loss
+                            $watermark->resize($watermarkWidth, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                                $constraint->upsize();
+                            });
+
+                            // Slight sharpen (important!)
+                            $watermark->sharpen(5);
+
+                            // Margin
+                            $margin = (int) ($imgWidth * 0.015);
+
+                            // Insert watermark
+                            $img->insert($watermark, 'bottom-right', $margin, $margin);
+                        }
+
+                        // 🔥 Encode image in HIGH QUALITY
+                        $img->encode('jpg', 95); // VERY IMPORTANT
                 }
 
 
@@ -852,7 +894,7 @@ class PropertiesController extends Controller
                 ]);
             }
         }
-
+   
 
         session()->flash('success', 'Property images updated successfully!');
         return redirect()->route('admin.properties.index');
