@@ -122,7 +122,7 @@
                                     @endif
                                     @if ($p->type == 2) 
                                             <i class="bi bi-bookmark me-1"></i>
-                                            <span class="small">Sub Type : {{ $p->subType->name }}</span> 
+                                            <span class="small">{{ $p->subType->name }}</span> 
                                     @endif
                                     <i class="bi bi-rulers me-1 ms-2"></i>
                                     Area: {{ $p->area }} Sq.Ft.

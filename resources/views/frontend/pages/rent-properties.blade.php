@@ -105,7 +105,7 @@
                                                   
                                                         <div class="mb-2">
                                                             <i class="bi bi-bookmark me-1"></i>
-                                                            <span class="small">Sub Type : {{ $p->subType->name }}</span>
+                                                            <span class="small">{{ $p->subType->name }}</span>
                                                         </div>
                                                        
                                                     @endif
