@@ -96,11 +96,22 @@
                                                         </div>
                                                     @endif
 
+                                                    @if ($p->type == 2)
+                                               
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-bookmark me-1"></i>
+                                                            <span class="small">Sub Type : {{ $p->subType->name }}</span>
+                                                        </div>
+                                                       
+                                                    @endif
 
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-bucket me-1"></i>
-                                                        <span class="small">Baths : {{ $p->baths }}</span>
-                                                    </div>
+                                                    @if ($p->type != 2)
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-bucket me-1"></i>
+                                                            <span class="small">Baths : {{ $p->baths }}</span>
+                                                        </div>
+                                                    @endif
+
                                                     <div class="mb-2">
                                                         <i class="bi bi-rulers me-1"></i>
                                                         <span class="small">Area : {{ $p->area }} Sq.Ft.</span>

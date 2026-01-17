@@ -29,18 +29,18 @@
                     </h4>
                 </div>
 
-               <!-- Body -->
-            <div class="card-body px-4 py-4">
-                @if(!empty($developerObj['description']))
-                    <div class="text-muted lh-lg">
-                        {!! $developerObj['description'] !!}
-                    </div>
-                @else
-                    <div class="text-muted fst-italic">
-                        Description will be updated soon.
-                    </div>
-                @endif
-            </div>
+                <!-- Body -->
+                <div class="card-body px-4 py-4">
+                    @if (!empty($developerObj['description']))
+                        <div class="text-muted lh-lg">
+                            {!! $developerObj['description'] !!}
+                        </div>
+                    @else
+                        <div class="text-muted fst-italic">
+                            Description will be updated soon.
+                        </div>
+                    @endif
+                </div>
 
             </div>
         </div>
@@ -113,11 +113,17 @@
                                 <!-- Property Details -->
                                 <p class="card-text small mb-0">
                                     @if ($p->type != 2)
-                                    <i class="bi bi-door-closed me-1"></i>
-                                    Beds: {{ $p->beds == 0 ? 'Studio' : $p->beds }}
+                                        <i class="bi bi-door-closed me-1"></i>
+                                        Beds: {{ $p->beds == 0 ? 'Studio' : $p->beds }}
                                     @endif
-                                    <i class="bi bi-bucket me-1"></i>
-                                    Baths: {{ $p->baths }}
+                                    @if ($p->type != 2)
+                                        <i class="bi bi-bucket me-1"></i>
+                                        Baths: {{ $p->baths }}
+                                    @endif
+                                    @if ($p->type == 2) 
+                                            <i class="bi bi-bookmark me-1"></i>
+                                            <span class="small">Sub Type : {{ $p->subType->name }}</span> 
+                                    @endif
                                     <i class="bi bi-rulers me-1 ms-2"></i>
                                     Area: {{ $p->area }} Sq.Ft.
                                 </p>

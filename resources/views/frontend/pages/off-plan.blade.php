@@ -11,7 +11,7 @@
 
     <div class="container my-5">
 
-@include('frontend.layouts.partials.property-search', ['type' => 'off'])
+        @include('frontend.layouts.partials.property-search', ['type' => 'off'])
 
         <!-- Header -->
         <div class="row align-items-center mb-3">
@@ -41,8 +41,7 @@
         <div class="row">
             @forelse($properties as $p)
                 <div class="col-md-12 mb-4">
-                    <a href="{{ route('property.detail', $p->slug)  }}"
-                        class="text-decoration-none text-dark">
+                    <a href="{{ route('property.detail', $p->slug) }}" class="text-decoration-none text-dark">
 
                         <div class="card p-3 shadow-sm border-0 h-100">
                             <div class="row g-0">
@@ -75,19 +74,28 @@
 
 
                                                 <div class="d-flex flex-column align-items-start">
-                                                    
+
                                                     @if ($p->type != 2)
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-door-closed me-1"></i>
-                                                        <span class="small">Beds : {{ $p->beds == 0 ? 'Studio' : $p->beds }}</span>
-                                                    </div>
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-door-closed me-1"></i>
+                                                            <span class="small">Beds :
+                                                                {{ $p->beds == 0 ? 'Studio' : $p->beds }}</span>
+                                                        </div>
                                                     @endif
 
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-bucket me-1"></i>
-                                                        <span class="small">Baths : {{ $p->baths }}</span>
-                                                    </div>
+                                                    @if ($p->type != 2)
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-bucket me-1"></i>
+                                                            <span class="small">Baths : {{ $p->baths }}</span>
+                                                        </div>
+                                                    @endif
 
+                                                    @if ($p->type == 2)
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-bookmark me-1"></i>
+                                                            <span class="small">Sub Type : {{ $p->subType->name }}</span>
+                                                        </div>
+                                                    @endif
 
                                                     <div class="mb-2">
                                                         <i class="bi bi-rulers me-1"></i>
