@@ -603,9 +603,9 @@
                     additional_features: features,
                     building_name: building
                 },
-                beforeSend: function() {
-                    $('#saveInformation').prop('disabled', true).text('Saving...');
-                },
+                // beforeSend: function() {
+                //     $('#saveInformation').prop('disabled', true).text('Saving...');
+                // },
                 success: function(res) {
                     // Hide modal
                     const modalEl = document.getElementById('informationModal');

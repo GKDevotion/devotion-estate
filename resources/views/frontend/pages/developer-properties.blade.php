@@ -112,9 +112,11 @@
 
                                 <!-- Property Details -->
                                 <p class="card-text small mb-0">
+                                    @if ($p->type != 2)
                                     <i class="bi bi-door-closed me-1"></i>
                                     Beds: {{ $p->beds == 0 ? 'Studio' : $p->beds }}
-                                    <i class="bi bi-bucket me-1 ms-2"></i>
+                                    @endif
+                                    <i class="bi bi-bucket me-1"></i>
                                     Baths: {{ $p->baths }}
                                     <i class="bi bi-rulers me-1 ms-2"></i>
                                     Area: {{ $p->area }} Sq.Ft.

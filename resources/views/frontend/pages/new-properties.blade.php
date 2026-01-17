@@ -87,10 +87,13 @@
 
 
                                                 <div class="d-flex flex-column align-items-start">
+
+                                                    @if ($p->type != 2)
                                                     <div class="mb-2">
                                                         <i class="bi bi-door-closed me-1"></i>
                                                         <span class="small">Beds : {{ $p->beds == 0 ? 'Studio' : $p->beds }}</span>
                                                     </div>
+                                                    @endif
 
                                                     <div class="mb-2">
                                                         <i class="bi bi-bucket me-1"></i>
