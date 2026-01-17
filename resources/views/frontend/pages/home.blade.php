@@ -629,10 +629,20 @@
 
                                                         <!-- DETAILS -->
                                                         <p class="card-text small mb-0">
-                                                            <i class="bi bi-door-closed me-1"></i>
-                                                            Beds: {{ $property->beds == 0 ? 'Studio' : $property->beds }}
-                                                            <i class="bi bi-bucket me-1 ms-2"></i>
-                                                            Baths: {{ $property->baths }}
+                                                            @if ($property->type != 2)
+                                                                <i class="bi bi-door-closed me-1"></i>
+                                                                Beds:
+                                                                {{ $property->beds == 0 ? 'Studio' : $property->beds }}
+                                                            @endif
+                                                            @if ($property->type != 2)
+                                                                <i class="bi bi-bucket me-1 "></i>
+                                                                Baths: {{ $property->baths }}
+                                                            @endif
+                                                            @if ($property->type == 2)
+                                                                <i class="bi bi-bookmark me-1"></i>
+                                                                <span class="small">Sub Type :
+                                                                    {{ $property->subType->name }}</span>
+                                                            @endif
                                                             <i class="bi bi-rulers me-1 ms-2"></i>
                                                             Area: {{ $property->area }} Sq.Ft.
                                                         </p>
@@ -730,14 +740,23 @@
                                                             {{ ucfirst($propertysale->location->name ?? 'N/A') }}
                                                         </p>
                                                         <p class="card-text small mt-0">
+                                                            @if ($propertysale->type != 2)
                                                             <i class="bi bi-door-closed me-1"></i>
                                                             Beds:
                                                             {{ $propertysale->beds == 0 ? 'Studio' : $propertysale->beds }}
+                                                            @endif
+                                                            @if ($propertysale->type != 2)
                                                             <i class="bi bi-bucket me-2"></i>
                                                             Baths: {{ $propertysale->baths }}
+                                                            @endif
                                                             {{-- </p>
                                                         <p class="card-text small"> --}}
-                                                            <i class="bi bi-rulers me-2"></i>
+                                                             @if ($propertysale->type == 2)
+                                                                <i class="bi bi-bookmark me-1"></i>
+                                                                <span class="small">Sub Type :
+                                                                    {{ $propertysale->subType->name }}</span>
+                                                            @endif
+                                                            <i class="bi bi-rulers me-2 ms-2"></i>
                                                             Area: {{ $propertysale->area }} Sq.Ft.
                                                             {{-- </p> --}}
 

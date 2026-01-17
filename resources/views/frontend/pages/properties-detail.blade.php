@@ -91,8 +91,8 @@
     <div class="container my-5 pt-5">
 
         <!-- =======================
-                     IMAGE GALLERY
-                ======================== -->
+                         IMAGE GALLERY
+                    ======================== -->
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
@@ -149,8 +149,8 @@
         </div>
 
         <!-- =======================
-                CONTENT ROW (DETAILS + CONTACT)
-                ======================== -->
+                    CONTENT ROW (DETAILS + CONTACT)
+                    ======================== -->
         <div class="row g-4">
 
             <!-- LEFT SIDE: Property Details -->
@@ -167,17 +167,18 @@
                         <div class="d-flex align-items-center">
 
                             @if ($property->type != 2)
-                            <span class="me-3">
-                                <i class="bi bi-door-closed me-1"></i>
-                                {{ $property->beds == 0 ? 'Studio' : $property->beds }} beds
-                            </span>
+                                <span class="me-3">
+                                    <i class="bi bi-door-closed me-1"></i>
+                                    {{ $property->beds == 0 ? 'Studio' : $property->beds }} beds
+                                </span>
                             @endif
 
-                            @if ($property->baths > 0)
+                            @if ($property->baths > 0 && $property->type != 2)
                                 <span class="me-3">
                                     <i class="bi bi-bucket me-1"></i> {{ $property->baths }} baths
                                 </span>
                             @endif
+
                             <span class="me-3"><i class="bi bi-rulers me-1"></i> {{ $property->area }} Sq.Ft.</span>
                         </div>
 
@@ -458,7 +459,7 @@
                             }
 
                             /*
-                                                            Inactive bullets */
+                                                                Inactive bullets */
                             .relatedSwiperRight .swiper-pagination-bullet {
                                 background-color: #d6c29a;
                                 /* light gold */

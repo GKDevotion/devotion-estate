@@ -10,23 +10,23 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-            
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-        
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
         <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
     </head>
 
 
-     <div class="container my-5">
+    <div class="container my-5">
 
-   @include('frontend.layouts.partials.property-search', ['type' => 'hot'])
+        @include('frontend.layouts.partials.property-search', ['type' => 'hot'])
 
-    <!-- Header -->
+        <!-- Header -->
 
-     <div class="row align-items-center mb-3">
+        <div class="row align-items-center mb-3">
             <div class="col-md-8 properties-header">
                 <h1 class="properties-title">Hot Offer Properties in Dubai</h1>
                 <p class="properties-count">
@@ -53,11 +53,10 @@
         <div class="row">
             @forelse($properties as $p)
                 <div class="col-md-12 mb-4">
-                     <a href="{{ route('property.detail', $p->slug) }}"
-                        class="text-decoration-none text-dark">
+                    <a href="{{ route('property.detail', $p->slug) }}" class="text-decoration-none text-dark">
                         <div class="card p-3 shadow-sm border-0 h-100">
                             <div class="row g-0">
-                               
+
                                 <div class="col-lg-4 d-flex">
                                     <img src="{{ asset('storage/app/propertyImage/' . ($p->single_image->filename ?? 'devotion-trusted-real-estate.png')) }}"
                                         class="img-fluid rounded-start property-img flex-grow-1" alt="Property Image">
@@ -89,17 +88,25 @@
                                                 <div class="d-flex flex-column align-items-start">
 
                                                     @if ($p->type != 2)
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-door-closed me-1"></i>
-                                                        <span class="small">Beds : {{ $p->beds }}</span>
-                                                    </div>
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-door-closed me-1"></i>
+                                                            <span class="small">Beds : {{ $p->beds }}</span>
+                                                        </div>
                                                     @endif
 
-                                                    <div class="mb-2">
-                                                        <i class="bi bi-bucket me-1"></i>
-                                                        <span class="small">Baths : {{ $p->baths }}</span>
-                                                    </div>
+                                                    @if ($p->type != 2)
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-bucket me-1"></i>
+                                                            <span class="small">Baths : {{ $p->baths }}</span>
+                                                        </div>
+                                                    @endif
 
+                                                    @if ($p->type == 2)
+                                                        <div class="mb-2">
+                                                            <i class="bi bi-bookmark me-1"></i>
+                                                            <span class="small">Sub Type : {{ $p->subType->name }}</span>
+                                                        </div>
+                                                    @endif
 
                                                     <div class="mb-2">
                                                         <i class="bi bi-rulers me-1"></i>
