@@ -165,10 +165,13 @@
                         <p class="text-muted mb-1">{{ $property->finance_name }}</p>
 
                         <div class="d-flex align-items-center">
+
+                            @if ($property->type != 2)
                             <span class="me-3">
                                 <i class="bi bi-door-closed me-1"></i>
                                 {{ $property->beds == 0 ? 'Studio' : $property->beds }} beds
                             </span>
+                            @endif
 
                             @if ($property->baths > 0)
                                 <span class="me-3">
