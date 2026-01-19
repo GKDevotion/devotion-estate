@@ -100,7 +100,7 @@ class StatesController extends Controller
                     }
 
                     if ($this->user->can('state.delete')) {
-                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$state->id.'" data-title="'.$state->name.'" data-segment="state">
+                        $action.= '<button class="btn btn-edit text-white dropdown-item delete-record" data-id="'.$state->id.'" data-title="'.$state->name.'" data-segment="states">
                                         <i class="fa fa-trash fa-sm" aria-hidden="true"></i> Delete
                                     </button>';
                     }
@@ -175,17 +175,19 @@ class StatesController extends Controller
             'longitude' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = new State();
-        $dataObj->continent_id = $request->continent_id;
-        $dataObj->country_id = $request->country_id;
-        $dataObj->name = $request->name;
-        $dataObj->fips_code = $request->fips_code;
-        $dataObj->iso2 = $request->iso2;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = new State();
+        // $dataObj->continent_id = $request->continent_id;
+        // $dataObj->country_id = $request->country_id;
+        // $dataObj->name = $request->name;
+        // $dataObj->fips_code = $request->fips_code;
+        // $dataObj->iso2 = $request->iso2;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request);
 
         session()->flash('success', $dataObj->name.' record has been created !!');
         return redirect()->route('admin.state.index');
@@ -244,17 +246,19 @@ class StatesController extends Controller
             'longitude' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = State::find( $id );
-        $dataObj->continent_id = $request->continent_id;
-        $dataObj->country_id = $request->country_id;
-        $dataObj->name = $request->name;
-        $dataObj->fips_code = $request->fips_code;
-        $dataObj->iso2 = $request->iso2;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = State::find( $id );
+        // $dataObj->continent_id = $request->continent_id;
+        // $dataObj->country_id = $request->country_id;
+        // $dataObj->name = $request->name;
+        // $dataObj->fips_code = $request->fips_code;
+        // $dataObj->iso2 = $request->iso2;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $dataObj->name.' records has been updated !!');
         return redirect()->route('admin.state.index');
@@ -279,5 +283,26 @@ class StatesController extends Controller
         } else {
             return response()->json( ['data' => ['message' => 'Record already deleted.'] ], 200);
         }
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? State::findOrFail($id) : new State();
+
+        // Create New Server Record
+ 
+        $dataObj->continent_id = $request->continent_id;
+        $dataObj->country_id = $request->country_id;
+        $dataObj->name = $request->name;
+        $dataObj->fips_code = $request->fips_code;
+        $dataObj->iso2 = $request->iso2;
+        $dataObj->longitude = $request->longitude;
+        $dataObj->latitude = $request->latitude;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+
+        return $dataObj;
     }
 }
