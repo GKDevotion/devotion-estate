@@ -640,7 +640,7 @@
                                                             @endif
                                                             @if ($property->type == 2)
                                                                 <i class="bi bi-bookmark me-1"></i>
-                                                                <span class="small">Sub Type :
+                                                                <span class="small">
                                                                     {{ $property->subType->name }}</span>
                                                             @endif
                                                             <i class="bi bi-rulers me-1 ms-2"></i>
@@ -753,7 +753,7 @@
                                                         <p class="card-text small"> --}}
                                                              @if ($propertysale->type == 2)
                                                                 <i class="bi bi-bookmark me-1"></i>
-                                                                <span class="small">Sub Type :
+                                                                <span class="small">
                                                                     {{ $propertysale->subType->name }}</span>
                                                             @endif
                                                             <i class="bi bi-rulers me-2 ms-2"></i>
