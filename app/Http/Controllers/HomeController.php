@@ -39,7 +39,7 @@ class HomeController extends Controller
             ->get();
 
         $developer = Developer::select('id', 'name', 'image')
-            ->where('status', 1) 
+            ->where('status', 1)
             ->orderBy('name', 'asc')  // sorted alphabetically
             ->get();
 
@@ -59,15 +59,18 @@ class HomeController extends Controller
         $commercialTypes = PropertyType::where('main_type', 2)
             ->where('status', 1)
             ->get();
-            
+
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
         $bannerObjs = Banner::where('status', 1)->orderBy('id', 'DESC')->get();
         $awardObjs = Award::where('status', 1)->orderBy('id', 'DESC')->get();
 
-        $carouselInterval = getConfigurationField('HOME_CAROUSEL_INTERVAL') ?? 5000;
+
+        $carouselIntervalSeconds = getConfigurationField('HOME_CAROUSEL_INTERVAL') ?? 5; 
+        // convert seconds → milliseconds
+        $carouselInterval = ((int) $carouselIntervalSeconds) * 1000;
 
 
-        return view('frontend.pages.home', compact('location', 'bannerObjs',  'carouselInterval','propertyTypeObj', 'residentialTypes', 'developer', 'developerImages', 'commercialTypes', 'awardObjs'));
+        return view('frontend.pages.home', compact('location', 'bannerObjs',  'carouselInterval', 'propertyTypeObj', 'residentialTypes', 'developer', 'developerImages', 'commercialTypes', 'awardObjs'));
     }
 
     /**
