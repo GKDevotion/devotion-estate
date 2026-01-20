@@ -11,6 +11,7 @@ use App\Models\PropertyFeature;
 use App\Models\PropertyType;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Settings;
 
 class HomeController extends Controller
 {
@@ -38,7 +39,7 @@ class HomeController extends Controller
             ->get();
 
         $developer = Developer::select('id', 'name', 'image')
-            ->where('status', 1) 
+            ->where('status', 1)
             ->orderBy('name', 'asc')  // sorted alphabetically
             ->get();
 
@@ -58,12 +59,18 @@ class HomeController extends Controller
         $commercialTypes = PropertyType::where('main_type', 2)
             ->where('status', 1)
             ->get();
-            
+
         $propertyTypeObj = PropertyType::select('id', 'name', 'main_type')->orderBy('name')->get();
         $bannerObjs = Banner::where('status', 1)->orderBy('id', 'DESC')->get();
         $awardObjs = Award::where('status', 1)->orderBy('id', 'DESC')->get();
 
-        return view('frontend.pages.home', compact('location', 'bannerObjs', 'propertyTypeObj', 'residentialTypes', 'developer', 'developerImages', 'commercialTypes', 'awardObjs'));
+
+        $carouselIntervalSeconds = getConfigurationField('HOME_CAROUSEL_INTERVAL') ?? 5; 
+        // convert seconds → milliseconds
+        $carouselInterval = ((int) $carouselIntervalSeconds) * 1000;
+
+
+        return view('frontend.pages.home', compact('location', 'bannerObjs',  'carouselInterval', 'propertyTypeObj', 'residentialTypes', 'developer', 'developerImages', 'commercialTypes', 'awardObjs'));
     }
 
     /**

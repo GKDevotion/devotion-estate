@@ -591,7 +591,7 @@
 
 
             @if ($allproperties->isNotEmpty())
-                <div id="propertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                <div id="propertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel"  data-bs-interval="{{ $carouselInterval }}">
                     <div class="carousel-inner">
 
                         @foreach ($chunks as $chunkIndex => $chunk)
@@ -616,7 +616,7 @@
                                                         <!-- TITLE -->
 
                                                         <div class="d-flex align-items-start mb-2">
-                                                            <h5 class="card-title mb-0 me-3" style="min-height: 50px">
+                                                            <h5 class="card-title mb-0 " style="min-height: 50px">
                                                                 {!! $property->name !!}
                                                             </h5>
                                                         </div>
@@ -708,7 +708,7 @@
 
 
             @if ($saleProperties->isNotEmpty())
-                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="true" data-bs-ride="carousel">
+                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="true" data-bs-ride="carousel" data-bs-interval="{{ $carouselInterval }}">
                     <div class="carousel-inner">
 
                         @foreach ($saleChunks as $chunkIndex => $chunk)
@@ -730,7 +730,7 @@
                                                     <div class="card-body">
 
                                                         <div class="d-flex align-items-start mb-2">
-                                                            <h5 class="card-title mb-0 me-3" style="min-height: 50px">
+                                                            <h5 class="card-title mb-0" style="min-height: 50px">
                                                                 {!! $propertysale->name !!}
                                                             </h5>
                                                         </div>

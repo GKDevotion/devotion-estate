@@ -74,15 +74,17 @@ class SampleController extends Controller
         ]);
 
         // Create New Server Record
-        $dataObj = new City();
-        $dataObj->continent_id = $request->continent_id;
-        $dataObj->country_id  = $request->country_id ;
-        $dataObj->state_id  = $request->state_id ;
-        $dataObj->name = $request->name;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // $dataObj = new City();
+        // $dataObj->continent_id = $request->continent_id;
+        // $dataObj->country_id  = $request->country_id ;
+        // $dataObj->state_id  = $request->state_id ;
+        // $dataObj->name = $request->name;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request);
 
         session()->flash('success', $dataObj->name.' record has been created !!');
         return redirect()->route('admin.corporate-emails.index');
@@ -141,16 +143,18 @@ class SampleController extends Controller
             'longitude' => 'required',
         ]);
 
-        // Create New Server Record
-        $dataObj = City::find( $id );
-        $dataObj->continent_id = $request->continent_id;
-        $dataObj->country_id  = $request->country_id ;
-        $dataObj->state_id  = $request->state_id ;
-        $dataObj->name = $request->name;
-        $dataObj->latitude = $request->latitude;
-        $dataObj->longitude = $request->longitude;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = City::find( $id );
+        // $dataObj->continent_id = $request->continent_id;
+        // $dataObj->country_id  = $request->country_id ;
+        // $dataObj->state_id  = $request->state_id ;
+        // $dataObj->name = $request->name;
+        // $dataObj->latitude = $request->latitude;
+        // $dataObj->longitude = $request->longitude;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $dataObj->name.' records has been updated !!');
         return redirect()->route('admin.corporate-emails.index');
@@ -175,5 +179,23 @@ class SampleController extends Controller
         } else {
             return $this->sendResponse([], 'Record already deleted.');
         }
+    }
+
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? City::findOrFail($id) : new City();
+
+        // Create New Server Record 
+        $dataObj->continent_id = $request->continent_id;
+        $dataObj->country_id  = $request->country_id ;
+        $dataObj->state_id  = $request->state_id ;
+        $dataObj->name = $request->name;
+        $dataObj->latitude = $request->latitude;
+        $dataObj->longitude = $request->longitude;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+        return $dataObj;
     }
 }
