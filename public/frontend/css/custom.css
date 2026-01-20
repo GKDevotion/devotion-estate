@@ -1683,7 +1683,7 @@ a:hover .bi-house-door::before {
 .property-card {
     background: #fff;
     border-radius: 16px;
-    padding: 10px;
+    /* padding: 10px; */
     text-align: center;
     transition: all 0.3s ease;
     border: 1px solid #eedfcb;
