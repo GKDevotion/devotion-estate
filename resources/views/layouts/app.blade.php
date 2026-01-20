@@ -390,7 +390,7 @@
                     // Navigate after short delay
                     setTimeout(() => {
                         window.location.href = href;
-                    }, 1500);
+                    }, 1000);
                 });
             });
         });
