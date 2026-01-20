@@ -165,11 +165,12 @@ class ReligionsController extends Controller
             'name' => 'required|max:50',
         ]);
 
-        // Create New Server Record
-        $dataObj = new Religion();
-        $dataObj->name = $request->name;
-        $dataObj->status = $request->status;
-        $dataObj->save();
+        // // Create New Server Record
+        // $dataObj = new Religion();
+        // $dataObj->name = $request->name;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+        $this->StoreUpdateData($request);
 
         session()->flash('success', 'Record has been created !!');
         return redirect()->route('admin.religion.index');
@@ -220,12 +221,12 @@ class ReligionsController extends Controller
             'name' => 'required|max:50',
         ]);
 
-        // Create New Server Record
-        $dataObj = Religion::find($id);
-        $dataObj->name = $request->name;
-        $dataObj->status = $request->status;
-        $dataObj->save();
-
+        // // Create New Server Record
+        // $dataObj = Religion::find($id);
+        // $dataObj->name = $request->name;
+        // $dataObj->status = $request->status;
+        // $dataObj->save();
+         $this->StoreUpdateData($request, $id);
         session()->flash('success', 'Records has been updated !!');
         return redirect()->route('admin.religion.index');
     }
@@ -249,5 +250,19 @@ class ReligionsController extends Controller
         } else {
             return response()->json(['data' => ['message' => 'Record already deleted.']], 200);
         }
+    }
+
+      public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? Religion::findOrFail($id) : new Religion();
+
+
+        // Create New Server Record 
+        $dataObj->name = $request->name;
+        $dataObj->status = $request->status;
+        $dataObj->save();
+
+        return $dataObj;
     }
 }

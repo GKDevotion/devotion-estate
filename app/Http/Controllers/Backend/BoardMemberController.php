@@ -84,17 +84,17 @@ class BoardMemberController extends Controller
             'company_id' => 'required',
         ]);
 
-        // Create New Admin
-        $dataObj = new BoardMember();
-        $dataObj->first_name = $request->first_name;
-        $dataObj->middle_name = $request->middle_name;
-        $dataObj->last_name = $request->last_name;
-        $dataObj->email = $request->email;
-        $dataObj->mobile_number = $request->mobile_number;
-        $dataObj->industry_id = $request->industry_id;
-        $dataObj->company_id = $request->company_id;
-        $dataObj->save();
-
+        // // Create New Admin
+        // $dataObj = new BoardMember();
+        // $dataObj->first_name = $request->first_name;
+        // $dataObj->middle_name = $request->middle_name;
+        // $dataObj->last_name = $request->last_name;
+        // $dataObj->email = $request->email;
+        // $dataObj->mobile_number = $request->mobile_number;
+        // $dataObj->industry_id = $request->industry_id;
+        // $dataObj->company_id = $request->company_id;
+        // $dataObj->save();
+        $dataObj = $this->StoreUpdateData($request);
         session()->flash('success', $dataObj->first_name. ' '.$dataObj->last_name.' has been created !!');
         return redirect()->route('admin.board-member.index');
     }
@@ -152,15 +152,17 @@ class BoardMemberController extends Controller
             'company_id' => 'required',
         ]);
 
-        $dataObj = BoardMember::find($id);
-        $dataObj->first_name = $request->first_name;
-        $dataObj->middle_name = $request->middle_name;
-        $dataObj->last_name = $request->last_name;
-        $dataObj->email = $request->email;
-        $dataObj->mobile_number = $request->mobile_number;
-        $dataObj->industry_id = $request->industry_id;
-        $dataObj->company_id = $request->company_id;
-        $dataObj->save();
+        // $dataObj = BoardMember::find($id);
+        // $dataObj->first_name = $request->first_name;
+        // $dataObj->middle_name = $request->middle_name;
+        // $dataObj->last_name = $request->last_name;
+        // $dataObj->email = $request->email;
+        // $dataObj->mobile_number = $request->mobile_number;
+        // $dataObj->industry_id = $request->industry_id;
+        // $dataObj->company_id = $request->company_id;
+        // $dataObj->save();
+
+        $dataObj = $this->StoreUpdateData($request, $id);
 
         session()->flash('success', $dataObj->first_name. ' '.$dataObj->last_name.' has been updated !!');
         return redirect()->route('admin.admin.index');
@@ -202,4 +204,23 @@ class BoardMemberController extends Controller
 
         return response()->json($response, 200);
     }
+ 
+    public function StoreUpdateData(Request $request, int $id = null)
+    {
+        // ✅ Find or create model
+        $dataObj = $id ? BoardMember::findOrFail($id) : new BoardMember();
+
+        // Create New Server Record 
+        $dataObj->first_name = $request->first_name;
+        $dataObj->middle_name = $request->middle_name;
+        $dataObj->last_name = $request->last_name;
+        $dataObj->email = $request->email;
+        $dataObj->mobile_number = $request->mobile_number;
+        $dataObj->industry_id = $request->industry_id;
+        $dataObj->company_id = $request->company_id;
+        $dataObj->save();
+ 
+        return $dataObj;
+    }
+
 }

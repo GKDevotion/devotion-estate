@@ -590,7 +590,7 @@
 
 
             @if ($allproperties->isNotEmpty())
-                <div id="propertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                <div id="propertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel"  data-bs-interval="{{ $carouselInterval }}">
                     <div class="carousel-inner">
 
                         @foreach ($chunks as $chunkIndex => $chunk)
@@ -707,7 +707,7 @@
 
 
             @if ($saleProperties->isNotEmpty())
-                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="true" data-bs-ride="carousel">
+                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="true" data-bs-ride="carousel" data-bs-interval="{{ $carouselInterval }}">
                     <div class="carousel-inner">
 
                         @foreach ($saleChunks as $chunkIndex => $chunk)
