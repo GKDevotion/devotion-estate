@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Award;
 use App\Models\Banner;
+use App\Models\Blog;
 use App\Models\Developer;
 use App\Models\Location;
 use App\Models\Properties;
@@ -65,12 +66,20 @@ class HomeController extends Controller
         $awardObjs = Award::where('status', 1)->orderBy('id', 'DESC')->get();
 
 
-        $carouselIntervalSeconds = getConfigurationField('HOME_CAROUSEL_INTERVAL') ?? 5; 
+        $carouselIntervalSeconds = getConfigurationField('HOME_CAROUSEL_INTERVAL') ?? 5;
         // convert seconds → milliseconds
         $carouselInterval = ((int) $carouselIntervalSeconds) * 1000;
 
+        $blogs = Blog::with('category')->select('id', 'title', 'slug', 'image', 'category_id', 'created_at')
+            ->where('status', 1)
+            ->whereNotNull('slug')
+            ->where('slug', '!=', '')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
 
-        return view('frontend.pages.home', compact('location', 'bannerObjs',  'carouselInterval', 'propertyTypeObj', 'residentialTypes', 'developer', 'developerImages', 'commercialTypes', 'awardObjs'));
+
+        return view('frontend.pages.home', compact('location', 'bannerObjs', 'blogs',  'carouselInterval', 'propertyTypeObj', 'residentialTypes', 'developer', 'developerImages', 'commercialTypes', 'awardObjs'));
     }
 
     /**

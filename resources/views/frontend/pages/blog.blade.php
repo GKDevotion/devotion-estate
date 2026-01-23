@@ -23,356 +23,147 @@
 
 
         <div class="container my-5">
-            <div class="d-flex align-items-center mb-4">
-                <a href="index.html" class="text-secondary text-decoration-none me-2">Home</a>
-                <span class="text-secondary me-2"> > </span>
-                <span class="fw-bold" href="blogs.html">Blog</span>
+
+            <div class="small mb-5" style="font-size: large;">
+                <a href="{{ url('/') }}" class="text-decoration-none text-dark">Home</a>
+                <span class="mx-1 fs-4">›</span>
+                <a href="/" class="text-decoration-none" style="color:#aa8038;">
+                    Blog
+                </a>
             </div>
-            <h3 class="mb-4">Blog</h3>
 
             <div class="row">
                 <div class="col-lg-8">
                     <div id="blogContainer" class="row g-4 mb-5">
-                        <!-- All blog cards here -->
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=rental-property-management-in-uae"
-                                class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog1.png"
-                                        class="card-img-top card-img-top-custom" alt="Rental Property Management in UAE">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">21-12-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">Rental Property Management in UAE</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=the-indispensable-role-of-a-real-estate-broker"
-                                class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog2.png"
-                                        class="card-img-top card-img-top-custom" alt="Real Estate Broker">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">18-12-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">The Indispensable Role of a Real Estate Broker</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
 
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=marbella-property" class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog3.png"
-                                        class="card-img-top card-img-top-custom" alt="Marbella">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">17-12-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">Marbella Property Title Example</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        @forelse ($blogs as $blog)
+                            <div class="col-md-6 blog-item">
+                                <a href="{{ route('blog.details', $blog->slug) }}" class="text-decoration-none text-dark">
+                                    <div class="card border-0 h-100">
+                                        <img src="{{ asset('storage/app/blog/' . $blog->image) }}"
+                                            class="card-img-top card-img-top-custom" alt="{{ $blog->title }}">
 
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=brokers-in-dubai" class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog4.png"
-                                        class="card-img-top card-img-top-custom" alt="Brokers in Dubai">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">12-12-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">Title corresponding to Brokers in Dubai</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                                        <div class="card-body p-0 pt-3">
+                                            <div class="d-flex align-items-center mb-2 text-muted small">
+                                                <span class="me-3">
+                                                    {{ \Carbon\Carbon::parse($blog->created_at)->format('d M Y') }}
+                                                </span>
+                                                <span class="d-flex align-items-center">
+                                                    <i class="bi bi-folder2-open me-1"></i>
+                                                    {{ $blog->category->title ?? 'Uncategorized' }}
+                                                </span>
+                                            </div>
 
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=dubai-real-estate-statistical-overview"
-                                class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog5.png"
-                                        class="card-img-top card-img-top-custom" alt="Dubai Real Estate">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">02-12-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
+                                            <h5 class="fw-normal">{{ $blog->title }}</h5>
+                                            <p class="text-center mt-2 text-primary">
+                                                Read article <i class="bi bi-arrow-right"></i>
+                                            </p>
                                         </div>
-                                        <h5 class="card-title fw-normal">Dubai Real Estate: A Statistical Overview and
-                                            Future Trends</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
 
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=invest-in-dubai-lucrative-opportunity"
-                                class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog6.png"
-                                        class="card-img-top card-img-top-custom" alt="Dubai Real Estate">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">27-11-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">Invest in Dubai: A Lucrative Real Estate
-                                            Opportunity</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        @empty
+                            <!-- EMPTY STATE -->
+                            <div class="col-12">
+                                <div class="d-flex flex-column align-items-center justify-content-center py-5">
 
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=real-estate-broker-company-dubai"
-                                class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog7.png"
-                                        class="card-img-top card-img-top-custom" alt="Dubai Real Estate">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">23-11-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">Real Estate Broker Company in Dubai</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
+                                    <div class="empty-icon mb-3">
+                                        <i class="bi bi-journal-text"></i>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
 
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=top-real-estate-companies-dubai-2025"
-                                class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog8.png"
-                                        class="card-img-top card-img-top-custom" alt="Dubai Real Estate">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">06-12-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Real Estate
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">Top Real Estate Companies in Dubai - 2025</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                                    <h4 class="fw-semibold mb-2">No Articles Available</h4>
 
-                        <div class="col-md-6 blog-item">
-                            <a href="blog-detail.html?slug=lack-of-home-listings-mortgage-demand"
-                                class="text-decoration-none text-dark">
-                                <div class="card border-0">
-                                    <img src="public\frontend\assets\images\img\blog9.png"
-                                        class="card-img-top card-img-top-custom" alt="Dubai Real Estate">
-                                    <div class="card-body p-0 pt-3">
-                                        <div class="d-flex align-items-center mb-2 text-date-category">
-                                            <span class="me-3">01-08-2024</span>
-                                            <span class="d-flex align-items-center">
-                                                <i class="bi bi-file-text-fill me-1"></i> Housing
-                                            </span>
-                                        </div>
-                                        <h5 class="card-title fw-normal">Lack of home listings is taking a toll on mortgage
-                                            demand</h5>
-                                        <p class="card-text text-center mt-3">
-                                            Read more <i class="bi bi-arrow-right"></i>
-                                        </p>
-                                    </div>
+                                    <p class="text-muted text-center mb-3" style="max-width: 420px;">
+                                        We couldn’t find any blog posts at the moment.
+                                        New articles will be published soon.
+                                    </p>
+
+                                    <a href="{{ route('blog') }}" class="btn   border-0 px-4">
+                                        View All Blogs
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        @endforelse
 
                     </div>
 
+
+
                     <!-- PAGINATION -->
-                    <nav aria-label="Blog pagination" class="d-flex justify-content-center">
-                        <ul class="pagination" id="pagination"></ul>
-                    </nav>
+                    <div class="d-flex justify-content-center">
+                        {{ $blogs->links('vendor.pagination.bootstrap-5') }}
+                    </div>
+
                 </div>
 
                 <div class="col-lg-4 mt-5 mt-lg-0">
                     <h5 class="mb-3 fw-bold">Categories</h5>
-                    <div class="input-group mb-4 border rounded">
-                        <input type="text" class="form-control border-0" placeholder="Search..." aria-label="Search">
-                        <button class="btn border-0" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.088.117l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.01 1.01 0 0 0-.117-.088M12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                            </svg>
-                        </button>
-                    </div>
 
-                    <ul class="list-group list-group-flush mb-5">
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <a href="#" class="text-decoration-none fw-semibold text-dark">Real Estate</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <a href="#" class="text-decoration-none fw-semibold text-dark">Housing</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <a href="#" class="text-decoration-none fw-semibold text-dark">Real Estate Broker</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <a href="#" class="text-decoration-none fw-semibold text-dark">Dubai Luxury
-                                Properties</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 border-bottom">
-                            <a href="#" class="text-decoration-none fw-semibold text-dark fw-bold">All</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg>
-                        </li>
+                    <form action="{{ route('blog') }}" method="GET">
+                        <div class="input-group mb-4 border">
+                            <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                                placeholder="Search categories...">
+                            <button class="btn border-0" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+ 
+                    <ul class="list-group list-group-flush">
+                        @foreach ($categories as $parent)
+                            @foreach ($parent->children as $child)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('blog', ['category' => $child->id]) }}"
+                                        class="text-decoration-none
+                                        {{ request('category') == $child->id ? 'fw-bold text-primary' : 'text-dark' }}">
+                                        {{ $child->title }}
+                                    </a>
+                                    <i class="bi bi-arrow-right"></i>
+                                </li>
+                            @endforeach
+                        @endforeach
                     </ul>
+ 
+                    <!-- Popular Tags -->
+                    <div>
+                        <h5 class="fw-bold mb-3">Popular tags</h5>
 
-                    <h5 class="mb-3 fw-bold">Popular tags</h5>
-                    <div class="input-group mb-4 border rounded">
-                        <input type="text" class="form-control border-0" placeholder="Search..." aria-label="Search">
-                        <button class="btn border-0" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.088.117l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.01 1.01 0 0 0-.117-.088M12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                            </svg>
-                        </button>
+                        <form method="GET" action="{{ route('blog') }}">
+                            <input type="text" name="tag" class="form-control mb-3" placeholder="Search tags..."
+                                value="{{ request('tag') }}">
+                        </form>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach ($popularTags as $tag)
+                                <a href="{{ route('blog', ['tag' => $tag->name]) }}"
+                                    class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    {{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
 
-                    <div class="d-flex flex-wrap gap-2">
-                        <span class="badge text-dark border p-2">Dubai real estate</span>
-                        <span class="badge  text-dark border p-2">Dubai Property Market</span>
-                        <span class="badge  text-dark border p-2">Dubai real estate market</span>
-                        <span class="badge  text-dark border p-2">Real Estate Brokers in Dubai</span>
-                        <span class="badge  text-dark border p-2">Luxury Properties</span>
-                        <span class="badge  text-dark border p-2">Dubai luxury properties</span>
-                        <span class="badge  text-dark border p-2">Dubai real estate regulations</span>
-                    </div>
 
                     <!-- Most Viewed Section -->
                     <div class="mt-5">
                         <h5 class="mb-3 fw-bold">Most Viewed</h5>
 
                         <div class="list-group list-group-flush recent-blogs">
-                            <!-- Blog 1 -->
-                            <a href="#" class="list-group-item blog-item d-flex align-items-center gap-3">
-                                <img src="public\frontend\assets\images\img\blog1.png"
-                                    alt="Rental Property Management in UAE" class="blog-thumb">
-                                <div class="flex-grow-1">
-                                    <h6 class="blog-title">Rental Property Management in UAE</h6>
-                                </div>
-                            </a>
+                            @foreach ($recentBlogs as $recent)
+                                <a href="{{ route('blog.details', $recent->slug) }}"
+                                    class="list-group-item d-flex align-items-center">
 
-                            <!-- Blog 2 -->
-                            <a href="#" class="list-group-item blog-item d-flex align-items-center gap-3">
-                                <img src="public\frontend\assets\images\img\blog2.png"
-                                    alt="Why Hiring a Broker in Dubai Is Essential" class="blog-thumb">
-                                <div class="flex-grow-1">
-                                    <h6 class="blog-title">Why Hiring a Broker in Dubai Is Essential for Your Property and
-                                        Business Needs
-                                    </h6>
-                                </div>
-                            </a>
+                                    <img src="{{ asset('storage/app/blog/' . $recent->image) }}"
+                                        alt="{{ $recent->title }}" class="blog-thumb">
 
-                            <!-- Blog 3 -->
-                            <a href="#" class="list-group-item blog-item d-flex align-items-center gap-3">
-                                <img src="public\frontend\assets\images\img\blog3.png" alt="Top Real Estate Companies"
-                                    class="blog-thumb">
-                                <div class="flex-grow-1">
-                                    <h6 class="blog-title">Top Real Estate Companies in Dubai - 2025</h6>
-                                </div>
-                            </a>
-
-                            <!-- Blog 4 -->
-                            <a href="#" class="list-group-item blog-item d-flex align-items-center gap-3">
-                                <img src="public\frontend\assets\images\img\blog4.png" alt="Invest in Dubai"
-                                    class="blog-thumb">
-                                <div class="flex-grow-1">
-                                    <h6 class="blog-title">Invest in Dubai: A Lucrative Real Estate Opportunity</h6>
-                                </div>
-                            </a>
-
-                            <!-- Blog 5 -->
-                            <a href="#" class="list-group-item blog-item d-flex align-items-center gap-3">
-                                <img src="public\frontend\assets\images\img\blog5.png" alt="Dubai Real Estate Stats"
-                                    class="blog-thumb">
-                                <div class="flex-grow-1">
-                                    <h6 class="blog-title">Dubai Real Estate: A Statistical Overview and Future Outlook
-                                    </h6>
-                                </div>
-                            </a>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="blog-title mb-0">{{ $recent->title }}</h6>
+                                    </div>
+                                </a>
+                            @endforeach
                         </div>
+
 
                     </div>
 

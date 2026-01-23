@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Categories;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
+    protected $table = "blogs";
     use HasFactory;
 
     public static function boot()
@@ -24,6 +26,28 @@ class Blog extends Model
             $model->updated_at = Carbon::now('Asia/Dubai');
         });
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
+ 
+    // public function category()
+    // {
+    //     return $this->belongsTo(Categories::class, 'category_id');
+    // }
+
+    public function sub_category()
+    {
+        return $this->hasOne(Categories::class, 'id', 'sub_category_id');
+    }
+
+    public function tags()
+{
+    return $this->belongsToMany(  Tag::class, 'blog_tag_maps', 'blog_id', 'tag_id');
+}
+
+ 
 
     // public function user(){
     //     return $this->hasOne(User::class, 'id', 'user_id');

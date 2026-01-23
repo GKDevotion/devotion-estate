@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Backend\AdminLogController;
@@ -33,6 +34,7 @@ use App\Http\Controllers\Backend\ReligionsController;
 use App\Http\Controllers\Backend\ReviewsController;
 use App\Http\Controllers\Backend\RolesController;
 use App\Http\Controllers\Backend\StatesController;
+use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Backend\VisitingCardController;
 
@@ -89,15 +91,22 @@ Route::prefix('admin')->group(function () {
     Route::resource('banner', 'Backend\BannerController', ['names' => 'admin.banner']);
     Route::get('/banner-ajax-data', [BannerController::class, 'ajaxIndex'])->name('banner.ajaxIndex');
 
-    Route::resource('award', 'Backend\awardController', ['names' => 'admin.award']);
-    Route::get('/award-ajax-data', [AwardController::class, 'ajaxIndex'])->name('award.ajaxIndex');
+    Route::resource('award', 'Backend\AwardController', ['names' => 'admin.award']);
+    Route::get('/award-ajax-data', [AwardController::class, 'ajaxIndex'])->name('award.ajaxIndex'); 
 
-    Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs.index');
-    Route::get('/blogs/create', [BlogController::class, 'create'])->name('admin.blogs.create');
-    Route::post('/blogs/store', [BlogController::class, 'store'])->name('admin.blogs.store');
-    Route::get('/blogs/edit/{id}', [BlogController::class, 'edit'])->name('admin.blogs.edit');
-    Route::post('/blogs/update', [BlogController::class, 'update'])->name('admin.blogs.update');
-    Route::get('/blogs-ajax-data', [BlogController::class, 'ajaxIndex'])->name('blogs.ajaxIndex');
+    Route::resource('blog', 'Backend\BlogController', ['names' => 'admin.blog']);
+    Route::get('/blog-ajax-data', [BlogController::class, 'ajaxIndex'])->name('blog.ajaxIndex'); 
+
+      Route::resource('category', 'Backend\CategoryController', ['names' => 'admin.category']);
+    Route::get('/category-ajax-data', [CategoryController::class, 'ajaxIndex'])->name('category.ajaxIndex'); 
+    //   Route::get('/category', [CategoriesController::class, 'index'])->name('admin.category.index');
+    // Route::get('/category/create', [CategoriesController::class, 'create'])->name('admin.category.create');
+    // Route::post('/category/store', [CategoriesController::class, 'store'])->name('admin.category.store');
+    // Route::get('/category/edit/{id}', [CategoriesController::class, 'edit'])->name('admin.category.edit');
+    // Route::post('/category/update', [CategoriesController::class, 'update'])->name('admin.category.update');
+    // Route::delete('/category/{id}', [CategoriesController::class, 'destroy'])->name('admin.category.destroy');
+    // Route::get('/category-ajax-data', [CategoriesController::class, 'ajaxIndex'])->name('category.ajaxIndex');
+    
 
     Route::get('/new-property', [PropertiesController::class, 'newPropertyindex'])->name('admin.new-property.index');
     Route::get('/luxury-property', [PropertiesController::class, 'luxuryPropertyindex'])->name('admin.luxury-property.index');
@@ -167,6 +176,13 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('visiting-card', 'Backend\VisitingCardController', ['names' => 'admin.visiting-card']);
     Route::get('/user-ajax-data', [VisitingCardController::class, 'ajaxIndex'])->name('visiting-card.ajaxIndex');
+
+    Route::get('/tag', [TagController::class, 'index'])->name('admin.tag.index');
+    Route::get('/tag/create', [TagController::class, 'create'])->name('admin.tag.create');
+    Route::post('/tag/store', [TagController::class, 'store'])->name('admin.tag.store');
+    Route::get('/tag/edit/{id}', [TagController::class, 'edit'])->name('admin.tag.edit');
+    Route::post('/tag/update', [TagController::class, 'update'])->name('admin.tag.update');
+    Route::get('/tag-ajax-data', [TagController::class, 'ajaxIndex'])->name('tag.ajaxIndex');
 
 
     Route::get('/designations', [DesignationsController::class, 'index'])->name('admin.designations.index');

@@ -43,6 +43,9 @@ class DeveloperController extends Controller
 
         $query = Developer::query();
         $query->select('id', 'image', 'name', 'status', 'sort_order', 'created_at', 'updated_at');
+        
+        // Default order by sort_order DESC
+        $query->orderBy('sort_order', 'asc');
 
         return DataTables::eloquent($query)
             ->addColumn('id', function (Developer $ar) {

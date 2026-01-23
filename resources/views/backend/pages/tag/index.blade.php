@@ -2,7 +2,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Blog Page - Admin Panel
+Tags Page - Admin Panel
 @endsection
 
 @section('styles')
@@ -23,19 +23,19 @@ Blog Page - Admin Panel
 <!-- page title area start -->
 <div class="page-title-area">
     <div class="row align-items-center">
-        <div class="col-md-8">
+        <div class="col-sm-7">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left d-none">Blog</h4>
+                <h4 class="page-title pull-left d-none">Tag</h4>
                 <ul class="breadcrumbs pull-left m-2">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Blog</span></li>
+                    <li><span>All Tags</span></li>
                 </ul>
             </div>
         </div>
-        <div class="col-md-2 text-end">
-            @if (Auth::guard('admin')->user()->can('blog.create'))
-                <a class="btn btn-add text-white" href="{{ route('admin.blog.create') }}">
-                    <i class="fa fa-plus"></i> Blog
+        <div class="col-md-3 text-end">
+            @if (Auth::guard('admin')->user()->can('tag.create'))
+                <a class="btn btn-add text-white" href="{{ route('admin.tag.create') }}">
+                    <i class="fa fa-plus"></i> Tag
                 </a>
             @endif
         </div>
@@ -50,25 +50,20 @@ Blog Page - Admin Panel
     <div class="row">
         <!-- data table start -->
         <div class="col-12 mt-3">
-            <h3 class="pb-3">Blog Hisotry</h3>
+            <h3 class="pb-3">Tag History</h3>
             <div class="card">
                 <div class="card-body">
 
                     <div class="data-tables">
-
                         @include('backend.layouts.partials.messages')
-
-                        <table id="blog_index" class="table table-bordered table-striped display responsive nowrap">
-                            <thead id="blogs" class="bg-light text-capitalize">
+                        <table id="tag_index" class="table table-bordered table-striped display responsive nowrap">
+                            <thead id="tag" class="bg-light text-capitalize">
                                 <tr>
-                                    <th>#</th>
-                                    <th width="20%">Image</th>
-                                    <th>Name</th>
-                                    {{-- <th>Category</th>
-                                    <th>Sub Category</th> --}}
-                                    <th>Status</th>
-                                    <th>Updated At</th>
-                                    <th>Action</th>
+                                    <th width="1%">Sr</th> 
+                                    <th width="5%">Title</th> 
+                                    <th width="2%">Status</th>
+                                    <th width="3%">Update At</th>
+                                    <th width="3%">Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -82,14 +77,13 @@ Blog Page - Admin Panel
 </div>
 @endsection
 
-
 @section('scripts')
 
     @include('backend.layouts.partials.data-table')
 
      <script>
         $(document).ready(function() {
-            var table = $('#blog_index').DataTable({
+            $('#tag_index').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -99,48 +93,30 @@ Blog Page - Admin Panel
                 buttons: ['excel', 'pdf'],
                 lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 pageLength: 10,
-                ajax: {
-                    url: "{{ route('blog.ajaxIndex') }}",
-                    type: 'GET',
-                    data: function (d) {
-                        // d.cid = ""; // Pass company parameter
-                        // d.iid = ""; // Pass industry parameter
-                    }
-                },
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'image', name: 'image' },
-                    { data: 'title', name: 'title' },
-                    // { data: 'category_id', name: 'category_id' },
-                    // { data: 'sub_category_id', name: 'sub_category_id'}
-                    { data: 'status', name: 'status'},
+                ajax: "{{ route('tag.ajaxIndex') }}",
+                columns: [{
+                        data: 'id',
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Auto-increment based on row index
+                        }
+                    }, // Auto index { data: 'id', name: 'id' }, 
+                    { data: 'name', name: 'name' }, 
+                    { data: 'status', name: 'status', orderable: false, searchable: false },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
-                  
                 columnDefs: [
-                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 1, targets: 0 }, 
                     { responsivePriority: 2, targets: 1 }, 
                     { responsivePriority: 3, targets: 2 }, 
                     { responsivePriority: 4, targets: 3 }, 
                     { responsivePriority: 5, targets: 4 }, 
-                    { responsivePriority: 6, targets: 5 }, 
- 
+                  
                 ],
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id);// Assign a custom ID to the row
-                    $(row).attr('class', 'blog_row');// Assign a custom Class to the row
-                },
-                language: {
-                    emptyTable: "No data available in table"  // Custom message for empty table
-                },
-            });
-
-            // Adjust the table width after the data is loaded
-            table.on('xhr', function() {
-                var data = table.ajax.json().data;
-
-                $('#blog_index').css('width', '100%');
+                    $(row).attr('class', 'tag_row');// Assign a custom Class to the row
+                }
             });
         });
      </script>
