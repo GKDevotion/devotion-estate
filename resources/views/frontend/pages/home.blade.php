@@ -590,7 +590,8 @@
 
 
             @if ($allproperties->isNotEmpty())
-                <div id="propertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel"  data-bs-interval="{{ $carouselInterval }}">
+                <div id="propertyCarousel" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel"
+                    data-bs-interval="{{ $carouselInterval }}">
                     <div class="carousel-inner">
 
                         @foreach ($chunks as $chunkIndex => $chunk)
@@ -707,7 +708,8 @@
 
 
             @if ($saleProperties->isNotEmpty())
-                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="true" data-bs-ride="carousel" data-bs-interval="{{ $carouselInterval }}">
+                <div id="salePropertyCarousel" class="carousel slide" data-bs-wrap="true" data-bs-ride="carousel"
+                    data-bs-interval="{{ $carouselInterval }}">
                     <div class="carousel-inner">
 
                         @foreach ($saleChunks as $chunkIndex => $chunk)
@@ -740,17 +742,17 @@
                                                         </p>
                                                         <p class="card-text small mt-0">
                                                             @if ($propertysale->type != 2)
-                                                            <i class="bi bi-door-closed me-1"></i>
-                                                            Beds:
-                                                            {{ $propertysale->beds == 0 ? 'Studio' : $propertysale->beds }}
+                                                                <i class="bi bi-door-closed me-1"></i>
+                                                                Beds:
+                                                                {{ $propertysale->beds == 0 ? 'Studio' : $propertysale->beds }}
                                                             @endif
                                                             @if ($propertysale->type != 2)
-                                                            <i class="bi bi-bucket me-2"></i>
-                                                            Baths: {{ $propertysale->baths }}
+                                                                <i class="bi bi-bucket me-2"></i>
+                                                                Baths: {{ $propertysale->baths }}
                                                             @endif
                                                             {{-- </p>
                                                         <p class="card-text small"> --}}
-                                                             @if ($propertysale->type == 2)
+                                                            @if ($propertysale->type == 2)
                                                                 <i class="bi bi-bookmark me-1"></i>
                                                                 <span class="small">
                                                                     {{ $propertysale->subType->name }}</span>
@@ -938,7 +940,7 @@
 
                 <!-- Sell Residential -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="property-card">
+                    <div class="property-card" style="padding: 10px;">
                         <i class="bi bi-house-door-fill property-icon"></i>
                         <h5>Sell Residential</h5>
                         <p>We will connect you to thousands of people who need to buy a home.</p>
@@ -948,7 +950,7 @@
 
                 <!-- Rent Residential -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="property-card">
+                    <div class="property-card" style="padding: 10px;">
                         <i class="fa-solid fa-house-circle-check property-icon"></i>
                         <h5>Rent Residential</h5>
                         <p>Tell us your needs; we’ll give you thousands of suggestions for your dream home.</p>
@@ -958,7 +960,7 @@
 
                 <!-- Sell Commercial -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="property-card">
+                    <div class="property-card" style="padding: 10px;">
                         <i class="fa-solid fa-store property-icon"></i>
                         <h5>Sell Commercial</h5>
                         <p>We help you find thousands of buyers looking for office or commercial spaces.</p>
@@ -968,7 +970,7 @@
 
                 <!-- Rent Commercial -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="property-card">
+                    <div class="property-card" style="padding: 10px;">
                         <i class="bi bi-building-fill property-icon"></i>
                         <h5>Rent Commercial</h5>
                         <p>Share your needs and we’ll offer suitable options for your commercial property.</p>
@@ -980,7 +982,7 @@
         </div>
     </section>
 
-    <!-- Our Blog -->
+    {{-- <!-- Our Blog -->
     <section class="py-5 text-center" style="background: #fffaf5;">
         <div class="container">
             <div class="col-12 blog-header text-center mb-4">
@@ -1065,7 +1067,60 @@
 
             </div>
         </div>
+    </section> --}}
+
+    <!-- Our Blog -->
+    <section class="py-5 text-center" style="background: #fffaf5;">
+        <div class="container">
+            <div class="col-12 blog-header text-center mb-4">
+                <h1 class="text-uppercase fw-bold section-title">OUR BLOGS</h1>
+                <p class="text-muted section-subtitle">
+                    "Insights, Updates, and Expert Advice to Empower Your Financial Journey"
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                @foreach ($blogs as $blog)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm h-50">
+                            <div class="position-relative">
+                                <a href="{{ route('blog.details', $blog->slug) }}"
+                                    class="text-decoration-none fw-semibold small" style="color: #aa8038;">
+                                    <img src="{{ asset('storage/app/blog/' . $blog->image) }}"
+                                        class="card-img-top rounded-3" alt="{{ $blog->title }}">
+                                </a>
+
+                                <div
+                                    class="position-absolute bottom-0 start-50 translate-middle-x mb-3 bg-white rounded-pill px-3 py-1 small shadow-sm d-flex align-items-center">
+                                    <span class="me-2">
+                                        {{ $blog->created_at->format('d F') }}
+                                    </span>
+
+                                    <i class="bi bi-folder2-open me-1"></i>
+                                    <span>{{ $blog->category?->title ?? 'Devotion  ' }}</span>
+
+                                </div>
+                            </div>
+
+                            <div class="card-body-blog ">
+                                <h6 class="mt-2 fw-semibold">
+                                    {{ Str::limit($blog->title, 60) }}
+                                </h6>
+
+                                <a href="{{ route('blog.details', $blog->slug) }}"
+                                    class="text-decoration-none fw-semibold small" style="color: #aa8038;">
+                                    Read more <i class="bi bi-arrow-right-short"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
     </section>
+
 
     <!-- OUR HAPPY CUSTOMERS  -->
     <section class="py-5" style="background-color: white;">

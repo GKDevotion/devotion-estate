@@ -1,0 +1,164 @@
+@extends('backend.layouts.master')
+
+@section('title')
+    Category Edit - Admin Panel
+@endsection
+
+@section('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.2.2/css/dropify.min.css" />
+    <style>
+        .form-check-label {
+            text-transform: capitalize;
+        }
+    </style>
+@endsection
+
+@section('admin-content')
+        <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left d-none">Category Edit </h4>
+                    <ul class="breadcrumbs pull-left m-2">
+                        <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ route('admin.blog.index') }}">All Category</a></li>
+                        <li><span>Edit Category</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 text-end">
+                <p class="float-end">
+                    @if (Auth::guard('admin')->user()->can('category.edit'))
+                        <button type="button" class="btn btn-success pr-4 pl-4" onclick="$('#submitForm').click();">
+                            <i class="fa fa-save"></i> Update
+                        </button>
+                    @endif
+                    <a href="{{ route('admin.category.index') }}" class="btn btn-danger">
+                        <i class="fa fa-arrow-left"></i> Back
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-2 clearfix">
+                @include('backend.layouts.partials.logout')
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- data table start -->
+            <div class="col-12 mt-3">
+                <h3 class="pb-3">Update Category</h3>
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- @include('backend.layouts.partials.messages') -->
+
+                        <form action="{{ route('admin.category.update', $dataArr->id) }}"
+                            onsubmit="return onSubmitValidateForm();" method="POST"  enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title text-white">Update {{ $dataArr->title }}</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="parent_id">Parent Category</label>
+                                                <select class="form-control" name="parent_id" id="parent_id">
+                                                    <option value="0" selected>None</option>
+                                                    @foreach ($parentArr as $id => $title)
+                                                        <option value="{{ $id }}"
+                                                            {{ $id == $dataArr->parent_id ? 'selected' : '' }}>
+                                                            {{ $title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="title">Name</label>
+                                                <input type="text" class="form-control" id="title" name="title"
+                                                    placeholder="{{ __('Category Name') }}" value="{{ $dataArr->title }}"
+                                                    autofocus onkeyup="getUrlName(this.value)">
+                                                @if ($errors->has('title'))
+                                                    <div class="error">{{ $errors->first('title') }}</div>
+                                                @endif
+                                            </div>
+                                            <div class="form-group d-none">
+                                                <label for="alias_slug">Url</label>
+                                                <input type="text" class="form-control" id="alias_slug" name="slug"
+                                                    placeholder="{{ __('Slug') }}" value="{{ $dataArr->slug }}">
+                                                @if ($errors->has('slug'))
+                                                    <div class="error">{{ $errors->first('slug') }}</div>
+                                                @endif
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="status">Status</label>
+                                                <select class="form-control" name="status" id="status">
+                                                    <option value="1"
+                                                        {{ $dataArr->status == 1 ? 'selected' : '' }}>Active</option>
+                                                    <option value="0"
+                                                        {{ $dataArr->status == 0 ? 'selected' : '' }}>De-Active
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer text-center">
+                                            <a href="{{ route('admin.category.index') }}" class="btn btn-danger"><i
+                                                    class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                                            <button type="submit" class="btn btn-success"><i class="far fa-save"
+                                                    aria-hidden="true"></i> Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card -->
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title text-white">Image</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                 <label for="image">Image</label>
+                                                <input type="file" class="dropify" id="image" name="image"
+                                                    data-default-file="{{ url('storage/app/public/' . $dataArr->image) }}">
+                                                @if ($errors->has('image'))
+                                                    <div class="error">{{ $errors->first('image') }}</div>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- data table end -->
+
+        </div>
+    </div>
+@endsection
+
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.2.2/js/dropify.min.js"></script>
+    <script>
+        $('.dropify').dropify();
+    </script>
+@endsection

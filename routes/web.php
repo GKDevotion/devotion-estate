@@ -108,6 +108,8 @@ Route::get('/developers', [DevelopersController::class, 'index'])->name('develop
 Route::get('/developers/search', [DevelopersController::class, 'search'])->name('developers.search');
 Route::get('/developers/ajax', [DevelopersController::class, 'ajaxIndex']) ->name('developers.ajax');
  
+Route::get('/blog/{slug}', [BlogController::class, 'show']) ->name('blog.details');
+
 
 Route::get('/login', function () {
     return view('frontend.pages.login');
