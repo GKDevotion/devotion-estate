@@ -61,7 +61,7 @@ Blog Page - Admin Panel
                         <table id="blog_index" class="table table-bordered table-striped display responsive nowrap">
                             <thead id="blogs" class="bg-light text-capitalize">
                                 <tr>
-                                    <th>#</th>
+                                    <th>Sr</th>
                                     <th width="20%">Image</th>
                                     <th>Name</th>
                                     {{-- <th>Category</th>
@@ -108,7 +108,12 @@ Blog Page - Admin Panel
                     }
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
+                    {
+                        data: 'id',
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Auto-increment based on row index
+                        }
+                    }, // Auto index { data: 'id', name: 'id' }, 
                     { data: 'image', name: 'image' },
                     { data: 'title', name: 'title' },
                     // { data: 'category_id', name: 'category_id' },
