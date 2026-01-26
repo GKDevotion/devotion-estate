@@ -11,6 +11,14 @@
         .blog-content h6 {
             color: #aa8038;
         }
+ 
+
+        .tag-btn:hover {
+            background-color: #aa8038;
+            /* darker hover */
+            border-color: #aa8038;
+            color: #fff;
+        }
     </style>
     <!-- BLOG CONTENT -->
     <section class="" style="padding-top: 7rem">
@@ -88,7 +96,7 @@
                     <!-- Categories -->
                     <div class="mb-5 mt-2">
                         <h5 class="fw-bold mb-3">Categories</h5>
- 
+
 
                         <form action="{{ route('blog') }}" method="GET">
                             <div class="input-group mb-4 border">
@@ -130,7 +138,7 @@
                         <div class="d-flex flex-wrap gap-2">
                             @foreach ($popularTags as $tag)
                                 <a href="{{ route('blog', ['tag' => $tag->name]) }}"
-                                    class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    class="btn  btn-sm rounded-pill tag-btn" style="border: 1px solid #aa8038; ">
                                     {{ $tag->name }}
                                 </a>
                             @endforeach

@@ -44,10 +44,11 @@ class HomeController extends Controller
             ->orderBy('name', 'asc')  // sorted alphabetically
             ->get();
 
+        $developerImageLimit = (int) (getConfigurationField('DEVELOPER_IMAGE_SLIDE_LIMIT') ?: 12);
         $developerImages = Developer::where('status', 1)
             ->orderBy('sort_order', 'asc')   // controls image order
             ->latest()
-            ->limit(12)
+            ->limit($developerImageLimit)
             ->whereNotNull('image')
             ->get(['id', 'image']);
 

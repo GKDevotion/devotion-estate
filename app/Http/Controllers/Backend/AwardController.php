@@ -38,8 +38,7 @@ class AwardController extends Controller
 
 
     public function ajaxIndex()
-    {
-
+    { 
         $query = Award::query();
         $query->select('id', 'image', 'name', 'sub_title', 'status', 'created_at', 'updated_at');
 
@@ -286,7 +285,7 @@ class AwardController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to delete Award !');
         }
 
-        $dataObj = Banner::find($id);
+        $dataObj = Award::find($id);
         if ($dataObj) {
             $dataObj->delete();
             return response()->json(['data' => ['message' => $dataObj->name . ' record has been successfully deleted.']], 200);
