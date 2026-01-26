@@ -47,7 +47,7 @@
 
     <div class="main-content-inner">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12 mt-3">
                 <h3 class="pb-3">Category History</h3>
                 <div class="card">
                     
@@ -59,14 +59,14 @@
                                 class="table table-bordered table-striped display responsive nowrap">
                                 <thead id="category" class="bg-light text-capitalize">
                                     <tr>
-                                        <th width ="1%">Sr</th>
-                                        <th width="5%">Image</th>
-                                        <th width="5%">Name</th>
-                                        <th width="5%">Parent Name</th>
-                                        <th width="5%">slug</th>
-                                        <th width="2%">status</th>
-                                        <th width="3%">Update At</th>
-                                        <th width="3%">Action</th>
+                                        <th>Sr</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Parent Name</th>
+                                        <th>slug</th>
+                                        <th>status</th>
+                                        <th>Update At</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -118,18 +118,25 @@
                 ],
 
                 columnDefs: [
-                    { responsivePriority: 1, targets: 0 }, // #
-                    { responsivePriority: 2,  targets: 1 }, // Location
-                    { responsivePriority: 3, targets: 2 }, // Action
-                    { responsivePriority: 4,  targets: 3 }, // Status
-                    { responsivePriority: 5,  targets: 4 }, // Agent
-                    { responsivePriority: 6,  targets: 5 }, // File
-                    { responsivePriority: 10001,  targets: [6, 7] } // Updated At
+                    { responsivePriority: 1, targets: 0 }, 
+                    { responsivePriority: 2,  targets: 1 },  
+                    { responsivePriority: 3, targets: 2 },  
+                    { responsivePriority: 4,  targets: 3 },  
+                    { responsivePriority: 5,  targets: 4 },  
+                    { responsivePriority: 6,  targets: 5 },  
+                    { responsivePriority: 10001,  targets: [6 , 7] }  
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).attr('id', 'row_' + data.id); // Assign a custom ID to the row
                     $(row).attr('class', 'categories_row'); // Assign a custom Class to the row
                 }
+            });
+
+              // Adjust the table width after the data is loaded
+            table.on('xhr', function() {
+                var data = table.ajax.json().data;
+
+                $('#categories_index').css('width', '100%');
             });
         });
     </script>
