@@ -485,8 +485,8 @@ a:hover .bi-house-door::before {
 
 /* Tab Content Box */
 .carousel-tab-content {
-    /* background-color: rgba(255, 255, 255, 0.2); */
-    /* padding: 1rem; */
+    background-color: rgba(0, 0, 0, 20%);
+    padding: 1rem;
     width: 1002px;
     margin: 0 auto; /* centers content */
 }
@@ -1753,13 +1753,13 @@ a:hover .bi-house-door::before {
 }
 
 /* On focus */
-.select2-container--default.select2-container--focus 
+.select2-container--default.select2-container--focus
 .select2-selection--single {
     border-color: #aa8038;
 }
 
 /* Hover option */
-.select2-container--default 
+.select2-container--default
 .select2-results__option--highlighted.select2-results__option--selectable {
     background-color: #aa8038 !important; /* your color */
     color: #fff !important;
@@ -1803,7 +1803,7 @@ a:hover .bi-house-door::before {
     display: flex;
     align-items: center;
     justify-content: center;
-  
+
 }
 
 .partner-card img {

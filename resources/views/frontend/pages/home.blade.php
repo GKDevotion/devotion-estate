@@ -314,7 +314,7 @@
                 <div class="carousel-content text-center p-4 rounded-3">
 
                     <!-- Buttons act as tab triggers -->
-                    <div class="mb-3" role="tablist">
+                    <div class="mb-3 d-none" role="tablist">
 
                         <button class="btn btn-light active" id="btn-buy" data-bs-toggle="tab"
                             data-bs-target="#content-buy" type="button" role="tab" aria-controls="content-buy"
@@ -336,7 +336,7 @@
                     </div>
 
                     <!-- Tab Content -->
-                    <div class="tab-content carousel-tab-content shadow-sm rounded-3">
+                    <div class="tab-content carousel-tab-content rounded-3">
 
                         <!-- BUY -->
                         <div class="tab-pane fade show active p-3" id="content-buy" role="tabpanel"
@@ -359,8 +359,7 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="col-lg-2 col-md-6 col-sm-12">
 
                                         <select class="form-select" id="type" name="type"
                                             style="font-size: 0.9rem;">
@@ -383,18 +382,24 @@
                                         </select>
                                     </div>
 
-
                                     <!-- Hidden input -->
                                     <input type="hidden" name="redirect_page" value="off">
 
                                     <!-- Keyword -->
-                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
                                         <input type="text" class="form-control" name="keyword"
                                             placeholder="Search Keyword here">
                                     </div>
+
+                                    <!-- Search Button -->
+                                    <div class="col-lg-2 col-md-6 col-sm-12">
+                                        <button class="btn search-btn px-3" type="submit">
+                                            <i class="bi bi-search"></i> Search
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <button class="btn search-btn mt-4" type="submit">
+                                <button class="btn search-btn mt-4 d-none" type="submit">
                                     Search Now <i class="bi bi-search"></i>
                                 </button>
                             </form>
