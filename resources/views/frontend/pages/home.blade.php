@@ -570,7 +570,7 @@
     </style>
 
     <!-- Properties For New -->
-    <section class="py-5 mt-5" style="background-color: #f8f5ee;">
+    <section class="py-5 mt-5" style="background-color: #fff;">
         <div class="container">
             <div class="text-end mb-0">
                 <div class="text-center flex-grow-1">
@@ -936,7 +936,7 @@
 
     <style>
         body {
-            background: #faf3e9;
+            background: #fff;
             font-family: 'Segoe UI', sans-serif;
         }
     </style>
