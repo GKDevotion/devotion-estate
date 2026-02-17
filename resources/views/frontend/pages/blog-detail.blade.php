@@ -11,7 +11,7 @@
         .blog-content h6 {
             color: #aa8038;
         }
- 
+
 
         .tag-btn:hover {
             background-color: #aa8038;
@@ -87,7 +87,70 @@
                             /* keeps aspect ratio */
                             object-position: center;
                         }
+
+                        .share-buttons .share-btn {
+                            width: 42px;
+                            height: 42px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background-color: #aa8038;
+                            color: #fff;
+                            border-radius: 50%;
+                            text-decoration: none;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 4px 10px rgba(170, 128, 56, 0.35);
+                        }
+
+                        .share-buttons .share-btn:hover {
+                            background-color: #8f6a2e;
+                            transform: translateY(-3px);
+                            box-shadow: 0 6px 16px rgba(170, 128, 56, 0.55);
+                            color: #fff;
+                        }
+
+                        .share-buttons .share-btn i {
+                            line-height: 1;
+                        }
                     </style>
+
+                    <h6 class="fw-bold">Share On :</h6>
+                    <div class="share-buttons d-flex gap-2 mt-3 mb-3">
+                    
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank"
+                            class="share-btn">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+
+                        <a href="https://api.whatsapp.com/send?text={{ $shareTitle }}%20{{ $shareUrl }}"
+                            target="_blank" class="share-btn">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+
+                        <a href="https://twitter.com/intent/tweet?text={{ $shareTitle }}&url={{ $shareUrl }}"
+                            target="_blank" class="share-btn">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $shareUrl }}" target="_blank"
+                            class="share-btn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+
+                        <a href="mailto:?subject={{ $shareTitle }}&body=Check this out:%0A{{ $shareUrl }}"
+                            class="share-btn">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+
+                        <a href="https://pinterest.com/pin/create/button/?url={{ $shareUrl }}
+                            &media={{ urlencode(asset('storage/blog/' . $blog->image)) }}
+                            &description={{ $shareTitle }}"
+                            target="_blank" class="share-btn">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                    </div>
+
                 </div>
 
                 <!-- SIDEBAR -->
@@ -163,7 +226,7 @@
 
                                                 <!-- Title -->
                                                 <div>
-                                                    <h6 class="mb-0 fw-semibold">
+                                                    <h6 class="mb-0   blog-title">
                                                         {{ Str::limit($item->title, 55) }}
                                                     </h6>
                                                 </div>
@@ -175,6 +238,7 @@
                             </div>
                         </section>
                     @endif
+                    
                 </div>
 
             </div>

@@ -67,9 +67,11 @@ class BlogController extends Controller
     public function show($slug)
     {
         $blog = Blog::with('category.parent')->where('slug', $slug)
+        
             ->where('status', 1)
             ->firstOrFail();
-
+        $shareUrl   = urlencode(route('blog.details', $blog->slug));
+        $shareTitle = urlencode($blog->title);
         // Related blogs (optional)
         $relatedBlogs = Blog::select('id', 'title', 'slug', 'image', 'created_at')
             ->where('status', 1)
@@ -90,6 +92,6 @@ class BlogController extends Controller
 
         $popularTags = Tag::where('status', 1)->get();
 
-        return view('frontend.pages.blog-detail', compact('blog', 'relatedBlogs', 'categories', 'popularTags'));
+        return view('frontend.pages.blog-detail', compact('blog', 'relatedBlogs', 'shareTitle', 'shareUrl', 'categories', 'popularTags'));
     }
 }
