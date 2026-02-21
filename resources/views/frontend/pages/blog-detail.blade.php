@@ -74,7 +74,7 @@
                     <div class="tag-section mb-5">
 
                         @foreach ($blog->tags as $tag)
-                            <span class="btn btn-outline-secondary btn-sm rounded-pill">{{ $tag->name }}</span>
+                            <span class="btn tag-btn btn-sm rounded-pill" style="border: 1px solid #aa8038">{{ $tag->name }}</span>
                         @endforeach
                     </div>
 
