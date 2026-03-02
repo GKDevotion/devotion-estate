@@ -240,7 +240,7 @@
 
         <footer class="text-start py-5" style="background-color: #faf9f6">
             <div class="container">
-                <div class="row p-5">
+                <div class="row p-5 pb-0">
 
                     <div class="col-lg-4 col-md-6 mb-4 office-address-section">
                         <h5 class="office-heading mb-3">Office Address</h5>
@@ -326,6 +326,9 @@
                                         class="bi bi-chevron-right me-2"
                                         style="font-size: 0.75rem;  color:#aa8038"></i>Terms
                                     Condition</a></li>
+                            <li><a href="{{ route('blog') }}" class="text-decoration-none d-block py-1"><i
+                                class="bi bi-chevron-right me-2"
+                                style="font-size: 0.75rem;  color:#aa8038"></i>Blogs</a></li>
                             <li><a href="{{ route('admin.login') }}"
                                     class="text-decoration-none d-block py-1 d-none"><i
                                         class="bi bi-chevron-right me-2"
