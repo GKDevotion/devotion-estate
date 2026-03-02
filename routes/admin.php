@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Backend\AdminLogController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\AgentsController;
+use App\Http\Controllers\Backend\AmenityController;
 use App\Http\Controllers\Backend\AwardController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BlogController;
@@ -91,8 +92,12 @@ Route::prefix('admin')->group(function () {
     Route::resource('banner', 'Backend\BannerController', ['names' => 'admin.banner']);
     Route::get('/banner-ajax-data', [BannerController::class, 'ajaxIndex'])->name('banner.ajaxIndex');
 
-    Route::resource('award', 'Backend\AwardController', ['names' => 'admin.award']);
-    Route::get('/award-ajax-data', [AwardController::class, 'ajaxIndex'])->name('award.ajaxIndex'); 
+    
+    Route::resource('banner', 'Backend\BannerController', ['names' => 'admin.banner']);
+    Route::get('/banner-ajax-data', [BannerController::class, 'ajaxIndex'])->name('banner.ajaxIndex');
+
+    Route::resource('amenity', 'Backend\AmenityController', ['names' => 'admin.amenity']);
+    Route::get('/amenity-ajax-data', [AmenityController::class, 'ajaxIndex'])->name('amenity.ajaxIndex'); 
 
     Route::resource('blog', 'Backend\BlogController', ['names' => 'admin.blog']);
     Route::get('/blog-ajax-data', [BlogController::class, 'ajaxIndex'])->name('blog.ajaxIndex'); 
@@ -127,6 +132,10 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('developer', 'Backend\DeveloperController', ['names' => 'admin.developer']);
     Route::get('/developer-ajax-data', [DeveloperController::class, 'ajaxIndex'])->name('developer.ajaxIndex');
+
+    
+    Route::resource('award', 'Backend\AwardController', ['names' => 'admin.award']);
+    Route::get('/award-ajax-data', [AwardController::class, 'ajaxIndex'])->name('award.ajaxIndex');
 
     /**
      * User Management

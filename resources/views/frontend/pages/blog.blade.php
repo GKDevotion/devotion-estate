@@ -16,6 +16,18 @@
         </script>
 
         <link href="{{ asset('public\frontend\css\custom.css') }}" rel="stylesheet">
+        <style>
+            .tag-btn:hover {
+                background-color: #aa8038;
+                /* darker hover */
+                border-color: #aa8038;
+                color: #fff;
+            }
+
+            .text-gold {
+                color: #aa8038 !important;
+            }
+        </style>
     </head>
 
 
@@ -55,7 +67,7 @@
                                             </div>
 
                                             <h5 class="fw-normal">{{ $blog->title }}</h5>
-                                            <p class="text-center mt-2 text-primary">
+                                            <p class="text-center mt-2  text-dark">
                                                 Read article <i class="bi bi-arrow-right"></i>
                                             </p>
                                         </div>
@@ -109,22 +121,24 @@
                             </button>
                         </div>
                     </form>
- 
+
                     <ul class="list-group list-group-flush">
                         @foreach ($categories as $parent)
                             @foreach ($parent->children as $child)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <a href="{{ route('blog', ['category' => $child->id]) }}"
-                                        class="text-decoration-none
-                                        {{ request('category') == $child->id ? 'fw-bold text-primary' : 'text-dark' }}">
+                                        class="text-decoration-none {{ request('category') == $child->id ? 'fw-bold text-gold' : 'text-dark' }}">
                                         {{ $child->title }}
                                     </a>
+                                    <a href="{{ route('blog', ['category' => $child->id]) }}"
+                                        class="text-decoration-none {{ request('category') == $child->id ? 'fw-bold text-gold' : 'text-dark' }}">
                                     <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </li>
                             @endforeach
                         @endforeach
                     </ul>
- 
+
                     <!-- Popular Tags -->
                     <div>
                         <h5 class="fw-bold mb-3">Popular tags</h5>
@@ -137,7 +151,7 @@
                         <div class="d-flex flex-wrap gap-2">
                             @foreach ($popularTags as $tag)
                                 <a href="{{ route('blog', ['tag' => $tag->name]) }}"
-                                    class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    class="btn  btn-sm rounded-pill tag-btn" style="border: 1px solid #aa8038; ">
                                     {{ $tag->name }}
                                 </a>
                             @endforeach

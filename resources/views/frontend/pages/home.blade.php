@@ -4,6 +4,121 @@
 
 @section('content')
 
+    <style>
+        body {
+            background: #faf3e9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .btn-type {
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-type:hover {
+            border-color: lightgray;
+            background-color: #aa8038;
+            color: white;
+            /* black border on hover */
+        }
+
+        /* Custom hover style */
+        .btn-icon {
+
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20%;
+            border: 1px solid transparent;
+            /* default border invisible */
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            border-color: #aa8038;
+            color: #aa8038;
+            /* black border on hover */
+            background-color: #f8f9fa;
+            /* light background (optional) */
+        }
+
+        .carousel-item {
+            transition: transform 0.8s ease-in-out;
+            /* smoother slide */
+        }
+
+        /* ===== WHAT WE OFFER SECTION START ===== */
+        .offer-section {
+            position: relative;
+            background: white;
+        }
+
+        .offer-header {
+            padding: 80px 0 60px;
+        }
+
+        /* BACKGROUND IMAGE */
+        .offer-bg {
+            height: 450px;
+            background: url('public/frontend/assets/images/img/shanghai-aerial-sunset.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* CARDS */
+        .offer-cards {
+            margin-top: -200px;
+            /* overlap */
+            padding-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .offer-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            transition: 0.4s ease;
+            border: 1px solid transparent;
+        }
+
+        .offer-card p,
+        .offer-card h4 {
+            color: black;
+        }
+
+        .center-card {
+            margin-top: -40px;
+        }
+
+        .offer-card:hover {
+            border: 1px solid #aa8038;
+            box-shadow: 0 0 25px rgba(197, 168, 128, 0.5);
+            transform: translateY(-10px);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: #aa8038;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .btn-gold {
+            background-color: #aa8038;
+            border: 1px solid #aa8038;
+            color: white;
+        }
+
+        /* ===== WHAT WE OFFER SECTION END ===== */
+    </style>
+
     <!-- Hero Carousel -->
     @if (getConfigurationField('SHOW_VIDEO'))
 
@@ -526,49 +641,6 @@
         </div>
     @endif
 
-    <!-- ✅ ONE SEARCH BOX FOR ALL SLIDES -->
-
-    <style>
-        .btn-type {
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-            color: white;
-        }
-
-        .btn-type:hover {
-            border-color: lightgray;
-            background-color: #aa8038;
-            color: white;
-            /* black border on hover */
-        }
-
-        /* Custom hover style */
-        .btn-icon {
-
-            width: 40px;
-            height: 40px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20%;
-            border: 1px solid transparent;
-            /* default border invisible */
-            transition: all 0.3s ease;
-        }
-
-        .btn-icon:hover {
-            border-color: #aa8038;
-            color: #aa8038;
-            /* black border on hover */
-            background-color: #f8f9fa;
-            /* light background (optional) */
-        }
-
-        .carousel-item {
-            transition: transform 0.8s ease-in-out;
-            /* smoother slide */
-        }
-    </style>
-
     <!-- Properties For New -->
     <section class="py-5 mt-5" style="background-color: #fff;">
         <div class="container">
@@ -843,6 +915,79 @@
         </div>
     </section>
 
+    <!-- ===== WHAT WE OFFER SECTION ===== -->
+    <section class="offer-section d-none">
+
+        <!-- HEADER -->
+        <div class="offer-header text-center">
+            <div class="container">
+                <h2 class="fw-bold text-dark text-uppercase mb-1">What We Offer</h2>
+                <p class="text-muted mb-0">
+                    From property advisory to investment planning and full transaction support,
+                    we provide end-to-end real estate solutions you can trust.
+                </p>
+            </div>
+        </div>
+
+        <!-- BACKGROUND IMAGE -->
+        <div class="offer-bg"></div>
+
+        <!-- CARDS -->
+        <div class="offer-cards">
+            <div class="container">
+                <div class="row g-4 justify-content-center">
+
+                    <!-- Card 1 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="offer-card">
+                            <div class="icon-box mb-4">
+                                <i class="bi bi-gem"></i>
+                            </div>
+                            <h4>Luxury Real Estate Advisory</h4>
+                            <p>
+                                Personalized guidance for buyers and investors seeking long-term value
+                                in Dubai’s premium real estate market.
+                            </p>
+                            <a href="#" class="btn btn-gold mt-3">Learn More</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="offer-card center-card">
+                            <div class="icon-box mb-4">
+                                <i class="bi bi-briefcase"></i>
+                            </div>
+                            <h4>Investment Consulting</h4>
+                            <p>
+                                Strategic advice focused on rental demand, appreciation potential,
+                                exit planning, and portfolio growth.
+                            </p>
+                            <a href="#" class="btn btn-gold mt-3">Learn More</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="offer-card">
+                            <div class="icon-box mb-4">
+                                <i class="bi bi-flag"></i>
+                            </div>
+                            <h4>End-to-End Support</h4>
+                            <p>
+                                From property shortlisting and booking to documentation, payments,
+                                and handover coordination – handled seamlessly.
+                            </p>
+                            <a href="#" class="btn btn-gold mt-3">Learn More</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
     <!-- List Your Property -->
     <section class="d-none py-5 list-property-section">
         <div class="container py-5">
@@ -934,13 +1079,6 @@
         </div>
     </section>
 
-    <style>
-        body {
-            background: #fff;
-            font-family: 'Segoe UI', sans-serif;
-        }
-    </style>
-
     <section class="py-5">
         <div class="container py-5">
             <h2 class="section-title">LIST YOUR PROPERTY</h2>
@@ -990,93 +1128,6 @@
             </div>
         </div>
     </section>
-
-    {{-- <!-- Our Blog -->
-    <section class="py-5 text-center" style="background: #fffaf5;">
-        <div class="container">
-            <div class="col-12 blog-header text-center mb-4">
-                <h1 class="text-uppercase fw-bold section-title">OUR BLOGS</h1>
-                <p class="text-muted section-subtitle">
-                    "Insights, Updates, and Expert Advice to Empower Your Financial Journey"
-                </p>
-            </div>
-
-
-            <div class="row g-4 justify-content-center">
-
-                <!-- Blog Card 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card border-0 shadow-sm h-50">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf"
-                                class="card-img-top rounded-3" alt="Rental Property Management in UAE">
-                            <div
-                                class="position-absolute bottom-0 start-50 translate-middle-x mb-3 bg-white rounded-pill px-3 py-1 small shadow-sm d-flex align-items-center">
-                                <span class="me-2">December</span>
-                                <i class="bi bi-folder2-open me-1"></i>
-                                <span>Real Estate</span>
-                            </div>
-
-                        </div>
-                        <div class="card-body-blog">
-                            <h6 class="mt-2 fw-semibold">Rental Property Management in UAE</h6>
-                            <a href="" class="text-decoration-none fw-semibold small" style="color: #aa8038;">
-                                Read more <i class="bi bi-arrow-right-short"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Blog Card 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card border-0 shadow-sm h-50">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85"
-                                class="card-img-top rounded-3" alt="Role of Real Estate Broker">
-                            <div
-                                class="position-absolute bottom-0 start-50 translate-middle-x mb-3 bg-white rounded-pill px-3 py-1 small shadow-sm d-flex align-items-center">
-                                <span class="me-2">December</span>
-                                <i class="bi bi-folder2-open me-1"></i>
-                                <span>Real Estate</span>
-                            </div>
-
-                        </div>
-                        <div class="card-body-blog">
-                            <h6 class="mt-2 fw-semibold">The Indispensable Role of a Real Estate Broker</h6>
-                            <a href="#" class="text-decoration-none fw-semibold small" style="color: #aa8038;">
-                                Read more <i class="bi bi-arrow-right-short"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Blog Card 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card border-0 shadow-sm h-50">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156"
-                                class="card-img-top rounded-3" alt="Best Real Estate Agent in Dubai">
-                            <div
-                                class="position-absolute bottom-0 start-50 translate-middle-x mb-3 bg-white rounded-pill px-3 py-1 small shadow-sm d-flex align-items-center">
-                                <span class="me-2">December</span>
-                                <i class="bi bi-folder2-open me-1"></i>
-                                <span>Real Estate</span>
-                            </div>
-
-                        </div>
-                        <div class="card-body-blog">
-                            <h6 class="mt-2 fw-semibold">How to Find the Best Real Estate Agent in Dubai: A Comprehensive
-                                Guide</h6>
-                            <a href="#" class="text-decoration-none fw-semibold small" style="color: #aa8038;">
-                                Read more <i class="bi bi-arrow-right-short"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section> --}}
 
     <!-- Our Blog -->
     <section class="py-5 text-center" style="background: #fffaf5;">
