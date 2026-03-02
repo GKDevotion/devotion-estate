@@ -20,7 +20,7 @@
 
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> --}}
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> --}}
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
@@ -33,7 +33,10 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CECGD6RYB2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'G-CECGD6RYB2');
@@ -67,8 +70,7 @@
             <div class="container-fluid px-3 px-m-5 custom-container">
                 <!-- Left: Logo -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('public\frontend\assets\images\Devotion Real Estate.png') }}"
-                        alt="Devotion Logo">
+                    <img src="{{ url('public/frontend/assets/images/Devotion Real Estate.png') }}" alt="Devotion Logo">
                 </a>
 
                 <!-- Toggler for mobile -->
@@ -151,8 +153,17 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="{{ route('contact-us') }}">Contact Us</a></li>
-                    </ul>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('contact-us') }}">Contact Us</a>
+                        </li>
+                    </ul> 
+                    
+                    {{-- <select onchange="window.location.href=this.value" class="language-select">
+                        <option value="{{ url('lang/en') }}" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>
+                            English</option>
+                        <option value="{{ url('lang/hi') }}" {{ app()->getLocale() == 'hi' ? 'selected' : '' }}>Hindi
+                        </option>
+                    </select> --}}
+
                 </div>
 
                 <!-- Right: Icons + Buttons -->
