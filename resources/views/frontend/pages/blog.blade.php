@@ -98,9 +98,7 @@
                             </div>
                         @endforelse
 
-                    </div>
-
-
+                    </div> 
 
                     <!-- PAGINATION -->
                     <div class="d-flex justify-content-center">
@@ -139,25 +137,31 @@
                         @endforeach
                     </ul>
 
-                    <!-- Popular Tags -->
-                    <div>
-                        <h5 class="fw-bold mb-3">Popular tags</h5>
+<!-- Popular Tags -->
+<div>
+    <h5 class="fw-bold mb-3">Popular tags</h5>
 
-                        <form method="GET" action="{{ route('blog') }}">
-                            <input type="text" name="tag" class="form-control mb-3" placeholder="Search tags..."
-                                value="{{ request('tag') }}">
-                        </form>
+    <form method="GET" action="{{ route('blog') }}">
+        <input type="text" name="tag" class="form-control mb-3" placeholder="Search tags..."
+            value="{{ request('tag') }}">
+    </form>
 
-                        <div class="d-flex flex-wrap gap-2">
-                            @foreach ($popularTags as $tag)
-                                <a href="{{ route('blog', ['tag' => $tag->name]) }}"
-                                    class="btn  btn-sm rounded-pill tag-btn" style="border: 1px solid #aa8038; ">
-                                    {{ $tag->name }}
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
+    <div class="d-flex flex-wrap gap-2" id="tagContainer">
+        @foreach ($popularTags as $index => $tag)
+            <a href="{{ route('blog', ['tag' => $tag->name]) }}"
+                class="btn btn-sm rounded-pill tag-btn {{ $index >= 10 ? 'extra-tag d-none' : '' }}"
+                style="border: 1px solid #aa8038;">
+                {{ $tag->name }}
+            </a>
+        @endforeach
+    </div>
 
+    @if(count($popularTags) > 10)
+        <button id="showMoreBtn" class="btn btn-sm mt-3" style="color:#aa8038;">
+            Show More
+        </button>
+    @endif
+</div>
 
                     <!-- Most Viewed Section -->
                     <div class="mt-5">
@@ -264,6 +268,23 @@
             renderPagination();
         });
     </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btn = document.getElementById("showMoreBtn");
+        const extraTags = document.querySelectorAll(".extra-tag");
 
+        if (btn) {
+            btn.addEventListener("click", function () {
+                extraTags.forEach(tag => tag.classList.toggle("d-none"));
+
+                if (btn.innerText === "Show More") {
+                    btn.innerText = "Show Less";
+                } else {
+                    btn.innerText = "Show More";
+                }
+            });
+        }
+    });
+</script>
 
 @endsection
