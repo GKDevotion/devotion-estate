@@ -642,9 +642,9 @@
     @endif
 
     <!-- Properties For New -->
-    <section class="py-5 mt-5" style="background-color: #fff;">
+    <section class="py-5" style="background-color: #fff;">
         <div class="container">
-            <div class="text-end mb-0">
+            <div class="text-end mb-0 mt-5">
                 <div class="text-center flex-grow-1">
                     <h2 class="fw-bold text-uppercase mb-1">New Properties</h2>
                     <p class="text-muted mb-0">Find newly listed properties in your local area with best pricing.</p>
